@@ -1,0 +1,21 @@
+apiVersion: apps/v1 
+kind: Deployment
+metadata:
+  name: webapp
+spec:
+  selector:
+    matchLabels:
+      app: webapp-service
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: webapp-service
+    spec:
+      containers:
+      - image: dimonra13/appwebtfg:v1
+        name: webapp
+        ports:
+        - containerPort: 8080
+          name: webapp
