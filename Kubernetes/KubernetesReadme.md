@@ -44,7 +44,7 @@ Para que los comandos indicados a continuación funcionen correctamente debemos 
 ## 2.1- Desplegar el Deployment de la App
 
 ```
-kubectl create -f webapp-deployment.yaml
+kubectl create -f webapp_deployment.yaml
 ```
 
 ## 2.2- Desplegar el Servicio de la App
