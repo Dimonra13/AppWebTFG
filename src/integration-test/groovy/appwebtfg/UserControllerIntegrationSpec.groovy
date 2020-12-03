@@ -19,12 +19,11 @@ class UserControllerIntegrationSpec extends BaseControllerIntegrationSpec {
 
     void "Validate the create method"() {
 
-        given: 'the controller action is call'
+        setup: 'The controller action is call'
         userController.register()
 
         expect: 'validate the method output'
-        userController.response.status==200
+        userController.response.status == 200
         userController.response.text == groovyPageRenderer.render(view: "register")
     }
-
 }

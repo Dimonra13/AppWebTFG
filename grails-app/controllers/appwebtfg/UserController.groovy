@@ -1,12 +1,13 @@
 package appwebtfg
 
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
-import org.springframework.beans.factory.annotation.Autowired
 
 @Secured(["permitAll"])
 class UserController {
 
     RegistrationService registrationService
+    SpringSecurityService springSecurityService
 
     def index() {
     }
@@ -17,12 +18,17 @@ class UserController {
     }
 
     def registerUser() {
-        if (User.findByUsername(params?.username)) {
-            render(view: 'register')
+        User registered = User.findByUsername(params?.username)
+        if (registered || params?.password!=params?.confirmPassword) {
+            render(view: 'register', model:[isregistered:registered,diferentPass:(params?.password!=params?.confirmPassword)])
         } else {
-            registrationService.registerUser(params?.username, params?.password, params?.email)
-            //AutoLogin
+            User newUser = registrationService.registerUser(params?.username, params?.password, params?.email)
+            if(newUser){
+                springSecurityService.reauthenticate(newUser.username)
+                render(view: '/index')
+            }else{
+                render(view: 'register')
+            }
         }
-
     }
 }
