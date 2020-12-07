@@ -17,5 +17,5 @@ spec:
       - image: dimonra13/appwebtfg:v1
         name: webapp
         ports:
-        - containerPort: 8080
+        - containerPort: 443
           name: webapp
