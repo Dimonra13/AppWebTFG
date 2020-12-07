@@ -1,0 +1,5 @@
+package appwebtfg
+
+class GeneralUtils {
+
+}

@@ -3,7 +3,7 @@ package appwebtfg
 import grails.testing.web.controllers.ControllerUnitTest
 import spock.lang.Specification
 
-class TestControllerSpec extends Specification implements ControllerUnitTest<TestController> {
+class HomeControllerSpec extends Specification implements ControllerUnitTest<HomeController> {
 
     def setup() {
     }
