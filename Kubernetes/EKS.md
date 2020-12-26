@@ -44,6 +44,11 @@ svc/kubernetes   ClusterIP   10.100.0.1   <none>        443/TCP   1m
 ```
 Si se obtiene como salida un mensaje de error se puede ver https://docs.aws.amazon.com/eks/latest/userguide/troubleshooting.html#unauthorized para resolverlo.
 
+**Importante: Para conectarse al cluster desde un equipo distinto al original en el que fue creado debe usarse el siguiente comando para actualizar el archivo kubeconfig y establecer la conexión con el cluster:**
+```
+aws eks --region eu-west-3 update-kubeconfig --name ekscluster
+```
+
 ## Paso 2. Instalar el Kubernetes Metrics Server
 
 El Kubernetes Metrics Server permite instalar en el cluster EKS servicios muy importantes como el kubernetes dashboard que permite controlar el estado de los diferentes workloads
@@ -153,20 +158,44 @@ kubectl get pods -n kube-system
 La salida debe ser similar a esta:
 ```
 NAME                                        READY   STATUS    RESTARTS   AGE
-aws-node-949vx                              1/1     Running   0          122m
-aws-node-b4nj8                              1/1     Running   0          122m
-coredns-6c75b69b98-r9x68                    1/1     Running   0          133m
-coredns-6c75b69b98-rt9bp                    1/1     Running   0          133m
-kube-proxy-bkm6b                            1/1     Running   0          122m
-kube-proxy-hpqm2                            1/1     Running   0          122m
-metrics-server-8459fc497-kfj8w              1/1     Running   0          83m
-vpa-admission-controller-68c748777d-ppspd   1/1     Running   0          7s
-vpa-recommender-6fc8c67d85-gljpl            1/1     Running   0          8s
-vpa-updater-786b96955c-bgp9d                1/1     Running   0          8s
+aws-node-5bm2g                              1/1     Running   0          6h36m
+aws-node-dwpcz                              1/1     Running   0          6h34m
+aws-node-grznn                              1/1     Running   0          6h35m
+coredns-78c77d8677-6ftmt                    1/1     Running   0          6h34m
+coredns-78c77d8677-xtg6d                    1/1     Running   0          6h34m
+kube-proxy-4g6w9                            1/1     Running   0          6h35m
+kube-proxy-htzv2                            1/1     Running   0          6h34m
+kube-proxy-vfks6                            1/1     Running   0          6h36m
+metrics-server-7949d47784-vgf9f             1/1     Running   0          6h1m
+vpa-admission-controller-556cc48ddd-9cwwk   1/1     Running   0          11s
+vpa-recommender-8bdbf5-f5dhj                1/1     Running   0          13s
+vpa-updater-67b4b4b44d-wqvbm                1/1     Running   0          13s
 ```
 
-IMPORTANTE: Para poder ejecutar este paso es necesario tener instalado OpenSSL 1.1.1 y tener la ruta del archivo en el PATH. Como en windows puede dar problemas puede 
-usarse la version 0.8 que no necesita OpenSSL. Puede descargarse en la siguiente ruta: https://github.com/kubernetes/autoscaler/tree/vpa-release-0.8.git
+IMPORTANTE: Para poder ejecutar este paso es necesario tener instalado OpenSSL 1.1.1 y tener la ruta del archivo en el PATH. Como en windows puede dar problemas puede usarse la version 0.8 que no necesita OpenSSL. Puede descargarse en la siguiente ruta: https://github.com/kubernetes/autoscaler/tree/vpa-release-0.8.git  
 **Es muy recomendable realizar este paso en linux si es posible para evitar problemas.**
 
+Para desinstalar el Vertical Pod Autoscaler puede usarse el siguiente comando:
+```
+./hack/vpa-down.sh
+```
+
+## Eliminar el cluster
+
+Para evitar tener que pagar por el tiempo que el cluster no se este usando, especialmente en las primeras fases del desarrollo donde solo se pretenden realizar pruebas, debe eliminarse el cluster y sus servicios asociados. 
+
+Para ello debemos seguir los siguientes pasos:
+
+1.- Listar todos los servicios del cluster:
+```
+kubectl get svc --all-namespaces
+```
+2.- Eliminar todos los servicios que tengan una EXTERNAL-IP que aparezcan en la salida del comando anterior (los que no tengan una IP externa se eliminarán al borrarse el cluster). Para ello puede usarse el comando:
+```
+kubectl delete svc NOMBRE_SERVICIO
+```
+3.- Eliminar el cluster y sus nodos:
+```
+eksctl delete cluster --name ekscluster
+```
 
