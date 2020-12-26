@@ -92,6 +92,37 @@ deployment.apps/kubernetes-dashboard created
 service/dashboard-metrics-scraper created
 deployment.apps/dashboard-metrics-scraper created
 ```
+Por defecto el kuberntes dashboarda tiene unos permisos limitados, por lo que para poder usar todas sus funciones es necesario crear una eks-admin service account and cluster role binding y vincularla al kubernetes dashboard. Para crear esta cuenta deberemos seguir los siguientes pasos:
 
-
-
+  1.- Crear un archivo similar al eks-admin-service-account.yaml situado en la carpeta Kubernetes/dashboard 
+    
+  2.- Colocarnos en la carpeta Kubernetes/dashboard:
+   ```
+   cd ./Kubernetes/dashboard
+   ```
+  3.- Desplegar el eks-admin service acount:
+   ```
+   kubectl apply -f eks-admin-service-account.yaml
+   ```
+   La salida debe ser similar a:
+   ```
+   serviceaccount "eks-admin" created
+   clusterrolebinding.rbac.authorization.k8s.io "eks-admin" created
+   ````
+Finalmente, para poder conectarnos al dashboard debemos:
+  
+  1.- Usar el siguiente comando para conseguir el token de autenticación del eks_admin:
+  ```
+  kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep eks-admin | awk '{print $1}')
+  ```
+  2.- Abrir una nueva shell y escribir el comando:
+  ```
+  kubectl proxy
+  ```
+  3.- Accedemos al dashboard con la siguiente url:
+  ```
+  http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#!/login
+  ```
+  4.- Elegimos "token" y pegamos el token obtenido en la salida del paso 1:
+  
+  
