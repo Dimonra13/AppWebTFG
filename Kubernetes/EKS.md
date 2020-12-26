@@ -66,7 +66,7 @@ NAME             READY   UP-TO-DATE   AVAILABLE   AGE
 metrics-server   1/1     1            1           6m
 ```
 
-## Paso 3. Instalar el Kubernetes Dashboard
+## Paso 3. Desplegar el Kubernetes Dashboard
 
 El kubernetes dashboard permite controlar el estado de los diferentes workloads desplegados en el cluster ( servicios, deployments, pods, etc). Además muestra estadísticas
 sobre el uso de CPU y otros recursos.
@@ -125,4 +125,48 @@ Finalmente, para poder conectarnos al dashboard debemos:
   ```
   4.- Elegimos "token" y pegamos el token obtenido en la salida del paso 1:
   
+  [Dashboard1]()
   
+  
+## Paso 4. Desplegar el Vertical Pod Autoscaler
+
+El Vertical Pod Autoscaler de Kubernetes gestiona automáticamente la cantidad de CPU y RAM que necesitan los pods para funcionar, de forma que se aumenta o disminuye la CPU/RAM de cada pod según sus necesidades en cada momento. Esto ayuda a disminuir los costes y dar servicio aunque el número de usuarios crezca muy rápidamente.
+
+Para desplegar el Vertical Pod Autoscaler debemos seguir los siguientes pasos:
+1.- Abrir una shell y colocarnos en el directorio en el que deseamos guardar el código fuente del autoscaler.  
+2.- Clonar el repositorio de kubernetes/autoscaler en Github:
+```
+git clone https://github.com/kubernetes/autoscaler.git
+```
+3.- Ir al directorio vertical-pod-autoscaler en la shell:
+```
+cd autoscaler/vertical-pod-autoscaler/
+```
+4.- Desplegar el Vertical Pod Autoscaler en el cluster:
+```
+./hack/vpa-up.sh
+```
+Se puede verificar que la instalación ha sido correcta usando el siguiente comando:
+```
+kubectl get pods -n kube-system
+```
+La salida debe ser similar a esta:
+```
+NAME                                        READY   STATUS    RESTARTS   AGE
+aws-node-949vx                              1/1     Running   0          122m
+aws-node-b4nj8                              1/1     Running   0          122m
+coredns-6c75b69b98-r9x68                    1/1     Running   0          133m
+coredns-6c75b69b98-rt9bp                    1/1     Running   0          133m
+kube-proxy-bkm6b                            1/1     Running   0          122m
+kube-proxy-hpqm2                            1/1     Running   0          122m
+metrics-server-8459fc497-kfj8w              1/1     Running   0          83m
+vpa-admission-controller-68c748777d-ppspd   1/1     Running   0          7s
+vpa-recommender-6fc8c67d85-gljpl            1/1     Running   0          8s
+vpa-updater-786b96955c-bgp9d                1/1     Running   0          8s
+```
+
+IMPORTANTE: Para poder ejecutar este paso es necesario tener instalado OpenSSL 1.1.1 y tener la ruta del archivo en el PATH. Como en windows puede dar problemas puede 
+usarse la version 0.8 que no necesita OpenSSL. Puede descargarse en la siguiente ruta: https://github.com/kubernetes/autoscaler/tree/vpa-release-0.8.git
+**Es muy recomendable realizar este paso en linux si es posible para evitar problemas.**
+
+
