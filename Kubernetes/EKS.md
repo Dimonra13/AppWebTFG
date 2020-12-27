@@ -277,6 +277,91 @@ NAME                           READY   UP-TO-DATE   AVAILABLE   AGE
 aws-load-balancer-controller   1/1     1            1           13s
 ```
 
+
+## Paso 7. Crear/importar el certificado público
+
+**Este paso no es necesario si se va a desplegar la aplicación usando http y no https, tampoco es necesario si ya se tiene un certificado en ACM para el dominio de la aplicación. En cualquiera de los pasos saltar directamente al paso 8**
+Los certificados SSL/TLS son necesarios para poder desplegar aplicaciones usando https, para que nuestro Ingress Load Balancer teng acceso a estos certificados y pueda redireccionar el tráfico con https es necesario almacenar los certificados en ACM (AWS Certificate Manager). Para ello tenemos dos opciones:
+
+### Solicitar a ACM que genere un certificado nuevo para nuestro dominio
+Los certificados públicos son gratuitos en ACM, además de que ACM se encarga de gestionarlos y renovarlos, así esta opción resulta muy conveniente. Para genere el certificado usaremos el comando:
+```
+aws acm request-certificate --domain-name *.coursing.me --validation-method DNS --idempotency-token 1234 --options CertificateTransparencyLoggingPreference=DISABLED
+```
+### Importar un certificado nuevo para nuestro dominio
+En caso de que ya tengamos un certificado y no queramos usar los proporcionados por ACM, podemos importar el nuestro usando el comando:
+```
+aws acm import-certificate --certificate fileb://certificate.pem --private-key fileb://key.pem 
+```
+
+**Es muy importante guardar el arn del certificado que se obtiene como salida de ambos comandos**
+
+## Paso 8. Desplegar la aplicación web
+Para desplegar la aplicación web y que sea accesible desde el exterior del cluster debemos seguir los siguientes pasos:
+
+### 8.1. Ir a la carpeta App en una shell
+
+Abrir una shell en la carpeta raíz del proyecto y escribimos:
+
+```
+cd ./Kubernetes/App
+```
+### 8.2. Desplegar el Deployment de la App
+
+```
+kubectl create -f webapp_deployment.yaml
+```
+
+### 8.3. Desplegar el Servicio de la App
+
+```
+kubectl create -f webapp_service.yaml
+```
+### 8.4. Desplegar el load balancer Ingress de la Aplicación
+
+```
+kubectl create -f webapp_ingress.yaml
+```
+
+## Paso 9. Desplegar el Horizontal Pod Autoscaler
+El Horizontal Pod Autoscaler se encarga de aumentar o disminuir el número de pods de un deployment en función del tráfico que le llega, de forma que junto con el vertical autoscaler se encargan de que el número de replicas y la CPU y RAM de cada réplica sean las justas y necesarias.Por tanto, son muy importantes a la hora de garantizar la disponibilidad y reducir costes. Para desplegar un Horizontal Pod Autoscaler para el deployment de nuestra aplicación es suficiente con usar el comando:
+```
+kubectl autoscale deployment webapp --cpu-percent=50 --min=1 --max=10
+```
+
+**Para probar el Horizontal Pod Autoescaler pueden usarse los siguiente comando (debe ejecutarse en una shell nueva):**
+```
+kubectl run -it --rm load-generator --image=busybox /bin/sh --generator=run-pod/v1
+```
+Cuando aparezca un prompt se debe escribir el siguiente programa para que genere tráfico en nuestro deployment y el Autoscaler se active:
+```
+while true; do wget -q -O- URL_APP; done
+```
+En otra shell podemos usar siguiente comando para comprobar el número de replicas y el porcentaje de CPU usado de cada réplica:
+```
+kubectl get hpa
+```
+La salida esperada debe ser similar a:
+```
+NAME     REFERENCE           TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+webapp   Deployment/webapp   1%/50%    1         10        1          57s
+```
+```
+NAME     REFERENCE           TARGETS    MINPODS   MAXPODS   REPLICAS   AGE
+webapp   Deployment/webapp   134%/50%   1         10        3          105s
+```
+```
+NAME     REFERENCE           TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
+webapp   Deployment/webapp   0%/50%    1         10        1          12m
+```
+Una vez comprobado que funciona, usamos Ctrl+C en la shell para dejar de generar tráfico, cerramos la shell y en nuestra shell original usamos el siguiente comando para eliminar el generador de carga:
+```
+kubectl delete pod load-generator
+```
+**Para eliminar el Horizontal Pod Autoscaler se puede usar el comando:**
+```
+kubectl delete horizontalpodautoscaler.autoscaling/webapp
+```
 ## Eliminar el cluster
 
 Para evitar tener que pagar por el tiempo que el cluster no se este usando, especialmente en las primeras fases del desarrollo donde solo se pretenden realizar pruebas, debe eliminarse el cluster y sus servicios asociados. 
@@ -295,4 +380,6 @@ kubectl delete svc NOMBRE_SERVICIO
 ```
 eksctl delete cluster --name ekscluster
 ```
+
+
 
