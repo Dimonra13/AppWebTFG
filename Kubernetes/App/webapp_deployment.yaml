@@ -15,7 +15,13 @@ spec:
     spec:
       containers:
       - image: dimonra13/appwebtfg:v1
+        imagePullPolicy: Always
         name: webapp
         ports:
-        - containerPort: 443
+        - containerPort: 80
           name: webapp
+        resources:
+          limits:
+            cpu: 500m
+          requests:
+            cpu: 200m

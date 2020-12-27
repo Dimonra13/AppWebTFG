@@ -140,9 +140,4 @@ environments:
                 defaultTransactionIsolation: 2 # TRANSACTION_READ_COMMITTED
 ---
 server:
-    port: 443
-    ssl:
-        enabled: true
-        key-store: ./certificates/keystore.p12
-        key-password: secret
-        key-store-password: secret
+    port: 80
