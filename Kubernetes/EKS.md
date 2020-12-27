@@ -73,6 +73,7 @@ metrics-server   1/1     1            1           6m
 
 ## Paso 3. Desplegar el Kubernetes Dashboard
 
+**Este paso es opcional, si no desea desplegarse el Kubernetes Dashboard puede saltarse directamente al paso 4**  
 El kubernetes dashboard permite controlar el estado de los diferentes workloads desplegados en el cluster ( servicios, deployments, pods, etc). Además muestra estadísticas
 sobre el uso de CPU y otros recursos.
 
@@ -178,6 +179,102 @@ IMPORTANTE: Para poder ejecutar este paso es necesario tener instalado OpenSSL 1
 Para desinstalar el Vertical Pod Autoscaler puede usarse el siguiente comando:
 ```
 ./hack/vpa-down.sh
+```
+
+## Paso 5. Desplegar la base de datos MySQL
+
+Desplegaremos la base de datos igual que como lo hacíamos en minikube.
+
+### 5.1. Ir a la carpeta MySQL en una shell
+
+Abrimos una shell en la carpeta raíz del proyecto y escribimos:
+
+```
+cd ./Kubernetes/MySQL
+```
+
+### 5.2. Desplegar el Volumen Persistente
+
+Este volumen es necesario para que los datos almacenados en la base de datos MySQL no se pierdan al reiniciar el contenedor o el deployment (mientras el cluster exista los datos estarán almacenados).
+
+```
+kubectl create -f persistence_volume.yaml
+```
+
+### 5.3. Desplegar el Volume Claim para el volumen persistente
+
+```
+kubectl create -f pv_claim.yaml
+```
+
+### 5.4. Desplegar el Deployment MySQL
+
+```
+kubectl create -f mysql_deployment.yaml
+```
+
+### 5.5. Desplegar el Servicio MySQL
+
+```
+kubectl create -f mysql_service.yaml
+```
+
+### Acceder a la base de datos MySQL con un pod cliente
+
+Esto puede ser muy útil para cargar dumps, comprobar que los datos se guardan correctamente y acceder a logs de errores.
+
+```
+kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h mysql -ppass
+	
+```
+
+## Paso 6. Desplegar el controlador del balanceador de carga de AWS
+
+Este controlador es necesario para poder desplegar ingress load balancers y poder acceder a nuestra aplicación web desde fuera del cluster.
+
+1.- En caso de no haber usado la opción --with-oidc al crear el cluster debe usarse el siguiente comando para crear un provedor OIDC de IAM y asociarlo al cluster:
+```
+eksctl utils associate-iam-oidc-provider --region eu-west-3 --cluster ekscluster --approve
+```
+2.- Ir a la carpeta Kubernetes/policy en una shell usando el comando:
+```
+cd ./Kubernetes/policy
+```
+3.- Descargue una política de IAM para el controlador del balanceador de carga de AWS (en caso de tener la política YA descargada ir al paso 4 directamente). Puede descargarse esta politica usando:
+```
+curl -o iam-policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/main/docs/install/iam_policy.json
+```
+4.- Crear la política IAM y copiar el ARN que devuelve el comando como salida:
+```
+aws iam create-policy --policy-name AWSLoadBalancerControllerIAMPolicy --policy-document file://iam-policy.json
+```
+
+5.- Usar el siguiente comando para crear un rol de IAM, una cuenta de servicio de Kubernetes denominada aws-load-balancer-controller en el espacio de nombres kube-system, un rol de clúster y un enlace de rol de clúster para que lo utilice el controlador usando la política creada en el paso 4:
+```
+eksctl create iamserviceaccount --cluster=ekscluster --namespace=kube-system --name=aws-load-balancer-controller --attach-policy-arn=ARN_POLICY --override-existing-serviceaccounts --approve
+```
+
+6.- Finalmente, debemos instalar elcontrolador del balanceador de carga de AWS. A continuación se muestra como instalarlo usando helm ( en caso de no tener helm puede instalarse siguiendo los pasos que pueden verse en el siguiente enlace: https://helm.sh/docs/intro/install/ ):  
+Usar el siguiente comando para instalar las definiciones de recursos personalizados de TargetGroupBinding:
+```
+kubectl apply -k "github.com/aws/eks-charts/stable/aws-load-balancer-controller//crds?ref=master"
+```
+Añadir el repositorio de eks-charts con el comando:
+```
+helm repo add eks https://aws.github.io/eks-charts
+```
+Instalar el controlador:
+```
+helm upgrade -i aws-load-balancer-controller eks/aws-load-balancer-controller --set clusterName=ekscluster --set serviceAccount.create=false --set serviceAccount.name=aws-load-balancer-controller -n kube-system
+```
+**Para comprobar que el controlador se ha instalado correctamente puede usarse el comando:**
+```
+kubectl get deployment -n kube-system aws-load-balancer-controller
+```
+La salida debe ser similar a:
+```
+NAME                           READY   UP-TO-DATE   AVAILABLE   AGE
+aws-load-balancer-controller   1/1     1            1           13s
 ```
 
 ## Eliminar el cluster
