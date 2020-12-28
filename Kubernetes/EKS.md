@@ -28,7 +28,7 @@ eksctl create cluster --name ekscluster --version 1.18 --region eu-west-3 --farg
 Es recomendable establecer una clave ssh para poder conectarnos a las instancias de EC2 que usaremos en el cluster, para crear esta clave puede serguirse la guía: https://docs.aws.amazon.com/cli/latest/userguide/cli-services-ec2-keypairs.html#creating-a-key-pair
 
 ```
-eksctl create cluster --name ekscluster --version 1.18 --region eu-west-3 --nodegroup-name linux-nodes --nodes 3 --nodes-min 1 --nodes-max 4 --with-oidc --ssh-access --ssh-public-key  MyKeyPair --managed --asg-access
+eksctl create cluster --name ekscluster --version 1.18 --region eu-west-3 --nodegroup-name linux-nodes --nodes 1 --nodes-min 1 --nodes-max 4 --with-oidc --ssh-access --ssh-public-key  MyKeyPair --managed --asg-access
 ```
 
 Para comprobar que la configuración de kubectl es correcta y se puede conectar al cluster se puede usar el comando:
