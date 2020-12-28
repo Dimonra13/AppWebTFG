@@ -1,15 +1,15 @@
 # Como desplegar la aplicación web en AWS usando EKS paso a paso
 
-Para desplegar una apliacación en AWS usando EKS es necesario:
+Para desplegar una aplicación en AWS usando EKS es necesario:
 
-* Tener una cuenta de AWS con un AWS Access key ID y un AWS Access Secret para el usuario root o el usuario IAM que se va ha usar para administrar EKS
+* Tener una cuenta de AWS con un AWS Access key ID y un AWS Access Secret para el usuario root o el usuario IAM que se va a usar para administrar EKS
 * Instalar AWS CLI (preferiblemente la versión 2)
 * Instalar eksctl
 * Instalar kubectl
 
 Puede encontrarse una guía de instalación de estas herramientas para los diferentes sistemas operativos en: https://docs.aws.amazon.com/eks/latest/userguide/getting-started-eksctl.html
 
-Nota: A lo largo de este archivo se emplearán comandos validos para todas las regines excepto para Beijing and Ningxia China, donde deben usarse comandos especificos
+Nota: A lo largo de este archivo se emplearán comandos válidos para todas las regines excepto para Beijing and Ningxia China, donde deben usarse comandos específicos
 
 ## Paso 1. Crear un Cluster 
 
@@ -17,18 +17,18 @@ En esta sección se explica como crear un cluster con las características neces
 tanto usando Fargate como instancias EC2 para los nodos. En función del tráfico esperado y de tipo de plan de su cuenta de AWS puede ser más convemiente usar un tipo de nodo u 
 otro (si se usa el plan gratuito hay que tener en cuenta que hay 750 horas mensuales de EC2 incluidas en este plan, mientras que de Fargate no hay).
 
-### 1.1. Crear el cluster usando Fargate
+### Opción 1. Crear el cluster usando Fargate
 
 ```
 eksctl create cluster --name ekscluster --version 1.18 --region eu-west-3 --fargate
 ```
 
-### 1.2. Crear el cluster usando instancias EC2
+### Opción 2. Crear el cluster usando instancias EC2
 
 Es recomendable establecer una clave ssh para poder conectarnos a las instancias de EC2 que usaremos en el cluster, para crear esta clave puede serguirse la guía: https://docs.aws.amazon.com/cli/latest/userguide/cli-services-ec2-keypairs.html#creating-a-key-pair
 
 ```
-eksctl create cluster --name ekscluster --version 1.18 --region eu-west-3 --nodegroup-name linux-nodes --nodes 3 --nodes-min 1 --nodes-max 4 --with-oidc --ssh-access --ssh-public-key  MyKeyPair --managed
+eksctl create cluster --name ekscluster --version 1.18 --region eu-west-3 --nodegroup-name linux-nodes --nodes 3 --nodes-min 1 --nodes-max 4 --with-oidc --ssh-access --ssh-public-key  MyKeyPair --managed --asg-access
 ```
 
 Para comprobar que la configuración de kubectl es correcta y se puede conectar al cluster se puede usar el comando:
@@ -49,6 +49,49 @@ Si se obtiene como salida un mensaje de error se puede ver https://docs.aws.amaz
 aws eks --region eu-west-3 update-kubeconfig --name ekscluster
 ```
 
+### Paso 1.1. Instalar el Cluster Autoscaler
+**Este paso es opcional, puede resultar muy útil si se espera que la aplicación reciba picos de tráfico muy altos.**  
+El Cluster Autoscaler se encarga de aumentar el número de nodos que tiene el cluster cuando los pods fallan por la falta de recursos o de disminuirlo cuando hay nodos que no están siendo usados. Si desea instalarse Cluster Autoscaler deben seguirse los siguientes pasos:
+
+1.- Desplegar el deployment del Autoscaler con el siguiente comando:
+```
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
+```
+2.- Añadir la anotación "cluster-autoscaler.kubernetes.io/safe-to-evict" al deployment:
+```
+kubectl -n kube-system annotate deployment.apps/cluster-autoscaler cluster-autoscaler.kubernetes.io/safe-to-evict="false"
+```
+3.- Editar el deployment para replazar <YOUR CLUSTER NAME> con el nombre del cluster (ekscluster) y añadir las opciones:  
+* <--balance-similar-node-groups>  
+* <--skip-nodes-with-system-pods=false>
+Puede usarse el siguiente comando para editar el archivo:
+```
+kubectl -n kube-system edit deployment.apps/cluster-autoscaler
+```
+Debe quedar de forma similar a:
+```
+    spec:
+      containers:
+      - command:
+        - ./cluster-autoscaler
+        - --v=4
+        - --stderrthreshold=info
+        - --cloud-provider=aws
+        - --skip-nodes-with-local-storage=false
+        - --expander=least-waste
+        - --node-group-auto-discovery=asg:tag=k8s.io/cluster-autoscaler/enabled,k8s.io/cluster-autoscaler/ekscluster
+        - --balance-similar-node-groups
+        - --skip-nodes-with-system-pods=false
+```
+4.- En la página de https://github.com/kubernetes/autoscaler/releases buscar una release que empiece por el mismo número de versión que nuestra versión de kubernetes (La 1.18.3 en nuestro caso puede servir) y usar el siguiente comando para establecer el tag del autoscaler a esa versión:
+```
+kubectl -n kube-system set image deployment.apps/cluster-autoscaler cluster-autoscaler=eu.gcr.io/k8s-artifacts-prod/autoscaling/cluster-autoscaler:v1.18.3
+```
+
+**Para acceder a los logs del autoscaler puede usarse el siguiente comando:**
+```
+kubectl -n kube-system logs -f deployment.apps/cluster-autoscaler
+```
 ## Paso 2. Instalar el Kubernetes Metrics Server
 
 El Kubernetes Metrics Server permite instalar en el cluster EKS servicios muy importantes como el kubernetes dashboard que permite controlar el estado de los diferentes workloads
@@ -254,7 +297,7 @@ aws iam create-policy --policy-name AWSLoadBalancerControllerIAMPolicy --policy-
 eksctl create iamserviceaccount --cluster=ekscluster --namespace=kube-system --name=aws-load-balancer-controller --attach-policy-arn=ARN_POLICY --override-existing-serviceaccounts --approve
 ```
 
-6.- Finalmente, debemos instalar elcontrolador del balanceador de carga de AWS. A continuación se muestra como instalarlo usando helm ( en caso de no tener helm puede instalarse siguiendo los pasos que pueden verse en el siguiente enlace: https://helm.sh/docs/intro/install/ ):  
+6.- Finalmente, debemos instalar el controlador del balanceador de carga de AWS. A continuación se muestra como instalarlo usando helm ( en caso de no tener helm puede instalarse siguiendo los pasos que pueden verse en el siguiente enlace: https://helm.sh/docs/intro/install/ ):  
 Usar el siguiente comando para instalar las definiciones de recursos personalizados de TargetGroupBinding:
 ```
 kubectl apply -k "github.com/aws/eks-charts/stable/aws-load-balancer-controller//crds?ref=master"
@@ -277,14 +320,13 @@ NAME                           READY   UP-TO-DATE   AVAILABLE   AGE
 aws-load-balancer-controller   1/1     1            1           13s
 ```
 
-
 ## Paso 7. Crear/importar el certificado público
 
 **Este paso no es necesario si se va a desplegar la aplicación usando http y no https, tampoco es necesario si ya se tiene un certificado en ACM para el dominio de la aplicación. En cualquiera de los pasos saltar directamente al paso 8**
 Los certificados SSL/TLS son necesarios para poder desplegar aplicaciones usando https, para que nuestro Ingress Load Balancer teng acceso a estos certificados y pueda redireccionar el tráfico con https es necesario almacenar los certificados en ACM (AWS Certificate Manager). Para ello tenemos dos opciones:
 
 ### Solicitar a ACM que genere un certificado nuevo para nuestro dominio
-Los certificados públicos son gratuitos en ACM, además de que ACM se encarga de gestionarlos y renovarlos, así esta opción resulta muy conveniente. Para genere el certificado usaremos el comando:
+Los certificados públicos son gratuitos en ACM, además de que ACM se encarga de gestionarlos y renovarlos, así esta opción resulta muy conveniente. Para generar el certificado usaremos el comando:
 ```
 aws acm request-certificate --domain-name *.coursing.me --validation-method DNS --idempotency-token 1234 --options CertificateTransparencyLoggingPreference=DISABLED
 ```
@@ -380,6 +422,3 @@ kubectl delete svc NOMBRE_SERVICIO
 ```
 eksctl delete cluster --name ekscluster
 ```
-
-
-
