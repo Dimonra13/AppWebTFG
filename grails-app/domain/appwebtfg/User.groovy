@@ -14,6 +14,8 @@ class User implements Serializable {
     String username
     String password
     String email
+    String phoneNumber
+    static hasMany = [lists: CourseList]
     boolean enabled = true
     boolean accountExpired
     boolean accountLocked
@@ -26,6 +28,7 @@ class User implements Serializable {
     static constraints = {
         password nullable: false, blank: false, password: true
         username nullable: false, blank: false, unique: true
+        phoneNumber nullable: true, matches: /\d{9}/
         email matches: /.*@.*/
     }
 
