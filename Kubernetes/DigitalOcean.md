@@ -24,23 +24,22 @@ Para desplegar una aplicación en DigitalOcean es necesario:
 
 Para crear el cluster usaremos el dashboard destinado para ello en DigitalOcean y seguiremos los siguientes pasos:
 
-1.- Seleccionamos la versión de kubectl a usar en el cluster y la región en la que queremos tener el cluster  
+1.- Seleccionar la versión de kubectl a usar en el cluster y la región en la que se desea tener el cluster  
 ![Cluster-1](https://i.imgur.com/xbo0VEv.png)  
-2.- Seleccionamos el tipo de nodos y la cantidad de ellos que necesitamos (a mayor capacidad y cantidad de nodos mayor precio)  
+2.- Seleccionar el tipo de nodos y la cantidad de ellos que se necesitan (a mayor cantidad de nodos y prestaciones de estos mayor precio)  
 ![Cluster-2](https://i.imgur.com/ZHyfPqr.png)  
-3.- Establecemos el nombre del cluster y los tags (estos tags pueden ser utiles si se tiene que gestionar varios cluster)  
+3.- Establecer el nombre del cluster y los tags (estos tags pueden ser útiles si se tienen que gestionar varios cluster)  
 ![Cluster-3](https://i.imgur.com/Q2u5uv1.png)  
-4.- Pulsamos en create cluster (DigitalOcean tardará unos minutos en generar el cluster)  
 
 ## Paso 2. Vincular kubectl al cluster usando doctl
 
 En este paso instalaremos la versión apropiada de kubectl y la conectaremos al cluster usando doctl de forma que podamos desplegar la app y controlar el cluster 
 desde la consola de nuestro ordenador. Para ello seguiremos los siguientes pasos:
 
-1.- Instalamos kubectl de la página oficial. https://kubernetes.io/docs/tasks/tools/install-kubectl/  
+1.- Instalar kubectl de la página oficial. https://kubernetes.io/docs/tasks/tools/install-kubectl/  
 **Importante tener en cuenta que debe ser la misma versión que la seccionada al crear el cluster.**  
-2.- Instalamos doctl desde la página oficial. https://github.com/digitalocean/doctl#installing-doctl  
-3.- Conectamos kubectl al cluster usando doctl mediante el comando: doctl kubernetes cluster kubeconfig save [id]  
+2.- Instalar doctl desde la página oficial. https://github.com/digitalocean/doctl#installing-doctl  
+3.- Conectar kubectl al cluster usando doctl mediante el comando: doctl kubernetes cluster kubeconfig save [id]  
 **El certificado usado para esto caduca cada 7 días, así que es necesario usar este comando periódicamente para mantener el acceso al cluster.**  
 
 ## Paso 3. Instalar el Kubernetes Metrics Server
@@ -164,10 +163,13 @@ cd ./Kubernetes/App
 kubectl create -f webapp_deployment.yaml
 ```
 
-### 6.3. Desplegar el Servicio de la App
+### 6.3. Desplegar el Load Balancer de la App
+
+Este load balancer será detectado por DigitalOcean y se integrará con su propio servicio de load balancing. Posteriormente podremos editar el load balancer
+creado desde DigitalOcean para realizar las configuraciones finales (Paso 9)
 
 ```
-kubectl create -f webapp_service.yaml
+kubectl create -f webapp_loadBalancer.yaml
 ```
 ## Paso 7. Desplegar el Horizontal Pod Autoscaler
 
@@ -213,12 +215,45 @@ kubectl delete pod load-generator
 ```
 kubectl delete horizontalpodautoscaler.autoscaling/webapp
 ```
-**Tanto el paso 4 como este paso 7, aunque son muy recomendables e importantes por las razones ya dichas, son opcionales. La aplicación puede funcionar correctamente
-sin ningún autoscaler, aunque no se podrá garantizar su disponibilidad en caso de que se produzca un pico de tráfico.**
+**Tanto el paso 4 como este paso 7, aunque son muy recomendables e importantes por las razones ya dichas, son opcionales. La aplicación puede funcionar correctamente sin ningún autoscaler, aunque no se podrá garantizar su disponibilidad en caso de que se produzca un pico de tráfico.**
 
-## Paso 8. Crear el load balancer
+## Paso 8. Añadir un nombre de dominio a Digital Ocean  
+**En caso de tener ya un nombre de dominio vinculado a Digital Ocean para el proyecto actual ir al paso 9 directamente.**  
+Los nombres de dominio son muy importantes ya que permiten a los usuarios encontrar la página web sin necesidad de conocer la IP del servidor en que se encuentra.
+Esto es posible gracias a los servidores DNS,que se encargan de hacer la traducción IP-Dominio, por lo que deberemos configurar estos DNS para que dirijan el 
+tráfico hacia nuestro cluster. Además, el tener un nombre de dominio es fundamental para poder usar HTTPS y SSL. Para establecer el nombre de dominio de nuestra 
+aplicación en Digital Ocean seguiremos los siguientes pasos:  
 
-Los load balancer permiten que la aplicación sea accesible a través de internet y reparten el tráfico entre los diferentes nodos y pods que tenga la aplicación
-en función de la tasa de uso que tenga cada uno.
+1.- Ir a la sección Networking  
+2.- En la sección networking, ir a Domains
+3.- Poner el nombre de dominio y pulsar en "Add Domain"
+![Domain-1](https://i.imgur.com/EoYCVFE.png)
+**Es importante tener en cuenta que Digital Ocean no es un Domain Registar por lo que es necesario comprar el dominio en alguno de los Domain Registars existentes**  
+4.- https://www.digitalocean.com/community/tutorials/how-to-point-to-digitalocean-nameservers-from-common-domain-registrars   
 
+## Paso 9. Configurar el load balancer
 
+Los load balancer permiten que la aplicación sea accesible a través de internet y reparten el tráfico entre los diferentes nodos y pods de la aplicación
+en función de la tasa de uso que tenga cada uno. Para configurar el load balancer usaremos el dashboard destinado para ello en DigitalOcean y seguiremos los siguientes pasos:
+
+1.- Ir a la sección Networking  
+2.- En la sección networking, ir a Load Balancers  
+![Load-1](https://i.imgur.com/4NSDOmj.png)  
+3.- Seleccionar el load balancer creado  
+![Load-2](https://i.imgur.com/phjQFvk.png)  
+4.- Ir a la sección settings  
+![Load-3](https://i.imgur.com/znvoluA.png)  
+5.- Pulsar en el botón "Edit" de Forwarding rules  
+![Load-4](https://i.imgur.com/Ee5s185.png)  
+6.- Seleccionar HTTPS y el puerto 443
+![Load-5](https://i.imgur.com/viNQABG.png)  
+7.- En certificate seleccionar el certificado a usar o crear uno nuevo 
+![Load-6](https://i.imgur.com/p9q8Yaz.png)  
+8.- Pulsar en "Save"
+
+## Eliminar el cluster y el load balancer  
+Para eliminar el cluster y el load balancer de forma que no consuman recursos y no se incurra en costes se deben seguir los siguientes pasos:  
+1.- En la sección de Networking/Load Balancers, pulsar "More" en el load balancer que se desea borrar y selccionar "Destroy"
+![Destroy-1](https://i.imgur.com/DDfmiOd.png)  
+2.- En la sección de Kubernetes, pulsar "More" en el cluster que se desea borrar y selccionar "Destroy"
+![Destroy-2](https://i.imgur.com/aCYLOQA.png)  
