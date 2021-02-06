@@ -13,4 +13,4 @@ spec:
           - path: /*
             backend:
               serviceName: webapp-service
-              servicePort: 443
+              servicePort: 80
