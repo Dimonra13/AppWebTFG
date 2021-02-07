@@ -18,7 +18,7 @@ otros servicios como AWS EKS y permite incrementar o reducir los recursos rápid
 Para desplegar una aplicación en DigitalOcean es necesario:
 
 * Instalar doctl, la herramienta desarrollada por DigitalOcean para facilitar la conexión de kubectl con el cluster
-* Instalar kubectl (La versión debe coincidir con la usada en el cluster)
+* Instalar kubectl (la versión debe coincidir con la usada en el cluster)
 
 ## Paso 1. Crear un Cluster
 
@@ -94,7 +94,7 @@ vpa-updater-9fd7bfbd5-skwxd                1/1     Running   0          7s
 
 ```
 
-IMPORTANTE: Para poder ejecutar este paso es necesario tener instalado OpenSSL 1.1.1 y tener la ruta del archivo en el PATH. Como en windows puede dar problemas puede usarse la version 0.8 que no necesita OpenSSL. Puede descargarse en la siguiente ruta: https://github.com/kubernetes/autoscaler/tree/vpa-release-0.8.git  
+IMPORTANTE: Para poder ejecutar este paso es necesario tener instalado OpenSSL 1.1.1 y tener la ruta del archivo en el PATH. Como en Windows puede dar problemas puede usarse la version 0.8 que no necesita OpenSSL. Puede descargarse en la siguiente ruta: https://github.com/kubernetes/autoscaler/tree/vpa-release-0.8.git  
 **Es muy recomendable realizar este paso en linux si es posible para evitar problemas.**
 
 Para desinstalar el Vertical Pod Autoscaler puede usarse el siguiente comando:
@@ -148,6 +148,7 @@ kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h 
 	
 ```
 ## Paso 6. Desplegar la aplicación web
+
 Para desplegar la aplicación web y que sea accesible desde el exterior del cluster debemos seguir los siguientes pasos:
 
 ### 6.1. Ir a la carpeta App en una shell
@@ -174,7 +175,7 @@ kubectl create -f webapp_loadBalancer.yaml
 ## Paso 7. Desplegar el Horizontal Pod Autoscaler
 
 El Horizontal Pod Autoscaler se encarga de aumentar o disminuir el número de pods de un deployment en función del tráfico que le llega, de forma que junto 
-con el vertical autoscaler se encargan de que el número de replicas y la CPU y RAM de cada réplica sean las justas y necesarias.Por tanto, son muy importantes a 
+con el vertical autoscaler se encargan de que el número de replicas y la CPU y RAM de cada réplica sean las justas y necesarias. Por tanto, son muy importantes a 
 la hora de garantizar la disponibilidad y reducir costes. Para desplegar un Horizontal Pod Autoscaler para el deployment de nuestra aplicación es suficiente con 
 usar el comando:  
 ```
@@ -189,7 +190,7 @@ Cuando aparezca un prompt se debe escribir el siguiente programa para que genere
 ```
 while true; do wget -q -O- URL_APP; done
 ```
-En otra shell podemos usar siguiente comando para comprobar el número de replicas y el porcentaje de CPU usado de cada réplica:
+En otra shell podemos usar siguiente comando para comprobar el número de réplicas y el porcentaje de CPU usado de cada réplica:
 ```
 kubectl get hpa
 ```
@@ -253,7 +254,7 @@ en función de la tasa de uso que tenga cada uno. Para configurar el load balanc
 
 ## Eliminar el cluster y el load balancer  
 Para eliminar el cluster y el load balancer de forma que no consuman recursos y no se incurra en costes se deben seguir los siguientes pasos:  
-1.- En la sección de Networking/Load Balancers, pulsar "More" en el load balancer que se desea borrar y selccionar "Destroy"
+1.- En la sección de Networking/Load Balancers, pulsar "More" en el load balancer que se desea borrar y seleccionar "Destroy"
 ![Destroy-1](https://i.imgur.com/DDfmiOd.png)  
 2.- En la sección de Kubernetes, pulsar "More" en el cluster que se desea borrar y selccionar "Destroy"
 ![Destroy-2](https://i.imgur.com/aCYLOQA.png)  
