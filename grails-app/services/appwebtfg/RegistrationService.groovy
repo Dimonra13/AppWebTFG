@@ -15,4 +15,15 @@ class RegistrationService {
         }
         user
     }
+
+    User updateUser(User updatedUser, User currentUser, boolean changedPassword){
+        currentUser.username = updatedUser.username
+        currentUser.email = updatedUser.email
+        currentUser.phoneNumber = updatedUser.phoneNumber
+        if(changedPassword){
+            currentUser.password = updatedUser.password
+        }
+        currentUser.save()
+    }
 }
+
