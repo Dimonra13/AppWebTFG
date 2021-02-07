@@ -26,7 +26,7 @@
                             <div class="col-5">
                                 <label for="username"><g:message code="register.user.username.label"/></label>
                                 <br>
-                                <g:field type="text" name="username" id="username" value="" required="true"/>
+                                <g:field type="text" name="username" id="username" value="${username}" required="true"/>
                                 <br><br>
                             </div>
 
@@ -34,7 +34,7 @@
                             <div class="col-5">
                                 <label for="email"><g:message code="register.user.email.label"/></label>
                                 <br>
-                                <g:field type="email" name="email" id="email" value="" required="true"/>
+                                <g:field type="email" name="email" id="email" value="${email}" required="true"/>
                                 <br><br>
                             </div>
 

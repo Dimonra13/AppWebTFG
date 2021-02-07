@@ -26,4 +26,24 @@ class UserControllerIntegrationSpec extends BaseControllerIntegrationSpec {
         userController.response.status == 200
         userController.response.text == groovyPageRenderer.render(view: "register")
     }
+
+    void "Validate the editProfile method"() {
+
+        setup: 'The controller action is call'
+        userController.editProfile()
+
+        expect: 'validate the method output'
+        userController.response.status == 200
+        userController.response.text == groovyPageRenderer.render(view: "editProfile")
+    }
+
+    void "Validate the myProfile method"() {
+
+        setup: 'The controller action is call'
+        userController.myProfile()
+
+        expect: 'validate the method output'
+        userController.response.status == 200
+        userController.response.text == groovyPageRenderer.render(view: "editProfile")
+    }
 }

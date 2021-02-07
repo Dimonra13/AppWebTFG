@@ -8,7 +8,7 @@ class UserController {
 
     RegistrationService registrationService
     SpringSecurityService springSecurityService
-
+    UserService userService
     def index() {
     }
 
@@ -22,7 +22,7 @@ class UserController {
         User registered = User.findByUsername(params?.username)
         //Incorrect user input: The username is already in use or password and confirmPassword are different
         if (registered || params?.password!=params?.confirmPassword) {
-            render(view: 'register', model:[isregistered:registered,diferentPass:(params?.password!=params?.confirmPassword)])
+            render(view: 'register', model:[username:params?.username, email: params?.email, isregistered:registered,diferentPass:(params?.password!=params?.confirmPassword)])
         } else {
             User newUser = registrationService.registerUser(params?.username, params?.password, params?.email)
             if(newUser){
@@ -51,17 +51,18 @@ class UserController {
         User registered = User.findByUsername(params?.username)
         User authUser = springSecurityService.getCurrentUser()
         User updateUser = new User(params)
-        /*Incorrect user input: The new username is already in use or the password has been changed but
+        /*
+          Incorrect user input: The new username is already in use or the password has been changed but
           password and confirmPassword are different.
          */
         if (((authUser.username != params?.username) && registered)
                 || (params?.password && (params?.password!=params?.confirmPassword))) {
             render(view: 'editProfile', model:[user: updateUser, isregistered:registered,diferentPass:(params?.password!=params?.confirmPassword)])
         } else {
-            User updatedUser = registrationService.updateUser(updateUser, authUser, params?.password as boolean)
+            User updatedUser = userService.updateUser(updateUser, authUser, params?.password as boolean)
             if(updatedUser){
                 springSecurityService.reauthenticate(updatedUser.username)
-                render(view: 'myProfile')
+                redirect(action: "myProfile")
             }else{
                 render(view: 'editProfile', model:[user: updateUser])
             }

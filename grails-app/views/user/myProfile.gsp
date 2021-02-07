@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title><g:message code="register.user.title"/></title>
+    <title><g:message code="profile.title"/></title>
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.css')}" type="text/css">
 </head>
 
@@ -12,70 +12,68 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-2"></div>
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <h2><g:message code="profile.image"/></h2>
+                    <br>
+                    <p>PROFILE IMAGE HERE</p>
+                    <br>
+                    <g:form url="[controller: 'User', action: 'editProfile']">
+                        <g:submitButton name="submit"
+                                        value="${message(code: 'profile.image.update')}"></g:submitButton>
+                    </g:form>
+                </div>
+            </div>
+        </div>
 
         <div class="col-8">
             <div class="card">
                 <div class="card-body">
-                    <h2><g:message code="register.user.title"/></h2>
+                    <h2><g:message code="profile.title"/></h2>
                     <br>
 
-                    <g:form url="[controller: 'User', action: 'registerUser']">
-                        <div class="row">
-                            <div class="col-1"></div>
-                            <div class="col-5">
-                                <label for="username"><g:message code="register.user.username.label"/></label>
-                                <br>
-                                <g:field type="text" name="username" id="username" value="" required="true"/>
-                                <br><br>
-                            </div>
+                    <div class="row">
+                        <div class="col-1"></div>
 
-                            <div class="col-1"></div>
-                            <div class="col-5">
-                                <label for="email"><g:message code="register.user.email.label"/></label>
-                                <br>
-                                <g:field type="email" name="email" id="email" value="" required="true"/>
-                                <br><br>
-                            </div>
+                        <div class="col-5">
+                            <h4><g:message code="profile.username"/></h4>
 
-                            <g:if test="${isregistered}">
-                                <div class="col-1"></div>
-                                <div class="col-11">
-                                    <p style="color:red"><g:message code="register.user.isRegistered"/></p>
-                                </div>
-                            </g:if>
-
-                            <div class="col-1"></div>
-                            <div class="col-5">
-                                <label for="password"><g:message code="register.user.password.label"/></label>
-                                <br>
-                                <g:field type="password" name="password" id="password" value="" required="true"/>
-                                <br><br>
-                            </div>
-
-                            <div class="col-1"></div>
-                            <div class="col-5">
-                                <label for="confirmPassword"><g:message
-                                        code="register.user.confirmPassword.label"/></label>
-                                <br>
-                                <g:field type="password" name="confirmPassword" id="confirmPassword" value="" required="true"/>
-                                <br><br>
-                            </div>
-
-                            <g:if test="${diferentPass}">
-                                <div class="col-1"></div>
-                                <div class="col-11">
-                                    <p style="color:red"><g:message code="register.user.diferentPass"/></p>
-                                </div>
-                            </g:if>
-
-                            <div class="col-1"></div>
-                            <div class="col-8">
-                                <g:submitButton name="submit"
-                                                value="${message(code: 'register.user.submit')}"></g:submitButton>
-                            </div>
+                            <p>${user.username}</p>
+                            <br>
                         </div>
-                    </g:form>
+
+                        <div class="col-1"></div>
+
+                        <div class="col-5">
+                            <h4><g:message code="profile.email"/></h4>
+
+                            <p>${user.email}</p>
+                            <br>
+                        </div>
+
+                        <div class="col-1"></div>
+
+                        <div class="col-5">
+                            <h4><g:message code="profile.phoneNumber"/></h4>
+                            <g:if test="${user.phoneNumber}">
+                                <p>${user.phoneNumber}</p>
+                            </g:if>
+                            <g:else>
+                                <p><g:message code="profile.noPhoneNumber"/></p>
+                            </g:else>
+                            <br>
+                        </div>
+
+                        <div class="col-1"></div>
+
+                        <div class="col-8">
+                            <g:form url="[controller: 'User', action: 'editProfile']">
+                                <g:submitButton name="submit"
+                                                value="${message(code: 'profile.edit')}"></g:submitButton>
+                            </g:form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
