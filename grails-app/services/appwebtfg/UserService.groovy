@@ -1,5 +1,6 @@
 package appwebtfg
 
+import appwebtfg.cmd.ImageCommandObject
 import grails.gorm.transactions.Transactional
 
 @Transactional
@@ -13,5 +14,19 @@ class UserService {
             currentUser.password = updatedUser.password
         }
         currentUser.save()
+    }
+
+    User updateProfileImage(User user, ImageCommandObject cmd) {
+        user.profileImageBytes = cmd.featuredImageFile.bytes
+        user.profileImageContentType = cmd.featuredImageFile.contentType
+        user.hasProfileImage = true
+        user.save()
+    }
+
+    User deleteProfileImage(User user) {
+        user.profileImageBytes = null
+        user.profileImageContentType = null
+        user.hasProfileImage = false
+        user.save()
     }
 }

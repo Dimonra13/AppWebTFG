@@ -17,9 +17,12 @@
                 <div class="card-body">
                     <h2><g:message code="profile.image"/></h2>
                     <br>
-                    <p>PROFILE IMAGE HERE</p>
+                    <g:if test="${user.hasProfileImage}">
+                        <img src="<g:createLink controller="user" action="renderProfileImage" id="${user.id}"/>" width="300"/>
+                        <br>
+                    </g:if>
                     <br>
-                    <g:form url="[controller: 'User', action: 'editProfile']">
+                    <g:form url="[controller: 'User', action: 'editProfileImage']">
                         <g:submitButton name="submit"
                                         value="${message(code: 'profile.image.update')}"></g:submitButton>
                     </g:form>
