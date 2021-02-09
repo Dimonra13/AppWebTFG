@@ -17,10 +17,14 @@
                 <div class="card-body">
                     <h2><g:message code="profile.image"/></h2>
                     <br>
-                    <g:if test="${user.hasProfileImage}">
+                    <g:if test="${user?.hasProfileImage}">
                         <img src="<g:createLink controller="user" action="renderProfileImage" id="${user.id}"/>" width="300"/>
                         <br>
                     </g:if>
+                    <g:else>
+                        <asset:image src="grails.svg" class="grails-logo" width="300"/>
+                        <br>
+                    </g:else>
                     <br>
                     <g:form url="[controller: 'User', action: 'editProfileImage']">
                         <g:submitButton name="submit"

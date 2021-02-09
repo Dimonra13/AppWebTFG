@@ -59,7 +59,7 @@ class UserController {
          */
         if (((authUser.username != params?.username) && registered)
                 || (params?.password && (params?.password != params?.confirmPassword))) {
-            render(view: 'editProfile', model: [user: updateUser, isregistered: registered, diferentPass: (params?.password != params?.confirmPassword)])
+            render(view: 'editProfile', model: [user: updateUser, isregistered: ((authUser.username != params?.username) && registered), diferentPass: (params?.password != params?.confirmPassword)])
         } else {
             User updatedUser = userService.updateUser(updateUser, authUser, params?.password as boolean)
             if (updatedUser) {

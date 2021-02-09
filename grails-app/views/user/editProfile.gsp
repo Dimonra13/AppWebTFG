@@ -72,7 +72,8 @@
                             <div class="col-5">
                                 <label for="phoneNumber"><g:message code="update.user.phoneNumber.label"/></label>
                                 <br>
-                                <g:field type="number" name="phoneNumber" id="phoneNumber" value="${user.phoneNumber}"/>
+                                <g:field type="text" name="phoneNumber" id="phoneNumber" value="${user.phoneNumber}"
+                                         pattern="[0-9]{9}" maxlength="9" title="${message(code: 'update.user.phoneNumber.error')}"/>
                                 <br><br>
                             </div>
                             <div class="col-1"></div>
