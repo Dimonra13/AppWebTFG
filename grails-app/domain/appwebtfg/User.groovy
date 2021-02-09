@@ -15,6 +15,9 @@ class User implements Serializable {
     String password
     String email
     String phoneNumber
+    boolean hasProfileImage
+    byte[] profileImageBytes
+    String profileImageContentType
     static hasMany = [lists: CourseList]
     boolean enabled = true
     boolean accountExpired
@@ -30,9 +33,12 @@ class User implements Serializable {
         username nullable: false, blank: false, unique: true
         phoneNumber nullable: true, matches: /\d{9}/
         email matches: /.*@.*/
+        profileImageBytes nullable: true
+        profileImageContentType nullable: true
     }
 
     static mapping = {
 	    password column: '`password`'
+        profileImageBytes column: 'featured_image_bytes', sqlType: 'longblob'
     }
 }

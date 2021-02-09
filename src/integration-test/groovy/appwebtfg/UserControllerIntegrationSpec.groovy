@@ -46,4 +46,14 @@ class UserControllerIntegrationSpec extends BaseControllerIntegrationSpec {
         userController.response.status == 200
         userController.response.text == groovyPageRenderer.render(view: "editProfile")
     }
+
+    void "Validate the editProfileImage method"() {
+
+        setup: 'The controller action is call'
+        userController.editProfileImage()
+
+        expect: 'validate the method output'
+        userController.response.status == 200
+        userController.response.text == groovyPageRenderer.render(view: "editProfileImage")
+    }
 }
