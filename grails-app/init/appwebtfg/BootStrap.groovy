@@ -21,6 +21,9 @@ class BootStrap {
             it.clear()
         }
 
+        new Course(name: "testCourse").save()
+        new Course(name: "nombre", avgscore: 3.4, studentNumber: 12345, description: "sdvfgbahnsjmkmdjhnsfgbdvscdfvgthytjuryikjdhtsgvfdascaxnhtmjyk,tu,kgumfjhgdnfsbdvfscdk,umfjyhgdnfbvdfc").save()
+        new Course(name: "nombre", studentNumber: 12345, description: "sdvfgbahnsjmkmdjhnsfgbdvscdfvgt").save()
     }
 
     def destroy = {

@@ -9,7 +9,13 @@ class UrlMappings {
             }
         }
 
+        //Home mappings
         "/"(controller: "home", action:"index")
+
+        //Course mappings
+        "/course/$id"(controller: "course", action: "getCourse")
+
+        //Error mappings
         "500"(view:'/error')
         "404"(view:'/notFound')
     }
