@@ -2,6 +2,7 @@
 <html>
 <head>
     <title><g:message code="profile.title"/></title>
+    <link rel="stylesheet" href="${resource(dir: 'css', file: 'ListTable.css')}" type="text/css">
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.css')}" type="text/css">
 </head>
 
@@ -18,7 +19,8 @@
                     <h2><g:message code="profile.image"/></h2>
                     <br>
                     <g:if test="${user?.hasProfileImage}">
-                        <img src="<g:createLink controller="user" action="renderProfileImage" id="${user.id}"/>" width="300"/>
+                        <img src="<g:createLink controller="user" action="renderProfileImage" id="${user.id}"/>"
+                             width="300"/>
                         <br>
                     </g:if>
                     <g:else>
@@ -87,6 +89,61 @@
     </div>
 </div>
 <br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-8">
+                            <h2><g:message code="profile.lists.title"/></h2>
+                        </div>
+                        <div class="col-4">
+                            <g:form url="/createCourseList/">
+                                <g:submitButton name="submit"
+                                                value="${message(code: 'profile.lists.create')}"></g:submitButton>
+                            </g:form>
+                        </div>
+                    </div>
+                    <br>
+                    <g:if test="${!user?.lists}">
+                        <p><g:message code="profile.noLists"/></p>
+                    </g:if>
+                    <g:else>
+                        <table class='courseList-display-table'>
+                            <tr>
+                                <th><g:message code="profile.lists.table.name"/></th>
+                                <th><g:message code="profile.lists.table.description"/></th>
+                                <th><g:message code="profile.lists.table.courseNumber"/></th>
+                                <th><g:message code="profile.lists.table.link"/></th>
+                            </tr>
+
+                            <g:each var="courseList" in="${user?.lists}" status="i">
+                                <g:if test="${i % 2 == 0}">
+                                    <tr class="even-row">
+                                </g:if>
+                                <g:else>
+                                    <tr class="odd-row">
+                                </g:else>
+                                <td>${courseList.name}</td>
+                                <td>${courseList.description}</td>
+                                <td>${courseList.courses.size()}</td>
+                                <td>
+                                    <g:form url="/myCourseList/$courseList.id">
+                                        <g:submitButton name="submit"
+                                                        value="${message(code: 'profile.lists.table.openList')}"></g:submitButton>
+                                    </g:form>
+                                </td>
+                                </tr>
+                            </g:each>
+                        </table>
+                    </g:else>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div>
     <h1>FOOTER</h1>

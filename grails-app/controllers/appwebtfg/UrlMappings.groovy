@@ -15,6 +15,10 @@ class UrlMappings {
         //Course mappings
         "/course/$id"(controller: "course", action: "getCourse")
 
+        //CourseList mappings
+        "/myCourseList/$id"(controller: "courseList", action: "getMyCourseList")
+        "/createCourseList/"(controller: "courseList", action: "createCourseList")
+
         //Error mappings
         "500"(view:'/error')
         "404"(view:'/notFound')
