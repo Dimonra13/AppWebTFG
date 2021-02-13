@@ -11,7 +11,6 @@ class UserServiceIntegrationSpec extends Specification {
 
     RegistrationService registrationService
     UserService userService
-    GeneralUtils generalUtils = new GeneralUtils()
 
     @Unroll
     void "test the updateUser method"(String username, String pass, String mail, boolean passchanged, boolean correct) {

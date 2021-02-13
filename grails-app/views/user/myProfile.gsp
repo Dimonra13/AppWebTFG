@@ -99,6 +99,7 @@
                         <div class="col-8">
                             <h2><g:message code="profile.lists.title"/></h2>
                         </div>
+
                         <div class="col-4">
                             <g:form url="/createCourseList/">
                                 <g:submitButton name="submit"
@@ -117,6 +118,7 @@
                                 <th><g:message code="profile.lists.table.description"/></th>
                                 <th><g:message code="profile.lists.table.courseNumber"/></th>
                                 <th><g:message code="profile.lists.table.link"/></th>
+                                <th><g:message code="profile.lists.table.delete"/></th>
                             </tr>
 
                             <g:each var="courseList" in="${user?.lists}" status="i">
@@ -133,6 +135,13 @@
                                     <g:form url="/myCourseList/$courseList.id">
                                         <g:submitButton name="submit"
                                                         value="${message(code: 'profile.lists.table.openList')}"></g:submitButton>
+                                    </g:form>
+                                </td>
+                                <td>
+                                    <g:form url="/deleteMyCourseList/$courseList.id">
+                                        <g:submitButton name="submit"
+                                                        value="${message(code: 'profile.lists.table.deleteList')}"
+                                                        onclick="return confirm('${message(code: 'profile.lists.table.deleteList.check')}')" ></g:submitButton>
                                     </g:form>
                                 </td>
                                 </tr>

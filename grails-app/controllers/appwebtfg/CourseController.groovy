@@ -10,9 +10,6 @@ class CourseController {
     @Secured(["permitAll"])
     def getCourse(Long id){
         Course course = Course.get(id)
-        if(course)
-            render(view: "courseProfile", model: [course: course])
-        else
-            render status: 404
+
     }
 }
