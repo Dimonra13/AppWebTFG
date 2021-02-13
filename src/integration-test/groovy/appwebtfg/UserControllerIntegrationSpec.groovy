@@ -47,6 +47,29 @@ class UserControllerIntegrationSpec extends BaseControllerIntegrationSpec {
         userController.response.text == groovyPageRenderer.render(view: "editProfile")
     }
 
+    @Unroll
+    void "Validate the getPublicProfile method"(int id) {
+
+        given: "The user corresponding to the id"
+        User user
+
+        when: 'The controller action is call'
+        User.withNewSession { session ->
+            user = User.get(id)
+            userController.getPublicProfile(id)
+        }
+
+        then: 'validate this method output'
+        (user && userController.response.status == 200) || (!user &&  userController.response.status == 404)
+
+        where:
+        id | _
+        1  | _
+        2  | _
+        8  | _
+        16 | _
+    }
+
     void "Validate the editProfileImage method"() {
 
         setup: 'The controller action is call'

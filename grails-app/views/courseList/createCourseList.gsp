@@ -20,7 +20,7 @@
                     <h2><g:message code="create.courseList.title"/></h2>
                     <br>
 
-                    <g:form url="[controller: 'CourseList', action: 'create']">
+                    <g:form url="/createCourseList/create">
                         <div class="row">
                             <div class="col-12">
                                 <label for="name"><g:message code="create.courseList.name.label"/></label>

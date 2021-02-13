@@ -28,10 +28,12 @@
                         <br>
                     </g:else>
                     <br>
-                    <g:form url="[controller: 'User', action: 'editProfileImage']">
-                        <g:submitButton name="submit"
-                                        value="${message(code: 'profile.image.update')}"></g:submitButton>
-                    </g:form>
+                    <g:if test="${isregistered}">
+                        <g:form url="[controller: 'User', action: 'editProfileImage']">
+                            <g:submitButton name="submit"
+                                            value="${message(code: 'profile.image.update')}"></g:submitButton>
+                        </g:form>
+                    </g:if>
                 </div>
             </div>
         </div>
@@ -73,15 +75,16 @@
                             </g:else>
                             <br>
                         </div>
+                        <g:if test="${isregistered}">
+                            <div class="col-1"></div>
 
-                        <div class="col-1"></div>
-
-                        <div class="col-8">
-                            <g:form url="[controller: 'User', action: 'editProfile']">
-                                <g:submitButton name="submit"
-                                                value="${message(code: 'profile.edit')}"></g:submitButton>
-                            </g:form>
-                        </div>
+                            <div class="col-8">
+                                <g:form url="[controller: 'User', action: 'editProfile']">
+                                    <g:submitButton name="submit"
+                                                    value="${message(code: 'profile.edit')}"></g:submitButton>
+                                </g:form>
+                            </div>
+                        </g:if>
                     </div>
                 </div>
             </div>
@@ -99,13 +102,14 @@
                         <div class="col-8">
                             <h2><g:message code="profile.lists.title"/></h2>
                         </div>
-
-                        <div class="col-4">
-                            <g:form url="/createCourseList/">
-                                <g:submitButton name="submit"
-                                                value="${message(code: 'profile.lists.create')}"></g:submitButton>
-                            </g:form>
-                        </div>
+                        <g:if test="${isregistered}">
+                            <div class="col-4">
+                                <g:form url="/createCourseList/">
+                                    <g:submitButton name="submit"
+                                                    value="${message(code: 'profile.lists.create')}"></g:submitButton>
+                                </g:form>
+                            </div>
+                        </g:if>
                     </div>
                     <br>
                     <g:if test="${!user?.lists}">
@@ -118,7 +122,9 @@
                                 <th><g:message code="profile.lists.table.description"/></th>
                                 <th><g:message code="profile.lists.table.courseNumber"/></th>
                                 <th><g:message code="profile.lists.table.link"/></th>
-                                <th><g:message code="profile.lists.table.delete"/></th>
+                                <g:if test="${isregistered}">
+                                    <th><g:message code="profile.lists.table.delete"/></th>
+                                </g:if>
                             </tr>
 
                             <g:each var="courseList" in="${user?.lists}" status="i">
@@ -131,19 +137,29 @@
                                 <td>${courseList.name}</td>
                                 <td>${courseList.description}</td>
                                 <td>${courseList.courses.size()}</td>
-                                <td>
-                                    <g:form url="/myCourseList/$courseList.id">
-                                        <g:submitButton name="submit"
-                                                        value="${message(code: 'profile.lists.table.openList')}"></g:submitButton>
-                                    </g:form>
-                                </td>
-                                <td>
-                                    <g:form url="/deleteMyCourseList/$courseList.id">
-                                        <g:submitButton name="submit"
-                                                        value="${message(code: 'profile.lists.table.deleteList')}"
-                                                        onclick="return confirm('${message(code: 'profile.lists.table.deleteList.check')}')" ></g:submitButton>
-                                    </g:form>
-                                </td>
+                                <g:if test="${isregistered}">
+                                    <td>
+                                        <g:form url="/myCourseList/$courseList.id">
+                                            <g:submitButton name="submit"
+                                                            value="${message(code: 'profile.lists.table.openList')}"></g:submitButton>
+                                        </g:form>
+                                    </td>
+                                    <td>
+                                        <g:form url="/deleteMyCourseList/$courseList.id">
+                                            <g:submitButton name="submit"
+                                                            value="${message(code: 'profile.lists.table.deleteList')}"
+                                                            onclick="return confirm('${message(code: 'profile.lists.table.deleteList.check')}')"></g:submitButton>
+                                        </g:form>
+                                    </td>
+                                </g:if>
+                                <g:else>
+                                    <td>
+                                        <g:form url="/courseList/$courseList.id">
+                                            <g:submitButton name="submit"
+                                                            value="${message(code: 'profile.lists.table.openList')}"></g:submitButton>
+                                        </g:form>
+                                    </td>
+                                </g:else>
                                 </tr>
                             </g:each>
                         </table>

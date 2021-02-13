@@ -36,11 +36,21 @@ class UserController {
         }
     }
 
+    @Secured(["permitAll"])
+    def getPublicProfile(Long id){
+        User user = User.get(id)
+        if(user)
+            render(view: "myProfile", model: [user: user, isregistered: false])
+        else
+            render status: 404
+    }
+
     @Secured('isAuthenticated()')
     def myProfile() {
         User authUser = springSecurityService.getCurrentUser() as User
-        render(view: 'myProfile', model: [user: authUser])
+        render(view: 'myProfile', model: [user: authUser, isregistered: true])
     }
+
 
     @Secured('isAuthenticated()')
     def editProfile() {

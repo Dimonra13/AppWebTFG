@@ -31,10 +31,7 @@ class CourseListControllerIntegrationSpec extends BaseControllerIntegrationSpec 
             courseListController.getCourseList(id)
         }
         then: 'validate the method output'
-        if (courseList)
-            courseListController.response.status == 200
-        else
-            courseListController.response.status == 404
+        (courseList && courseListController.response.status == 200) || (!courseList &&  courseListController.response.status == 404)
 
         where:
         id | _
@@ -56,10 +53,7 @@ class CourseListControllerIntegrationSpec extends BaseControllerIntegrationSpec 
             courseListController.getMyCourseList(id)
         }
         then: 'validate this method output'
-        if (cl)
-            courseListController.response.status == 200
-        else
-            courseListController.response.status == 404
+        (cl && courseListController.response.status == 200) || (!cl &&  courseListController.response.status == 404)
 
         where:
         id | _

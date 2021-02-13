@@ -29,10 +29,7 @@ class CourseControllerIntegrationSpec extends BaseControllerIntegrationSpec {
             courseController.getCourse(id)
         }
         then: 'validate the method output'
-        if(course)
-            courseController.response.status == 200
-        else
-            courseController.response.status == 404
+        (course && courseController.response.status == 200) || (!course &&  courseController.response.status == 404)
 
         where:
         id | _
