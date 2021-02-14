@@ -135,7 +135,12 @@
                                     <tr class="odd-row">
                                 </g:else>
                                 <td>${courseList.name}</td>
-                                <td>${courseList.description}</td>
+                                <g:if test="${courseList?.description?.length()<20}">
+                                    <td>${courseList.description}</td>
+                                </g:if>
+                                <g:else>
+                                    <td>${courseList?.description?.substring(0,20)}</td>
+                                </g:else>
                                 <td>${courseList.courses.size()}</td>
                                 <g:if test="${isregistered}">
                                     <td>

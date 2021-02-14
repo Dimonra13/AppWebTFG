@@ -2,7 +2,6 @@ package appwebtfg
 
 import grails.gorm.transactions.Rollback
 import grails.testing.mixin.integration.Integration
-import grails.testing.services.ServiceUnitTest
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -75,7 +74,7 @@ class CourseListServiceIntegrationSpec extends Specification {
         courseListService.deleteCourseList(testUser, testCourseList?.id)
 
         then: "The output must be the same as the expected output of the method"
-        !testUser?.lists?.any {CourseList it -> it.id == testCourseList?.id } || !name
+        !testUser?.lists?.any { CourseList it -> it.id == testCourseList?.id } || !name
 
 
         cleanup:
@@ -91,6 +90,68 @@ class CourseListServiceIntegrationSpec extends Specification {
         "test"  | _
         "diego" | _
         null    | _
+
+    }
+
+    @Unroll
+    void "test the addCourseToList method"(String name) {
+        given: "The test CourseList and the test course"
+        Course testCourse
+        CourseList testCourseList
+
+
+        when: "There is one user registered in the database"
+        User testUser = User.findByUsername("testCourseList")
+        if (!testUser)
+            testUser = registrationService.registerUser("testAddToCourseList", "test", "test@gmail.com")
+
+        and: "The test CourseList and the test Course are specified"
+        testCourseList = courseListService.createCourseList(testUser, 'testAddTo', 'description')
+        testCourse = new Course(name: name).save()
+
+        and: "The test course is added to the test CourseList"
+        testCourseList = courseListService.addCourseToList(testCourseList.id, testCourse.id)
+        then: "The output must be the same as the expected output of the method"
+        testCourseList?.courses?.any { it.name == name }
+
+        where:
+        name     | _
+        "test"   | _
+        "curso"  | _
+        "prueba" | _
+
+    }
+
+    @Unroll
+    void "test the deleteCourseFromList method"(String name) {
+        given: "The test CourseList and the test course"
+        Course testCourse
+        CourseList testCourseList
+
+
+        when: "There is one user registered in the database"
+        User testUser = User.findByUsername("testCourseList")
+        if (!testUser)
+            testUser = registrationService.registerUser("testRemoveFromCourseList", "test", "test@gmail.com")
+
+        and: "The test CourseList and the test Course are specified"
+        testCourseList = courseListService.createCourseList(testUser, 'testRemoveTo', 'description')
+        testCourse = new Course(name: name).save()
+
+        and: "The test course is added to the test CourseList"
+        courseListService.addCourseToList(testCourseList.id, testCourse.id)
+
+        and:"The test course is remove from the test CourseList"
+        testCourseList =  courseListService.deleteCourseFromList(testCourseList.id, testCourse.id)
+
+        then: "The output must be the same as the expected output of the method"
+        !testCourseList?.courses?.any { it.name == name }
+
+        where:
+        name     | _
+        "test"   | _
+        "curso"  | _
+        "prueba" | _
 
     }
 }

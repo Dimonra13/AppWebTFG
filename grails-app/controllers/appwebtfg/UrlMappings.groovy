@@ -24,6 +24,7 @@ class UrlMappings {
         "/createCourseList/"(controller: "courseList", action: "createCourseList")
         "/deleteMyCourseList/$id"(controller: "courseList", action: "deleteMyCourseList")
         "/createCourseList/create"(controller: "courseList", action: "create")
+        "/courseList/deleteCourseFromMyCourseList"(controller: "courseList", action: "deleteCourseFromMyCourseList")
 
         //Error mappings
         "500"(view:'/error')

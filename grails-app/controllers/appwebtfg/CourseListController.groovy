@@ -14,17 +14,16 @@ class CourseListController {
     def getCourseList(Long id){
         CourseList cl = CourseList.get(id)
         if(cl)
-            render(view: 'courseList', model: [courseList:cl,user: null])
+            render(view: 'courseList', model: [courseList:cl,isregistered: null])
         else
             render status: 404
     }
 
     @Secured('isAuthenticated()')
     def getMyCourseList(Long id){
-        User authUser = springSecurityService.getCurrentUser() as User
         CourseList cl = CourseList.get(id)
         if(cl)
-            render(view: 'courseList', model: [courseList:cl,user: authUser])
+            render(view: 'courseList', model: [courseList:cl,isregistered: true])
         else
             render status: 404
     }
@@ -52,4 +51,13 @@ class CourseListController {
         redirect(controller: "User", action: "myProfile")
     }
 
+    @Secured('isAuthenticated()')
+    def deleteCourseFromMyCourseList(){
+        if(CourseList.get(params?.idList as Long)){
+            courseListService.deleteCourseFromList(params?.idList as Long,params?.idCourse as Long)
+            redirect(action: "getMyCourseList",params: [id:params?.idList as Long])
+        }else{
+            render status: 404
+        }
+    }
 }
