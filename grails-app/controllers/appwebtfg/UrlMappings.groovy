@@ -27,7 +27,8 @@ class UrlMappings {
         "/courseList/deleteCourseFromMyCourseList"(controller: "courseList", action: "deleteCourseFromMyCourseList")
 
         //Error mappings
-        "500"(view:'/error')
-        "404"(view:'/notFound')
+        "500"(controller: "error", action: "internalError")
+        "404"(controller: "error", action: "notFound")
+        "403"(controller: "error", action: "notAllowed")
     }
 }

@@ -35,7 +35,7 @@ class UserServiceIntegrationSpec extends Specification {
         cleanup:
         User.withNewSession { session ->
             User registeredUser = User.findByUsername("test")
-            if(!registeredUser)
+            if (!registeredUser)
                 registeredUser = User.findByUsername(username)
             UserRole.findByUser(registeredUser)?.delete()
             registeredUser?.delete()
@@ -48,6 +48,40 @@ class UserServiceIntegrationSpec extends Specification {
         "diego"  | null       | "mail@gmail.com" | false       | true
         "diego"  | null       | "mailgamil.com"  | false       | false
         "diego"  | "pass"     | "mailgamil.com"  | true        | false
+
+    }
+
+    @Unroll
+    void "test the findUser method"(String username, String email, int size) {
+
+        when: "There are three user registered in the database"
+        String name = username ? username : "test"
+        if (!User.findByUsernameLike(name)) {
+            registrationService.registerUser(name + "1", "test", "test@gmail.com")
+            registrationService.registerUser(name + "2", "test", "prueba@gmail.com")
+            registrationService.registerUser(name + "3", "test", "test@gmail.com")
+        }
+
+        then: "The output list must have a size of three"
+        userService.findUsers(username, email).size() == size
+
+        cleanup:
+        User.withNewSession { session ->
+            for (int i = 1; i < 4; i++) {
+                User registeredUser = User.findByUsername(name + "$i")
+                UserRole.findByUser(registeredUser)?.delete()
+                registeredUser?.delete()
+            }
+
+        }
+
+        where:
+        username | email    | size
+        "test"   | "test"   | 2
+        "test"   | null     | 3
+        null     | "test"   | 2
+        "test"   | "prueba" | 1
+        null     | "prueba" | 1
 
     }
 }
