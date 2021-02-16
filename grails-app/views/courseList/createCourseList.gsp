@@ -39,6 +39,7 @@
                                 <p style="color:red"><g:message code="create.courseList.error"/></p>
                             </g:if>
                             <div class="col-12">
+                                <g:field type="hidden" name="idCourse" value="${idCourse}"/>
                                 <g:submitButton name="submit"
                                                 value="${message(code: 'create.courseList.submit')}"></g:submitButton>
                             </div>

@@ -30,7 +30,7 @@ class CourseListController {
 
     @Secured('isAuthenticated()')
     def createCourseList(){
-        render(view: 'createCourseList')
+        render(view: 'createCourseList',model: [idCourse:params?.idCourse])
     }
 
     @Secured('isAuthenticated()')
@@ -38,9 +38,13 @@ class CourseListController {
         User authUser = springSecurityService.getCurrentUser() as User
         CourseList newcl = courseListService.createCourseList(authUser, params?.name, params?.description)
         if (newcl) {
-            redirect(controller: "User", action: "myProfile")
+            if(params?.idCourse){
+                redirect(controller: "course",action: "getCourse", params: [id: params?.idCourse])
+            } else {
+                redirect(controller: "User", action: "myProfile")
+            }
         } else {
-            render(view: 'createCourseList', model: [error: true])
+            render(view: 'createCourseList', model: [error: true, idCourse: params?.idCourse])
         }
     }
 

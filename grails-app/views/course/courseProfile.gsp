@@ -63,12 +63,23 @@
                         </div>
                         <g:if test="${user}">
                             <div class="col-12">
-                                <g:form url="/courseList/addCourseToMyCourseList">
-                                    <g:field type="hidden" name="idCourse" value="${course.id}"/>
-                                    <g:select name="idList" optionKey="id" optionValue="name" from="${user?.lists}"/>
-                                    <g:submitButton name="submit"
-                                                    value="${message(code: 'course.profile.addCourseToList')}"></g:submitButton>
-                                </g:form>
+                                <h4><g:message code="course.profile.addCourseToList"/></h4>
+                                <g:if test="${lists}">
+                                    <g:form url="/courseList/addCourseToMyCourseList">
+                                        <g:field type="hidden" name="idCourse" value="${course.id}"/>
+                                        <g:select name="idList" optionKey="id" optionValue="name" from="${lists}"/>
+                                        <g:submitButton name="submit"
+                                                        value="${message(code: 'course.profile.addCourseToList')}"></g:submitButton>
+                                    </g:form>
+                                </g:if>
+                                <g:else>
+                                    <p><g:message code="course.profile.noAvailableLists"/></p>
+                                    <g:form url="/createCourseList/">
+                                        <g:field type="hidden" name="idCourse" value="${course.id}"/>
+                                        <g:submitButton name="submit"
+                                                        value="${message(code: 'profile.lists.create')}"></g:submitButton>
+                                    </g:form>
+                                </g:else>
                             </div>
                         </g:if>
                     </div>
