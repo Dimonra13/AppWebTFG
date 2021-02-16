@@ -25,7 +25,7 @@ class UrlMappings {
         "/deleteMyCourseList/$id"(controller: "courseList", action: "deleteMyCourseList")
         "/createCourseList/create"(controller: "courseList", action: "create")
         "/courseList/deleteCourseFromMyCourseList"(controller: "courseList", action: "deleteCourseFromMyCourseList")
-
+        "/courseList/addCourseToMyCourseList"(controller: "courseList", action: "addCourseToMyCourseList")
         //Error mappings
         "500"(controller: "error", action: "internalError")
         "404"(controller: "error", action: "notFound")

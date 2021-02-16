@@ -60,4 +60,14 @@ class CourseListController {
             render status: 404
         }
     }
+
+    @Secured('isAuthenticated()')
+    def addCourseToMyCourseList(){
+        if(CourseList.get(params?.idList as Long)){
+            courseListService.addCourseToList(params?.idList as Long,params?.idCourse as Long)
+            redirect(action: "getMyCourseList",params: [id:params?.idList as Long])
+        }else{
+            render status: 404
+        }
+    }
 }

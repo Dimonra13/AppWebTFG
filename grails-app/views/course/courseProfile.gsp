@@ -61,6 +61,16 @@
                             </g:else>
                             <br>
                         </div>
+                        <g:if test="${user}">
+                            <div class="col-12">
+                                <g:form url="/courseList/addCourseToMyCourseList">
+                                    <g:field type="hidden" name="idCourse" value="${course.id}"/>
+                                    <g:select name="idList" optionKey="id" optionValue="name" from="${user?.lists}"/>
+                                    <g:submitButton name="submit"
+                                                    value="${message(code: 'course.profile.addCourseToList')}"></g:submitButton>
+                                </g:form>
+                            </div>
+                        </g:if>
                     </div>
                 </div>
             </div>
