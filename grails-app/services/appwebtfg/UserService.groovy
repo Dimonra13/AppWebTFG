@@ -6,6 +6,12 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class UserService {
 
+    /**
+     * Method to get all the user with name $username and email $email
+     * @param username
+     * @param email
+     * @return the list of users who meet these criteria
+     */
     List<User> findUsers(String username, String email){
         User.createCriteria().list {
             if (username && username != "") ilike("username", "%${username}%")
@@ -13,6 +19,13 @@ class UserService {
         }
     }
 
+    /**
+     * Method used to update the personal information of the user $currentUser using the information in $updatedUser
+     * @param updatedUser
+     * @param currentUser
+     * @param changedPassword
+     * @return the user with the new personal information
+     */
     User updateUser(User updatedUser, User currentUser, boolean changedPassword){
         currentUser.username = updatedUser.username
         currentUser.email = updatedUser.email
@@ -23,6 +36,12 @@ class UserService {
         currentUser.save()
     }
 
+    /**
+     * Method used to update the profile image of the user $user
+     * @param user
+     * @param cmd
+     * @return the user with the profile image updated
+     */
     User updateProfileImage(User user, ImageCommandObject cmd) {
         user.profileImageBytes = cmd.featuredImageFile.bytes
         user.profileImageContentType = cmd.featuredImageFile.contentType
@@ -30,6 +49,11 @@ class UserService {
         user.save()
     }
 
+    /**
+     * Method used to delete the profile image of the user $user
+     * @param user
+     * @return the user with the profile image deleted
+     */
     User deleteProfileImage(User user) {
         user.profileImageBytes = null
         user.profileImageContentType = null

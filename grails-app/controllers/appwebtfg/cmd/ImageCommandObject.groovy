@@ -3,6 +3,9 @@ package appwebtfg.cmd
 import grails.validation.Validateable
 import org.springframework.web.multipart.MultipartFile
 
+/**
+ * Command object used to validate the images submitted by the user in a form
+ */
 class ImageCommandObject implements Validateable {
     MultipartFile featuredImageFile
     Long ownerId
