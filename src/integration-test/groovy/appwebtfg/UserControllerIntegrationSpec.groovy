@@ -60,7 +60,9 @@ class UserControllerIntegrationSpec extends BaseControllerIntegrationSpec {
         }
 
         then: 'validate this method output'
-        (user && userController.response.status == 200) || (!user &&  userController.response.status == 404)
+        (user?.isPublicProfile && userController.response.status == 200) ||
+                (user && !user?.isPublicProfile && userController.response.status == 403) ||
+                    (!user &&  userController.response.status == 404)
 
         where:
         id | _

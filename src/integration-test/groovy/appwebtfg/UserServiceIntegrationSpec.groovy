@@ -56,10 +56,11 @@ class UserServiceIntegrationSpec extends Specification {
 
         when: "There are three user registered in the database"
         String name = username ? username : "test"
-        if (!User.findByUsernameLike(name)) {
-            registrationService.registerUser(name + "1", "test", "test@gmail.com")
-            registrationService.registerUser(name + "2", "test", "prueba@gmail.com")
-            registrationService.registerUser(name + "3", "test", "test@gmail.com")
+        User.withNewSession {
+            userService.makeProfilePublic(registrationService.registerUser(name + "1", "test", "test@gmail.com"))
+            registrationService.registerUser(name + "2", "test", "test@gmail.com")
+            userService.makeProfilePublic(registrationService.registerUser(name + "3", "test", "prueba@gmail.com"))
+            userService.makeProfilePublic(registrationService.registerUser(name + "4", "test", "test@gmail.com"))
         }
 
         then: "The output list must have a size of three"
@@ -67,7 +68,7 @@ class UserServiceIntegrationSpec extends Specification {
 
         cleanup:
         User.withNewSession { session ->
-            for (int i = 1; i < 4; i++) {
+            for (int i = 1; i < 5; i++) {
                 User registeredUser = User.findByUsername(name + "$i")
                 UserRole.findByUser(registeredUser)?.delete()
                 registeredUser?.delete()
@@ -84,4 +85,38 @@ class UserServiceIntegrationSpec extends Specification {
         null     | "prueba" | 1
 
     }
+
+    @Unroll
+    void "test the makeProfilePublic method"() {
+        given: "A user with a private profile"
+        User privateUser
+
+        when: "The user is save in the database"
+        privateUser = registrationService.registerUser("testPrivate", "testpass", "testPrivate@gmail.com")
+
+        and: "The profile of the user is made public"
+        privateUser = userService.makeProfilePublic(privateUser)
+
+        then: "The profile of the user must be public"
+        privateUser.isPublicProfile
+    }
+
+    @Unroll
+    void "test the makeProfilePrivate method"() {
+        given: "A user with a public profile"
+        User publicUser
+
+        when: "The user is save in the database"
+        publicUser = registrationService.registerUser("testPublic", "testpass", "testPublic@gmail.com")
+
+        and: "The profile of the user is made public"
+        publicUser = userService.makeProfilePublic(publicUser)
+
+        and: "The profile of the user is made private"
+        publicUser = userService.makeProfilePrivate(publicUser)
+
+        then: "The profile of the user must be private"
+        !publicUser.isPublicProfile
+    }
+
 }

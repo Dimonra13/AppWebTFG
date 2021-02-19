@@ -31,7 +31,9 @@ class CourseListControllerIntegrationSpec extends BaseControllerIntegrationSpec 
             courseListController.getCourseList(id)
         }
         then: 'validate the method output'
-        (courseList && courseListController.response.status == 200) || (!courseList &&  courseListController.response.status == 404)
+        (courseList?.owner?.isPublicProfile && courseListController.response.status == 200) ||
+                (courseList && !courseList?.owner?.isPublicProfile && courseListController.response.status == 403) ||
+                    (!courseList && courseListController.response.status == 404)
 
         where:
         id | _
@@ -53,7 +55,8 @@ class CourseListControllerIntegrationSpec extends BaseControllerIntegrationSpec 
             courseListController.getMyCourseList(id)
         }
         then: 'validate this method output'
-        (cl && courseListController.response.status == 200) || (!cl &&  courseListController.response.status == 404)
+        (cl && (courseListController.response.status == 200 || courseListController.response.status == 403)) ||
+                (!cl && courseListController.response.status == 404)
 
         where:
         id | _
