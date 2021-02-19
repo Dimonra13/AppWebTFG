@@ -180,4 +180,29 @@ class UserController {
         else
             render status: 404
     }
+
+    /**
+     * Method used to make the profile of the auth user public
+     * @return redirect to "/user/myProfile"
+     */
+    @Secured('isAuthenticated()')
+    def makeProfilePublic(){
+        User authUser=springSecurityService.getCurrentUser()
+        if(authUser && !authUser.isPublicProfile)
+            userService.makeProfilePublic(authUser)
+        redirect(action: "myProfile")
+    }
+
+    /**
+     * Method used to make the profile of the auth user private
+     * @return redirect to "/user/myProfile"
+     */
+    @Secured('isAuthenticated()')
+    def makeProfilePrivate(){
+        User authUser=springSecurityService.getCurrentUser()
+        if(authUser.isPublicProfile)
+            userService.makeProfilePrivate(authUser)
+        redirect(action: "myProfile")
+    }
+
 }

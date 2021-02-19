@@ -60,4 +60,25 @@ class UserService {
         user.hasProfileImage = false
         user.save()
     }
+
+    /**
+     * Method used to make the profile of the user $user public
+     * @param user
+     * @return the user with the profile public
+     */
+    User makeProfilePublic(User user) {
+        user.isPublicProfile=true
+        user.save()
+    }
+
+    /**
+     * Method used to make the profile of the user $user private
+     * @param user
+     * @return the user with the profile private
+     */
+    User makeProfilePrivate(User user) {
+        user.isPublicProfile=false
+        user.save()
+    }
 }
+

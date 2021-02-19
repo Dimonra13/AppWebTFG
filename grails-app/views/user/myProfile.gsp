@@ -76,14 +76,34 @@
                             <br>
                         </div>
                         <g:if test="${isregistered}">
-                            <div class="col-1"></div>
-
-                            <div class="col-8">
+                            <div class="col-12">
                                 <g:form url="[controller: 'User', action: 'editProfile']">
                                     <g:submitButton name="submit"
                                                     value="${message(code: 'profile.edit')}"></g:submitButton>
                                 </g:form>
                             </div>
+                            <g:if test="${!user.isPublicProfile}">
+                                <div class="col-12">
+                                    <h4><g:message code="profile.visibility"/></h4>
+                                    <p><g:message code="profile.isPrivate"/></p>
+                                    <g:form url="[controller: 'User', action: 'makeProfilePublic']">
+                                        <g:submitButton name="submit"
+                                                        value="${message(code: 'profile.makePublic')}"
+                                                        onclick="return confirm('${message(code: 'profile.makePublic.check')}')"></g:submitButton>
+                                    </g:form>
+                                </div>
+                            </g:if>
+                            <g:else>
+                                <div class="col-12">
+                                    <h4><g:message code="profile.visibility"/></h4>
+                                    <p><g:message code="profile.isPublic"/></p>
+                                    <g:form url="[controller: 'User', action: 'makeProfilePrivate']">
+                                        <g:submitButton name="submit"
+                                                        value="${message(code: 'profile.makePrivate')}"
+                                                        onclick="return confirm('${message(code: 'profile.makePrivate.check')}')"></g:submitButton>
+                                    </g:form>
+                                </div>
+                            </g:else>
                         </g:if>
                     </div>
                 </div>
