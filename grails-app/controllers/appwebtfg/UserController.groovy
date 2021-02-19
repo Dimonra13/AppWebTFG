@@ -46,15 +46,19 @@ class UserController {
     }
 
     /**
-     * Method that returns the public page of the user with id=params.id if it exists or error 404 otherwise
+     * Method that returns the public page of the user with id=params.id if it exists or error 404 otherwise.
+     * In case this user's profile is private the method will return error 403.
      * @param id
-     * @return view "myProfile" or status 404
+     * @return view "myProfile", status 404 or status 403
      */
     @Secured(["permitAll"])
     def getPublicProfile(Long id) {
         User user = User.get(id)
         if (user)
-            render(view: "myProfile", model: [user: user, isregistered: false])
+            if (user.isPublicProfile)
+                render(view: "myProfile", model: [user: user, isregistered: false])
+            else
+                render status: 403
         else
             render status: 404
     }
@@ -157,14 +161,23 @@ class UserController {
     }
 
     /**
-     *  Method used to render the profile image of the user with id=params.id
+     *  Method used to render the profile image of the user with id=params.id if the profile is public or the user
+     *  trying to render the image is its owner. In other case the method returns error 403.
+     *  If the requested image doesn't exist the method returns error 404
      * @param id
-     * @return the rendered profile image
+     * @return the rendered profile image, status 403 or status 404
      */
     @Secured(["permitAll"])
     def renderProfileImage(Long id) {
         User owner = User.get(id)
+        User authUser = springSecurityService.isLoggedIn() ? springSecurityService.getCurrentUser() : null
         if (owner && owner.hasProfileImage)
-            render file: owner.profileImageBytes, contentType: owner.profileImageContentType
+        //The profile is public or the user trying to render the image is its owner
+            if (owner.isPublicProfile || owner == authUser)
+                render file: owner.profileImageBytes, contentType: owner.profileImageContentType
+            else
+                render status: 403
+        else
+            render status: 404
     }
 }

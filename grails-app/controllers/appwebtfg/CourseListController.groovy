@@ -15,6 +15,7 @@ class CourseListController {
 
     /**
      * Method that returns the public page of a courseList if it exists or error 404 otherwise
+     * In case this user's profile is private the method will return error 403.
      * @param id
      * @return view "courseList" or status 404
      */
@@ -22,22 +23,30 @@ class CourseListController {
     def getCourseList(Long id) {
         CourseList cl = CourseList.get(id)
         if (cl)
-            render(view: 'courseList', model: [courseList: cl, isregistered: null])
+            if (cl.owner.isPublicProfile)
+                render(view: 'courseList', model: [courseList: cl, isregistered: null])
+            else
+                render status: 403
         else
             render status: 404
     }
 
     /**
      * Method that returns the private page of a courseList if it exists or error 404 otherwise. This private page
-     * allows the user to edit the courseList name and content.
+     * allows the user to edit the courseList name and content. In case the authenticated user is not the owner
+     * of the courseList to get the method will return error 403.
      * @param id
-     * @return view "courseList" or status 404
+     * @return view "courseList", status 404 or status 403
      */
     @Secured('isAuthenticated()')
     def getMyCourseList(Long id) {
+        User authUser = springSecurityService.getCurrentUser() as User
         CourseList cl = CourseList.get(id)
         if (cl)
-            render(view: 'courseList', model: [courseList: cl, isregistered: true])
+            if (authUser == cl.owner)
+                render(view: 'courseList', model: [courseList: cl, isregistered: true])
+            else
+                render status: 403
         else
             render status: 404
     }
@@ -87,15 +96,22 @@ class CourseListController {
 
     /**
      * Method used to delete the course with id=params.idCourse from the courseList with id=params.idList if the
-     * course and courseList exist.
+     * course and courseList exist. In case the authenticated user is not the owner of the courseList to modify
+     * the method will return error 403.
      * @param idCourse , idList
-     * @return redirect to "/getMyCourseList/$idCourse" or status 404
+     * @return redirect to "/getMyCourseList/$idCourse", status 404 or status 403
      */
     @Secured('isAuthenticated()')
     def deleteCourseFromMyCourseList() {
-        if (CourseList.get(params?.idList as Long)) {
-            courseListService.deleteCourseFromList(params?.idList as Long, params?.idCourse as Long)
-            redirect(action: "getMyCourseList", params: [id: params?.idList as Long])
+        CourseList cl = CourseList.get(params?.idList as Long)
+        User authUser = springSecurityService.getCurrentUser() as User
+        if (cl) {
+            if (authUser == cl.owner) {
+                courseListService.deleteCourseFromList(params?.idList as Long, params?.idCourse as Long)
+                redirect(action: "getMyCourseList", params: [id: params?.idList as Long])
+            } else {
+                render status: 403
+            }
         } else {
             render status: 404
         }
@@ -103,15 +119,22 @@ class CourseListController {
 
     /**
      * Method used to add the course with id=params.idCourse to the courseList with id=params.idList if these
-     * course and courseList exist.
+     * course and courseList exist. In case the authenticated user is not the owner of the courseList to modify
+     * the method will return error 403.
      * @param idCourse , idList
-     * @return redirect to "/getMyCourseList/$idCourse" or status 404
+     * @return redirect to "/getMyCourseList/$idCourse", status 404 or status 403
      */
     @Secured('isAuthenticated()')
     def addCourseToMyCourseList() {
-        if (CourseList.get(params?.idList as Long)) {
-            courseListService.addCourseToList(params?.idList as Long, params?.idCourse as Long)
-            redirect(action: "getMyCourseList", params: [id: params?.idList as Long])
+        CourseList cl = CourseList.get(params?.idList as Long)
+        User authUser = springSecurityService.getCurrentUser() as User
+        if (cl) {
+            if (authUser == cl.owner) {
+                courseListService.addCourseToList(params?.idList as Long, params?.idCourse as Long)
+                redirect(action: "getMyCourseList", params: [id: params?.idList as Long])
+            } else {
+                render status: 403
+            }
         } else {
             render status: 404
         }

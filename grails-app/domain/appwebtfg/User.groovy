@@ -15,6 +15,8 @@ class User implements Serializable {
     String password
     String email
     String phoneNumber
+    // Variable used to determine if other users are allowed to view this user's profile, by default its value is false
+    boolean isPublicProfile
     boolean hasProfileImage
     byte[] profileImageBytes
     String profileImageContentType
