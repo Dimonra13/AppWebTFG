@@ -50,4 +50,6 @@ lista, pero si que podrá añadirse a listas distintas del mismo usuario.
 * ### Eliminar curso de una lista
 Los usuarios registrados que tengan al menos una lista con cursos podrán eliminar estos cursos de la lista. Los cursos eliminados de una lista podrán volver ser
 añadidos a la misma.
-
+## Funcionalidades relativas a las páginas de error
+* ### Páginas de error específicas
+En caso de que se produzca un error 403 Forbidden, 404 Not Found o 500 Internal Server Error se redirigirá al usuario a una página personalizada con la información relativa al error específico. La información mostrada al usuario debe ser la justa y necesaria, nunca se mostrará información que pueda poner en peligro la seguridad de la aplicación.
