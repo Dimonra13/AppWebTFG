@@ -38,7 +38,7 @@ class UserController {
             User newUser = registrationService.registerUser(params?.username, params?.password, params?.email)
             if (newUser) {
                 springSecurityService.reauthenticate(newUser.username)
-                render(view: '/home/index')
+                redirect(controller:"home", action: "index")
             } else {
                 render(view: 'register')
             }

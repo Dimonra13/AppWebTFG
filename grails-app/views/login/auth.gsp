@@ -248,66 +248,60 @@
 
 <!------------------------------------------------------------------------------------------------ Page Content ------------------------------------------------------------------------------------------------>
 
-<!-- Page Content-->
 <div class="container pb-5 mb-sm-4">
     <div class="row pt-5">
-        <div class="col-md-2"></div>
-        <div class="col-md-8 pt-6 pt-sm-3">
-            <h2 class="h4 mb-3"><g:message code="register.user.title"/></h2>
-            <p class="text-muted mb-4"><g:message code="register.user.publi"/></p>
-            <form action="/user/registerUser" class="needs-validation"  novalidate>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <label for="username"><g:message code="register.user.username.label"/></label>
+        <div class="col-md-3"></div>
+        <div class="col-md-6 pt-6 pt-sm-3">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="h4 mb-1"><g:message code="login.user.title"></g:message></h2>
+                    <h3 class="h6 font-weight-semibold opacity-70 pt-4 pb-2"><g:message code="login.user.publi"></g:message></h3>
+                    <form action="${postUrl ?: '/login/authenticate'}" method="POST" id="loginForm" class="needs-validation"  autocomplete="off" novalidate>
                         <div class="input-group form-group">
                             <div class="input-group-prepend"><span class="input-group-text"><i data-feather="user"></i></span></div>
-                            <g:field type="text" class="form-control" name="username" id="username" value="${username}" required="true"/>
-                            <div class="invalid-feedback"><g:message code="register.user.username.error"></g:message></div>
+                            <input type="text" class="form-control" name="${usernameParameter ?: 'username'}" id="username" placeholder="${message(code: 'login.user.username')}" required autocapitalize="none"/>
+                            <div class="invalid-feedback"><g:message code="login.user.username.error"></g:message></div>
                         </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <label for="email"><g:message code="register.user.email.label"/></label>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend"><span class="input-group-text"><i data-feather="mail"></i></span></div>
-                            <g:field class="form-control" type="email" name="email" id="email" value="${email}" required="true"/>
-                            <div class="invalid-feedback"><g:message code="register.user.email.error"></g:message></div>
-                        </div>
-                    </div>
-                    <g:if test="${isregistered}">
-                        <div class="col-11">
-                            <p style="color:red"><g:message code="register.user.isRegistered"/></p>
-                        </div>
-                    </g:if>
-                    <div class="col-sm-6">
-                        <label for="password"><g:message code="register.user.password.label"/></label>
                         <div class="input-group form-group">
                             <div class="input-group-prepend"><span class="input-group-text"><i data-feather="lock"></i></span></div>
-                            <g:field class="form-control" type="password" name="password" id="password" value="" required="true"/>
-                            <div class="invalid-feedback"><g:message code="register.user.password.error"/></div>
+                            <input class="form-control" type="password" placeholder="${message(code: 'login.user.password')}" name="${passwordParameter ?: 'password'}" id="password" required/>
+                            <span class="input-group-text"><i id="passwordToggler" title="toggle password display" onclick="passwordDisplayToggle()">&#128065;</i></span>
+                            <div class="invalid-feedback"><g:message code="login.user.password.error"></g:message></div>
                         </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <label for="confirmPassword"><g:message code="register.user.confirmPassword.label"/></label>
-                        <div class="input-group form-group">
-                            <div class="input-group-prepend"><span class="input-group-text"><i data-feather="lock"></i></span></div>
-                            <g:field class="form-control" type="password" name="confirmPassword" id="confirmPassword" value="" required="true"/>
-                            <div class="invalid-feedback"><g:message code="register.user.password.error"/></div>
+                        <g:if test='${flash.message}'>
+                            <p style="color: red"><g:message code="login.user.error"></g:message><br><a class="font-weight-semibold" href="/register"><g:message code="login.user.register"/></a></p>
+                        </g:if>
+                        <hr class="mt-4">
+                        <div class="text-right pt-4">
+                            <button class="btn btn-primary" type="submit">Sign In</button>
                         </div>
-                    </div>
-                    <g:if test="${diferentPass}">
-                        <div class="col-11">
-                            <p style="color:red"><g:message code="register.user.diferentPass"/></p>
-                        </div>
-                    </g:if>
+                    </form>
                 </div>
-                <div class="text-right">
-                    <input type="submit" class="btn btn-primary" name="submit" value="${message(code: 'register.user.submit')}"></input>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
 
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function(event) {
+        document.forms['loginForm'].elements['username'].focus();
+    });
+
+    function passwordDisplayToggle() {
+        var toggleEl = document.getElementById("passwordToggler");
+        var eyeIcon = '\u{1F441}';
+        var xIcon = '\u{2715}';
+        var passEl = document.getElementById("password");
+
+        if (passEl.type === "password") {
+            toggleEl.innerHTML = xIcon;
+            passEl.type = "text";
+        } else {
+            toggleEl.innerHTML = eyeIcon;
+            passEl.type = "password";
+        }
+    }
+</script>
 <!------------------------------------------------------------------------------------------------ Footer ------------------------------------------------------------------------------------------------>
 
 <footer class="page-footer bg-dark">
