@@ -14,6 +14,7 @@ class UrlMappings {
 
         //User mappings
         "/profile/$id"(controller: "user", action: "getPublicProfile")
+        "/register"(controller: "user", action: "register")
 
         //Course mappings
         "/course/$id"(controller: "course", action: "getCourse")

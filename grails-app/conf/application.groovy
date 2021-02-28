@@ -3,6 +3,8 @@
 // Added by the Spring Security Core plugin:
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'appwebtfg.User'
 grails.plugin.springsecurity.logout.postOnly = false
+grails.plugin.springsecurity.rejectIfNoRule = false
+grails.plugin.springsecurity.fii.rejectPublicInvocations = false
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'appwebtfg.UserRole'
 grails.plugin.springsecurity.authority.className = 'appwebtfg.Role'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
