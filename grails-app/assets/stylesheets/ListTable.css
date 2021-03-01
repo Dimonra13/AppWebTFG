@@ -12,10 +12,10 @@
 }
 
 .courseList-display-table .odd-row {
-    background: #D1D1D1;
+    background: #e8e8e8;
 }
 
 .courseList-display-table th{
-    background: #000000;
+    background: #3e59bb;
     color: #FFFFFF;
 }

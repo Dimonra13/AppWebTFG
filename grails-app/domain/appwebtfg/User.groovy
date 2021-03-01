@@ -4,6 +4,8 @@ import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 import grails.compiler.GrailsCompileStatic
 
+import java.text.SimpleDateFormat
+
 @GrailsCompileStatic
 @EqualsAndHashCode(includes='username')
 @ToString(includes='username', includeNames=true, includePackage=false)
@@ -15,6 +17,7 @@ class User implements Serializable {
     String password
     String email
     String phoneNumber
+    String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date())
     // Variable used to determine if other users are allowed to view this user's profile, by default its value is false
     boolean isPublicProfile
     boolean hasProfileImage
