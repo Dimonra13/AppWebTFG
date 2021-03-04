@@ -337,7 +337,7 @@
                 <!-- Info alert -->
                 <div class="alert alert-info" role="alert">
                     <div class="alert-icon-box">
-                        <i class="alert-icon" data-feather="bell"></i>
+                        <i class="alert-icon" data-feather="info"></i>
                     </div>
                     " -- <g:message code="profile.noLists"/>
                 </div>
