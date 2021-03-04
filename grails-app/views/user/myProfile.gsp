@@ -248,6 +248,7 @@
 
 <!------------------------------------------------------------------------------------------------ Page Content ------------------------------------------------------------------------------------------------>
 <link rel="stylesheet" href="${resource(dir: 'css', file: 'ListTable.css')}" type="text/css">
+
 <div class="container pt-lg-3 pb-5 mb-sm-3">
     <div class="row pt-5">
         <!-- Sidebar-->
@@ -266,7 +267,7 @@
                 <g:if test="${isregistered}">
                     <br>
                     <g:form url="[controller: 'User', action: 'editProfileImage']">
-                        <g:submitButton class="btn btn-primary" name="submit"
+                        <g:submitButton class="btn btn-primary" name="submit" id="editProfile"
                                         value="${message(code: 'profile.image.update')}"></g:submitButton>
                     </g:form>
                 </g:if>
@@ -303,7 +304,7 @@
                                 <h4><g:message code="profile.visibility"/></h4>
                                 <p><g:message code="profile.isPrivate"/></p>
                                 <g:form url="[controller: 'User', action: 'makeProfilePublic']">
-                                    <g:submitButton name="submit" class="btn btn-primary"
+                                    <g:submitButton name="submit" class="btn btn-primary" id="public"
                                                     value="${message(code: 'profile.makePublic')}"
                                                     onclick="return confirm('${message(code: 'profile.makePublic.check')}')"></g:submitButton>
                                 </g:form>
@@ -314,7 +315,7 @@
                                 <h4><g:message code="profile.visibility"/></h4>
                                 <p><g:message code="profile.isPublic"/></p>
                                 <g:form url="[controller: 'User', action: 'makeProfilePrivate']">
-                                    <g:submitButton name="submit" class="btn btn-primary"
+                                    <g:submitButton name="submit" class="btn btn-primary" id="private"
                                                     value="${message(code: 'profile.makePrivate')}"
                                                     onclick="return confirm('${message(code: 'profile.makePrivate.check')}')"></g:submitButton>
                                 </g:form>
@@ -329,14 +330,20 @@
             <div class="d-flex flex-wrap justify-content-between align-items-center pb-2">
                 <h2 class="h3 mb-3"><g:message code="profile.lists.title"/></h2>
                 <g:if test="${isregistered}">
-                    <a class="btn btn-outline-primary btn-sm" href="/createCourseList/"><i class="mr-1" data-feather=""></i><g:message code="profile.lists.create"></g:message></a>
+                    <a class="btn btn-outline-primary btn-sm" href="/createCourseList/"><i class="mr-1" data-feather="plus"></i><g:message code="profile.lists.create"></g:message></a>
                 </g:if>
             </div>
-            <div>
-                <g:if test="${!user?.lists}">
-                    <p><g:message code="profile.noLists"/></p>
-                </g:if>
-                <g:else>
+            <g:if test="${!user?.lists}">
+                <!-- Info alert -->
+                <div class="alert alert-info" role="alert">
+                    <div class="alert-icon-box">
+                        <i class="alert-icon" data-feather="bell"></i>
+                    </div>
+                    " -- <g:message code="profile.noLists"/>
+                </div>
+            </g:if>
+            <g:else>
+                <div>
                     <table class='courseList-display-table'>
                         <tr>
                             <th><g:message code="profile.lists.table.name"/></th>
@@ -366,13 +373,13 @@
                             <g:if test="${isregistered}">
                                 <td>
                                     <g:form url="/myCourseList/$courseList.id">
-                                        <g:submitButton name="submit" class="btn btn-outline-primary"
+                                        <g:submitButton name="submit" class="btn btn-outline-primary" id="myCourseList"
                                                         value="${message(code: 'profile.lists.table.openList')}"></g:submitButton>
                                     </g:form>
                                 </td>
                                 <td>
                                     <g:form url="/deleteMyCourseList/$courseList.id">
-                                        <g:submitButton name="submit" class="btn btn-outline-primary"
+                                        <g:submitButton name="submit" class="btn btn-outline-primary" id="deleteMyCourseList"
                                                         value="${message(code: 'profile.lists.table.deleteList')}"
                                                         onclick="return confirm('${message(code: 'profile.lists.table.deleteList.check')}')"></g:submitButton>
                                     </g:form>
@@ -381,7 +388,7 @@
                             <g:else>
                                 <td>
                                     <g:form url="/courseList/$courseList.id">
-                                        <g:submitButton name="submit" class="btn btn-outline-primary"
+                                        <g:submitButton name="submit" class="btn btn-outline-primary" id="courseList"
                                                         value="${message(code: 'profile.lists.table.openList')}"></g:submitButton>
                                     </g:form>
                                 </td>
@@ -389,8 +396,8 @@
                             </tr>
                         </g:each>
                     </table>
-                </g:else>
-            </div>
+                </div>
+            </g:else>
         </section>
     </div>
 </div>
