@@ -301,7 +301,7 @@
                 <td>${course?.avgscore}</td>
                 <td>
                     <g:form url="/course/$course.id">
-                        <g:submitButton name="submit"
+                        <g:submitButton name="submit" class="btn btn-outline-primary"
                                         value="${message(code: 'courseList.course.table.openCourse')}"></g:submitButton>
                     </g:form>
                 </td>
@@ -310,7 +310,7 @@
                         <g:form url="/courseList/deleteCourseFromMyCourseList">
                             <g:field type="hidden" name="idCourse" value="${course.id}"/>
                             <g:field type="hidden" name="idList" value="${courseList.id}"/>
-                            <g:submitButton name="submit"
+                            <g:submitButton name="submit" class="btn btn-outline-primary"
                                             value="${message(code: 'courseList.course.table.deleteCourse')}"
                                             onclick="return confirm('${message(code: 'courseList.course.table.deleteCourse.check')}')"></g:submitButton>
                         </g:form>

@@ -256,29 +256,20 @@
         <div class="col-8">
             <div class="card">
                 <div class="card-body">
-                    <h2><g:message code="create.courseList.title"/></h2>
-                    <br>
-
-                    <g:form url="/createCourseList/create">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text rounded-left">
-                                    <g:message code="create.courseList.name.label"/>
-                                </span>
-                            </div>
-                            <g:field type="text" name="name" id="name" value="" required="true"/>
+                    <div class="d-flex flex-wrap justify-content-between align-items-center pb-2">
+                        <h2 class="h3 mb-3"><g:message code="create.courseList.title"/></h2>
+                        <a class="btn btn-outline-primary btn-sm" href="/user/myProfile/"><i class="mr-1" data-feather="chevrons-left"></i><g:message code="profile.image.back"></g:message></a>
+                    </div>
+                    <form action="/createCourseList/create" class="needs-validation"  novalidate>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend"><span class="input-group-text"><g:message code="create.courseList.name.label"/></span></div>
+                            <g:field type="text" class="form-control" name="name" id="name" value="" required="true"/>
+                            <div class="invalid-feedback"><g:message code="create.courseList.name.error"></g:message></div>
                         </div>
-                        <br>
-                        <!-- Icon addon -->
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text rounded-left">
-                                    <g:message code="create.courseList.description.label"/> <g:message code="create.courseList.description.label.2"/>
-                                </span>
-                            </div>
-                            <g:textArea name="description" value="" rows="5" cols="40"/>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend"><span class="input-group-text"><g:message code="create.courseList.description.label"/> <g:message code="create.courseList.description.label.2"/></span></div>
+                            <g:textArea class="form-control" name="description" value="" rows="5" cols="40"/>
                         </div>
-                        <br>
                         <g:if test="${error}">
                             <p style="color:red"><g:message code="create.courseList.error"/></p>
                             <br>
@@ -288,7 +279,7 @@
                             <g:submitButton name="submit" class="btn btn-primary"
                                             value="${message(code: 'create.courseList.submit')}"></g:submitButton>
                         </div>
-                    </g:form>
+                    </form>
                 </div>
             </div>
         </div>
