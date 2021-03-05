@@ -478,3 +478,4 @@
 <asset:javascript src="vendor.min.js"/>
 <asset:javascript src="theme.min.js"/>
 </body>
+</html>

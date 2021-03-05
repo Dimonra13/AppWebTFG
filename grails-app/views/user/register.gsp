@@ -273,8 +273,14 @@
                         </div>
                     </div>
                     <g:if test="${isregistered}">
-                        <div class="col-11">
-                            <p style="color:red"><g:message code="register.user.isRegistered"/></p>
+                        <div class="col-12">
+                            <!-- Warning alert -->
+                            <div class="alert alert-warning" role="alert">
+                                <div class="alert-icon-box">
+                                    <i class="alert-icon" data-feather="alert-triangle"></i>
+                                </div>
+                                " -- <g:message code="register.user.isRegistered"/>
+                            </div>
                         </div>
                     </g:if>
                     <div class="col-sm-6">
@@ -294,8 +300,14 @@
                         </div>
                     </div>
                     <g:if test="${diferentPass}">
-                        <div class="col-11">
-                            <p style="color:red"><g:message code="register.user.diferentPass"/></p>
+                        <div class="col-12">
+                            <!-- Warning alert -->
+                            <div class="alert alert-warning" role="alert">
+                                <div class="alert-icon-box">
+                                    <i class="alert-icon" data-feather="alert-triangle"></i>
+                                </div>
+                                " -- <g:message code="register.user.diferentPass"/>
+                            </div>
                         </div>
                     </g:if>
                 </div>
@@ -383,3 +395,4 @@
 <asset:javascript src="vendor.min.js"/>
 <asset:javascript src="theme.min.js"/>
 </body>
+</html>
