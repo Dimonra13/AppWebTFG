@@ -268,8 +268,11 @@
                             <span class="input-group-text"><i id="passwordToggler" title="toggle password display" onclick="passwordDisplayToggle()">&#128065;</i></span>
                             <div class="invalid-feedback"><g:message code="login.user.password.error"></g:message></div>
                         </div>
-                        <g:if test='${flash.message}'>
-                            <p style="color: red"><g:message code="login.user.error"></g:message><br><a class="font-weight-semibold" href="/register"><g:message code="login.user.register"/></a></p>
+                        <g:if test="${flash.message}">
+                                <!-- Warning alert -->
+                                <div class="alert alert-warning" role="alert">
+                                    <g:message code="login.user.error"></g:message> <a href="/register" class="alert-link"><g:message code="login.user.register"/></a>.
+                                </div>
                         </g:if>
                         <hr class="mt-4">
                         <div class="text-right pt-4">
