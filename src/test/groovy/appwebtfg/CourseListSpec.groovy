@@ -28,6 +28,6 @@ class CourseListSpec extends Specification implements DomainUnitTest<CourseList>
          courses: []]                                                                            | true
         [name: 'test', description: 'Example description',
          owner: new User(email: 'test@gmail.com', password: 'password', username: 'Test'),
-         courses: [new Course(name: 'test1'), new Course(name: 'test2')]]                        | true
+         courses: [new Course(title: 'test1'), new Course(title: 'test2')]]                      | true
     }
 }

@@ -291,14 +291,14 @@
                 <g:else>
                     <tr class="odd-row">
                 </g:else>
-                <td>${course.name}</td>
+                <td>${course.title}</td>
                 <g:if test="${course?.description?.length()<20}">
                     <td>${course.description}</td>
                 </g:if>
                 <g:else>
                     <td>${course?.description?.substring(0,20)}</td>
                 </g:else>
-                <td>${course?.avgscore}</td>
+                <td>${course?.rating}</td>
                 <td>
                     <g:form url="/course/$course.id">
                         <g:submitButton name="submit" class="btn btn-outline-primary"

@@ -29,6 +29,6 @@ class UserSpec extends Specification implements DomainUnitTest<User> {
         [email: 'test@gmail.com', password: 'password', username: 'Test',
          lists: [new CourseList(name: 'TestList1'), new CourseList(name: 'TestList2')]]                | true
         [email: 'test@gmail.com', password: 'password', username: 'Test',
-         lists: [new CourseList(name: 'TestList', courses: [new Course(name: 'test')])]]               | true
+         lists: [new CourseList(name: 'TestList', courses: [new Course(title: 'test')])]]              | true
     }
 }

@@ -13,12 +13,12 @@ class CourseSpec extends Specification implements DomainUnitTest<Course> {
         expect: 'validate the object'
         course.validate() == validateRef
         where: 'params are...'
-        params                                             | validateRef
-        [:]                                                | false
-        [name: 'test', description: 'Example description'] | true
-        [description: 'Example description']               | false
-        [name: 'test']                                     | true
-        [name: 'test', avgscore: 12.34]                    | true
+        params                                              | validateRef
+        [:]                                                 | false
+        [title: 'test', description: 'Example description'] | true
+        [description: 'Example description']                | false
+        [title: 'test']                                     | true
+        [title: 'test', rating: 12.34]                      | true
     }
 
 }

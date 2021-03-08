@@ -25,14 +25,14 @@
                         <div class="col-4">
                             <h4><g:message code="course.profile.name"/></h4>
 
-                            <p>${course?.name}</p>
+                            <p>${course?.title}</p>
                             <br>
                         </div>
 
                         <div class="col-4">
                             <h4><g:message code="course.profile.avgscore"/></h4>
-                            <g:if test="${course?.avgscore}">
-                                <p>${course?.avgscore}</p>
+                            <g:if test="${course?.rating}">
+                                <p>${course?.rating}</p>
                             </g:if>
                             <g:else>
                                 <p style="color:red"><g:message code="course.profile.noAvgScore"/></p>
@@ -41,14 +41,7 @@
                         </div>
 
                         <div class="col-4">
-                            <h4><g:message code="course.profile.studentNumber"/></h4>
-                            <g:if test="${course?.studentNumber}">
-                                <p>${course?.studentNumber}</p>
-                            </g:if>
-                            <g:else>
-                                <p style="color:red"><g:message code="course.profile.noStudentNumber"/></p>
-                            </g:else>
-                            <br>
+
                         </div>
 
                         <div class="col-12">

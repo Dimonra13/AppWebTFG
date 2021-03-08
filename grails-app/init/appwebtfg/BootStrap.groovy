@@ -24,9 +24,9 @@ class BootStrap {
             it.clear()
         }
 
-        Course c1 = new Course(name: "testCourse").save()
-        Course c2 = new Course(name: "nombre", avgscore: 3.4, studentNumber: 12345, description: "sdvfgbahnsjmkmdjhnsfgbdvscdfvgthytjuryikjdhtsgvfdascaxnhtmjyk,tu,kgumfjhgdnfsbdvfscdk,umfjyhgdnfbvdfc").save()
-        Course c3 = new Course(name: "nombre", studentNumber: 12345, description: "sdvfgbahnsjmkmdjhnsfgbdvscdfvgt").save()
+        Course c1 = new Course(title: "testCourse").save()
+        Course c2 = new Course(title: "nombre", rating: 3.4, description: "sdvfgbahnsjmkmdjhnsfgbdvscdfvgthytjuryikjdhtsgvfdascaxnhtmjyk,tu,kgumfjhgdnfsbdvfscdk,umfjyhgdnfbvdfc").save()
+        Course c3 = new Course(title: "nombre", description: "sdvfgbahnsjmkmdjhnsfgbdvscdfvgt").save()
         cl1.addToCourses(c1)
         cl1.addToCourses(c2)
         cl1.addToCourses(c3)
