@@ -1,17 +1,14 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title><g:message code="course.profile.title"/></title>
-    <link rel="stylesheet" href="${resource(dir: 'css', file: 'bootstrap.css')}" type="text/css">
+    <meta name="layout" content="HeaderFooter"/>
+    <title>COURSING.ME | Course</title>
 </head>
-
+<!-- Body-->
 <body>
-<h1>HEADER</h1>
-</div>
-<br>
 
-<div class="container">
-    <div class="row">
+<div class="container pt-lg-3 pb-5 mb-sm-3">
+    <div class="row pt-5">
         <div class="col-2"></div>
 
         <div class="col-8">
@@ -83,8 +80,5 @@
 </div>
 <br>
 
-<div>
-    <h1>FOOTER</h1>
-</div>
 </body>
 </html>
