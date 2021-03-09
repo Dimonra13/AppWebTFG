@@ -28,134 +28,35 @@
 </head>
 <!-- Body-->
 <body>
-<!-- Off-canvas account-->
-<div class="offcanvas offcanvas-reverse" id="offcanvas-account">
-    <div class="offcanvas-header d-flex justify-content-between align-items-center">
-        <h3 class="offcanvas-title">Sign in / Create account</h3>
-        <button class="close" type="button" data-dismiss="offcanvas" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    </div>
-    <div class="offcanvas-body">
-        <div class="offcanvas-body-inner">
-            <ul class="nav nav-tabs nav-justified" role="tablist">
-                <li class="nav-item"><a class="nav-link active" href="#signin" data-toggle="tab" role="tab"><i data-feather="log-in"></i>&nbsp;Sign In</a></li>
-                <li class="nav-item"><a class="nav-link" href="#signup" data-toggle="tab" role="tab"><i data-feather="user"></i>&nbsp;Sign Up</a></li>
-            </ul>
-            <div class="tab-content pt-1">
-                <div class="tab-pane fade show active" id="signin" role="tabpanel">
-                    <form class="needs-validation" novalidate>
-                        <div class="form-group">
-                            <label class="sr-only" for="signin-email">Email</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend"><span class="input-group-text" id="signin-email-icon"><i data-feather="mail"></i></span></div>
-                                <input class="form-control" type="email" id="signin-email" placeholder="Email" aria-label="Email" aria-describedby="signin-email-icon" required>
-                                <div class="invalid-feedback">Please provide email address.</div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="sr-only" for="signin-password">Password</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend"><span class="input-group-text" id="signin-password-icon"><i data-feather="lock"></i></span></div>
-                                <input class="form-control" type="password" id="signin-password" placeholder="Password" aria-label="Password" aria-describedby="signin-password-icon" required>
-                                <div class="invalid-feedback">Please enter a password.</div>
-                            </div>
-                        </div>
-                        <div class="custom-control custom-checkbox mb-3">
-                            <input class="custom-control-input" type="checkbox" id="remember-me" checked>
-                            <label class="custom-control-label" for="remember-me">Remember me</label>
-                        </div>
-                        <button class="btn btn-primary btn-block" type="submit">Sign In</button>
-                    </form>
-                </div>
-                <div class="tab-pane fade" id="signup" role="tabpanel">
-                    <form class="needs-validation" novalidate>
-                        <div class="form-group">
-                            <label class="sr-only" for="signup-name">Full name</label>
-                            <input class="form-control" type="text" id="signup-name" placeholder="Full name" aria-label="Full name" required>
-                            <div class="invalid-feedback">Please enter your full name.</div>
-                        </div>
-                        <div class="form-group">
-                            <label class="sr-only" for="signup-email">Email address</label>
-                            <input class="form-control" type="email" id="signup-email" placeholder="Email address" aria-label="Email address" required>
-                            <div class="invalid-feedback">Please provide a valid email address.</div>
-                        </div>
-                        <div class="form-group">
-                            <label class="sr-only" for="signup-password">Password</label>
-                            <input class="form-control" type="password" id="signup-password" placeholder="Password" aria-label="Password" required>
-                            <div class="invalid-feedback">Please enter a password.</div>
-                        </div>
-                        <div class="form-group">
-                            <label class="sr-only" for="signup-password-confirm">Confirm password</label>
-                            <input class="form-control" type="password" id="signup-password-confirm" placeholder="Confirm password" aria-label="Confirm password" required>
-                            <div class="invalid-feedback">Please confirm password.</div>
-                        </div>
-                        <button class="btn btn-primary btn-block" type="submit">Sign Up</button>
-                    </form>
-                </div>
-            </div>
-            <div class="d-flex align-items-center pt-5">
-                <hr class="w-100">
-                <div class="px-3 w-100 text-nowrap font-weight-semibold">Or sign in via</div>
-                <hr class="w-100">
-            </div>
-            <div class="text-center pt-4"><a class="social-btn sb-facebook mx-2 mb-3" href="#" data-toggle="tooltip" title="Facebook"><i class="flaticon-facebook"></i></a><a class="social-btn sb-google-plus mx-2 mb-3" href="#" data-toggle="tooltip" title="Google"><i class="flaticon-google-plus"></i></a><a class="social-btn sb-twitter mx-2 mb-3" href="#" data-toggle="tooltip" title="Twitter"><i class="flaticon-twitter"></i></a></div>
-        </div>
-    </div>
-</div>
-<!-- Off-canvas cart-->
-<div class="offcanvas offcanvas-reverse" id="offcanvas-cart">
-    <div class="offcanvas-header d-flex justify-content-between align-items-center">
-        <h3 class="offcanvas-title">Your cart</h3>
-        <button class="close" type="button" data-dismiss="offcanvas" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    </div>
-    <div class="offcanvas-body">
-        <div class="offcanvas-body-inner">
-            <div class="text-right"><a class="text-danger btn-sm pr-0" href="#"><i class="mr-1" data-feather="x" style="width: .85rem; height: .85rem;"></i>Clear cart</a></div>
-            <div class="widget widget-featured-entries pt-3">
-                <div class="media">
-                    <div class="featured-entry-thumb mr-3"><a href="#"><asset:image src="Hardware/Mobo/MSI%20B360%20Gaming%20Plus.jpg" width="64" alt="MSI B360 Gaming Plus"/></a><span class="item-remove-btn"><i data-feather="x"></i></span></div>
-                    <div class="media-body">
-                        <h6 class="featured-entry-title"><a href="#">MSI B360 Gaming Plus</a></h6>
-                        <p class="featured-entry-meta">1 <span class='text-muted'>x</span> $125.00</p>
-                    </div>
-                </div>
-                <div class="media">
-                    <div class="featured-entry-thumb mr-3"><a href="#"><asset:image src="Hardware/Headphones/KYGO%20A4%20300%20Headphones.jpg" width="64" alt="KYGO A4 300 Headphones"/></a><span class="item-remove-btn"><i data-feather="x"></i></span></div>
-                    <div class="media-body">
-                        <h6 class="featured-entry-title"><a href="#">KYGO A4 300 Headphones</a></h6>
-                        <p class="featured-entry-meta">1 <span class='text-muted'>x</span> $29.99</p>
-                    </div>
-                </div>
-                <div class="media">
-                    <div class="featured-entry-thumb mr-3"><a href="#"><asset:image src="Hardware/Mice/Jieyuteks%20Free%20Wolf%20V5%20USB%20Gaming%20Mouse%20400DPI%206%20buttons%20ergonomic%20design%20for%20desktop%20computer.jpg" width="64" alt="Jieyuteks Free Wolf V5 USB Gaming Mouse 400DPI 6 buttons ergonomic design for desktop computer"/></a><span class="item-remove-btn"><i data-feather="x"></i></span></div>
-                    <div class="media-body">
-                        <h6 class="featured-entry-title"><a href="#">Free Wolf V5 USB Gaming Mouse 400DPI</a></h6>
-                        <p class="featured-entry-meta">1 <span class='text-muted'>x</span> $47.00</p>
-                    </div>
-                </div>
-                <div class="media">
-                    <div class="featured-entry-thumb mr-3"><a href="#"><asset:image src="Hardware/Storage/Seagate%20160GB%20SATA%20Hard%20Disk%20Drive.jpg" width="64" alt="Seagate 160GB SATA Hard Disk Drive"/></a><span class="item-remove-btn"><i data-feather="x"></i></span></div>
-                    <div class="media-body">
-                        <h6 class="featured-entry-title"><a href="#">Seagate 160GB SATA Hard Disk Drive</a></h6>
-                        <p class="featured-entry-meta">1 <span class='text-muted'>x</span> $19.00</p>
-                    </div>
-                </div>
-                <hr>
-                <div class="d-flex justify-content-between align-items-center py-3">
-                    <div class="font-size-sm"> <span class="mr-2">Subtotal:</span><span class="font-weight-semibold text-dark">$219.99</span></div><a class="btn btn-outline-secondary btn-sm" href="../assets/cart.html">Expand cart<i class="mr-n2" data-feather="chevron-right"></i></a>
-                </div><a class="btn btn-primary btn-sm btn-block" href="../assets/checkout-details.html"><i class="mr-1" data-feather="credit-card"></i>Checkout</a>
-            </div>
-        </div>
-    </div>
-</div>
 <!-- Navbar Multilevel-->
 
 <!-- Second line-->
 <header class="navbar navbar-expand-lg navbar-light bg-light px-0">
     <div class="container flex-sm-nowrap px-3">
-        <!-- navbar brand--><a class="navbar-brand mr-0 mr-sm-4" style="min-width: 100px;" href="index.html"><asset:image width="100" src="logo-dark.png" alt="MStore"/></a>
+        <!-- navbar brand (Page icon) -->
+        <a class="navbar-brand mr-0 mr-sm-4" style="min-width: 100px;" href="/"><asset:image width="100" src="logo-dark.png" alt="MStore"/></a>
         <!-- navbar buttons-->
         <div class="navbar-btns d-flex position-relative order-sm-3">
-            <div class="navbar-toggler navbar-btn collapsed bg-0 border-left-0 my-3" data-toggle="collapse" data-target="#menu"><i class="mx-auto mb-2" data-feather="menu"></i>Menu</div><span class="d-block position-relative"><a class="navbar-btn bg-0 my-3" href="#offcanvas-account" data-toggle="offcanvas"><i class="mx-auto mb-1" data-feather="log-in"></i>Sign In/Up</a><a class="navbar-btn bg-0 my-3" href="#offcanvas-cart" data-toggle="offcanvas"><span class="d-block position-relative"><span class="navbar-btn-badge bg-primary text-light">4</span><i class="mx-auto mb-1" data-feather="shopping-cart"></i>$325.00</span></a>
+            <div class="navbar-toggler navbar-btn collapsed bg-0 border-left-0 my-3" data-toggle="collapse" data-target="#menu">
+                <i class="mx-auto mb-2" data-feather="menu"></i>Menu
+            </div>
+            <span class="d-block position-relative">
+                <g:if test="${s.loggedUser()}">
+                    <a class="navbar-btn bg-0 my-3" href="/logout">
+                        <i class="mx-auto mb-1" data-feather="log-out"></i><g:message code="logout.user.title"/>
+                    </a>
+                </g:if>
+                <g:else>
+                    <a class="navbar-btn bg-0 my-3" href="/login">
+                        <i class="mx-auto mb-1" data-feather="log-in"></i><g:message code="login.user.title"/>
+                    </a>
+                    <a class="navbar-btn bg-0 my-3" href="/register">
+                        <span class="d-block position-relative">
+                            <i class="mx-auto mb-1" data-feather="user-plus"></i><g:message code="register.user.title"/>
+                        </span>
+                    </a>
+                </g:else>
+            </span>
         </div>
         <!-- search-box-->
         <div class="flex-grow-1 pb-3 pt-sm-3 my-1 px-sm-2 pr-lg-4 order-sm-2">

@@ -2,18 +2,15 @@ package appwebtfg
 
 import grails.plugin.springsecurity.SpringSecurityService
 
-class UserTagLib {
+class SessionTagLib {
 
     SpringSecurityService springSecurityService
 
-    static defaultEncodeAs = [taglib:'html']
-    static returnObjectForTags = ['loggedUser', 'isLogged']
+    static namespace = "s"
+    static returnObjectForTags = ['loggedUser']
 
     def loggedUser = {
         return springSecurityService.getCurrentUser()
     }
 
-    def isLogged = {
-        return springSecurityService.isLoggedIn()
-    }
 }

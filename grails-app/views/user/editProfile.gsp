@@ -11,7 +11,10 @@
     <div class="row pt-5">
         <div class="col-md-2"></div>
         <div class="col-md-8 pt-6 pt-sm-3">
-            <h2 class="h4 mb-3"><g:message code="update.user.title"/></h2>
+            <div class="d-flex flex-wrap justify-content-between align-items-center pb-2">
+                <h2 class="h3 mb-3"><g:message code="update.user.title"/></h2>
+                <a class="btn btn-outline-primary btn-sm" href="/user/myProfile/"><i class="mr-1" data-feather="chevrons-left"></i><g:message code="profile.image.back"></g:message></a>
+            </div>
             <p class="text-muted mb-4"><g:message code="update.user.publi"/></p>
             <form action="/user/edit" class="needs-validation"  novalidate>
                 <div class="row">
