@@ -74,45 +74,60 @@
         <div class="collapse navbar-collapse" id="menu">
             <!-- Site menu-->
             <ul class="navbar-nav">
-                <li class="nav-item dropdown mega-dropdown dropdown-more"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">Categories<i data-feather="more-horizontal"></i></a>
+                <li class="nav-item dropdown mega-dropdown dropdown-more"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"><g:message code="header.category"/><i data-feather="more-horizontal"></i></a>
                     <div class="dropdown-menu">
                         <div class="dropdown-inner">
                             <div class="dropdown-column">
-                                <div class="bg-position-center bg-no-repeat bg-size-cover text-center px-3 py-4 mb-3" style="background-image: url(../assets/images/megamenu/computerHardware.jpg);">
-                                    <h3 class="h5 text-white text-shadow my-3">Computer Hardware</h3>
+                                <div class="bg-position-center bg-no-repeat bg-size-cover text-center px-3 py-4 mb-3" style="background-image: url(${assetPath(src: 'megamenu/computerHardware.jpg')});">
+                                    <h3 class="h5 text-white text-shadow my-3">Destacadas</h3>
                                 </div>
                                 <div class="widget widget-links">
                                     <ul>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">Motherboards</span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">Storage Devices</span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">CPU / Processors</span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">Video Cards &amp; Video Devices</span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.arts"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.business"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.certification"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.data"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.entrepreneurship"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.leadership"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.machine.learning"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.marketing"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.personal.development"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.software"/></span></a></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="dropdown-column">
-                                <div class="bg-position-center bg-no-repeat bg-size-cover text-center px-3 py-4 mb-3" style="background-image: url(../assets/images/megamenu/comp-accessories.png);">
-                                    <h3 class="h5 text-white text-shadow my-3">Computer Accessories</h3>
+                                <div class="bg-position-center bg-no-repeat bg-size-cover text-center px-3 py-4 mb-3" style="background-image: url(${assetPath(src: 'megamenu/computerHardware.jpg')});">
+                                    <h3 class="h5 text-white text-shadow my-3">Otras</h3>
                                 </div>
                                 <div class="widget widget-links">
                                     <ul>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">Speakers </span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">Headphones </span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">Computer Mice</span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">Monitors</span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.architecture"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.cloud"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.test.prep"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.education"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.engineering"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.gaming"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.graphic.design"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.health"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.humanities"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.maths"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.science"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.security"/></span></a></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="dropdown-column">
-                                <div class="bg-position-center bg-no-repeat bg-size-cover text-center px-3 py-4 mb-3" style="background-image: url(../assets/images/megamenu/printer.png);">
-                                    <h3 class="h5 text-white text-shadow my-3">Printers</h3>
+                                <div class="bg-position-center bg-no-repeat bg-size-cover text-center px-3 py-4 mb-3" style="background-image: url(${assetPath(src: 'megamenu/computerHardware.jpg')});">
+                                    <h2 class="h5 text-white text-shadow my-3">Marcas</h2>
                                 </div>
                                 <div class="widget widget-links">
                                     <ul>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">Ink Printer</span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">Laser Printer</span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">3D Printer</span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">Printer Supplies</span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.brand.apple"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.brand.google"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.brand.microsoft"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.brand.oracle"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.brand.sap"/></span></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -120,9 +135,22 @@
                     </div>
                 </li>
             </ul>
+            <g:if test="${s.loggedUser()}">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown active"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"><g:message code="header.user.account"/></a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="/myProfile"><g:message code="header.myProfile"/></a></li>
+                            <li class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/user/editProfile"><g:message code="header.profile.settings"/></a></li>
+                            <li class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/createCourseList"><g:message code="header.profile.new.list"/></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </g:if>
             <ul class="nav nav-pills">
                 <li class="nav-item">
-                    <a href="index.html" class="nav-link rounded">Home</a>
+                    <a href="/" class="nav-link rounded"><g:message code="header.home"/></a>
                 </li>
                 <li class="nav-item">
                     <a href="../assets/shop-style2-ls.html" class="nav-link rounded">Shop</a>
@@ -131,19 +159,7 @@
                     <a href="../assets/user-second-hand-product.html" class="nav-link rounded">Sell product</a>
                 </li>
             </ul>
-            <ul class="navbar-nav">
-                <li class="nav-item dropdown active"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">User Account</a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="../assets/account-orders.html">Orders History</a></li>
-                        <li class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="../assets/account-profile.html">Profile Settings</a></li>
-                        <li class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="../assets/account-address.html">Account Addresses</a></li>
-                        <li class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="../assets/account-payment.html">Payment Methods</a></li>
-                    </ul>
-                </li>
-            </ul>
+
             <!-- Rounded nav pills -->
         </div>
     </div>
@@ -162,59 +178,50 @@
             <div class="row">
                 <div class="col-md-4 col-sm-6">
                     <div class="widget widget-links pb-4">
-                        <h3 class="widget-title text-white border-light">Shop departments</h3>
+                        <h3 class="widget-title text-white border-light"><g:message code="category.main.title"/></h3>
                         <ul>
-                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">Motherboards</span></a></li>
-                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">Storage Devices</span></a></li>
-                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">CPU / Processors</span></a></li>
-                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">Video Cards &amp; Video Devices</span></a></li>
-                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">Speakers</span></a></li>
-                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">Monitors</span></a></li>
-                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">Computer Mice</span></a></li>
-                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">Headphones</span></a></li>
-                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">Ink Printer</span></a></li>
-                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">Laser Printer</span></a></li>
-                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">3D Printers</span></a></li>
-                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">Printer Supplies</span></a></li>
+                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.arts"/></span></a></li>
+                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.business"/></span></a></li>
+                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.certification"/></span></a></li>
+                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.data"/></span></a></li>
+                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.entrepreneurship"/></span></a></li>
+                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.leadership"/></span></a></li>
+                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.machine.learning"/></span></a></li>
+                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.marketing"/></span></a></li>
+                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.personal.development"/></span></a></li>
+                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.software"/></span></a></li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-4 col-sm-6">
                     <div class="widget widget-links pb-4">
-                        <h3 class="widget-title text-white border-light">Our brands</h3>
+                        <h3 class="widget-title text-white border-light"><g:message code="category.other.title"/></h3>
                         <ul>
-                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">Intel</span></a></li>
-                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">AMD</span></a></li>
-                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">NVIDIA</span></a></li>
-                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">ASUS</span></a></li>
-                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">Corsair</span></a></li>
-                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">Seagate</span></a></li>
-                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">Gigabyte</span></a></li>
-                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">Logitech</span></a></li>
-                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">Pioneer</span></a></li>
-                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">WD</span></a></li>
-                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm">HP</span></a></li>
+                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.architecture"/></span></a></li>
+                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.cloud"/></span></a></li>
+                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.education"/></span></a></li>
+                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.engineering"/></span></a></li>
+                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.gaming"/></span></a></li>
+                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.graphic.design"/></span></a></li>
+                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.health"/></span></a></li>
+                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.humanities"/></span></a></li>
+                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.maths"/></span></a></li>
+                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.science"/></span></a></li>
+                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.security"/></span></a></li>
+                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.test.prep"/></span></a></li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-xl-4 offset-xl-1 col-md-5">
-                    <div class="widget">
-                        <!-- Subscription form (MailChimp)-->
-                        <h3 class="widget-title text-white border-light">Stay informed</h3>
-                        <form class="validate pb-4" action="https://studio.us12.list-manage.com/subscribe/post-json?u=c7103e2c981361a6639545bd5&amp;amp;id=29ca296126&amp;c=?" method="get" name="mc-embedded-subscribe-form" id="mc-embedded-subscribe-form">
-                            <div class="input-group mb-2">
-                                <div class="input-group-prepend"><span class="input-group-text" style="background-color: #e8e8e8;"><i data-feather="mail"></i></span></div>
-                                <input class="form-control border-0 box-shadow-0 bg-secondary" type="email" name="EMAIL" id="mce-EMAIL" value="" placeholder="Your email" required>
-                            </div>
-                            <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-                            <div style="position: absolute; left: -5000px;" aria-hidden="true">
-                                <input type="text" name="b_c7103e2c981361a6639545bd5_29ca296126" tabindex="-1">
-                            </div>
-                            <button class="btn btn-primary btn-block" type="submit" name="subscribe" id="mc-embedded-subscribe">Subscribe*</button>
-                            <p class="font-size-xs text-white opacity-60 pt-2 mb-2" id="mc-helper">*Subscribe to our newsletter to receive early discount offers, updates and new products info.</p>
-                            <!-- Subscription status-->
-                            <div class="subscribe-status"></div>
-                        </form>
+                <div class="col-md-4 col-sm-6">
+                    <div class="widget widget-links pb-4">
+                        <h3 class="widget-title text-white border-light"><g:message code="category.brand.title"/></h3>
+                        <ul>
+                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.brand.apple"/></span></a></li>
+                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.brand.google"/></span></a></li>
+                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.brand.microsoft"/></span></a></li>
+                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.brand.oracle"/></span></a></li>
+                            <li><a class="nav-link-inline nav-link-light" href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.brand.sap"/></span></a></li>
+                        </ul>
                     </div>
                 </div>
             </div>

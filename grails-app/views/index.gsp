@@ -199,7 +199,23 @@
     </section>
     <!-- Brands carousel-->
     <section class="container px-3 pb-4">
-      <div class="owl-carousel border-right" data-owl-carousel="{ &quot;nav&quot;: false, &quot;dots&quot;: false, &quot;autoplay&quot;: true, &quot;autoplayTimeout&quot;: 3500, &quot;loop&quot;: true, &quot;responsive&quot;: {&quot;0&quot;:{&quot;items&quot;:1},&quot;360&quot;:{&quot;items&quot;:2},&quot;600&quot;:{&quot;items&quot;:3},&quot;991&quot;:{&quot;items&quot;:4},&quot;1200&quot;:{&quot;items&quot;:4}} }"><a class="d-block bg-white border py-4 py-sm-5 px-2" href="#" style="margin-right: -.0625rem;"><asset:image class="d-block mx-auto" src="Brands/Asus.png" style="width: 165px;" alt="Asus"/></a><a class="d-block bg-white border py-4 py-sm-5 px-2" href="#" style="margin-right: -.0625rem;"><asset:image class="d-block mx-auto" src="Brands/HP.jpg" style="width: 165px;" alt="HP"/></a><a class="d-block bg-white border py-4 py-sm-5 px-2" href="#" style="margin-right: -.0625rem;"><asset:image class="d-block mx-auto" src="Brands/Seagate.png" style="width: 165px;" alt="Seagate"/></a><a class="d-block bg-white border py-4 py-sm-5 px-2" href="#" style="margin-right: -.0625rem;"><asset:image class="d-block mx-auto" src="Brands/Corsair.jpg" style="width: 165px;" alt="Corsair"/></a><a class="d-block bg-white border py-4 py-sm-5 px-2" href="#" style="margin-right: -.0625rem;"><asset:image class="d-block mx-auto" src="Brands/AMD.jpg" style="width: 165px;" alt="AMD"/></a><a class="d-block bg-white border py-4 py-sm-5 px-2" href="#" style="margin-right: -.0625rem;"><asset:image class="d-block mx-auto" src="Brands/NVIDIA.jpg" style="width: 165px;" alt="NVIDIA"/></a><a class="d-block bg-white border py-4 py-sm-5 px-2" href="#" style="margin-right: -.0625rem;"><asset:image class="d-block mx-auto" src="Brands/Western%20Digital.jpg" style="width: 165px;" alt="Western Digital"/></a><a class="d-block bg-white border py-4 py-sm-5 px-2" href="#" style="margin-right: -.0625rem;"><asset:image class="d-block mx-auto" src="Brands/Intel.jpg" style="width: 165px;" alt="Intel"/></a><a class="d-block bg-white border py-4 py-sm-5 px-2" href="#" style="margin-right: -.0625rem;"><asset:image class="d-block mx-auto" src="Brands/Pioneer.jpg" style="width: 165px;" alt="Pioneer"/></a><a class="d-block bg-white border py-4 py-sm-5 px-2" href="#" style="margin-right: -.0625rem;"><asset:image class="d-block mx-auto" src="Brands/Gigabyte.jpg" style="width: 165px;" alt="Gigabyte"/></a></div>
+      <div class="owl-carousel border-right" data-owl-carousel="{ &quot;nav&quot;: false, &quot;dots&quot;: false, &quot;autoplay&quot;: true, &quot;autoplayTimeout&quot;: 3500, &quot;loop&quot;: true, &quot;responsive&quot;: {&quot;0&quot;:{&quot;items&quot;:1},&quot;360&quot;:{&quot;items&quot;:2},&quot;600&quot;:{&quot;items&quot;:3},&quot;991&quot;:{&quot;items&quot;:4},&quot;1200&quot;:{&quot;items&quot;:4}} }">
+        <a class="d-block bg-white border py-4 py-sm-5 px-2" href="#" style="margin-right: -.0625rem;">
+          <asset:image class="d-block mx-auto" src="Brands/Apple.png" style="height: 135px;" alt="Apple"/>
+        </a>
+        <a class="d-block bg-white border py-4 py-sm-5 px-2" href="#" style="margin-right: -.0625rem;">
+          <asset:image class="d-block mx-auto" src="Brands/Microsoft.png" style="height: 135px;" alt="Microsoft"/>
+        </a>
+        <a class="d-block bg-white border py-4 py-sm-5 px-2" href="#" style="margin-right: -.0625rem;">
+          <asset:image class="d-block mx-auto" src="Brands/Google.png" style="height: 135px;" alt="Google"/>
+        </a>
+        <a class="d-block bg-white border py-4 py-sm-5 px-2" href="#" style="margin-right: -.0625rem;">
+          <asset:image class="d-block mx-auto" src="Brands/Oracle.png" style="height: 135px;" alt="Oracle"/>
+        </a>
+        <a class="d-block bg-white border py-4 py-sm-5 px-2" href="#" style="margin-right: -.0625rem;">
+          <asset:image class="d-block mx-auto" src="Brands/SAP.png" style="height: 135px;" alt="SAP"/>
+        </a>
+      </div>
     </section>
     <!-- Product widgets-->
     <section class="container px-3 pt-2 pb-4 mb-md-2">
