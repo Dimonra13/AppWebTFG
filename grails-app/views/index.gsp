@@ -26,7 +26,7 @@
           </div>
           <div class="col-lg-8">
             <!-- Hero slider-->
-            <div class="bg-secondary bg-size-cover mb-grid-gutter" style="background-image: url(../assets/images/home/electronics/hero-main-bg.jpg);">
+            <div class="bg-secondary bg-size-cover mb-grid-gutter" style="background-image: url(${assetPath(src: 'utilities/hero-main-bg.jpg')});">
               <div class="owl-carousel trigger-carousel" data-owl-carousel="{ &quot;nav&quot;: true, &quot;dots&quot;: false, &quot;loop&quot;: true, &quot;autoHeight&quot;: true, &quot;autoplay&quot;: true, &quot;autoplayTimeout&quot;: 5500 }">
                 <div class="row align-items-center py-5">
                   <div class="col-md-5">
@@ -35,7 +35,7 @@
                       <h4 class="font-weight-light opacity-70 pb-3">starting at $140.50</h4><a class="btn btn-primary" href="../assets/shop-style2-ls.html">Shop now<i class="ml-2" data-feather="arrow-right"></i></a>
                     </div>
                   </div>
-                  <div class="col-md-7"><asset:image class="d-block mx-auto" src="Hardware/CPU/Intel%20Core%20i5-9400F%202.9GHz.jpg" alt="Intel Core i5-9400F 2.9GHz"/></div>
+                  <div class="col-md-7"><asset:image class="d-block mx-auto" src="Hardware/CPU/CPU AMD AM4 RYZEN 3 1200 4X3.4GHZ 10MB Box.jpg" alt="Intel Core i5-9400F 2.9GHz"/></div>
                 </div>
                 <div class="row align-items-center py-5">
                   <div class="col-md-5">
@@ -44,7 +44,7 @@
                       <h4 class="font-weight-light opacity-70 pb-3">for only $363.99</h4><a class="btn btn-primary" href="../assets/shop-style2-ls.html">Shop now<i class="ml-2" data-feather="arrow-right"></i></a>
                     </div>
                   </div>
-                  <div class="col-md-7"><asset:image class="d-block mx-auto" src="Hardware/3D%20printer/3D%20printer%20Original%20Prusa%20i3%20MK3S.jpg" alt="3D printer Original Prusa i3 MK3S"/></div>
+                  <div class="col-md-7"><asset:image class="d-block mx-auto" src="Hardware/Laser printer/Brother Wireless Mono Laser MFC-L2713DW.jpg" alt="3D printer Original Prusa i3 MK3S"/></div>
                 </div>
                 <div class="row align-items-center py-5">
                   <div class="col-md-5">
@@ -53,7 +53,7 @@
                       <h4 class="font-weight-light opacity-70 pb-3">starting at $120.50</h4><a class="btn btn-primary" href="../assets/shop-style2-ls.html">Shop now<i class="ml-2" data-feather="arrow-right"></i></a>
                     </div>
                   </div>
-                  <div class="col-md-7"><asset:image class="d-block mx-auto" src="Hardware/Headphones/Logitech%20G935,%20Headphones,%20Bluetooth,%20Medium,%20Multicolor.jpg" alt="Logitech G935, Headphones, Bluetooth, Medium, Multicolor"/></div>
+                  <div class="col-md-7"><asset:image class="d-block mx-auto" src="Hardware/GPU/10501.png" alt="Logitech G935, Headphones, Bluetooth, Medium, Multicolor"/></div>
                 </div>
               </div>
             </div>
@@ -239,24 +239,6 @@
                 <p class="featured-entry-meta">$59.99</p>
               </div>
             </div>
-            <div class="media"><a class="featured-entry-thumb" href="#"><asset:image src="Hardware/CPU/Intel%20Core%20i7-8700K%20-%20Procesador%20(%208ª%20generación%20de%20procesadores%20Intel%20Core%20i7,%203.7%20GHz,%2012MB%20Smart%20Cache,%20PC,%2014%20nm,%208%20GT%20s).jpg" width="64" alt="Intel Core i7-8700K - Procesador ( 8ª generación de procesadores Intel Core i7, 3.7 GHz, 12MB Smart Cache, PC, 14 nm, 8 GT s)"/></a>
-              <div class="media-body">
-                <h6 class="featured-entry-title"><a href="#">Intel Core i7-8700K</a></h6>
-                <div class="star-rating"><i class="sr-star active" data-feather="star"></i><i class="sr-star active" data-feather="star"></i><i class="sr-star active" data-feather="star"></i><i class="sr-star active" data-feather="star"></i><i class="sr-star active" data-feather="star"></i>
-                </div>
-                <p class="featured-entry-meta">$399.00</p>
-              </div>
-            </div>
-            <div class="media"><a class="featured-entry-thumb" href="#"><asset:image src="Hardware/Monitors/HP%2027es%20-%20Monitor%20para%20PC%20Desktop%20de%201920%20x%201080%20pixeles,%20LED,%20IPS,%20HDMI,%207ms,%20250%20cd,%2080KHz.jpg" width="64" alt="HP 27es - Monitor para PC Desktop de 1920 x 1080 pixeles, LED, IPS, HDMI, 7ms, 250 cd, 80KHz"/></a>
-              <div class="media-body">
-                <h6 class="featured-entry-title"><a href="#">HP 27es - Monitor para PC</a></h6>
-                <div class="star-rating"><i class="sr-star active" data-feather="star"></i><i class="sr-star active" data-feather="star"></i><i class="sr-star active" data-feather="star"></i><i class="sr-star active" data-feather="star"></i><i class="sr-star" data-feather="star"></i>
-                </div>
-                <p class="featured-entry-meta">
-                  <del class="text-muted mr-1">145.43</del>$109.99
-                </p>
-              </div>
-            </div>
           </div>
         </div>
         <div class="col-md-4 col-sm-6 mb-2 py-3">
@@ -309,14 +291,6 @@
                 <div class="star-rating"><i class="sr-star active" data-feather="star"></i><i class="sr-star active" data-feather="star"></i><i class="sr-star active" data-feather="star"></i><i class="sr-star active" data-feather="star"></i><i class="sr-star active" data-feather="star"></i>
                 </div>
                 <p class="featured-entry-meta">$48.75</p>
-              </div>
-            </div>
-            <div class="media"><a class="featured-entry-thumb" href="#"><asset:image src="Hardware/Storage/WD%20Black%202TB%20Performance%20Desktop%20Hard%20Disk%20Drive%20-%207200%20RPM.jpg" width="64" alt="WD Black 2TB Performance Desktop Hard Disk Drive - 7200 RPM"/></a>
-              <div class="media-body">
-                <h6 class="featured-entry-title"><a href="#">WD Black 2TB Hard Disk Drive</a></h6>
-                <div class="star-rating"><i class="sr-star active" data-feather="star"></i><i class="sr-star active" data-feather="star"></i><i class="sr-star active" data-feather="star"></i><i class="sr-star active" data-feather="star"></i><i class="sr-star active" data-feather="star"></i>
-                </div>
-                <p class="featured-entry-meta">$79.95</p>
               </div>
             </div>
             <div class="media"><a class="featured-entry-thumb" href="#"><asset:image src="Hardware/GPU/asus-dual-gtx-1060-oc-6gb-gddr5_2_1.jpg" width="64" alt="asus-dual-gtx-1060-oc-6gb-gddr5_2_1"/></a>
