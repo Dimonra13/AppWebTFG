@@ -23,7 +23,7 @@ class User implements Serializable {
     boolean hasProfileImage
     byte[] profileImageBytes
     String profileImageContentType
-    static hasMany = [lists: CourseList]
+    static hasMany = [lists: CourseList,skills: Skill]
     boolean enabled = true
     boolean accountExpired
     boolean accountLocked
