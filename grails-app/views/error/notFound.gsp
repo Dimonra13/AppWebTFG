@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta name="layout" content="HeaderFooter"/>
-    <title>COURSING.ME | Not Found</title>
+    <title><g:message code="title.notFound"/></title>
 </head>
 <!-- Body-->
 <body>

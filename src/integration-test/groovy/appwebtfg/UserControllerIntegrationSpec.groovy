@@ -17,7 +17,7 @@ class UserControllerIntegrationSpec extends BaseControllerIntegrationSpec {
 
     String controllerName = "user"
 
-    void "Validate the create method"() {
+    void "Validate the register method"() {
 
         setup: 'The controller action is call'
         userController.register()
@@ -80,5 +80,25 @@ class UserControllerIntegrationSpec extends BaseControllerIntegrationSpec {
         expect: 'validate the method output'
         userController.response.status == 200
         userController.response.text == groovyPageRenderer.render(view: "editProfileImage")
+    }
+
+    void "Validate the interests method"() {
+
+        setup: 'The controller action is call'
+        userController.interests()
+
+        expect: 'validate the method output'
+        userController.response.status == 200
+        userController.response.text == groovyPageRenderer.render(view: "interests")
+    }
+
+    void "Validate the skills method"() {
+
+        setup: 'The controller action is call'
+        userController.skills()
+
+        expect: 'validate the method output'
+        userController.response.status == 200
+        userController.response.text == groovyPageRenderer.render(view: "skills")
     }
 }

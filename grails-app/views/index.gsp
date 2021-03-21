@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta name="layout" content="HeaderFooter"/>
-    <title>COURSING.ME | Home page</title>
+    <title><g:message code="title.home"/></title>
   </head>
   <!-- Body-->
   <body>

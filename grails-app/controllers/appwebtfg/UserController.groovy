@@ -205,4 +205,13 @@ class UserController {
         redirect(action: "myProfile")
     }
 
+    @Secured(["permitAll"])
+    def interests(){
+        render(view: "interests")
+    }
+
+    @Secured(["permitAll"])
+    def skills(){
+        render(view: "skills")
+    }
 }

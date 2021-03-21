@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta name="layout" content="HeaderFooter"/>
-    <title>COURSING.ME | Register</title>
+    <title><g:message code="title.register"/></title>
 </head>
 <!-- Body-->
 <body>

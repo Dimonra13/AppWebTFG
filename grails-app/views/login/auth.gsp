@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta name="layout" content="HeaderFooter"/>
-    <title>COURSING.ME | Log in</title>
+    <title><g:message code="title.auth"/></title>
 </head>
 <!-- Body-->
 <body>

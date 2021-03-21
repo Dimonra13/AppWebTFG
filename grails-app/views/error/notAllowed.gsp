@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta name="layout" content="HeaderFooter"/>
-    <title>COURSING.ME | Forbidden</title>
+    <title><g:message code="title.notAllowed"/></title>
 </head>
 <!-- Body-->
 <body>

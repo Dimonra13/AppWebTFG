@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta name="layout" content="HeaderFooter"/>
-    <title>COURSING.ME | Edit Image</title>
+    <title><g:message code="title.editProfileImage"/></title>
 </head>
 <!-- Body-->
 <body>

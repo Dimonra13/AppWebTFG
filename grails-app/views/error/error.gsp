@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta name="layout" content="HeaderFooter"/>
-    <title>COURSING.ME | Error</title>
+    <title><g:message code="title.genericError"/></title>
 </head>
 <!-- Body-->
 <body>
