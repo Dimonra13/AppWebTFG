@@ -6,6 +6,8 @@
 </head>
 <!-- Body-->
 <body>
+<asset:javascript src="tagsinput.js"/>
+<asset:stylesheet src="tagsinput.css"/>
 <div class="container pt-lg-3 pb-5 mb-sm-5">
     <div class="row">
         <div class="col-1"></div>
@@ -28,6 +30,9 @@
                     <div class="card-body">
                         <div class="d-flex flex-wrap justify-content-between align-items-center pb-2">
                             <h2 class="h3 mb-3"><g:message code="skills.basic"/></h2>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" data-role="tagsinput" value="jQuery,Script,Net">
                         </div>
                         <br>
                     </div>
@@ -58,6 +63,5 @@
         </div>
     </div>
 </div>
-
 </body>
 </html>

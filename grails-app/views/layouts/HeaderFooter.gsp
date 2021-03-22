@@ -19,12 +19,14 @@
     <link rel="mask-icon" color="#111" href="../assets/safari-pinned-tab.svg">
     <meta name="msapplication-TileColor" content="#111">
     <meta name="theme-color" content="#ffffff">
+    <asset:stylesheet src="application"></asset:stylesheet>
+    <asset:javascript src="application"></asset:javascript>
     <!-- Vendor Styles including: Font Icons, Plugins, etc.-->
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'vendor.min.css')}" type="text/css">
     <!-- Main Theme Styles + Bootstrap-->
-<link rel="stylesheet" href="${resource(dir: 'css', file: 'theme.min.css')}" type="text/css">
-<!-- Customizer styles and scripts-->
-<g:layoutHead/>
+    <link rel="stylesheet" href="${resource(dir: 'css', file: 'theme.min.css')}" type="text/css">
+    <!-- Customizer styles and scripts-->
+    <g:layoutHead/>
 </head>
 <!-- Body-->
 <body>
