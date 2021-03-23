@@ -25,14 +25,14 @@
         <div class="col-1"></div>
         <div class="col-1"></div>
         <div class="col-md-10 pt-6 pt-sm-3">
-            <form action="/" class="needs-validation"  novalidate>
+            <form action="/user/updateSkills" class="needs-validation"  novalidate>
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex flex-wrap justify-content-between align-items-center pb-2">
                             <h2 class="h3 mb-3"><g:message code="skills.basic"/></h2>
                         </div>
                         <div class="form-group">
-                            <input type="text" data-role="tagsinput" value="jQuery,Script,Net">
+                            <input type="text" id="basic" name="basic" data-role="tagsinput" value="">
                         </div>
                         <br>
                     </div>
@@ -43,6 +43,9 @@
                         <div class="d-flex flex-wrap justify-content-between align-items-center pb-2">
                             <h2 class="h3 mb-3"><g:message code="skills.medium"/></h2>
                         </div>
+                        <div class="form-group">
+                            <input type="text" id="medium" name="medium" data-role="tagsinput" value="">
+                        </div>
                         <br>
                     </div>
                 </div>
@@ -51,6 +54,9 @@
                     <div class="card-body">
                         <div class="d-flex flex-wrap justify-content-between align-items-center pb-2">
                             <h2 class="h3 mb-3"><g:message code="skills.expert"/></h2>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" id=expert" name="expert" data-role="tagsinput" value="">
                         </div>
                         <br>
                     </div>

@@ -1,5 +1,8 @@
 package appwebtfg
 
+import groovy.transform.EqualsAndHashCode
+
+@EqualsAndHashCode(includes='name')
 class Skill {
     String name
     String level

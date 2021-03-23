@@ -10,6 +10,7 @@ class UserController {
     RegistrationService registrationService
     SpringSecurityService springSecurityService
     UserService userService
+    SkillService skillService
 
     def index() {
     }
@@ -205,13 +206,23 @@ class UserController {
         redirect(action: "myProfile")
     }
 
-    @Secured(["permitAll"])
+    @Secured('isAuthenticated()')
     def interests(){
         render(view: "interests")
     }
 
-    @Secured(["permitAll"])
+    @Secured('isAuthenticated()')
     def skills(){
         render(view: "skills")
+    }
+
+    @Secured('isAuthenticated()')
+    def updateSkills(){
+        User authUser = springSecurityService.getCurrentUser() as User
+        List<String> basicSkills = params?.basic[1].split(",").findAll{it != ""}
+        List<String> mediumSkills = params?.medium[1].split(",").findAll{it != ""}
+        List<String> expertSkills = params?.expert[1].split(",").findAll{it != ""}
+        skillService.updateSkills(authUser,basicSkills,mediumSkills,expertSkills)
+        render(view: "/index")
     }
 }

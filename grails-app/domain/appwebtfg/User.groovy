@@ -23,7 +23,10 @@ class User implements Serializable {
     boolean hasProfileImage
     byte[] profileImageBytes
     String profileImageContentType
-    static hasMany = [lists: CourseList,skills: Skill]
+    static hasMany = [lists: CourseList,
+                      basicSkills: Skill,
+                      mediumSkills: Skill,
+                      expertSkills: Skill]
     boolean enabled = true
     boolean accountExpired
     boolean accountLocked
@@ -40,10 +43,16 @@ class User implements Serializable {
         email matches: /.*@.*/
         profileImageBytes nullable: true
         profileImageContentType nullable: true
+        basicSkills nullable: true, blank: true
+        mediumSkills nullable: true, blank: true
+        expertSkills nullable: true, blank: true
     }
 
     static mapping = {
 	    password column: '`password`'
         profileImageBytes column: 'featured_image_bytes', sqlType: 'longblob'
+        basicSkills joinTable: [name:"basic_skills"]
+        mediumSkills joinTable: [name:"medium_skills"]
+        expertSkills joinTable: [name:"expert_skills"]
     }
 }
