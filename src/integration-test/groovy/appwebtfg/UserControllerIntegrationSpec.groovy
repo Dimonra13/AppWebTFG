@@ -92,10 +92,19 @@ class UserControllerIntegrationSpec extends BaseControllerIntegrationSpec {
         userController.response.text == groovyPageRenderer.render(view: "interests")
     }
 
-    void "Validate the skills method"() {
+    void "Validate the addSkills method"() {
 
         setup: 'The controller action is call'
-        userController.skills()
+        userController.addSkills()
+
+        expect: 'validate the method output'
+        userController.response.status == 200
+        userController.response.text == groovyPageRenderer.render(view: "skills")
+    }
+    void "Validate the editSkills method"() {
+
+        setup: 'The controller action is call'
+        userController.editSkills()
 
         expect: 'validate the method output'
         userController.response.status == 200

@@ -39,7 +39,7 @@ class UserController {
             User newUser = registrationService.registerUser(params?.username, params?.password, params?.email)
             if (newUser) {
                 springSecurityService.reauthenticate(newUser.username)
-                redirect(controller:"home", action: "index")
+                redirect(controller: "home", action: "index")
             } else {
                 render(view: 'register')
             }
@@ -187,9 +187,9 @@ class UserController {
      * @return redirect to "/user/myProfile"
      */
     @Secured('isAuthenticated()')
-    def makeProfilePublic(){
-        User authUser=springSecurityService.getCurrentUser()
-        if(authUser && !authUser.isPublicProfile)
+    def makeProfilePublic() {
+        User authUser = springSecurityService.getCurrentUser()
+        if (authUser && !authUser.isPublicProfile)
             userService.makeProfilePublic(authUser)
         redirect(action: "myProfile")
     }
@@ -199,30 +199,39 @@ class UserController {
      * @return redirect to "/user/myProfile"
      */
     @Secured('isAuthenticated()')
-    def makeProfilePrivate(){
-        User authUser=springSecurityService.getCurrentUser()
-        if(authUser.isPublicProfile)
+    def makeProfilePrivate() {
+        User authUser = springSecurityService.getCurrentUser()
+        if (authUser.isPublicProfile)
             userService.makeProfilePrivate(authUser)
         redirect(action: "myProfile")
     }
 
     @Secured('isAuthenticated()')
-    def interests(){
+    def interests() {
         render(view: "interests")
     }
 
     @Secured('isAuthenticated()')
-    def skills(){
+    def addSkills() {
         render(view: "skills")
     }
 
     @Secured('isAuthenticated()')
-    def updateSkills(){
+    def editSkills() {
+        User authUser = springSecurityService.getCurrentUser() as User;
+        render(view: "skills", model: [bs: authUser?.basicSkillsToString(),
+                                       ms: authUser?.mediumSkillsToString(),
+                                       es: authUser?.expertSkillsToString(),
+                                       update: true])
+    }
+
+    @Secured('isAuthenticated()')
+    def updateSkills() {
         User authUser = springSecurityService.getCurrentUser() as User
-        List<String> basicSkills = params?.basic[1].split(",").findAll{it != ""}
-        List<String> mediumSkills = params?.medium[1].split(",").findAll{it != ""}
-        List<String> expertSkills = params?.expert[1].split(",").findAll{it != ""}
-        skillService.updateSkills(authUser,basicSkills,mediumSkills,expertSkills)
+        List<String> basicSkills = params?.basic[1].split(",").findAll { it != "" }
+        List<String> mediumSkills = params?.medium[1].split(",").findAll { it != "" }
+        List<String> expertSkills = params?.expert[1].split(",").findAll { it != "" }
+        skillService.updateSkills(authUser, basicSkills, mediumSkills, expertSkills)
         render(view: "/index")
     }
 }

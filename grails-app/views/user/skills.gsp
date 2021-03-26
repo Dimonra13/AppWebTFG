@@ -32,7 +32,7 @@
                             <h2 class="h3 mb-3"><g:message code="skills.basic"/></h2>
                         </div>
                         <div class="form-group">
-                            <input type="text" id="basic" name="basic" data-role="tagsinput" value="">
+                            <input type="text" id="basic" name="basic" data-role="tagsinput" value="${bs}">
                         </div>
                         <br>
                     </div>
@@ -44,7 +44,7 @@
                             <h2 class="h3 mb-3"><g:message code="skills.medium"/></h2>
                         </div>
                         <div class="form-group">
-                            <input type="text" id="medium" name="medium" data-role="tagsinput" value="">
+                            <input type="text" id="medium" name="medium" data-role="tagsinput" value="${ms}">
                         </div>
                         <br>
                     </div>
@@ -56,14 +56,19 @@
                             <h2 class="h3 mb-3"><g:message code="skills.expert"/></h2>
                         </div>
                         <div class="form-group">
-                            <input type="text" id=expert" name="expert" data-role="tagsinput" value="">
+                            <input type="text" id=expert" name="expert" data-role="tagsinput" value="${es}">
                         </div>
                         <br>
                     </div>
                 </div>
                 <br>
                 <div class="text-right">
-                    <input type="submit" class="btn btn-primary" name="submit" value="${message(code: 'skills.submit')}"/>
+                    <g:if test="${!update}">
+                        <input type="submit" class="btn btn-primary" name="submit" value="${message(code: 'skills.submit')}"/>
+                    </g:if>
+                    <g:else>
+                        <input type="submit" class="btn btn-primary" name="submit" value="${message(code: 'skills.update.submit')}"/>
+                    </g:else>
                 </div>
             </form>
         </div>

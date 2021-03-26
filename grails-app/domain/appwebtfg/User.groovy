@@ -55,4 +55,52 @@ class User implements Serializable {
         mediumSkills joinTable: [name:"medium_skills"]
         expertSkills joinTable: [name:"expert_skills"]
     }
+
+    /**
+     * Method use to create a string with all user's basic level skills and returns it
+     * @return String with the basic level skills
+     */
+    String basicSkillsToString(){
+        if (!basicSkills.isEmpty()){
+            String out=basicSkills[0].name;
+            for (int i=1;i<basicSkills.size();i++){
+                out=out+","+basicSkills[i].name
+            }
+            out
+        }else{
+            ""
+        }
+    }
+
+    /**
+     * Method use to create a string with all user's medium level skills and returns it
+     * @return String with the medium level skills
+     */
+    String mediumSkillsToString(){
+        if (!mediumSkills.isEmpty()){
+            String out=mediumSkills[0].name;
+            for (int i=1;i<mediumSkills.size();i++){
+                out=out+","+mediumSkills[i].name
+            }
+            out
+        }else{
+            ""
+        }
+    }
+
+    /**
+     * Method use to create a string with all user's expert level skills and returns it
+     * @return String with the expert level skills
+     */
+    String expertSkillsToString(){
+        if (!expertSkills.isEmpty()){
+            String out=expertSkills[0].name;
+            for (int i=1;i<expertSkills.size();i++){
+                out=out+","+expertSkills[i].name
+            }
+            out
+        }else{
+            ""
+        }
+    }
 }
