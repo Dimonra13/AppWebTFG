@@ -11,6 +11,7 @@ class SkillService {
         updateExpertSkills(user, expertSkills)
         user
     }
+
     User updateBasicSkills(User user, List<String> basicSkills) {
         Set<Skill> oldUserSkills = user?.basicSkills;
         Set<Skill> newUserSkills = new HashSet<>();
@@ -48,7 +49,7 @@ class SkillService {
     }
 
     private def deleteSkills(Set<Skill> skills){
-        while(!skills.isEmpty()){
+        while(skills && !skills.isEmpty()){
             Skill skill = skills.getAt(0)
             skills.remove(skill)
             skill.delete()

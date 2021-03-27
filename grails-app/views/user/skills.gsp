@@ -13,14 +13,24 @@
         <div class="col-1"></div>
         <div class="col-md-10 pt-6 pt-sm-3">
             <div class="d-flex flex-wrap justify-content-between align-items-center pb-2">
-                <h2 class="h3 mb-3"><g:message code="skill.title"/></h2>
-                <a class="btn btn-outline-primary btn-sm" href="/user/myProfile/"><i class="mr-1" data-feather="chevrons-left"></i><g:message code="profile.image.back"></g:message></a>
+                <g:if test="${update}">
+                    <h2 class="h3 mb-3"><g:message code="skills.title.update"/></h2>
+                    <a class="btn btn-outline-primary btn-sm" href="/user/myProfile/"><i class="mr-1" data-feather="chevrons-left"></i><g:message code="profile.image.back"></g:message></a>
+                </g:if>
+                <g:else>
+                    <h2 class="h3 mb-3"><g:message code="skills.title"/></h2>
+                </g:else>
             </div>
         </div>
         <div class="col-1"></div>
         <div class="col-1"></div>
         <div class="col-md-10 pt-6 pt-sm-3">
-            <p class="text-muted mb-4"><g:message code="skills.explanation"/></p>
+            <g:if test="${update}">
+                <p class="text-muted mb-4"><g:message code="skills.explanation.update"/></p>
+            </g:if>
+            <g:else>
+                <p class="text-muted mb-4"><g:message code="skills.explanation"/></p>
+            </g:else>
         </div>
         <div class="col-1"></div>
         <div class="col-1"></div>
