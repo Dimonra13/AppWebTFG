@@ -213,7 +213,9 @@ class UserController {
 
     @Secured('isAuthenticated()')
     def addSkills() {
-        render(view: "skills")
+        render(view: "skills",model: [recommendedBS: skillService.getRecommendedBasicSkills(),
+                                      recommendedMS: skillService.getRecommendedMediumSkills(),
+                                      recommendedES: skillService.getRecommendedExpertSkills()])
     }
 
     @Secured('isAuthenticated()')
@@ -222,6 +224,9 @@ class UserController {
         render(view: "skills", model: [bs: authUser?.basicSkillsToString(),
                                        ms: authUser?.mediumSkillsToString(),
                                        es: authUser?.expertSkillsToString(),
+                                       recommendedBS: skillService.getRecommendedBasicSkills(),
+                                       recommendedMS: skillService.getRecommendedMediumSkills(),
+                                       recommendedES: skillService.getRecommendedExpertSkills(),
                                        update: true])
     }
 
@@ -232,6 +237,6 @@ class UserController {
         List<String> mediumSkills = params?.medium[1].split(",").findAll { it != "" }
         List<String> expertSkills = params?.expert[1].split(",").findAll { it != "" }
         skillService.updateSkills(authUser, basicSkills, mediumSkills, expertSkills)
-        render(view: "/index")
+        redirect(controller:  "home", action: "index")
     }
 }

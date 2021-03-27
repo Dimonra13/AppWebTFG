@@ -5,6 +5,18 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class SkillService {
 
+    //IMPLEMENT ME
+    List<String> getRecommendedBasicSkills(){
+        return ['test1','test2','test765']
+    }
+    //IMPLEMENT ME
+    List<String> getRecommendedMediumSkills(){
+        return ['test1','test2','test765']
+    }
+    //IMPLEMENT ME
+    List<String> getRecommendedExpertSkills(){
+        return ['test1','test2','test765']
+    }
     User updateSkills(User user, List<String> basicSkills, List<String> mediumSkills, List<String> expertSkills){
         updateBasicSkills(user, basicSkills)
         updateMediumSkills(user, mediumSkills)

@@ -45,6 +45,13 @@
                             <input type="text" id="basic" name="basic" data-role="tagsinput" value="${bs}">
                         </div>
                         <br>
+                        <h2 class="h4 mb-3"><g:message code="skills.recommend"/></h2>
+                        <p class="text-muted mb-4"><g:message code="skills.recommend.explain"/></p>
+                        <div>
+                            <g:each var="skill" in="${recommendedBS}" status="i">
+                                <button type="button" value="${skill}" class="btn btn-pill btn-info basicSkillButton" style="margin-bottom: 5px;">${skill}</button>
+                            </g:each>
+                        </div>
                     </div>
                 </div>
                 <br>
@@ -57,6 +64,13 @@
                             <input type="text" id="medium" name="medium" data-role="tagsinput" value="${ms}">
                         </div>
                         <br>
+                        <h2 class="h4 mb-3"><g:message code="skills.recommend"/></h2>
+                        <p class="text-muted mb-4"><g:message code="skills.recommend.explain"/></p>
+                        <div>
+                            <g:each var="skill" in="${recommendedMS}" status="i">
+                                <button type="button" value="${skill}" class="btn btn-pill btn-info mediumSkillButton" style="margin-bottom: 5px;">${skill}</button>
+                            </g:each>
+                        </div>
                     </div>
                 </div>
                 <br>
@@ -66,9 +80,16 @@
                             <h2 class="h3 mb-3"><g:message code="skills.expert"/></h2>
                         </div>
                         <div class="form-group">
-                            <input type="text" id=expert" name="expert" data-role="tagsinput" value="${es}">
+                            <input type="text" id="expert" name="expert" data-role="tagsinput" value="${es}">
                         </div>
                         <br>
+                        <h2 class="h4 mb-3"><g:message code="skills.recommend"/></h2>
+                        <p class="text-muted mb-4"><g:message code="skills.recommend.explain"/></p>
+                        <div>
+                            <g:each var="skill" in="${recommendedES}" status="i">
+                                <button type="button" value="${skill}" class="btn btn-pill btn-info expertSkillButton" style="margin-bottom: 5px;">${skill}</button>
+                            </g:each>
+                        </div>
                     </div>
                 </div>
                 <br>

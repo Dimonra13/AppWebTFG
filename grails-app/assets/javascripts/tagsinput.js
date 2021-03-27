@@ -683,11 +683,31 @@
       return found;
   }
 
-  /**
-   * Initialize tagsinput behaviour on inputs and selects which have
-   * data-role=tagsinput
-   */
   $(function() {
+    /**
+     * Initialize tagsinput behaviour on inputs and selects which have
+     * data-role=tagsinput
+     */
     $("input[data-role=tagsinput], select[multiple][data-role=tagsinput]").tagsinput();
+    /**
+     * Function used to update the TagsInput for basic skills
+     */
+    $('.basicSkillButton').click(function (e){
+      $('#basic').tagsinput('add', e.target.value);
+    });
+    /**
+     * Function used to update the TagsInput for medium skills
+     */
+    $('.mediumSkillButton').click(function (e){
+      $('#medium').tagsinput('add', e.target.value);
+    });
+    /**
+     * Function used to update the TagsInput for expert skills
+     */
+    $('.expertSkillButton').click(function (e){
+      $('#expert').tagsinput('add', e.target.value);
+    });
   });
+
+
 })(window.jQuery);
