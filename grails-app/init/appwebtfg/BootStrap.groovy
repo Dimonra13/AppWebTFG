@@ -31,6 +31,35 @@ class BootStrap {
         cl1.addToCourses(c2)
         cl1.addToCourses(c3)
         cl1.save()
+
+        //Basic Skills
+        for(int i=0;i<10;i++)
+            new Skill(name:"JS",level: "basic").save()
+        for(int i=0;i<7;i++)
+            new Skill(name:"C++",level: "basic").save()
+        for(int i=0;i<5;i++)
+            new Skill(name:"SQL",level: "basic").save()
+        for(int i=0;i<20;i++)
+            new Skill(name:"Gradle",level: "basic").save()
+        for(int i=0;i<1;i++)
+            new Skill(name:"Maven",level: "basic").save()
+
+        //Medium Skills
+        for(int i=0;i<10;i++)
+            new Skill(name:"Java",level: "medium").save()
+        for(int i=0;i<7;i++)
+            new Skill(name:"C#",level: "medium").save()
+        for(int i=0;i<5;i++)
+            new Skill(name:"Python",level: "medium").save()
+
+        //Medium Skills
+        for(int i=0;i<10;i++)
+            new Skill(name:"Grails",level: "expert").save()
+        for(int i=0;i<7;i++)
+            new Skill(name:"HTML5",level: "expert").save()
+        for(int i=0;i<5;i++)
+            new Skill(name:"Angular",level: "expert").save()
+
     }
 
     def destroy = {

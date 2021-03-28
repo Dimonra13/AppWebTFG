@@ -5,18 +5,54 @@ import grails.gorm.transactions.Transactional
 @Transactional
 class SkillService {
 
-    //IMPLEMENT ME
+    /**
+     * Method that returns the most popular basic level skills (max 20)
+     * @return List<String> that contains the skills
+     */
     List<String> getRecommendedBasicSkills(){
-        return ['test1','test2','test765']
+        def out = Skill.createCriteria().list(max: 20,offset: 0) {
+            projections {
+                groupProperty("name")
+                count("name", 'myCount')
+            }
+            eq'level','basic'
+            order 'myCount', 'desc'
+        }.collect{it[0]}
+        out
     }
-    //IMPLEMENT ME
+
+    /**
+     * Method that returns the most popular medium level skills (max 20)
+     * @return List<String> that contains the skills
+     */
     List<String> getRecommendedMediumSkills(){
-        return ['test1','test2','test765']
+        def out = Skill.createCriteria().list(max: 20,offset: 0) {
+            projections {
+                groupProperty("name")
+                count("name", 'myCount')
+            }
+            eq'level','medium'
+            order 'myCount', 'desc'
+        }.collect{it[0]}
+        out
     }
-    //IMPLEMENT ME
+
+    /**
+     * Method that returns the most popular expert level skills (max 20)
+     * @return List<String> that contains the skills
+     */
     List<String> getRecommendedExpertSkills(){
-        return ['test1','test2','test765']
+        def out = Skill.createCriteria().list(max: 20,offset: 0) {
+            projections {
+                groupProperty("name")
+                count("name", 'myCount')
+            }
+            eq'level','expert'
+            order 'myCount', 'desc'
+        }.collect{it[0]}
+        out
     }
+
     User updateSkills(User user, List<String> basicSkills, List<String> mediumSkills, List<String> expertSkills){
         updateBasicSkills(user, basicSkills)
         updateMediumSkills(user, mediumSkills)
