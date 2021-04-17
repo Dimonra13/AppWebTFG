@@ -207,7 +207,18 @@ class UserController {
     }
 
     @Secured('isAuthenticated()')
-    def interests() {
+    def addInterests() {
+        render(view: "interests")
+    }
+
+    @Secured('isAuthenticated()')
+    def editInterests() {
+        render(view: "interests")
+    }
+
+    @Secured('isAuthenticated()')
+    def updateInterests(){
+        params.get("categories[]")
         render(view: "interests")
     }
 
