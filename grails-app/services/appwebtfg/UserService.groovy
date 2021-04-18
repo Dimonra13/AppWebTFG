@@ -81,5 +81,10 @@ class UserService {
         user?.isPublicProfile=false
         user?.save()
     }
+
+    User updateInterests(User user,List<String> userInterests){
+        user?.interests = userInterests
+        user?.save()
+    }
 }
 

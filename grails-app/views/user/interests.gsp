@@ -21,7 +21,7 @@
             <div class="row no-gutters">
                 <g:each var="category" in="${catList}" status="i">
                     <!-- Product-->
-                    <div class="col-lg-3 col-sm-3 col-6 border border-collapse">
+                    <div class="col-lg-3 col-sm-4 col-6 border border-collapse">
                         <div class="product-card">
                             <div class="product-thumb"><asset:image src="Hardware/Headphones/JBL%20Tune%20500BT%20Powerful%20Bass%20Wireless%20On-Ear%20Headphones%20,%20Blue,%20Rs.2507.jpg" alt="JBL Tune 500BT Powerful Bass Wireless On-Ear Headphones , Blue, Rs.2507"/></div>
                             <div id="select-${category}" class="product-card-body">
@@ -43,13 +43,23 @@
         </section>
         <g:javascript>
             $(document).ready(function () {
-                //let cat = '${catList[0]}';
+                //Code used to hide the unselect buttons
                 let catList = ['Data-Science','Machine-Learning','Cloud-Computing','Engineering','Business-Finance',
-                    'Security','Leadership','Entrepreneurship','Personal-Development','Human-Studies','Education','Arts',
-                    'Maths','Health','Science','Marketing','Architecture','Software-Engineering','IT-Certification','Test-Prep',
-                    'Gaming','Google','Apple','Oracle','Microsoft','SAP','Graphic-Design']
+                'Security','Leadership','Entrepreneurship','Personal-Development','Human-Studies','Education','Arts',
+                'Maths','Health','Science','Marketing','Architecture','Software-Engineering','IT-Certification','Test-Prep',
+                'Gaming','Google','Apple','Oracle','Microsoft','SAP','Graphic-Design']
                 catList.forEach(it => {
                     $('#unselect-' + it).hide()
+                })
+                /*Code used to auto-select the categories the user have previously selected,
+                  necesary to allow users to edit their interests
+                 */
+                let userInterests = []
+                <g:each var="interest" in="${userInterests}">
+                userInterests.push('${interest}')
+                </g:each>
+                userInterests.forEach(it => {
+                    addCategoryInput(it)
                 })
             });
 

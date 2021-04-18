@@ -208,18 +208,21 @@ class UserController {
 
     @Secured('isAuthenticated()')
     def addInterests() {
-        render(view: "interests")
+        render(view: "interests", model: [userInterests: null])
     }
 
     @Secured('isAuthenticated()')
     def editInterests() {
-        render(view: "interests")
+        User authUser = springSecurityService.getCurrentUser()
+        render(view: "interests", model: [userInterests: authUser?.interests])
     }
 
     @Secured('isAuthenticated()')
     def updateInterests(){
-        params.get("categories[]")
-        render(view: "interests")
+        List<String> userInterests = params.get("categories[]")
+        User authUser = springSecurityService.getCurrentUser()
+        userService.updateInterests(authUser,userInterests)
+        redirect(controller:  "home", action: "index")
     }
 
     @Secured('isAuthenticated()')
@@ -231,7 +234,7 @@ class UserController {
 
     @Secured('isAuthenticated()')
     def editSkills() {
-        User authUser = springSecurityService.getCurrentUser() as User;
+        User authUser = springSecurityService.getCurrentUser() as User
         render(view: "skills", model: [bs: authUser?.basicSkillsToString(),
                                        ms: authUser?.mediumSkillsToString(),
                                        es: authUser?.expertSkillsToString(),

@@ -82,10 +82,20 @@ class UserControllerIntegrationSpec extends BaseControllerIntegrationSpec {
         userController.response.text == groovyPageRenderer.render(view: "editProfileImage")
     }
 
-    void "Validate the interests method"() {
+    void "Validate the addInterests method"() {
 
         setup: 'The controller action is call'
-        userController.interests()
+        userController.addInterests()
+
+        expect: 'validate the method output'
+        userController.response.status == 200
+        userController.response.text == groovyPageRenderer.render(view: "interests")
+    }
+    
+    void "Validate the editInterests method"() {
+
+        setup: 'The controller action is call'
+        userController.editInterests()
 
         expect: 'validate the method output'
         userController.response.status == 200
@@ -101,6 +111,7 @@ class UserControllerIntegrationSpec extends BaseControllerIntegrationSpec {
         userController.response.status == 200
         userController.response.text == groovyPageRenderer.render(view: "skills")
     }
+
     void "Validate the editSkills method"() {
 
         setup: 'The controller action is call'

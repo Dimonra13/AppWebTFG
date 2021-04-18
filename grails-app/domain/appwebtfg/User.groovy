@@ -27,6 +27,7 @@ class User implements Serializable {
                       basicSkills: Skill,
                       mediumSkills: Skill,
                       expertSkills: Skill]
+    List<String> interests
     boolean enabled = true
     boolean accountExpired
     boolean accountLocked
@@ -62,7 +63,7 @@ class User implements Serializable {
      */
     String basicSkillsToString(){
         if (!basicSkills.isEmpty()){
-            String out=basicSkills[0].name;
+            String out=basicSkills[0].name
             for (int i=1;i<basicSkills.size();i++){
                 out=out+","+basicSkills[i].name
             }
@@ -78,7 +79,7 @@ class User implements Serializable {
      */
     String mediumSkillsToString(){
         if (!mediumSkills.isEmpty()){
-            String out=mediumSkills[0].name;
+            String out=mediumSkills[0].name
             for (int i=1;i<mediumSkills.size();i++){
                 out=out+","+mediumSkills[i].name
             }
@@ -94,7 +95,7 @@ class User implements Serializable {
      */
     String expertSkillsToString(){
         if (!expertSkills.isEmpty()){
-            String out=expertSkills[0].name;
+            String out=expertSkills[0].name
             for (int i=1;i<expertSkills.size();i++){
                 out=out+","+expertSkills[i].name
             }
