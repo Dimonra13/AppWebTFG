@@ -53,6 +53,14 @@ class SkillService {
         out
     }
 
+    /**
+     * Method that updates all of the user's skills lists
+     * @param user
+     * @param basicSkills
+     * @param mediumSkills
+     * @param expertSkills
+     * @return user with the updated skills lists
+     */
     User updateSkills(User user, List<String> basicSkills, List<String> mediumSkills, List<String> expertSkills){
         updateBasicSkills(user, basicSkills)
         updateMediumSkills(user, mediumSkills)
@@ -60,6 +68,12 @@ class SkillService {
         user
     }
 
+    /**
+     * Method that updates the user's basic skills list
+     * @param user
+     * @param basicSkills
+     * @return user with the basic skills list updated
+     */
     User updateBasicSkills(User user, List<String> basicSkills) {
         Set<Skill> oldUserSkills = user?.basicSkills
         Set<Skill> newUserSkills = new HashSet<>()
@@ -72,6 +86,12 @@ class SkillService {
         user.save()
     }
 
+    /**
+     * Method that updates the user's medium skills list
+     * @param user
+     * @param mediumSkills
+     * @return user with the medium skills list updated
+     */
     User updateMediumSkills(User user, List<String> mediumSkills) {
         Set<Skill> oldUserSkills = user?.mediumSkills
         Set<Skill> newUserSkills = new HashSet<>()
@@ -84,6 +104,12 @@ class SkillService {
         user.save()
     }
 
+    /**
+     * Method that updates the user's expert skills list
+     * @param user
+     * @param expertSkills
+     * @return user with the expert skills list updated
+     */
     User updateExpertSkills(User user, List<String> expertSkills) {
         Set<Skill> oldUserSkills = user?.expertSkills
         Set<Skill> newUserSkills = new HashSet<>()

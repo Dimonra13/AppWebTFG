@@ -119,4 +119,39 @@ class UserServiceIntegrationSpec extends Specification {
         !publicUser.isPublicProfile
     }
 
+    @Unroll
+    void "test the updateInterests method"(List<String> userNewInterests) {
+
+        given: "The expected user and the test user"
+        User testUser
+        List<String> expectedInterestList
+
+        when: "There is one user registered in the database"
+        if (!User.findByUsername("test"))
+            testUser = registrationService.registerUser("test", "test", "test@gmail.com")
+
+        and: "The expected interests list is specified"
+        expectedInterestList = userNewInterests ?: []
+
+        and: "User's interests list is updated"
+        testUser = userService.updateInterests(testUser, userNewInterests)
+
+        then: "The output must be the same as the expected output of the method"
+        expectedInterestList == testUser.interests
+
+        cleanup:
+        User.withNewSession { session ->
+            User registeredUser = User.findByUsername("test")
+            UserRole.findByUser(registeredUser)?.delete()
+            registeredUser?.delete()
+        }
+
+        where:
+        userNewInterests           | _
+        null                       | _
+        []                         | _
+        ["test"]                   | _
+        ["test", "test2", "test3"] | _
+
+    }
 }

@@ -206,17 +206,29 @@ class UserController {
         redirect(action: "myProfile")
     }
 
+    /**
+     * Method that returns the page used to add interests to the authenticated user profile
+     * @return view "interests"
+     */
     @Secured('isAuthenticated()')
     def addInterests() {
         render(view: "interests", model: [userInterests: null])
     }
 
+    /**
+     * Method that returns the page used to edit the authenticated user interests list
+     * @return view "interests"
+     */
     @Secured('isAuthenticated()')
     def editInterests() {
         User authUser = springSecurityService.getCurrentUser()
         render(view: "interests", model: [userInterests: authUser?.interests])
     }
 
+    /**
+     * Method used to update the authenticated user interests list
+     * @return redirect to "/"
+     */
     @Secured('isAuthenticated()')
     def updateInterests(){
         List<String> userInterests = params.get("categories[]")
@@ -225,6 +237,10 @@ class UserController {
         redirect(controller:  "home", action: "index")
     }
 
+    /**
+     * Method that returns the page used to add skills to the authenticated user profile
+     * @return view "skills"
+     */
     @Secured('isAuthenticated()')
     def addSkills() {
         render(view: "skills",model: [recommendedBS: skillService.getRecommendedBasicSkills(),
@@ -232,6 +248,10 @@ class UserController {
                                       recommendedES: skillService.getRecommendedExpertSkills()])
     }
 
+    /**
+     * Method that returns the page used to edit the authenticated user skills
+     * @return view "skills"
+     */
     @Secured('isAuthenticated()')
     def editSkills() {
         User authUser = springSecurityService.getCurrentUser() as User
@@ -244,6 +264,10 @@ class UserController {
                                        update: true])
     }
 
+    /**
+     * Method used to update the authenticated user skills
+     * @return redirect to "/"
+     */
     @Secured('isAuthenticated()')
     def updateSkills() {
         User authUser = springSecurityService.getCurrentUser() as User

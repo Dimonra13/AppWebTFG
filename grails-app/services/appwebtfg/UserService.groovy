@@ -82,8 +82,14 @@ class UserService {
         user?.save()
     }
 
+    /**
+     * Method used to update the user $user interests list
+     * @param user
+     * @param userInterests
+     * @return the user with the list of interests updated
+     */
     User updateInterests(User user,List<String> userInterests){
-        user?.interests = userInterests
+        user?.interests = userInterests ?: []
         user?.save()
     }
 }
