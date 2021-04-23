@@ -277,4 +277,16 @@ class UserController {
         skillService.updateSkills(authUser, basicSkills, mediumSkills, expertSkills)
         redirect(controller:  "home", action: "index")
     }
+
+    @Secured('isAuthenticated()')
+    def addPreferences() {
+        render(view: "preferences")
+    }
+
+    @Secured('isAuthenticated()')
+    def updatePreferences() {
+        float cost = java.lang.Float.parseFloat(params.cost)
+        redirect(controller:  "home", action: "index")
+    }
+
 }
