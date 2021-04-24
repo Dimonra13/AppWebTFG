@@ -212,7 +212,7 @@ class UserController {
      */
     @Secured('isAuthenticated()')
     def addInterests() {
-        render(view: "interests", model: [userInterests: null])
+        render(view: "interests")
     }
 
     /**
@@ -222,7 +222,7 @@ class UserController {
     @Secured('isAuthenticated()')
     def editInterests() {
         User authUser = springSecurityService.getCurrentUser()
-        render(view: "interests", model: [userInterests: authUser?.interests])
+        render(view: "interests", model: [userInterests: authUser?.interests,update: true])
     }
 
     /**

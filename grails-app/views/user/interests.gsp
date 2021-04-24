@@ -14,30 +14,50 @@
     <div class="row">
         <!-- Featured products grid-->
         <section class="container px-3 pt-4 mt-3">
-            <div class="d-flex flex-wrap justify-content-between align-items-center pb-2">
-                <h1><g:message code="interest.title"/></h1>
+            <div class="col-md-12 pt-6 pt-sm-3 d-flex flex-wrap justify-content-between align-items-center pb-2">
+                <g:if test="${update}">
+                    <h2 class="h3 mb-3"><g:message code="interest.title.update"/></h2>
+                    <a class="btn btn-outline-primary btn-sm" href="/user/myProfile/"><i class="mr-1" data-feather="chevrons-left"></i><g:message code="profile.image.back"></g:message></a>
+                </g:if>
+                <g:else>
+                    <h2 class="h3 mb-3"><g:message code="interest.title"/></h2>
+                </g:else>
             </div>
-            <hr class="mt-4">
-            <div class="row no-gutters">
+            <div class="col-md-12 pt-6 pt-sm-3">
+                <g:if test="${update}">
+                    <p class="text-muted mb-4"><g:message code="interest.explanation.update"/></p>
+                </g:if>
+                <g:else>
+                    <p class="text-muted mb-4"><g:message code="interest.explanation"/></p>
+                </g:else>
+            </div>
+            <div class="col-md-12 pt-6 pt-sm-3">
+                <div class="row no-gutters">
                 <g:each var="category" in="${catList}" status="i">
                     <!-- Product-->
                     <div class="col-lg-3 col-sm-4 col-6 border border-collapse">
                         <div class="product-card">
                             <div class="product-thumb"><asset:image src="Hardware/Headphones/JBL%20Tune%20500BT%20Powerful%20Bass%20Wireless%20On-Ear%20Headphones%20,%20Blue,%20Rs.2507.jpg" alt="JBL Tune 500BT Powerful Bass Wireless On-Ear Headphones , Blue, Rs.2507"/></div>
                             <div id="select-${category}" class="product-card-body">
-                                <button onclick="addCategoryInput('${category}')" class="btn btn-primary btn-sm btn-block select" type="button" data-toggle="toast" data-target="#cart-toast">SELECT</button>
+                                <button onclick="addCategoryInput('${category}')" class="btn btn-primary btn-sm btn-block select" type="button" data-toggle="toast" data-target="#cart-toast"><g:message code="interest.select"/></button>
                             </div>
                             <div id="unselect-${category}" class="product-card-body">
-                                <button onclick="removeCategoryInput('${category}')" class="btn btn-outline-primary btn-sm btn-block select" type="button" data-toggle="toast" data-target="#cart-toast">UNSELECT</button>
+                                <button onclick="removeCategoryInput('${category}')" class="btn btn-outline-primary btn-sm btn-block select" type="button" data-toggle="toast" data-target="#cart-toast"><g:message code="interest.unselect"/></button>
                             </div>
                         </div>
                     </div>
                 </g:each>
+                </div>
+                <br>
             </div>
-            <br>
             <form name="imageSubmit" action="/user/updateInterests">
                 <div class="text-right">
-                    <input type="submit" class="btn btn-primary" name="submit" value="${message(code: 'update.user.submit')}"></input>
+                    <g:if test="${!update}">
+                        <input type="submit" class="btn btn-primary" name="submit" value="${message(code: 'interest.submit')}"/>
+                    </g:if>
+                    <g:else>
+                        <input type="submit" class="btn btn-primary" name="submit" value="${message(code: 'interest.update.submit')}"/>
+                    </g:else>
                 </div>
             </form>
         </section>
