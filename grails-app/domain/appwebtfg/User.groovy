@@ -28,6 +28,11 @@ class User implements Serializable {
                       mediumSkills: Skill,
                       expertSkills: Skill]
     List<String> interests
+    //User preferences
+    Float duration
+    Float cost
+    Float popularity
+    Float difficulty
     boolean enabled = true
     boolean accountExpired
     boolean accountLocked
@@ -47,6 +52,10 @@ class User implements Serializable {
         basicSkills nullable: true, blank: true
         mediumSkills nullable: true, blank: true
         expertSkills nullable: true, blank: true
+        duration nullable: true
+        cost nullable: true
+        popularity nullable: true
+        difficulty nullable: true
     }
 
     static mapping = {

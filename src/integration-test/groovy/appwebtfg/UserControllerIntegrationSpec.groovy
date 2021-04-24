@@ -121,4 +121,24 @@ class UserControllerIntegrationSpec extends BaseControllerIntegrationSpec {
         userController.response.status == 200
         userController.response.text == groovyPageRenderer.render(view: "skills")
     }
+
+    void "Validate the addPreferences method"() {
+
+        setup: 'The controller action is call'
+        userController.addPreferences()
+
+        expect: 'validate the method output'
+        userController.response.status == 200
+        userController.response.text == groovyPageRenderer.render(view: "preferences")
+    }
+
+    void "Validate the editPreferences method"() {
+
+        setup: 'The controller action is call'
+        userController.editPreferences()
+
+        expect: 'validate the method output'
+        userController.response.status == 200
+        userController.response.text == groovyPageRenderer.render(view: "preferences")
+    }
 }

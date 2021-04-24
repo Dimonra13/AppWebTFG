@@ -284,6 +284,12 @@ class UserController {
     }
 
     @Secured('isAuthenticated()')
+    def editPreferences() {
+        User authUser = springSecurityService.getCurrentUser()
+        render(view: "preferences", model: [user: authUser,update: true])
+    }
+
+    @Secured('isAuthenticated()')
     def updatePreferences() {
         float cost = java.lang.Float.parseFloat(params.cost)
         redirect(controller:  "home", action: "index")

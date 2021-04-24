@@ -10,16 +10,22 @@
 <asset:stylesheet src="jquery.range.css"/>
 <div class="container pt-lg-3 pb-5 mb-sm-5">
     <div class="row">
+        <div class="col-md-12 pt-6 pt-sm-3 d-flex flex-wrap justify-content-between align-items-center pb-2">
+            <g:if test="${update}">
+                <h2 class="h3 mb-3"><g:message code="preferences.title.update"/></h2>
+                <a class="btn btn-outline-primary btn-sm" href="/user/myProfile/"><i class="mr-1" data-feather="chevrons-left"></i><g:message code="profile.image.back"></g:message></a>
+            </g:if>
+            <g:else>
+                <h2 class="h3 mb-3"><g:message code="preferences.title"/></h2>
+            </g:else>
+        </div>
         <div class="col-md-12 pt-6 pt-sm-3">
-            <div class="d-flex flex-wrap justify-content-between align-items-center pb-2">
-                <g:if test="${update}">
-                    <h2 class="h3 mb-3">Actualiza tus preferencias</h2>
-                    <a class="btn btn-outline-primary btn-sm" href="/user/myProfile/"><i class="mr-1" data-feather="chevrons-left"></i><g:message code="profile.image.back"></g:message></a>
-                </g:if>
-                <g:else>
-                    <h2 class="h3 mb-3">¿Cuáles son tus preferencias?</h2>
-                </g:else>
-            </div>
+            <g:if test="${update}">
+                <p class="text-muted mb-4"><g:message code="preferences.explanation.update"/></p>
+            </g:if>
+            <g:else>
+                <p class="text-muted mb-4"><g:message code="preferences.explanation"/></p>
+            </g:else>
         </div>
     </div>
 
@@ -28,13 +34,17 @@
             <div class="col-md-6 pt-6 pt-sm-3">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="h4 mb-4">Duración de los cursos</h2>
-
+                        <h2 class="h4 mb-4"><g:message code="preferences.duration"/></h2>
                         <div class="row">
                             <div class="col-1"></div>
-
                             <div class="col-10">
-                                <input name="length" id="length-input" class="single-slider" type="hidden" value="2"/>
+                                <input name="length" id="length-input" class="single-slider" type="hidden"
+                                <g:if test="${update && user.duration}">
+                                    value="${user.duration}"/>
+                                </g:if>
+                                <g:else>
+                                    value="2"/>
+                                </g:else>
                                 <br>
                                 <br>
                             </div>
@@ -46,13 +56,17 @@
             <div class="col-md-6 pt-6 pt-sm-3">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="h4 mb-4">Coste de los cursos</h2>
-
+                        <h2 class="h4 mb-4"><g:message code="preferences.cost"/></h2>
                         <div class="row">
                             <div class="col-1"></div>
-
                             <div class="col-10">
-                                <input name="cost" id="cost-input" class="single-slider" type="hidden" value="2"/>
+                                <input name="cost" id="cost-input" class="single-slider" type="hidden"
+                                <g:if test="${update && user.cost}">
+                                    value="${user.cost}"/>
+                                </g:if>
+                                <g:else>
+                                    value="2"/>
+                                </g:else>
                                 <br>
                                 <br>
                             </div>
@@ -64,14 +78,17 @@
             <div class="col-md-6 pt-6 pt-sm-3">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="h4 mb-4">Popularidad de los cursos</h2>
-
+                        <h2 class="h4 mb-4"><g:message code="preferences.popularity"/></h2>
                         <div class="row">
                             <div class="col-1"></div>
-
                             <div class="col-10">
                                 <input name="popularity" id="popularity-input" class="single-slider" type="hidden"
-                                       value="1"/>
+                                <g:if test="${update && user.popularity}">
+                                    value="${user.popularity}"/>
+                                </g:if>
+                                <g:else>
+                                    value="1"/>
+                                </g:else>
                                 <br>
                                 <br>
                             </div>
@@ -83,14 +100,17 @@
             <div class="col-md-6 pt-6 pt-sm-3">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="h4 mb-4">Dificultad de los cursos</h2>
-
+                        <h2 class="h4 mb-4"><g:message code="preferences.difficulty"/></h2>
                         <div class="row">
                             <div class="col-1"></div>
-
                             <div class="col-10">
                                 <input name="difficulty" id="difficulty-input" class="single-slider" type="hidden"
-                                       value="3"/>
+                                <g:if test="${update && user.difficulty}">
+                                    value="${user.difficulty}"/>
+                                </g:if>
+                                <g:else>
+                                    value="3"/>
+                                </g:else>
                                 <br>
                                 <br>
                             </div>
@@ -103,10 +123,10 @@
 
         <div class="text-right">
             <g:if test="${!update}">
-                <input type="submit" class="btn btn-primary" name="submit" value="Actualizar preferencias"/>
+                <input type="submit" class="btn btn-primary" name="submit" value="${message(code: 'preferences.submit')}"/>
             </g:if>
             <g:else>
-                <input type="submit" class="btn btn-primary" name="submit" value="Añadir preferencias"/>
+                <input type="submit" class="btn btn-primary" name="submit" value="${message(code: 'preferences.update.submit')}"/>
             </g:else>
         </div>
     </form>
@@ -116,7 +136,9 @@
         from: 1,
         to: 3,
         step: 0.1,
-        scale: ['Muy corto', 'Me da igual', 'Muy largo'],
+        scale: ['${message(code: 'preferences.duration.short')}',
+                '${message(code: 'preferences.duration.middle')}',
+                '${message(code: 'preferences.duration.long')}'],
         format: '%s',
         width: 'auto', //Very important in order to allow the range input to be responsive
         showLabels: false,
@@ -126,7 +148,9 @@
         from: 1,
         to: 3,
         step: 0.1,
-        scale: ['Gratis', 'Me da igual', 'Caro'],
+        scale: ['${message(code: 'preferences.cost.free')}',
+                '${message(code: 'preferences.cost.middle')}',
+                '${message(code: 'preferences.cost.expensive')}'],
         format: '%s',
         width: 'auto', //Very important in order to allow the range input to be responsive
         showLabels: false,
@@ -136,7 +160,8 @@
         from: 1,
         to: 2,
         step: 0.1,
-        scale: ['Me da igual', 'Muy populares'],
+        scale: ['${message(code: 'preferences.popularity.none')}',
+                '${message(code: 'preferences.popularity.very')}'],
         format: '%s',
         width: 'auto', //Very important in order to allow the range input to be responsive
         showLabels: false,
@@ -146,7 +171,11 @@
         from: 1,
         to: 5,
         step: 0.1,
-        scale: ['Muy fácil', 'Fácil', 'Me da igual', 'Difícil', 'Muy difícil'],
+        scale: ['${message(code: 'preferences.difficulty.easy.very')}',
+                '${message(code: 'preferences.difficulty.easy')}',
+                '${message(code: 'preferences.difficulty.middle')}',
+                '${message(code: 'preferences.difficulty.hard')}',
+                '${message(code: 'preferences.difficulty.hard.very')}'],
         format: '%s',
         width: 'auto', //Very important in order to allow the range input to be responsive
         showLabels: false,
