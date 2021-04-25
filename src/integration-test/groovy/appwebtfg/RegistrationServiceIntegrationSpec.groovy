@@ -19,14 +19,14 @@ class RegistrationServiceIntegrationSpec extends Specification {
         User testUser
         User expectedUser
 
-        when: "There is one user registered in the database"
+        and: "There is one user registered in the database"
         if (!User.findByUsername("test"))
             registrationService.registerUser("test", "test", "test@gmail.com")
 
         and: "The expected user is specified"
         expectedUser = correct ? new User(username: username, password: pass, email: mail) : null
 
-        and: "A new user is registered in the database"
+        when: "A new user is registered in the database"
         testUser = registrationService.registerUser(username, pass, mail)
 
         then: "The output must be the same as the expected output of the method"

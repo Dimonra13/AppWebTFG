@@ -20,7 +20,7 @@ class CourseListServiceIntegrationSpec extends Specification {
         CourseList expectedCourseList
         CourseList testCourseList
 
-        when: "There is one user registered in the database"
+        and: "There is one user registered in the database"
         testUser = User.findByUsername("testCourseList")
         if (!testUser)
             testUser = registrationService.registerUser("testCourseList", "test", "test@gmail.com")
@@ -28,8 +28,9 @@ class CourseListServiceIntegrationSpec extends Specification {
         and: "The expected CourseList is specified"
         expectedCourseList = correct ? new CourseList(name: name, description: description, owner: testUser) : null
 
-        and: "The CourseList is created"
+        when: "The CourseList is created"
         testCourseList = courseListService.createCourseList(testUser, name, description)
+
         then: "The output must be the same as the expected output of the method"
         expectedCourseList?.name == testCourseList?.name
 
@@ -62,7 +63,7 @@ class CourseListServiceIntegrationSpec extends Specification {
         User testUser
         CourseList testCourseList
 
-        when: "There is one user registered in the database"
+        and: "There is one user registered in the database"
         testUser = User.findByUsername("testCourseListDelete")
         if (!testUser)
             testUser = registrationService.registerUser("testCourseListDelete", "test", "test@gmail.com")
@@ -70,7 +71,7 @@ class CourseListServiceIntegrationSpec extends Specification {
         and: "The test courseList is added to the test user"
         testCourseList = courseListService.createCourseList(testUser, name, null)
 
-        and: "The test courseList is deleted"
+        when: "The test courseList is deleted"
         courseListService.deleteCourseList(testUser, testCourseList?.id)
 
         then: "The output must be the same as the expected output of the method"
@@ -100,7 +101,7 @@ class CourseListServiceIntegrationSpec extends Specification {
         CourseList testCourseList
 
 
-        when: "There is one user registered in the database"
+        and: "There is one user registered in the database"
         User testUser = User.findByUsername("testCourseList")
         if (!testUser)
             testUser = registrationService.registerUser("testAddToCourseList", "test", "test@gmail.com")
@@ -109,8 +110,9 @@ class CourseListServiceIntegrationSpec extends Specification {
         testCourseList = courseListService.createCourseList(testUser, 'testAddTo', 'description')
         testCourse = new Course(title: name).save()
 
-        and: "The test course is added to the test CourseList"
+        when: "The test course is added to the test CourseList"
         testCourseList = courseListService.addCourseToList(testCourseList.id, testCourse.id)
+
         then: "The output must be the same as the expected output of the method"
         testCourseList?.courses?.any { it.title == name }
 
@@ -129,7 +131,7 @@ class CourseListServiceIntegrationSpec extends Specification {
         CourseList testCourseList
 
 
-        when: "There is one user registered in the database"
+        and: "There is one user registered in the database"
         User testUser = User.findByUsername("testCourseList")
         if (!testUser)
             testUser = registrationService.registerUser("testRemoveFromCourseList", "test", "test@gmail.com")
@@ -141,7 +143,7 @@ class CourseListServiceIntegrationSpec extends Specification {
         and: "The test course is added to the test CourseList"
         courseListService.addCourseToList(testCourseList.id, testCourse.id)
 
-        and:"The test course is remove from the test CourseList"
+        when:"The test course is remove from the test CourseList"
         testCourseList =  courseListService.deleteCourseFromList(testCourseList.id, testCourse.id)
 
         then: "The output must be the same as the expected output of the method"

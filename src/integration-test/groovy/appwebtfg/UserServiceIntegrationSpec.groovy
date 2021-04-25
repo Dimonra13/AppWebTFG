@@ -19,14 +19,14 @@ class UserServiceIntegrationSpec extends Specification {
         User testUser
         User expectedUser
 
-        when: "There is one user registered in the database"
+        and: "There is one user registered in the database"
         if (!User.findByUsername("test"))
             registrationService.registerUser("test", "test", "test@gmail.com")
 
         and: "The expected user is specified"
         expectedUser = correct ? new User(username: username, password: pass, email: mail) : null
 
-        and: "The user information is updated"
+        when: "The user information is updated"
         testUser = userService.updateUser(new User(username: username, password: pass, email: mail), User.findByUsername("test"), passchanged)
 
         then: "The output must be the same as the expected output of the method"
@@ -91,10 +91,10 @@ class UserServiceIntegrationSpec extends Specification {
         given: "A user with a private profile"
         User privateUser
 
-        when: "The user is save in the database"
+        and: "The user is save in the database"
         privateUser = registrationService.registerUser("testPrivate", "testpass", "testPrivate@gmail.com")
 
-        and: "The profile of the user is made public"
+        when: "The profile of the user is made public"
         privateUser = userService.makeProfilePublic(privateUser)
 
         then: "The profile of the user must be public"
@@ -106,13 +106,13 @@ class UserServiceIntegrationSpec extends Specification {
         given: "A user with a public profile"
         User publicUser
 
-        when: "The user is save in the database"
+        and: "The user is save in the database"
         publicUser = registrationService.registerUser("testPublic", "testpass", "testPublic@gmail.com")
 
         and: "The profile of the user is made public"
         publicUser = userService.makeProfilePublic(publicUser)
 
-        and: "The profile of the user is made private"
+        when: "The profile of the user is made private"
         publicUser = userService.makeProfilePrivate(publicUser)
 
         then: "The profile of the user must be private"
@@ -126,14 +126,14 @@ class UserServiceIntegrationSpec extends Specification {
         User testUser
         List<String> expectedInterestList
 
-        when: "There is one user registered in the database"
+        and: "There is one user registered in the database"
         if (!User.findByUsername("test"))
             testUser = registrationService.registerUser("test", "test", "test@gmail.com")
 
         and: "The expected interests list is specified"
         expectedInterestList = userNewInterests ?: []
 
-        and: "User's interests list is updated"
+        when: "User's interests list is updated"
         testUser = userService.updateInterests(testUser, userNewInterests)
 
         then: "The test user's interests list must be updated correctly"
@@ -166,7 +166,7 @@ class UserServiceIntegrationSpec extends Specification {
         Float expectedPopularity
         Float expectedDifficulty
 
-        when: "There is one user registered in the database"
+        and: "There is one user registered in the database"
         if (!User.findByUsername("test"))
             testUser = registrationService.registerUser("test", "test", "test@gmail.com")
 
@@ -176,7 +176,7 @@ class UserServiceIntegrationSpec extends Specification {
         expectedPopularity = popularity
         expectedDifficulty = difficulty
 
-        and: "User's preferences are updated"
+        when: "User's preferences are updated"
         testUser = userService.updatePreferences(testUser, duration, cost, popularity, difficulty)
 
         then: "The test user's preferences must be updated correctly"

@@ -34,4 +34,14 @@ class ErrorControllerIntegrationSpec extends BaseControllerIntegrationSpec {
         errorController.response.status == 200
         errorController.response.text == groovyPageRenderer.render(view: "notAllowed")
     }
+
+    void "Validate the internalError method"() {
+
+        setup: 'The controller action is call'
+        errorController.internalError()
+
+        expect: 'validate the method output'
+        errorController.response.status == 200
+        errorController.response.text == groovyPageRenderer.render(view: "error")
+    }
 }

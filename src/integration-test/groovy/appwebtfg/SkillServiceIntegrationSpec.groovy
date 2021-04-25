@@ -18,11 +18,11 @@ class SkillServiceIntegrationSpec extends Specification {
         given: "The test user"
         User testUser
 
-        when: "There is one user registered in the database"
+        and: "There is one user registered in the database"
         if (!User.findByUsername("test"))
             testUser = registrationService.registerUser("test", "test", "test@gmail.com")
 
-        and: "The test user's basicSkills are updated"
+        when: "The test user's basicSkills are updated"
         testUser = skillService.updateBasicSkills(testUser, basicSkills)
 
         then: "The test user's skills must be updated correctly"
@@ -50,11 +50,11 @@ class SkillServiceIntegrationSpec extends Specification {
         given: "The test user"
         User testUser
 
-        when: "There is one user registered in the database"
+        and: "There is one user registered in the database"
         if (!User.findByUsername("test"))
             testUser = registrationService.registerUser("test", "test", "test@gmail.com")
 
-        and: "The test user's mediumSkills are updated"
+        when: "The test user's mediumSkills are updated"
         testUser = skillService.updateMediumSkills(testUser, mediumSkills)
 
         then: "The test user's skills must be updated correctly"
@@ -82,11 +82,11 @@ class SkillServiceIntegrationSpec extends Specification {
         given: "The test user"
         User testUser
 
-        when: "There is one user registered in the database"
+        and: "There is one user registered in the database"
         if (!User.findByUsername("test"))
             testUser = registrationService.registerUser("test", "test", "test@gmail.com")
 
-        and: "The test user's expertSkills are updated"
+        when: "The test user's expertSkills are updated"
         testUser = skillService.updateExpertSkills(testUser, expertSkills)
 
         then: "The test user's skills must be updated correctly"
