@@ -122,7 +122,7 @@ class UserServiceIntegrationSpec extends Specification {
     @Unroll
     void "test the updateInterests method"(List<String> userNewInterests) {
 
-        given: "The expected user and the test user"
+        given: "The expected interests list and the test user"
         User testUser
         List<String> expectedInterestList
 
@@ -136,7 +136,7 @@ class UserServiceIntegrationSpec extends Specification {
         and: "User's interests list is updated"
         testUser = userService.updateInterests(testUser, userNewInterests)
 
-        then: "The output must be the same as the expected output of the method"
+        then: "The test user's interests list must be updated correctly"
         expectedInterestList == testUser.interests
 
         cleanup:
@@ -152,6 +152,51 @@ class UserServiceIntegrationSpec extends Specification {
         []                         | _
         ["test"]                   | _
         ["test", "test2", "test3"] | _
+
+    }
+
+    @Unroll
+    void "test the updatePreferences method"(Float duration, Float cost, Float popularity, Float difficulty) {
+
+        given: "The expected user course preferences and the test user"
+        User testUser
+        //Expected course preferences
+        Float expectedDuration
+        Float expectedCost
+        Float expectedPopularity
+        Float expectedDifficulty
+
+        when: "There is one user registered in the database"
+        if (!User.findByUsername("test"))
+            testUser = registrationService.registerUser("test", "test", "test@gmail.com")
+
+        and: "The expected preferences are specified"
+        expectedDuration = duration
+        expectedCost = cost
+        expectedPopularity = popularity
+        expectedDifficulty = difficulty
+
+        and: "User's preferences are updated"
+        testUser = userService.updatePreferences(testUser, duration, cost, popularity, difficulty)
+
+        then: "The test user's preferences must be updated correctly"
+        (expectedDuration == testUser.duration) && (expectedCost == testUser.cost) &&
+                (expectedPopularity == testUser.popularity) && (expectedDifficulty == testUser.difficulty)
+
+        cleanup:
+        User.withNewSession { session ->
+            User registeredUser = User.findByUsername("test")
+            UserRole.findByUser(registeredUser)?.delete()
+            registeredUser?.delete()
+        }
+
+        where:
+        duration | cost | popularity | difficulty
+        null     | null | null       | null
+        1        | 2    | null       | null
+        1        | 2    | 3          | 4
+        1.23     | 1.3  | 2.456      | 4.5
+        1        | null | 3.56       | null
 
     }
 }

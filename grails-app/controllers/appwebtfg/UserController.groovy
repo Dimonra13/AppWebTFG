@@ -278,20 +278,37 @@ class UserController {
         redirect(controller:  "home", action: "index")
     }
 
+    /**
+     * Method that returns the page used to add preferences to the authenticated user profile
+     * @return view "preferences"
+     */
     @Secured('isAuthenticated()')
     def addPreferences() {
         render(view: "preferences")
     }
 
+    /**
+     * Method that returns the page used to edit the authenticated user preferences
+     * @return view "preferences"
+     */
     @Secured('isAuthenticated()')
     def editPreferences() {
         User authUser = springSecurityService.getCurrentUser()
         render(view: "preferences", model: [user: authUser,update: true])
     }
 
+    /**
+     * Method used to update the authenticated user preferences
+     * @return redirect to "/"
+     */
     @Secured('isAuthenticated()')
     def updatePreferences() {
+        float duration = java.lang.Float.parseFloat(params.duration)
         float cost = java.lang.Float.parseFloat(params.cost)
+        float popularity = java.lang.Float.parseFloat(params.popularity)
+        float difficulty = java.lang.Float.parseFloat(params.difficulty)
+        User authUser = springSecurityService.getCurrentUser() as User
+        userService.updatePreferences(authUser,duration,cost,popularity,difficulty)
         redirect(controller:  "home", action: "index")
     }
 

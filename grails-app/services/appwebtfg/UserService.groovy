@@ -92,5 +92,22 @@ class UserService {
         user?.interests = userInterests ?: []
         user?.save()
     }
+
+    /**
+     * Method used to update the user $user course preferences (duration, cost, popularity, difficulty)
+     * @param user
+     * @param duration
+     * @param cost
+     * @param popularity
+     * @param difficulty
+     * @return the user with the preferences updated
+     */
+    User updatePreferences(User user, Float duration, Float  cost, Float popularity, Float difficulty){
+        user.duration=duration
+        user.cost=cost
+        user.popularity=popularity
+        user.difficulty=difficulty
+        user.save()
+    }
 }
 

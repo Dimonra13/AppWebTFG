@@ -38,7 +38,7 @@
                         <div class="row">
                             <div class="col-1"></div>
                             <div class="col-10">
-                                <input name="length" id="length-input" class="single-slider" type="hidden"
+                                <input name="duration" id="duration-input" class="single-slider" type="hidden"
                                 <g:if test="${update && user.duration}">
                                     value="${user.duration}"/>
                                 </g:if>
@@ -132,7 +132,7 @@
     </form>
 </div>
 <g:javascript>
-    $('#length-input').jRange({
+    $('#duration-input').jRange({
         from: 1,
         to: 3,
         step: 0.1,
