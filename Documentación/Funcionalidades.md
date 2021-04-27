@@ -28,6 +28,21 @@ Los usuarios registrados que tengan un perfil privado deben poder hacer público
 las búsquedas realizadas por estos.
 * ### Perfil privado
 Los usuarios registrados que tengan un perfil público deben poder volver a establecer su perfil como privado.
+## Funcionalidades relativas a las habilidades (skills) del usuario
+* ### Añadir habilidades
+Los usuarios registrados deben poder especificar cuáles son sus habilidades y que nivel tienen en cada una de ellas (principiante, avanzado y experto). Estas habilidades se mostrarán en su perfíl y serán usadas para recomendarles cursos de forma personalizada
+* ### Editar habilidades
+Los usuarios registrados deben poder editar sus habilidades, pudiendo añadir o borrar cualquier habilidad que deseen.
+## Funcionalidades relativas a los intereses del usuario
+* ### Añadir intereses
+Los usuarios registrados deben poder especificar cuáles son las categorías de cursos que les interesan. Esto será usado para recomendarles cursos de forma personalizada sobre las categorías que consideran realmente interesantes y sobre temas relacionados.
+* ### Editar intereses
+Los usuarios registrados deben poder editar sus intereses, pudiendo añadir o borrar cualquier cualquier categoría.
+## Funcionalidades relativas a las preferencias del usuario sobre los cursos
+* ### Añadir preferencias
+Los usuarios registrados deben poder especificar cuáles son sus preferencias sobre los cursos que les interesan (duración, coste, popularidad y dificultad). Esto será usado para recomendarles cursos de forma personalizada dando prioridad a los cursos que cumplan con estas preferencias.
+* ### Editar preferencias
+Los usuarios registrados deben poder editar sus preferencias.
 ## Funcionalidades relativas a las listas de cursos
 * ### Creación listas de cursos
 Los usuarios registrados deben poder crear listas de cursos. Estas listas tendrán un nombre, una descripción (opcional) y un listado con los cursos añadidos por el usuario.
@@ -52,4 +67,4 @@ Los usuarios registrados que tengan al menos una lista con cursos podrán elimin
 añadidos a la misma.
 ## Funcionalidades relativas a las páginas de error
 * ### Páginas de error específicas
-En caso de que se produzca un error 403 Forbidden, 404 Not Found o 500 Internal Server Error se redirigirá al usuario a una página personalizada con la información relativa al error específico. La información mostrada al usuario debe ser la justa y necesaria, nunca se mostrará información que pueda poner en peligro la seguridad de la aplicación.
+En caso de que se produzca un error 403 Forbidden, 404 Not Found o 500 Internal Server Error se redirigirá al usuario a una página personalizada con la información relativa al error específico. La información mostrada al usuario debe ser la justa y necesaria, nunca se mostrará información que pueda poner en peligro la seguridad de la aplicación. 
