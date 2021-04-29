@@ -73,11 +73,19 @@
                         </div>
                     </g:if>
                     <div class="col-sm-6">
-                        <label for="username"><g:message code="update.user.phoneNumber.label"/></label>
+                        <label for="phoneNumber"><g:message code="update.user.phoneNumber.label"/></label>
                         <div class="input-group form-group">
                             <div class="input-group-prepend"><span class="input-group-text"><i data-feather="phone"></i></span></div>
                             <g:field class="form-control" type="text" name="phoneNumber" id="phoneNumber" value="${user.phoneNumber}" pattern="[0-9]{9}" maxlength="9"/>
                             <div class="invalid-feedback"><g:message code="update.user.phoneNumber.error"></g:message></div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <label for="age"><g:message code="update.user.age.label"/></label>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend"><span class="input-group-text"><i data-feather="clock"></i></span></div>
+                            <g:field class="form-control" type="number" name="age" id="age" value="${user.age}" min="1" max="100" pattern="^[0-9]+"/>
+                            <div class="invalid-feedback"><g:message code="update.user.age.error"></g:message></div>
                         </div>
                     </div>
                 </div>

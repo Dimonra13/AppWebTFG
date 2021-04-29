@@ -55,6 +55,14 @@
                         <span class="font-weight-semibold ml-1"><g:message code="profile.noPhoneNumber"/></span>
                     </g:else>
                 </li>
+                <li class="pb-1"><span class="opacity-80">- <g:message code="profile.age"/>:</span>
+                    <g:if test="${user.age}">
+                        <span class="font-weight-semibold ml-1">${user.age}</span>
+                    </g:if>
+                    <g:else>
+                        <span class="font-weight-semibold ml-1"><g:message code="profile.noAge"/></span>
+                    </g:else>
+                </li>
             </ul>
             <g:if test="${isregistered}">
                 <div class="card">

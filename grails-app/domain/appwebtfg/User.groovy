@@ -17,6 +17,7 @@ class User implements Serializable {
     String password
     String email
     String phoneNumber
+    Integer age
     String date = new SimpleDateFormat("dd-MM-yyyy").format(new Date())
     // Variable used to determine if other users are allowed to view this user's profile, by default its value is false
     boolean isPublicProfile
@@ -47,6 +48,7 @@ class User implements Serializable {
         username nullable: false, blank: false, unique: true
         phoneNumber nullable: true, matches: /\d{9}/
         email matches: /.*@.*/
+        age nullable: true, blank: true
         profileImageBytes nullable: true
         profileImageContentType nullable: true
         basicSkills nullable: true, blank: true

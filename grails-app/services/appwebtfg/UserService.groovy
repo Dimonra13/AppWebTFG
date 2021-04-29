@@ -31,6 +31,7 @@ class UserService {
         currentUser.username = updatedUser.username
         currentUser.email = updatedUser.email
         currentUser.phoneNumber = updatedUser.phoneNumber
+        currentUser.age = updatedUser.age
         if(changedPassword){
             currentUser.password = updatedUser.password
         }
