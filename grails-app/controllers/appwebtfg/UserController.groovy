@@ -231,7 +231,15 @@ class UserController {
      */
     @Secured('isAuthenticated()')
     def updateInterests(){
-        List<String> userInterests = params.get("categories[]")
+        List<String> userInterests = null;
+        try{
+            userInterests = params.get("categories[]")
+        //In case only one category has been selected, the front-end will return a String as a parameter, not a List <String>.
+        //throwing an exception. This exception is catch so the String can be converted into a List<String> safely
+        }catch(Exception e){
+            userInterests = new LinkedList<>();
+            userInterests.add(params.get("categories[]"))
+        }
         User authUser = springSecurityService.getCurrentUser()
         userService.updateInterests(authUser,userInterests)
         redirect(controller:  "home", action: "index")

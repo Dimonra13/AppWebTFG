@@ -64,6 +64,45 @@
                     </g:else>
                 </li>
             </ul>
+            <!-- User interests -->
+            <g:if test="${user.interests}">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-12">
+                            <div class="d-flex flex-wrap justify-content-between pb-4">
+                                <div class="pt-3 mr-3">
+                                    <h3 class="mb-1"><g:message code="profile.interests"/></h3>
+                                </div>
+                                <g:if test="${isregistered}">
+                                    <div class="pt-3"><a class="btn btn-outline-primary btn-sm" href="/user/editInterests"><i class="mr-1" data-feather="edit"></i><g:message code="profile.interests.edit"></g:message></a></div>
+                                </g:if>
+                            </div>
+                            <g:each var="interest" in="${user?.interests}">
+                                <button type="button" class="btn btn-primary rounded" style="margin-bottom: 5px;">
+                                    ${interest}
+                                </button>
+                            </g:each>
+                        </div>
+                    </div>
+                </div>
+            </g:if>
+            <!-- User with no interests -->
+            <g:if test="${isregistered && !user.interests}">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-12">
+                            <h4><g:message code="profile.interests"/></h4>
+                            <p><g:message code="profile.noInterest"/></p>
+                            <g:form url="[controller: 'User', action: 'addInterests']">
+                                <g:submitButton name="submit" class="btn btn-primary" id="public"
+                                                value="${message(code: 'profile.interests.add')}"></g:submitButton>
+                            </g:form>
+                        </div>
+                    </div>
+                </div>
+            </g:if>
+            <br>
+            <!-- User profile visibility -->
             <g:if test="${isregistered}">
                 <div class="card">
                     <div class="card-body">
@@ -93,8 +132,9 @@
                 </div>
             </g:if>
         </div>
-        <!-- User course lists -->
+
         <section class="container px-3 pt-4 mt-3">
+            <!-- User course lists -->
             <div class="d-flex flex-wrap justify-content-between align-items-center pb-2">
                 <h2 class="h3 mb-3"><g:message code="profile.lists.title"/></h2>
                 <g:if test="${isregistered}">
