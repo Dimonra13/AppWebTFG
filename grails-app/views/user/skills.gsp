@@ -94,6 +94,7 @@
                 </div>
                 <br>
                 <div class="text-right">
+                    <input type="hidden" name="fromRegister" value="${fromRegister}">
                     <g:if test="${!update}">
                         <input type="submit" class="btn btn-primary" name="submit" value="${message(code: 'skills.submit')}"/>
                     </g:if>

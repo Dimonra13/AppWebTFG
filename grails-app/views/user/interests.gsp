@@ -51,6 +51,7 @@
                 <br>
             </div>
             <form name="imageSubmit" action="/user/updateInterests">
+                <input type="hidden" name="fromRegister" value="${fromRegister}">
                 <div class="text-right">
                     <g:if test="${!update}">
                         <input type="submit" class="btn btn-primary" name="submit" value="${message(code: 'interest.submit')}"/>

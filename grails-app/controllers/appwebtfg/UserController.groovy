@@ -39,7 +39,7 @@ class UserController {
             User newUser = registrationService.registerUser(params?.username, params?.password, params?.email)
             if (newUser) {
                 springSecurityService.reauthenticate(newUser.username)
-                redirect(controller: "home", action: "index")
+                redirect(controller: "user", action: "addInterestsFromRegister")
             } else {
                 render(view: 'register')
             }
@@ -216,6 +216,16 @@ class UserController {
     }
 
     /**
+     * Method that returns the page used to add interests to the authenticated user profile,
+     * call after the user creates a new account
+     * @return view "interests"
+     */
+    @Secured('isAuthenticated()')
+    def addInterestsFromRegister() {
+        render(view: "interests", model: [fromRegister: true])
+    }
+
+    /**
      * Method that returns the page used to edit the authenticated user interests list
      * @return view "interests"
      */
@@ -242,7 +252,10 @@ class UserController {
         }
         User authUser = springSecurityService.getCurrentUser()
         userService.updateInterests(authUser,userInterests)
-        redirect(controller:  "home", action: "index")
+        if(params.get("fromRegister"))
+            redirect(controller: "user", action: "addSkillsFromRegister")
+        else
+            redirect(controller:  "user", action: "myProfile")
     }
 
     /**
@@ -254,6 +267,19 @@ class UserController {
         render(view: "skills",model: [recommendedBS: skillService.getRecommendedBasicSkills(),
                                       recommendedMS: skillService.getRecommendedMediumSkills(),
                                       recommendedES: skillService.getRecommendedExpertSkills()])
+    }
+
+    /**
+     * Method that returns the page used to add skills to the authenticated user profile,
+     * call after the user creates a new account
+     * @return view "skills"
+     */
+    @Secured('isAuthenticated()')
+    def addSkillsFromRegister() {
+        render(view: "skills",model: [recommendedBS: skillService.getRecommendedBasicSkills(),
+                                      recommendedMS: skillService.getRecommendedMediumSkills(),
+                                      recommendedES: skillService.getRecommendedExpertSkills(),
+                                      fromRegister: true])
     }
 
     /**
@@ -283,7 +309,10 @@ class UserController {
         List<String> mediumSkills = params?.medium[1].split(",").findAll { it != "" }
         List<String> expertSkills = params?.expert[1].split(",").findAll { it != "" }
         skillService.updateSkills(authUser, basicSkills, mediumSkills, expertSkills)
-        redirect(controller:  "home", action: "index")
+        if(params.get("fromRegister"))
+            redirect(controller: "user", action: "addPreferences")
+        else
+            redirect(controller:  "user", action: "myProfile")
     }
 
     /**
@@ -294,6 +323,7 @@ class UserController {
     def addPreferences() {
         render(view: "preferences")
     }
+
 
     /**
      * Method that returns the page used to edit the authenticated user preferences
@@ -317,7 +347,7 @@ class UserController {
         float difficulty = java.lang.Float.parseFloat(params.difficulty)
         User authUser = springSecurityService.getCurrentUser() as User
         userService.updatePreferences(authUser,duration,cost,popularity,difficulty)
-        redirect(controller:  "home", action: "index")
+        redirect(controller:  "user", action: "myProfile")
     }
 
 }
