@@ -86,12 +86,12 @@
                     </div>
                 </div>
             </g:if>
-            <!-- User with no interests -->
-            <g:if test="${isregistered && !user.interests}">
+            <g:elseif test="${isregistered}">
+                <!-- User with no interests -->
                 <div class="card">
                     <div class="card-body">
                         <div class="col-12">
-                            <h4><g:message code="profile.interests"/></h4>
+                            <h3><g:message code="profile.interests"/></h3>
                             <p><g:message code="profile.noInterest"/></p>
                             <g:form url="[controller: 'User', action: 'addInterests']">
                                 <g:submitButton name="submit" class="btn btn-primary" id="public"
@@ -100,7 +100,7 @@
                         </div>
                     </div>
                 </div>
-            </g:if>
+            </g:elseif>
             <br>
             <!-- User profile visibility -->
             <g:if test="${isregistered}">
@@ -134,6 +134,78 @@
         </div>
 
         <section class="container px-3 pt-4 mt-3">
+            <!-- User skills -->
+            <g:if test="${user.basicSkills || user.mediumSkills || user.expertSkills}">
+                <div class="d-flex flex-wrap justify-content-between align-items-center pb-2">
+                    <h2 class="h3 mb-3"><g:message code="profile.skills.title"/></h2>
+                    <g:if test="${isregistered}">
+                        <a class="btn btn-outline-primary btn-sm" href="/user/editSkills/"><i class="mr-1" data-feather="edit"></i><g:message code="profile.skills.edit"></g:message></a>
+                    </g:if>
+                </div>
+                <div class="row">
+                    <div class="card col-4">
+                        <div class="card-body">
+                            <h4><g:message code="profile.skills.basic"/></h4>
+                            <g:if test="${!user?.basicSkills}">
+                                <div class="alert alert-info" role="alert">
+                                    <g:message code="profile.noSkills.level"/>
+                                </div>
+                            </g:if>
+                            <g:each var="skill" in="${user?.basicSkills}">
+                                <button type="button" class="btn btn-primary rounded" style="margin-bottom: 5px;">
+                                    ${skill?.name}
+                                </button>
+                            </g:each>
+                        </div>
+                    </div>
+                    <div class="card col-4">
+                        <div class="card-body">
+                            <h4><g:message code="profile.skills.medium"/></h4>
+                            <g:if test="${!user?.mediumSkills}">
+                                <div class="alert alert-info" role="alert">
+                                    <g:message code="profile.noSkills.level"/>
+                                </div>
+                            </g:if>
+                            <g:each var="skill" in="${user?.mediumSkills}">
+                                <button type="button" class="btn btn-primary rounded" style="margin-bottom: 5px;">
+                                    ${skill?.name}
+                                </button>
+                            </g:each>
+                        </div>
+                    </div>
+                    <div class="card col-4">
+                        <div class="card-body">
+                            <h4><g:message code="profile.skills.expert"/></h4>
+                            <g:if test="${!user?.expertSkills}">
+                                <div class="alert alert-info" role="alert">
+                                    <g:message code="profile.noSkills.level"/>
+                                </div>
+                            </g:if>
+                            <g:each var="skill" in="${user?.expertSkills}">
+                                <button type="button" class="btn btn-primary rounded" style="margin-bottom: 5px;">
+                                    ${skill?.name}
+                                </button>
+                            </g:each>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </g:if>
+            <g:elseif test="${isregistered}">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-12">
+                            <h3><g:message code="profile.skills.title"/></h3>
+                            <p><g:message code="profile.noSkills"/></p>
+                            <g:form url="[controller: 'User', action: 'addSkills']">
+                                <g:submitButton name="submit" class="btn btn-primary" id="public"
+                                                value="${message(code: 'profile.skills.add')}"></g:submitButton>
+                            </g:form>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </g:elseif>
             <!-- User course lists -->
             <div class="d-flex flex-wrap justify-content-between align-items-center pb-2">
                 <h2 class="h3 mb-3"><g:message code="profile.lists.title"/></h2>
