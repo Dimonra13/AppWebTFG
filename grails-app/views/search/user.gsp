@@ -12,9 +12,9 @@
         <div class="col-md-1"></div>
 
         <div class="col-md-10 pt-6 pt-sm-3">
-            <h2 class="h4 mb-3"><g:message code="register.user.search.title"/></h2>
+            <h2 class="h4 mb-3"><g:message code="user.search.title"/></h2>
 
-            <p class="text-muted mb-4"><g:message code="register.user.search.description"/></p>
+            <p class="text-muted mb-4"><g:message code="user.search.description"/></p>
 
             <form action="/search/searchUser" class="needs-validation" novalidate>
                 <!-- search-box-->
@@ -23,7 +23,7 @@
                         <div class="input-group-prepend"><span class="input-group-text rounded-left" id="search-icon"><i
                                 data-feather="search"></i></span></div>
                         <input class="form-control rounded-right" type="text" id="search-user" name="userData"
-                               placeholder="Search site" aria-label="Search site" aria-describedby="search-icon">
+                               placeholder="${message(code: 'user.search.bar')}" aria-label="Search site" aria-describedby="search-icon">
                     </div>
                 </div>
             </form>
@@ -31,6 +31,15 @@
         <div class="col-md-1"></div>
         <div class="col-md-1"></div>
         <div class="col-md-10 pt-6 pt-sm-3">
+        <g:if test="${!foundUsers && search}">
+            <!-- Info alert -->
+            <div class="alert alert-info" role="alert">
+                <div class="alert-icon-box">
+                    <i class="alert-icon" data-feather="info"></i>
+                </div>
+                " -- <g:message code="user.search.noUserFound"/>
+            </div>
+        </g:if>
         <g:each var="user" in="${foundUsers}" status="i">
             <div class="card">
                     <div class="card-body">

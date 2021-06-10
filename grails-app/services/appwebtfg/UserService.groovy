@@ -16,8 +16,8 @@ class UserService {
         User.createCriteria().list {
             eq("isPublicProfile",true)
             or{
-                if (username) ilike("username", "%${username}%")
-                if (email) ilike("email", "%${email}%")
+                ilike("username", "%${username}%")
+                ilike("email", "%${email}%")
             }
         } as List<User>
     }

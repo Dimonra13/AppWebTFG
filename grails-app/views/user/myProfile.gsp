@@ -17,11 +17,11 @@
         <div class="card">
             <div class="card-body">
                 <g:if test="${user?.hasProfileImage}">
-                    <img style="max-height: 28rem;" src="<g:createLink controller="user" action="renderProfileImage" id="${user.id}"/>"/>
+                    <img style="max-height: 28rem;display:block;margin:auto;" src="<g:createLink controller="user" action="renderProfileImage" id="${user.id}"/>"/>
                     <br>
                 </g:if>
                 <g:else>
-                    <asset:image src="account/default.jpg" class="grails-logo" style="max-height: 28rem;"/>
+                    <asset:image src="account/default.jpg" class="grails-logo" style="max-height: 28rem;display:block;margin:auto;"/>
                     <br>
                 </g:else>
                 <g:if test="${isregistered}">

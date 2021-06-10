@@ -23,4 +23,13 @@ class SearchControllerIntegrationSpec extends BaseControllerIntegrationSpec {
         expect: 'validate the method output'
         searchController.response.status == 200
     }
+
+    void "Validate the user method"() {
+
+        setup: 'The controller action is call'
+        searchController.user()
+
+        expect: 'validate the method output'
+        searchController.response.status == 200
+    }
 }
