@@ -24,7 +24,6 @@ class UserControllerIntegrationSpec extends BaseControllerIntegrationSpec {
 
         expect: 'validate the method output'
         userController.response.status == 200
-        userController.response.text == groovyPageRenderer.render(view: "register")
     }
 
     void "Validate the editProfile method"() {
@@ -34,7 +33,6 @@ class UserControllerIntegrationSpec extends BaseControllerIntegrationSpec {
 
         expect: 'validate the method output'
         userController.response.status == 200
-        userController.response.text == groovyPageRenderer.render(view: "editProfile")
     }
 
     void "Validate the myProfile method"() {
@@ -44,7 +42,6 @@ class UserControllerIntegrationSpec extends BaseControllerIntegrationSpec {
 
         expect: 'validate the method output'
         userController.response.status == 200
-        userController.response.text == groovyPageRenderer.render(view: "editProfile")
     }
 
     @Unroll
@@ -79,7 +76,6 @@ class UserControllerIntegrationSpec extends BaseControllerIntegrationSpec {
 
         expect: 'validate the method output'
         userController.response.status == 200
-        userController.response.text == groovyPageRenderer.render(view: "editProfileImage")
     }
 
     void "Validate the addInterests method"() {
@@ -89,7 +85,6 @@ class UserControllerIntegrationSpec extends BaseControllerIntegrationSpec {
 
         expect: 'validate the method output'
         userController.response.status == 200
-        userController.response.text == groovyPageRenderer.render(view: "interests")
     }
 
     void "Validate the addInterestsFromRegister method"() {
@@ -99,7 +94,6 @@ class UserControllerIntegrationSpec extends BaseControllerIntegrationSpec {
 
         expect: 'validate the method output'
         userController.response.status == 200
-        userController.response.text == groovyPageRenderer.render(view: "interests")
     }
     
     void "Validate the editInterests method"() {
@@ -109,7 +103,6 @@ class UserControllerIntegrationSpec extends BaseControllerIntegrationSpec {
 
         expect: 'validate the method output'
         userController.response.status == 200
-        userController.response.text == groovyPageRenderer.render(view: "interests")
     }
 
     void "Validate the addSkills method"() {
@@ -119,7 +112,6 @@ class UserControllerIntegrationSpec extends BaseControllerIntegrationSpec {
 
         expect: 'validate the method output'
         userController.response.status == 200
-        userController.response.text == groovyPageRenderer.render(view: "skills")
     }
 
     void "Validate the addSkillsFromRegister method"() {
@@ -129,7 +121,6 @@ class UserControllerIntegrationSpec extends BaseControllerIntegrationSpec {
 
         expect: 'validate the method output'
         userController.response.status == 200
-        userController.response.text == groovyPageRenderer.render(view: "skills")
     }
 
     void "Validate the editSkills method"() {
@@ -139,7 +130,6 @@ class UserControllerIntegrationSpec extends BaseControllerIntegrationSpec {
 
         expect: 'validate the method output'
         userController.response.status == 200
-        userController.response.text == groovyPageRenderer.render(view: "skills")
     }
 
     void "Validate the addPreferences method"() {
@@ -149,7 +139,6 @@ class UserControllerIntegrationSpec extends BaseControllerIntegrationSpec {
 
         expect: 'validate the method output'
         userController.response.status == 200
-        userController.response.text == groovyPageRenderer.render(view: "preferences")
     }
 
     void "Validate the editPreferences method"() {
@@ -159,6 +148,5 @@ class UserControllerIntegrationSpec extends BaseControllerIntegrationSpec {
 
         expect: 'validate the method output'
         userController.response.status == 200
-        userController.response.text == groovyPageRenderer.render(view: "preferences")
     }
 }

@@ -7,21 +7,20 @@ import org.springframework.test.annotation.Rollback
 
 @Integration
 @Rollback
-class HomeControllerIntegrationSpec extends BaseControllerIntegrationSpec {
-
+class SearchControllerIntegrationSpec extends BaseControllerIntegrationSpec {
     @Autowired
-    HomeController homeController
+    SearchController searchController
 
     PageRenderer groovyPageRenderer
 
-    String controllerName = "home"
+    String controllerName = "search"
 
-    void "Validate the index method"() {
+    void "Validate the searchUser method"() {
 
         setup: 'The controller action is call'
-        homeController.index()
+        searchController.searchUser()
 
         expect: 'validate the method output'
-        homeController.response.status == 200
+        searchController.response.status == 200
     }
 }

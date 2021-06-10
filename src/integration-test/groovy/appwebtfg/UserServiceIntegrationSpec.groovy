@@ -78,10 +78,10 @@ class UserServiceIntegrationSpec extends Specification {
 
         where:
         username | email    | size
-        "test"   | "test"   | 2
+        "test"   | "test"   | 3
         "test"   | null     | 3
         null     | "test"   | 2
-        "test"   | "prueba" | 1
+        "test"   | "prueba" | 3
         null     | "prueba" | 1
 
     }

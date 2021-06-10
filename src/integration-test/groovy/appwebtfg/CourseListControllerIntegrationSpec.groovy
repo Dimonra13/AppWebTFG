@@ -73,6 +73,5 @@ class CourseListControllerIntegrationSpec extends BaseControllerIntegrationSpec 
 
         expect: 'validate the method output'
         courseListController.response.status == 200
-        courseListController.response.text == groovyPageRenderer.render(view: "createCourseList")
     }
 }

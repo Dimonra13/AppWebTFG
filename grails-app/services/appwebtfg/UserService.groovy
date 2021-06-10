@@ -7,7 +7,7 @@ import grails.gorm.transactions.Transactional
 class UserService {
 
     /**
-     * Method to get all the user with name $username and email $email with a public profile
+     * Method to get all the user with name $username or email $email with a public profile
      * @param username
      * @param email
      * @return the list of users who meet these criteria
@@ -15,8 +15,10 @@ class UserService {
     List<User> findUsers(String username, String email){
         User.createCriteria().list {
             eq("isPublicProfile",true)
-            if (username && username != "") ilike("username", "%${username}%")
-            if (email && email != "") ilike("email", "%${email}%")
+            or{
+                if (username) ilike("username", "%${username}%")
+                if (email) ilike("email", "%${email}%")
+            }
         } as List<User>
     }
 

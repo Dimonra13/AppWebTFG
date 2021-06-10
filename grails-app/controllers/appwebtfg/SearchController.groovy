@@ -7,12 +7,10 @@ import grails.plugin.springsecurity.annotation.Secured
 class SearchController {
 
     UserService userService
-
-    def user() { }
-
+    
     def searchUser(){
         String userData = params.get("userData")
-        List<User> foundUsers = userService.findUsers(userData,null)
+        List<User> foundUsers = userService.findUsers(userData,userData)
         render(view: "user", model: [foundUsers: foundUsers])
     }
 }

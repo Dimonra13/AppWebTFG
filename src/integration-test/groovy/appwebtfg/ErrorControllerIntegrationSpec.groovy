@@ -22,7 +22,6 @@ class ErrorControllerIntegrationSpec extends BaseControllerIntegrationSpec {
 
         expect: 'validate the method output'
         errorController.response.status == 200
-        errorController.response.text == groovyPageRenderer.render(view: "notFound")
     }
 
     void "Validate the notAllowed method"() {
@@ -32,7 +31,6 @@ class ErrorControllerIntegrationSpec extends BaseControllerIntegrationSpec {
 
         expect: 'validate the method output'
         errorController.response.status == 200
-        errorController.response.text == groovyPageRenderer.render(view: "notAllowed")
     }
 
     void "Validate the internalError method"() {
@@ -42,6 +40,5 @@ class ErrorControllerIntegrationSpec extends BaseControllerIntegrationSpec {
 
         expect: 'validate the method output'
         errorController.response.status == 200
-        errorController.response.text == groovyPageRenderer.render(view: "error")
     }
 }
