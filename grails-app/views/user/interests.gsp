@@ -10,7 +10,7 @@
     <g:set var="catList" value="${['Data-Science','Machine-Learning','Cloud-Computing','Engineering','Business-Finance',
                                       'Security','Leadership','Entrepreneurship','Personal-Development','Human-Studies','Education','Arts',
                                       'Maths','Health','Science','Marketing','Architecture','Software-Engineering','IT-Certification','Test-Prep',
-                                      'Gaming','Google','Apple','Oracle','Microsoft','SAP','Graphic-Design']}"/>
+                                      'Graphic-Design','Gaming','Google','Apple','Oracle','Microsoft','SAP']}"/>
     <div class="row">
         <!-- Featured products grid-->
         <section class="container px-3 pt-4 mt-3">
@@ -37,7 +37,10 @@
                     <!-- Product-->
                     <div class="col-lg-3 col-sm-4 col-6 border border-collapse">
                         <div class="product-card">
-                            <div class="product-thumb"><asset:image src="Hardware/Headphones/JBL%20Tune%20500BT%20Powerful%20Bass%20Wireless%20On-Ear%20Headphones%20,%20Blue,%20Rs.2507.jpg" alt="JBL Tune 500BT Powerful Bass Wireless On-Ear Headphones , Blue, Rs.2507"/></div>
+                            <div style="padding-top: 1rem;">
+                                <h3 style="text-align: center;"><g:message code="interest.${category}"/></h3>
+                            </div>
+                            <div class="product-thumb"><asset:image src="Categories/cat_${category}.jpg" style="height: 18rem;"/></div>
                             <div id="select-${category}" class="product-card-body">
                                 <button onclick="addCategoryInput('${category}')" class="btn btn-primary btn-sm btn-block select" type="button" data-toggle="toast" data-target="#cart-toast"><g:message code="interest.select"/></button>
                             </div>
