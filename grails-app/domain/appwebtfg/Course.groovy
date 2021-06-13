@@ -16,6 +16,10 @@ class Course {
     boolean isFree
     Float price
 
+    static mapping = {
+        description type: 'text'
+    }
+
     static constraints = {
         title nullable: false, blank: false
         description nullable: true, blank: true
