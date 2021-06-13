@@ -11,6 +11,7 @@ class UserController {
     SpringSecurityService springSecurityService
     UserService userService
     SkillService skillService
+    CourseService courseService
 
     def index() {
     }

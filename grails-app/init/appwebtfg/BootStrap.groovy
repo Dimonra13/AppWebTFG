@@ -7,7 +7,8 @@ class BootStrap {
 
     def init = { servletContext ->
         addTestUser()
-        readCsv()
+        if(!Course.get(100))
+            readCsv()
     }
 
     @Transactional
@@ -16,6 +17,7 @@ class BootStrap {
             CSVReader reader = new CSVReader(new FileReader("./grails-app/init/appwebtfg/cleaned_coursera.csv"))
             List<String[]> r = reader.readAll()
             r.remove(0)
+            println r.size()
             r.eachWithIndex{ String[] line, int index ->
                 Course course = new Course(title: line[14], description: line[1],url: line[15],category: mapCourseraCategory(line[17]),idCurso: index,language: line[9],author: line[7],rating: Float.parseFloat(line[11]),difficulty: line[2])
                 if(course)
@@ -29,7 +31,46 @@ class BootStrap {
     }
 
     String mapCourseraCategory(String ogCategory) {
-        return "none"
+        switch (ogCategory){
+            case { it == "Data Analysis" || it == "Data Management" }:
+                return "Data Science"
+            case "Machine Learning" :
+                return "Machine Learning"
+            case "Cloud Computing" :
+                return "Cloud Computing"
+            case { it == "Electrical Engineering" || it == "Mechanical Engineering" }:
+                return "Engineering"
+            case { it == "Business Essentials" || it == "Business Strategy" || it == "Finance" || it == "Economics" }:
+                return "Business & Finance"
+            case { it == "Computer Security and Networks" || it == "Security" }:
+                return "Security"
+            case { it == "Leadership and Management" || it == "Networking" }:
+                return "Leadership"
+            case "Entrepreneurship" :
+                return "Entrepreneurship"
+            case "Personal Development" :
+                return "Personal Development"
+            case { it == "Other Languages" || it == "Psychology" || it == "Law" || it == "Philosophy" ||
+                    it =="Learning English" || it == "History" || it == "Governance and Society" }:
+                return "Human Studies"
+            case "Education":
+                return "Education"
+            case "Music and Art" :
+                return "Arts"
+            case { it == "Math and Logic" || it == "Algorithms" || it == "Probability and Statistics" }:
+                return "Maths"
+            case { it == "Health Informatics" || it == "Healthcare Management" || it == "Patient Care" ||
+                    it == "Public Health" || it == "Nutrition" || it == "Animal Health" }:
+                return "Health"
+            case { it == "Chemistry" || it == "Research Methods" || it == "Research" || it == "Biology" ||
+                    it == "Environmental Science and Sustainability" || it == "Basic Science" ||
+                     it == "Physics and Astronomy" }:
+                return "Science"
+            case "Marketing" :
+                return "Marketing"
+            default:
+                return null
+        }
     }
 
     @Transactional
