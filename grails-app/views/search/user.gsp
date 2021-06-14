@@ -109,7 +109,7 @@
                             <h5 style="padding-top: 10px;">${params.offset ? (params.offset/10)+1 : 1}</h5>
                         </div>
                     </div>
-                    <g:if test="${params.offset != null ? params?.offset+10<params.total : false}">
+                    <g:if test="${isMore}">
                         <div class="col-2">
                             <div class="text-left">
                             <form action="/search/searchUser">
