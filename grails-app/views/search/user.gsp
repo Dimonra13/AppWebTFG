@@ -39,7 +39,7 @@
                 </div>
                 " -- <g:message code="user.search.noUserFound"/>
             </div>
-        </g:if><g:else>
+        </g:if><g:elseif test="${foundUsers}">
             <g:each var="user" in="${foundUsers}" status="i">
                 <div class="card">
                     <div class="card-body">
@@ -97,7 +97,7 @@
                                 <input type="hidden" name="userData" value="${userData}">
                                 <input type="hidden" name="offset" value="${params.offset-10}">
                                 <input type="hidden" name="total" value="${params.total}">
-                                <input type="submit" class="btn btn-primary" name="submit" value="Anterior"/>
+                                <input type="submit" class="btn btn-primary" name="submit" value="<< ${message(code: "user.search.pagination.previous")}"/>
                             </form>
                             </div>
                         </div>
@@ -116,14 +116,14 @@
                                 <input type="hidden" name="userData" value="${userData}">
                                 <input type="hidden" name="offset" value="${params.offset+10}">
                                 <input type="hidden" name="total" value="${params.total}">
-                                <input type="submit" class="btn btn-primary" name="submit" value="Siguiente"/>
+                                <input type="submit" class="btn btn-primary" name="submit" value="${message(code: "user.search.pagination.next")} >>"/>
                             </form>
                             </div>
                         </div>
                     </g:if>
                 </div>
             </div>
-        </g:else>
+        </g:elseif>
         </div>
     </div>
 </div>
