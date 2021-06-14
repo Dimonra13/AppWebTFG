@@ -13,7 +13,24 @@ class UserService {
      * @return the list of users who meet these criteria
      */
     List<User> findUsers(String username, String email){
-        User.createCriteria().list {
+        User.createCriteria().list() {
+            eq("isPublicProfile",true)
+            or{
+                ilike("username", "%${username}%")
+                ilike("email", "%${email}%")
+            }
+        } as List<User>
+    }
+
+    /**
+     * Method to get the users with name $username or email $email and a public profile paginated with offset $offset
+     * and page size $max
+     * @param username
+     * @param email
+     * @return the list of users who meet these criteria
+     */
+    List<User> findUsers(String username, String email, int max, int offset){
+        User.createCriteria().list(max:max,offset:offset) {
             eq("isPublicProfile",true)
             or{
                 ilike("username", "%${username}%")

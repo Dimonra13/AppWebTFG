@@ -87,6 +87,38 @@ class UserServiceIntegrationSpec extends Specification {
     }
 
     @Unroll
+    void "test the findUser paginated method"(String username, String email, int size) {
+
+        when: "There are three user registered in the database"
+        User.withNewSession {
+            for (int i = 1; i < 12; i++) {
+                userService.makeProfilePublic(registrationService.registerUser("test" + i, "test", "test@gmail.com"))
+            }
+        }
+
+        then: "The output list must have a size of three"
+        userService.findUsers(username, email, 10, 0).size() == size
+
+        cleanup:
+        User.withNewSession { session ->
+            for (int i = 1; i < 12; i++) {
+                User registeredUser = User.findByUsername("test" + "$i")
+                UserRole.findByUser(registeredUser)?.delete()
+                registeredUser?.delete()
+            }
+
+        }
+
+        where:
+        username | email  | size
+        "test"   | "test" | 10
+        "test"   | null   | 10
+        "test1"  | null   | 3
+        "test11" | null   | 1
+
+    }
+
+    @Unroll
     void "test the makeProfilePublic method"() {
         given: "A user with a private profile"
         User privateUser
