@@ -13,7 +13,14 @@ class Course {
     Integer popularity
     Float rating
     String difficulty
-    boolean isFree
+    /*
+    isFree can be:
+    - 0 if the course is NOT free
+    - 1 if the course is free
+    - 2 if the course is from Coursera (The course is free but you must pay for the certificate)
+    - 3 if the course is from Udacity (You must pay a monthly subscription fee of 359€)
+     */
+    int isFree
     Float price
 
     static mapping = {
