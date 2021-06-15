@@ -32,7 +32,7 @@ class Course {
         description nullable: true, blank: true
         rating nullable: true, blank: true
         url nullable: true, blank: true
-        category nullable: true, blank: true
+        category nullable: false, blank: false
         duration nullable: true, blank: true
         idCurso nullable: true, blank: true
         language nullable: true, blank: true

@@ -58,7 +58,7 @@
                                 <!-- User details-->
                                 <div class="d-flex flex-wrap justify-content-between pb-4">
                                     <div class="pt-3 mr-3">
-                                        <h3 class="mb-0">${user.username}</h3><span class="font-size-sm text-warning">${user.email}</span>
+                                        <h3 class="mb-0">${user.username}</h3><span class="font-size-lg text-warning">${user.email}</span>
                                     </div>
                                     <div class="pt-3"><a class="btn btn-outline-primary btn-sm" href="/profile/${user.id}"><i class="mr-1" data-feather="chevrons-right"></i><g:message code="user.search.profile.link"></g:message></a></div>
                                 </div>
@@ -96,7 +96,6 @@
                             <form action="/search/searchUser">
                                 <input type="hidden" name="userData" value="${userData}">
                                 <input type="hidden" name="offset" value="${params.offset-10}">
-                                <input type="hidden" name="total" value="${params.total}">
                                 <input type="submit" class="btn btn-primary" name="submit" value="<< ${message(code: "user.search.pagination.previous")}"/>
                             </form>
                             </div>
@@ -115,7 +114,6 @@
                             <form action="/search/searchUser">
                                 <input type="hidden" name="userData" value="${userData}">
                                 <input type="hidden" name="offset" value="${params.offset+10}">
-                                <input type="hidden" name="total" value="${params.total}">
                                 <input type="submit" class="btn btn-primary" name="submit" value="${message(code: "user.search.pagination.next")} >>"/>
                             </form>
                             </div>

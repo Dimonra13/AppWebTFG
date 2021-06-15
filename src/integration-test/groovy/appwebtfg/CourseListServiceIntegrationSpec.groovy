@@ -108,7 +108,7 @@ class CourseListServiceIntegrationSpec extends Specification {
 
         and: "The test CourseList and the test Course are specified"
         testCourseList = courseListService.createCourseList(testUser, 'testAddTo', 'description')
-        testCourse = new Course(title: name).save()
+        testCourse = new Course(title: name, category: "Software-Engineering").save()
 
         when: "The test course is added to the test CourseList"
         testCourseList = courseListService.addCourseToList(testCourseList.id, testCourse.id)
@@ -138,7 +138,7 @@ class CourseListServiceIntegrationSpec extends Specification {
 
         and: "The test CourseList and the test Course are specified"
         testCourseList = courseListService.createCourseList(testUser, 'testRemoveTo', 'description')
-        testCourse = new Course(title: name).save()
+        testCourse = new Course(title: name, category: "Software-Engineering").save()
 
         and: "The test course is added to the test CourseList"
         courseListService.addCourseToList(testCourseList.id, testCourse.id)

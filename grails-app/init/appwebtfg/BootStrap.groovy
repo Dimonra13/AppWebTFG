@@ -44,6 +44,8 @@ class BootStrap {
                 return "Cloud-Computing"
             case { it == "Electrical Engineering" || it == "Mechanical Engineering" }:
                 return "Engineering"
+            case { it == "Support and Operations" || it == "Software Development" || it == "Mobile and Web Development"}:
+                return "Software-Engineering"
             case { it == "Business Essentials" || it == "Business Strategy" || it == "Finance" || it == "Economics" }:
                 return "Business-Finance"
             case { it == "Computer Security and Networks" || it == "Security" }:
@@ -72,6 +74,8 @@ class BootStrap {
                 return "Science"
             case "Marketing" :
                 return "Marketing"
+            case "Design and Product":
+                return "Graphic-Design"
             default:
                 return null
         }
@@ -133,9 +137,9 @@ class BootStrap {
              it.clear()
          }
 
-         Course c1 = new Course(title: "testCourse").save()
-         Course c2 = new Course(title: "nombre", rating: 3.4, description: "sdvfgbahnsjmkmdjhnsfgbdvscdfvgthytjuryikjdhtsgvfdascaxnhtmjyk,tu,kgumfjhgdnfsbdvfscdk,umfjyhgdnfbvdfc").save()
-         Course c3 = new Course(title: "nombre", description: "sdvfgbahnsjmkmdjhnsfgbdvscdfvgt").save()
+         Course c1 = new Course(title: "testCourse",category: "Software-Engineering").save()
+         Course c2 = new Course(title: "nombre",category: "Software-Engineering", rating: 3.4, description: "sdvfgbahnsjmkmdjhnsfgbdvscdfvgthytjuryikjdhtsgvfdascaxnhtmjyk,tu,kgumfjhgdnfsbdvfscdk,umfjyhgdnfbvdfc").save()
+         Course c3 = new Course(title: "nombre",category: "Software-Engineering", description: "sdvfgbahnsjmkmdjhnsfgbdvscdfvgt").save()
          cl1.addToCourses(c1)
          cl1.addToCourses(c2)
          cl1.addToCourses(c3)

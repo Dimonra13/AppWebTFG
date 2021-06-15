@@ -10,4 +10,10 @@ class CourseService {
             eq("category",category)
         } as List<Course>
     }
+
+    List<Course> findCoursesByTitle(String title, int max, int offset){
+        Course.createCriteria().list(max:max,offset:offset) {
+            ilike("title","%${title}%")
+        } as List<Course>
+    }
 }
