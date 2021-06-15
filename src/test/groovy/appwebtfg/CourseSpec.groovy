@@ -19,7 +19,7 @@ class CourseSpec extends Specification implements DomainUnitTest<Course> {
         [description: 'Example description']                                                  | false
         [title: 'test']                                                                       | false
         [title: 'test', rating: 12.34]                                                        | false
-        [title: 'test',category: null]                                                                       | false
+        [title: 'test', category: null]                                                       | false
         [title: 'test', description: 'Example description', category: 'Software-Engineering'] | true
         [description: 'Example description', category: 'Software-Engineering']                | false
         [title: 'test', category: 'Software-Engineering']                                     | true

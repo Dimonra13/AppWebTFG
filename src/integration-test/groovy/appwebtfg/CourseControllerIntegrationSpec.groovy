@@ -28,6 +28,7 @@ class CourseControllerIntegrationSpec extends BaseControllerIntegrationSpec {
             course = Course.get(id)
             courseController.getCourse(id)
         }
+
         then: 'validate the method output'
         (course && courseController.response.status == 200) || (!course &&  courseController.response.status == 404)
 

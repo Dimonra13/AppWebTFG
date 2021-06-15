@@ -54,7 +54,7 @@ class UserServiceIntegrationSpec extends Specification {
     @Unroll
     void "test the findUser method"(String username, String email, int size) {
 
-        when: "There are three user registered in the database"
+        given: "There are three user registered in the database"
         String name = username ? username : "test"
         User.withNewSession {
             userService.makeProfilePublic(registrationService.registerUser(name + "1", "test", "test@gmail.com"))
@@ -63,8 +63,11 @@ class UserServiceIntegrationSpec extends Specification {
             userService.makeProfilePublic(registrationService.registerUser(name + "4", "test", "test@gmail.com"))
         }
 
-        then: "The output list must have a size of three"
-        userService.findUsers(username, email).size() == size
+        when: "FindUser method is called"
+        List<User> output = userService.findUsers(username, email)
+
+        then: "The output list must have the specified output"
+        output.size() == size
 
         cleanup:
         User.withNewSession { session ->
@@ -89,15 +92,18 @@ class UserServiceIntegrationSpec extends Specification {
     @Unroll
     void "test the findUser paginated method"(String username, String email, int size) {
 
-        when: "There are three user registered in the database"
+        given: "There are 12 user registered in the database"
         User.withNewSession {
             for (int i = 1; i < 12; i++) {
                 userService.makeProfilePublic(registrationService.registerUser("test" + i, "test", "test@gmail.com"))
             }
         }
 
-        then: "The output list must have a size of three"
-        userService.findUsers(username, email, 10, 0).size() == size
+        when: "FindUser method is called"
+        List<User> output = userService.findUsers(username, email, 10, 0)
+
+        then: "The output list must have the specified output"
+        output.size() == size
 
         cleanup:
         User.withNewSession { session ->

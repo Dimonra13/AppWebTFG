@@ -38,11 +38,19 @@ class SearchController {
         render(view: "user", model: [userData: userData,foundUsers: foundUsers,search: true,isMore: isMore,params:params])
     }
 
+    /**
+     * Method the returns the page used for searching courses with a certain title
+     * @return view "search/course"
+     */
     @Secured(["permitAll"])
     def course() {
-
     }
 
+    /**
+     * Method that returns the page used for searching courses with a certain title, with the results of the query
+     * paginated in pages of maximum 10 elements
+     * @return view "search/course"
+     */
     @Secured(["permitAll"])
     def searchCourse(){
         String courseData = params.get("courseData")

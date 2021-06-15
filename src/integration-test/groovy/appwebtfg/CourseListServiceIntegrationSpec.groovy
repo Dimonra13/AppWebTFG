@@ -77,7 +77,6 @@ class CourseListServiceIntegrationSpec extends Specification {
         then: "The output must be the same as the expected output of the method"
         !testUser?.lists?.any { CourseList it -> it.id == testCourseList?.id } || !name
 
-
         cleanup:
         User.withNewSession { session ->
             User registeredUser = User.findByUsername("testCourseListDelete")
@@ -100,7 +99,6 @@ class CourseListServiceIntegrationSpec extends Specification {
         Course testCourse
         CourseList testCourseList
 
-
         and: "There is one user registered in the database"
         User testUser = User.findByUsername("testCourseList")
         if (!testUser)
@@ -116,6 +114,13 @@ class CourseListServiceIntegrationSpec extends Specification {
         then: "The output must be the same as the expected output of the method"
         testCourseList?.courses?.any { it.title == name }
 
+        cleanup:
+        User.withNewSession { session ->
+            User registeredUser = User.findByUsername("testAddToCourseList")
+            UserRole.findByUser(registeredUser)?.delete()
+            registeredUser?.delete()
+        }
+
         where:
         name     | _
         "test"   | _
@@ -129,7 +134,6 @@ class CourseListServiceIntegrationSpec extends Specification {
         given: "The test CourseList and the test course"
         Course testCourse
         CourseList testCourseList
-
 
         and: "There is one user registered in the database"
         User testUser = User.findByUsername("testCourseList")
@@ -148,6 +152,13 @@ class CourseListServiceIntegrationSpec extends Specification {
 
         then: "The output must be the same as the expected output of the method"
         !testCourseList?.courses?.any { it.title == name }
+
+        cleanup:
+        User.withNewSession { session ->
+            User registeredUser = User.findByUsername("testAddToCourseList")
+            UserRole.findByUser(registeredUser)?.delete()
+            registeredUser?.delete()
+        }
 
         where:
         name     | _
