@@ -6,6 +6,8 @@
 </head>
 <!-- Body-->
 <body>
+<asset:javascript src="jquery.star-rating-svg.js"/>
+<asset:stylesheet src="star-rating-svg.css"/>
 
 <div class="container pb-5 mb-sm-4">
     <div class="row pt-5">
@@ -40,7 +42,7 @@
                 " -- <g:message code="course.search.noCourseFound"/>
             </div>
         </g:if><g:elseif test="${foundCourses}">
-        <g:each var="course" in="${foundCourses}">
+        <g:each var="course" in="${foundCourses}" status="i">
             <div class="card">
                 <div class="card-body">
                     <div class="row">
@@ -57,7 +59,7 @@
                             <ul class="list-unstyled border p-3 mb-4">
                                 <li class="pb-1"><span class="opacity-80">&ndash; <g:message code="course.profile.avgscore"/>:</span>
                                     <g:if test="${course?.rating}">
-                                        <span class="font-weight-semibold ml-1">${course.rating}</span>
+                                        <span class="my-rating" id="my-rating${i}"></span><span class="font-weight-semibold ml-1">(${course.rating})</span>
                                     </g:if>
                                     <g:else>
                                         <span class="font-weight-semibold ml-1"><g:message code="course.profile.noAvgscore"/></span>
@@ -87,6 +89,16 @@
                     </div>
                 </div>
             </div>
+            <g:javascript>
+                $("#my-rating${i}").starRating({
+                initialRating: ${course?.rating?:0},
+                strokeColor: '#894A00',
+                activeColor: '#894A00',
+                readOnly: true,
+                strokeWidth: 5,
+                starSize: 25
+            });
+            </g:javascript>
         </g:each>
 
         <br>
@@ -127,6 +139,5 @@
     </div>
 </div>
 </div>
-
 </body>
 </html>

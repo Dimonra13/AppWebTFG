@@ -6,7 +6,8 @@
 </head>
 <!-- Body-->
 <body>
-
+<asset:javascript src="jquery.star-rating-svg.js"/>
+<asset:stylesheet src="star-rating-svg.css"/>
 
 <div class="container pt-lg-3 pb-5 mb-sm-3">
     <div class="row pt-5">
@@ -30,7 +31,7 @@
             <ul class="list-unstyled border p-3 mb-4">
                 <li class="pb-1"><span class="opacity-80">&ndash; <g:message code="course.profile.avgscore"/>:</span>
                     <g:if test="${course?.rating}">
-                        <span class="font-weight-semibold ml-1">${course.rating}</span>
+                        <span class="my-rating"></span><span class="font-weight-semibold ml-1">(${course.rating})</span>
                     </g:if>
                     <g:else>
                         <span class="font-weight-semibold ml-1"><g:message code="course.profile.noAvgscore"/></span>
@@ -93,18 +94,19 @@
         </div>
         <!-- Course description -->
         <g:if test="${course?.description}">
-            <section class="container px-3 pt-4 mt-3">
+            <div class="col-12">
                 <div class="card">
                     <div class="card-body">
                         <h4><g:message code="course.profile.description"/></h4>
                         <p>${course?.description}</p>
                     </div>
                 </div>
-            </section>
+            </div>
         </g:if>
         <!-- Course List -->
         <g:if test="${user}">
-            <section class="container px-3 pt-4 mt-3">
+            <div class="col-12">
+                <br>
                 <div class="card">
                     <div class="card-body">
                         <h4><g:message code="course.profile.addCourseToList"/></h4>
@@ -133,10 +135,19 @@
                     </g:else>
                     </div>
                 </div>
-            </section>
+            </div>
         </g:if>
     </div>
 </div>
-
+<g:javascript>
+    $(".my-rating").starRating({
+        initialRating: ${course?.rating?:0},
+        strokeColor: '#894A00',
+        activeColor: '#894A00',
+        readOnly: true,
+        strokeWidth: 5,
+        starSize: 25
+    });
+</g:javascript>
 </body>
 </html>
