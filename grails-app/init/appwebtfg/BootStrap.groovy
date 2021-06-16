@@ -23,7 +23,7 @@ class BootStrap {
             r.eachWithIndex{ String[] line, int index ->
                 Course course = new Course(title: line[14], description: line[1],url: line[15],
                         category: mapCourseraCategory(line[17]),idCurso: index,language: line[9],author: line[7],
-                        rating: Float.parseFloat(line[11]),difficulty: line[2],isFree: 2)
+                        rating: Float.parseFloat(line[11]),difficulty: line[2],isFree: 2,duration: line[20])
                 if(course)
                     course.save()
             }
@@ -90,7 +90,8 @@ class BootStrap {
             r.findAll {tokens -> tokens.size() == 14}.eachWithIndex{ String[] line, int index ->
                  Course course = new Course(title: line[10], description: line[1],url: line[11],
                          category: mapUdacityCategory(line[8]),idCurso: index,language: line[12],
-                         author: line[0],rating: Float.parseFloat(line[7])/20,difficulty: line[2],isFree: 3)
+                         author: line[0],rating: Float.parseFloat(line[7])/20,difficulty: line[2],
+                         isFree: 3, duration: line[3])
                  if(course)
                      course.save()
              }

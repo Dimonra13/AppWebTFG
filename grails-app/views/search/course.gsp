@@ -55,7 +55,14 @@
                                 </div>
                             </div>
                             <ul class="list-unstyled border p-3 mb-4">
-                                <li class="pb-1"><span class="opacity-80">&ndash; <g:message code="course.profile.avgscore"/>:</span><span class="font-weight-semibold ml-1">${course.rating}</span></li>
+                                <li class="pb-1"><span class="opacity-80">&ndash; <g:message code="course.profile.avgscore"/>:</span>
+                                    <g:if test="${course?.rating}">
+                                        <span class="font-weight-semibold ml-1">${course.rating}</span>
+                                    </g:if>
+                                    <g:else>
+                                        <span class="font-weight-semibold ml-1"><g:message code="course.profile.noAvgscore"/></span>
+                                    </g:else>
+                                </li>
                                 <li class="pb-1"><span class="opacity-80">- <g:message code="course.profile.difficulty"/>:</span>
                                     <g:if test="${course?.difficulty}">
                                         <span class="font-weight-semibold ml-1">${course.difficulty}</span>
