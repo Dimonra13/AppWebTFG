@@ -21,6 +21,8 @@
     <meta name="theme-color" content="#ffffff">
     <asset:stylesheet src="application"></asset:stylesheet>
     <asset:javascript src="application"></asset:javascript>
+    <asset:javascript src="iconify.min.js"></asset:javascript>
+    <asset:stylesheet src="myIconify.css"></asset:stylesheet>
     <!-- Vendor Styles including: Font Icons, Plugins, etc.-->
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'vendor.min.css')}" type="text/css">
     <!-- Main Theme Styles + Bootstrap-->
@@ -31,7 +33,6 @@
 <!-- Body-->
 <body>
 <!-- Navbar Multilevel-->
-
 <!-- Second line-->
 <header class="navbar navbar-expand-lg navbar-light bg-light px-0">
     <div class="container flex-sm-nowrap px-3">
@@ -84,56 +85,56 @@
                     <div class="dropdown-menu">
                         <div class="dropdown-inner">
                             <div class="dropdown-column">
-                                <div class="bg-position-center bg-no-repeat bg-size-cover text-center px-3 py-4 mb-3" style="background-image: url(${assetPath(src: 'megamenu/computerHardware.jpg')});">
-                                    <h3 class="h5 text-white text-shadow my-3">Destacadas</h3>
+                                <div class="bg-position-center bg-no-repeat bg-size-cover text-center px-3 py-4 mb-3" style="background-image: url(${assetPath(src: 'megamenu/tec.jpg')});">
+                                    <h3 class="h4 text-white text-shadow my-3" style="padding-bottom: 1.7rem;padding-top: 1.8rem;"><g:message code="category.title.science"/></h3>
                                 </div>
                                 <div class="widget widget-links">
                                     <ul>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.arts"/></span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.business"/></span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.certification"/></span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.data"/></span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.entrepreneurship"/></span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.leadership"/></span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.machine.learning"/></span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.marketing"/></span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.personal.development"/></span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.software"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="iconify" data-icon="ic:baseline-architecture" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.architecture"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="iconify" data-icon="fluent:certificate-20-filled" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.certification"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="iconify" data-icon="ant-design:cloud-server-outlined" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.cloud"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="iconify" data-icon="clarity:data-cluster-solid-alerted" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.data"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="iconify" data-icon="ic:round-engineering" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.engineering"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="iconify" data-icon="maki:gaming-15" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.gaming"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="iconify" data-icon="fluent:math-formula-16-filled" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.maths"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="iconify" data-icon="carbon:machine-learning-model" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.machine.learning"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="iconify" data-icon="ic:baseline-science" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.science"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="iconify" data-icon="ic:baseline-security" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.security"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="iconify" data-icon="ant-design:code-filled" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.software"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="iconify" data-icon="fluent:document-48-filled" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.test.prep"/></span></a></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="dropdown-column">
-                                <div class="bg-position-center bg-no-repeat bg-size-cover text-center px-3 py-4 mb-3" style="background-image: url(${assetPath(src: 'megamenu/computerHardware.jpg')});">
-                                    <h3 class="h5 text-white text-shadow my-3">Otras</h3>
+                                <div class="bg-position-center bg-no-repeat bg-size-cover text-center px-3 py-4 mb-3" style="background-image: url(${assetPath(src: 'megamenu/Business.jpg')});">
+                                    <h3 class="h4 text-white text-shadow my-3"><g:message code="category.title.humanities"/></h3>
                                 </div>
                                 <div class="widget widget-links">
                                     <ul>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.architecture"/></span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.cloud"/></span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.test.prep"/></span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.education"/></span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.engineering"/></span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.gaming"/></span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.graphic.design"/></span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.health"/></span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.humanities"/></span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.maths"/></span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.science"/></span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.security"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="iconify" data-icon="emojione-monotone:performing-arts" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.arts"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="iconify" data-icon="whh:business" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.business"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="iconify" data-icon="cil:education" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.education"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="iconify" data-icon="ic:baseline-add-business" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.entrepreneurship"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="iconify" data-icon="clarity:design-solid" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.graphic.design"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="iconify" data-icon="ic:sharp-health-and-safety" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.health"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="iconify" data-icon="octicon:law-16" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.humanities"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="iconify" data-icon="whh:director" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.leadership"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="iconify" data-icon="foundation:burst-sale" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.marketing"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="iconify" data-icon="whh:plantalt" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.personal.development"/></span></a></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="dropdown-column">
-                                <div class="bg-position-center bg-no-repeat bg-size-cover text-center px-3 py-4 mb-3" style="background-image: url(${assetPath(src: 'megamenu/computerHardware.jpg')});">
-                                    <h2 class="h5 text-white text-shadow my-3">Marcas</h2>
+                                <div class="bg-position-center bg-no-repeat bg-size-cover text-center px-3 py-4 mb-3" style="background-image: url(${assetPath(src: 'megamenu/Brands.jpg')});">
+                                    <h3 class="h4 text-white text-shadow my-3" style="padding-bottom: 1.7rem;padding-top: 1.8rem;"><g:message code="category.title.brands"/></h3>
                                 </div>
                                 <div class="widget widget-links">
                                     <ul>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.brand.apple"/></span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.brand.google"/></span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.brand.microsoft"/></span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.brand.oracle"/></span></a></li>
-                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="font-size-sm"><g:message code="category.brand.sap"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="iconify" data-icon="ant-design:apple-filled" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.brand.apple"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="iconify" data-icon="akar-icons:google-fill" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.brand.google"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="iconify" data-icon="bx:bxl-microsoft" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.brand.microsoft"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="iconify" data-icon="simple-icons:oracle" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.brand.oracle"/></span></a></li>
+                                        <li><a href="#"><i class="widget-categories-indicator" data-feather="chevron-right"></i><span class="iconify" data-icon="cib:sap" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.brand.sap"/></span></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -159,10 +160,10 @@
                     <a href="/" class="nav-link rounded"><g:message code="header.home"/></a>
                 </li>
                 <li class="nav-item">
-                    <a href="../assets/shop-style2-ls.html" class="nav-link rounded">Shop</a>
+                    <a href="/search/user" class="nav-link rounded"><g:message code="header.search.user"/></a>
                 </li>
                 <li class="nav-item">
-                    <a href="../assets/user-second-hand-product.html" class="nav-link rounded">Sell product</a>
+                    <a href="/search/course" class="nav-link rounded"><g:message code="header.search.course"/></a>
                 </li>
             </ul>
 
@@ -172,9 +173,7 @@
 </div>
 
 <!------------------------------------------------------------------------------------------------ Page Content ------------------------------------------------------------------------------------------------>
-
 <g:layoutBody/>
-
 <!------------------------------------------------------------------------------------------------ Footer ------------------------------------------------------------------------------------------------>
 
 <footer class="page-footer bg-dark">
