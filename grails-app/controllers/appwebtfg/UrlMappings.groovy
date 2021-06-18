@@ -29,6 +29,9 @@ class UrlMappings {
         "/courseList/deleteCourseFromMyCourseList"(controller: "courseList", action: "deleteCourseFromMyCourseList")
         "/courseList/addCourseToMyCourseList"(controller: "courseList", action: "addCourseToMyCourseList")
 
+        //Category mappings
+        "/category/$id"(controller: "category", action: "getCategory")
+
         //Error mappings
         "500"(controller: "error", action: "internalError")
         "404"(controller: "error", action: "notFound")

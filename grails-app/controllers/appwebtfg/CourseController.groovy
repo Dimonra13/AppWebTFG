@@ -11,8 +11,6 @@ class CourseController {
 
     SpringSecurityService springSecurityService
 
-    def index() {}
-
     /**
      * Method that returns the page of a course if it exists or error 404 otherwise
      * @param id

@@ -13,9 +13,6 @@ class UserController {
     SkillService skillService
     CourseService courseService
 
-    def index() {
-    }
-
     /**
      * Method that returns the register page
      * @return view "register"
