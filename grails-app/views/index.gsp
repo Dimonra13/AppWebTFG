@@ -32,7 +32,7 @@
               <asset:image class="d-block mx-auto" src="Category-icons/cat_${category}.png" style="height: 135px;" alt="${category}"/>
           </a>
           <br>
-          <h2 class="h5 mb-1">${category}</h2>
+          <h2 class="h5 mb-1"><g:message code="interest.${category}"/></h2>
           <a href="#" class="btn btn-pill btn-outline-primary btn-sm"><g:message code="home.explore.category"/></a>
         </div>
       </div>
@@ -57,7 +57,7 @@
             <asset:image class="d-block mx-auto" src="Category-icons/cat_${category}.png" style="height: 135px;" alt="${category}"/>
           </a>
           <br>
-          <h2 class="h5 mb-1">${category}</h2>
+          <h2 class="h5 mb-1"><g:message code="interest.${category}"/></h2>
           <a href="#" class="btn btn-pill btn-outline-primary btn-sm"><g:message code="home.explore.category"/></a>
         </div>
       </div>
