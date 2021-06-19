@@ -39,7 +39,7 @@
                 </li>
                 <li class="pb-1"><span class="opacity-80">- <g:message code="course.profile.difficulty"/>:</span>
                     <g:if test="${course?.difficulty}">
-                        <span class="font-weight-semibold ml-1">${course.difficulty}</span>
+                        <span class="font-weight-semibold ml-1"><g:message code="categoryIndex.difficulty.${course.difficulty}"/></span>
                     </g:if>
                     <g:else>
                         <span class="font-weight-semibold ml-1"><g:message code="course.profile.noDifficulty"/></span>

@@ -74,34 +74,67 @@
             </div>
             <!-- Toolbar-->
             <div class="d-flex flex-wrap justify-content-center justify-content-sm-between pb-3">
-                <div class="d-flex flex-wrap">
-                    <div class="form-inline flex-nowrap mr-3 mr-sm-4 pb-3">
-                        <label class="text-nowrap mr-2 d-none d-sm-block" for="sorting">Sort by:</label>
-                        <select class="form-control custom-select" id="sorting">
-                            <option>Popularity</option>
-                            <option>Low - Hight Price</option>
-                            <option>High - Low Price</option>
-                            <option>Average Rating</option>
-                            <option>A - Z Order</option>
-                            <option>Z - A Order</option>
-                        </select>
+                <form action="/category/${currentCategory}">
+                    <div class="d-flex flex-wrap">
+                        <input type="hidden" name="customSearch" value="true">
+                        <div class="form-inline flex-nowrap mr-3 mr-sm-4 pb-3">
+                            <label class="text-nowrap mr-2 d-none d-sm-block" for="sorting">Ordenar por:</label>
+                            <select class="form-control custom-select" name="sortBy" id="sorting">
+                                <option><g:message code="categoryIndex.sortBy.rating"></g:message></option>
+                                <option><g:message code="categoryIndex.sortBy.A-Z"></g:message></option>
+                                <option><g:message code="categoryIndex.sortBy.Z-A"></g:message></option>
+                            </select>
+                        </div>
+                        <div class="form-inline flex-nowrap mr-3 mr-sm-4 pb-3">
+                            <label class="mr-2 d-none d-sm-block" for="number">Tamaño de la página:</label>
+                            <select class="form-control custom-select mr-sm-2" name="pageSize" id="number">
+                                <option>12</option>
+                                <option>24</option>
+                                <option>48</option>
+                            </select>
+                        </div>
+                        <div class="form-inline flex-nowrap pb-3">
+                            <label class="mr-2" for="pager">Página:</label>
+                            <input class="form-control mr-2" type="number" id="pager" name="page" value="1" min="1" pattern="^[0-9]+" style="width: 5.5rem;">
+                        </div>
+                        <div style="margin-top: -0.1rem;">
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input" type="checkbox" id="freeOnly" name="freeOnly">
+                                <label class="custom-control-label" for="freeOnly">Solo cursos gratis</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input class="custom-control-input" type="checkbox" id="englishOnly" name="englishOnly">
+                                <label class="custom-control-label" for="englishOnly">Solo cursos en inglés</label>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-inline flex-nowrap pb-3">
-                        <label class="mr-2 d-none d-sm-block" for="number">Show:</label>
-                        <select class="form-control custom-select mr-sm-2" id="number">
-                            <option>12</option>
-                            <option>24</option>
-                            <option>48</option>
-                            <option>96</option>
-                        </select>
+                    <div class="d-flex flex-wrap">
+                        <div class="form-inline flex-nowrap mr-3 mr-sm-4 pb-3">
+                            <label class="text-nowrap mr-2 d-none d-sm-block" for="difficulty">Dificultad:</label>
+                            <select class="form-control custom-select" name="difficulty" id="difficulty">
+                                <option><g:message code="categoryIndex.difficulty.all"></g:message></option>
+                                <option><g:message code="categoryIndex.difficulty.beginner"></g:message></option>
+                                <option><g:message code="categoryIndex.difficulty.intermediate"></g:message></option>
+                                <option><g:message code="categoryIndex.difficulty.advanced"></g:message></option>
+                            </select>
+                        </div>
+                        <!-- search-box-->
+                        <div class="flex-grow-1 flex-nowrap mr-3 mr-sm-4 pb-3">
+                            <div class="input-group flex-nowrap">
+                                <div class="input-group-prepend"><span class="input-group-text rounded-left" id="search-icon"><i
+                                        data-feather="search"></i></span></div>
+                                <input class="form-control rounded-right" type="text" id="search-course" name="title"
+                                       placeholder="${message(code: 'course.search.bar')}" aria-label="Search site" aria-describedby="search-icon">
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-inline d-none d-md-flex flex-nowrap pb-3">
-                    <label class="mr-2" for="pager">Page:</label>
-                    <input class="form-control mr-2" type="number" id="pager" value="2" style="width: 4rem;">
-                </div>
+                    <div class="text-right mb-3">
+                        <input type="submit" class="btn btn-primary" name="submit" value="Buscar"/>
+                    </div>
+                </form>
             </div>
-            <!-- Products grid-->
+            <br>
+            <!-- Course grid -->
             <g:if test="${!courses}">
                 <!-- Info alert -->
                 <div class="alert alert-info" role="alert">
@@ -113,6 +146,7 @@
             </g:if><g:else>
                 <div class="row no-gutters">
                      <g:each var="course" in="${courses}" status="i">
+                         <!-- Course info -->
                          <div class="col-xl-4 col-sm-6 col-6 border border-collapse">
                              <div class="product-card">
                                  <div class="product-card-body">
@@ -125,7 +159,7 @@
                                      <ul class="list-unstyled border p-3 mb-4">
                                          <li class="pb-1"><span class="opacity-80">- <g:message code="course.profile.difficulty"/>:</span>
                                              <g:if test="${course?.difficulty}">
-                                                 <span class="font-weight-semibold ml-1">${course.difficulty}</span>
+                                                 <span class="font-weight-semibold ml-1"><g:message code="categoryIndex.difficulty.${course.difficulty}"/></span>
                                              </g:if>
                                              <g:else>
                                                  <span class="font-weight-semibold ml-1"><g:message code="course.profile.noDifficulty"/></span>
@@ -139,10 +173,23 @@
                                                  <span class="font-weight-semibold ml-1"><g:message code="course.profile.noLanguage"/></span>
                                              </g:else>
                                          </li>
+                                         <li class="pb-1"><span class="opacity-80">- <g:message code="course.profile.price"/>:</span>
+                                             <g:if test="${course.isFree==2}">
+                                                 <span class="font-weight-semibold ml-1"><g:message code="course.profile.price.coursera"/></span>
+                                             </g:if><g:elseif test="${course.isFree==3}">
+                                             <span class="font-weight-semibold ml-1"><g:message code="course.profile.price.udacity"/></span>
+                                         </g:elseif><g:elseif test="${course.isFree==1}">
+                                             <span class="font-weight-semibold ml-1"><g:message code="course.profile.price.free"/></span>
+                                         </g:elseif><g:elseif test="${course.isFree==0 && course?.price}">
+                                             <span class="font-weight-semibold ml-1">${course.price}€</span>
+                                         </g:elseif><g:else>
+                                             <span class="font-weight-semibold ml-1"><g:message code="course.profile.noPrice"/></span>
+                                         </g:else>
+                                         </li>
                                      </ul>
                                  </div>
                                  <div class="product-card-body body-hidden pt-2">
-                                     <button class="btn btn-primary btn-sm btn-block" type="button" data-toggle="toast" data-target="#cart-toast" href="/course/${course.id}">Ver curso</button>
+                                     <a href="/course/${course.id}"><button class="btn btn-primary btn-sm btn-block" type="button" data-toggle="toast" data-target="#cart-toast">Ver curso</button></a>
                                  </div>
                              </div>
                          </div>
@@ -170,6 +217,18 @@
                                     <input type="hidden" name="customSearch" value="true">
                                     <input type="hidden" name="offset" value="${offset-pageSize}">
                                     <input type="hidden" name="pageSize" value="${pageSize}">
+                                    <g:if test="${englishOnly}">
+                                        <input type="hidden" name="englishOnly" value="on">
+                                    </g:if>
+                                    <g:if test="${freeOnly}">
+                                        <input type="hidden" name="freeOnly" value="on">
+                                    </g:if>
+                                    <g:if test="${sortBy}">
+                                        <input type="hidden" name="sortBy" value="${sortBy}">
+                                    </g:if>
+                                    <g:if test="${difficulty}">
+                                        <input type="hidden" name="difficulty" value="${difficulty}">
+                                    </g:if>
                                     <input type="submit" class="btn btn-primary" name="submit" value="<< ${message(code: "course.search.pagination.previous")}"/>
                                 </form>
                             </div>
@@ -189,6 +248,21 @@
                                     <input type="hidden" name="customSearch" value="true">
                                     <input type="hidden" name="offset" value="${offset+pageSize}">
                                     <input type="hidden" name="pageSize" value="${pageSize}">
+                                    <g:if test="${title}">
+                                        <input type="hidden" name="title" value="${title}">
+                                    </g:if>
+                                    <g:if test="${englishOnly}">
+                                        <input type="hidden" name="englishOnly" value="on">
+                                    </g:if>
+                                    <g:if test="${freeOnly}">
+                                        <input type="hidden" name="freeOnly" value="on">
+                                    </g:if>
+                                    <g:if test="${sortBy}">
+                                        <input type="hidden" name="sortBy" value="${sortBy}">
+                                    </g:if>
+                                    <g:if test="${difficulty}">
+                                        <input type="hidden" name="difficulty" value="${difficulty}">
+                                    </g:if>
                                     <input type="submit" class="btn btn-primary" name="submit" value="${message(code: "course.search.pagination.next")} >>"/>
                                 </form>
                             </div>

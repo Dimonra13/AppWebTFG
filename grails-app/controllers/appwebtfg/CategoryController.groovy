@@ -22,21 +22,58 @@ class CategoryController {
         else{
             int pageSize
             int offset
+            String title = null
+            String sortBy
+            boolean sortByAsc
+            boolean freeOnly = params.freeOnly as boolean
+            boolean englishOnly = params.englishOnly as boolean
+            String difficulty = null
             if(params.get("customSearch")){
                 pageSize=Integer.parseInt(params.pageSize)
-                offset=Integer.parseInt(params.offset)
+                if(params.offset)
+                    offset=Integer.parseInt(params.offset)
+                else
+                    offset=(Integer.parseInt(params.page)-1)*pageSize
+                if(params.title)
+                    title=params.title
+                if(params.sortBy == g.message(code: "categoryIndex.sortBy.rating")){
+                    sortBy='rating'
+                    sortByAsc=false
+                }else if(params.sortBy == g.message(code: "categoryIndex.sortBy.A-Z")){
+                    sortBy='title'
+                    sortByAsc=true
+                }else if(params.sortBy == g.message(code: "categoryIndex.sortBy.Z-A")){
+                    sortBy='title'
+                    sortByAsc=false
+                }else{
+                    sortBy=null
+                    sortByAsc=false
+                }
+                if(params.difficulty == g.message(code: "categoryIndex.difficulty.beginner"))
+                    difficulty= 'beginner'
+                else if(params.difficulty == g.message(code: "categoryIndex.difficulty.intermediate"))
+                    difficulty= 'intermediate'
+                else if(params.difficulty == g.message(code: "categoryIndex.difficulty.advanced"))
+                    difficulty= 'advanced'
             }else{
                 pageSize=12
                 offset=0
+                sortBy=null
+                sortByAsc=false
             }
-            List<Course> courses = courseService.findCoursesByCategory(id,pageSize,offset)
-            boolean isMore = courseService.findCoursesByCategory(id,pageSize,offset+pageSize) as boolean
+            List<Course> courses = courseService.findCourses(id,pageSize,offset,title,freeOnly,englishOnly,sortBy,sortByAsc,difficulty)
+            boolean isMore = courseService.findCourses(id,pageSize,offset+pageSize,title,freeOnly,englishOnly,sortBy,sortByAsc,difficulty) as boolean
             render(view: "categoriesIndex",model: [
                     currentCategory: id,
                     courses: courses,
                     isMore: isMore,
                     pageSize: pageSize,
                     offset: offset,
+                    title: title,
+                    freeOnly: freeOnly,
+                    englishOnly: englishOnly,
+                    difficulty: params.difficulty,
+                    sortBy: params.sortBy,
                     categoryGroup: science.contains(id) ? "science" : humanities.contains(id) ? "humanities" : "brands"
             ])
         }
