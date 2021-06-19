@@ -1,6 +1,5 @@
 package appwebtfg
 
-import grails.gsp.PageRenderer
 import grails.testing.mixin.integration.Integration
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.annotation.Rollback
@@ -12,8 +11,6 @@ class UserControllerIntegrationSpec extends BaseControllerIntegrationSpec {
 
     @Autowired
     UserController userController
-
-    PageRenderer groovyPageRenderer
 
     String controllerName = "user"
 

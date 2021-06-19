@@ -1,6 +1,5 @@
 package appwebtfg
 
-import grails.gsp.PageRenderer
 import grails.testing.mixin.integration.Integration
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.annotation.Rollback
@@ -10,8 +9,6 @@ import org.springframework.test.annotation.Rollback
 class SearchControllerIntegrationSpec extends BaseControllerIntegrationSpec {
     @Autowired
     SearchController searchController
-
-    PageRenderer groovyPageRenderer
 
     String controllerName = "search"
 

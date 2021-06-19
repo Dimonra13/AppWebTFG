@@ -1,6 +1,5 @@
 package appwebtfg
 
-import grails.gsp.PageRenderer
 import grails.testing.mixin.integration.Integration
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.test.annotation.Rollback
@@ -12,8 +11,6 @@ class CourseControllerIntegrationSpec extends BaseControllerIntegrationSpec {
 
     @Autowired
     CourseController courseController
-
-    PageRenderer groovyPageRenderer
 
     String controllerName = "course"
 
@@ -30,13 +27,14 @@ class CourseControllerIntegrationSpec extends BaseControllerIntegrationSpec {
         }
 
         then: 'validate the method output'
-        (course && courseController.response.status == 200) || (!course &&  courseController.response.status == 404)
+        (course && courseController.response.status == 200) || (!course && courseController.response.status == 404)
 
         where:
-        id | _
-        1  | _
-        2  | _
-        3  | _
-        4  | _
+        id          | _
+        1           | _
+        2           | _
+        3           | _
+        4           | _
+        12000000000 | _
     }
 }
