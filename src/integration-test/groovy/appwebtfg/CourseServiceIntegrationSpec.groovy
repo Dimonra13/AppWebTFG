@@ -58,7 +58,7 @@ class CourseServiceIntegrationSpec extends Specification {
                 new Course(title: 'pruebaFindCourse', category: 'prueba').save()
             }
         }
-        when: "FindCourseByCategory method is called"
+        when: "FindCourses method is called"
         List<Course> output = courseService.findCourses(category, 10, offset, null, false, false, null, false, null)
         then: "The output list must have the specified size"
         output?.size() == size
@@ -93,7 +93,7 @@ class CourseServiceIntegrationSpec extends Specification {
                 new Course(title: 'pruebaFindCourseTitle2', category: 'testFindCourseTitle').save()
             }
         }
-        when: "FindCourseByCategory method is called"
+        when: "FindCourses method is called"
         List<Course> output = courseService.findCourses(category, 10, 0, title, false, false, null, false, null)
         then: "The output list must have the specified size"
         output?.size() == size
@@ -132,7 +132,7 @@ class CourseServiceIntegrationSpec extends Specification {
                 new Course(title: 'testFindCourseDifficulty5', category: 'testFindCourseDifficulty', difficulty: "advance").save()
             }
         }
-        when: "FindCourseByCategory method is called"
+        when: "FindCourses method is called"
         List<Course> output = courseService.findCourses(category, 10, 0, null, false, false, null, false, difficulty)
         then: "The output list must have the specified size"
         output?.size() == size
@@ -170,7 +170,7 @@ class CourseServiceIntegrationSpec extends Specification {
                 new Course(title: 'testFindCourseFreeOnly7', category: 'testFindCourseFreeOnly', isFree: 3).save()
             }
         }
-        when: "FindCourseByCategory method is called"
+        when: "FindCourses method is called"
         List<Course> output = courseService.findCourses(category, 10, 0, null, freeOnly, false, null, false, null)
         then: "The output list must have the specified size"
         output?.size() == size
@@ -205,7 +205,7 @@ class CourseServiceIntegrationSpec extends Specification {
                 new Course(title: 'testFindCourseEnglishOnly6', category: 'testFindCourseEnglishOnly', language: "Dual").save()
             }
         }
-        when: "FindCourseByCategory method is called"
+        when: "FindCourses method is called"
         List<Course> output = courseService.findCourses(category, 10, 0, null, false, englishOnly, null, false, null)
         then: "The output list must have the specified size"
         output?.size() == size
@@ -225,4 +225,52 @@ class CourseServiceIntegrationSpec extends Specification {
         "none"                      | false       | 0
     }
 
+    @Unroll
+    void "test the findCourses method order by"(String category, String sortBy, boolean sortByAsc) {
+
+        given: "There are 6 courses in the database"
+        List<Course> testList = new LinkedList<>()
+        Course.withNewSession {
+            //Save test course
+            testList.add(new Course(title: 'testFindCourseOrderBy1', category: 'testFindCourseOrderBy', rating: 4))
+            testList.add(new Course(title: 'testFindCourseOrderBy2', category: 'testFindCourseOrderBy', rating: 4.1))
+            testList.add(new Course(title: 'testFindCourseOrderBy3', category: 'testFindCourseOrderBy', rating: 4.6))
+            testList.add(new Course(title: 'testFindCourseOrderBy4', category: 'testFindCourseOrderBy', rating: 4.8))
+            testList.add(new Course(title: 'testFindCourseOrderBy5', category: 'testFindCourseOrderBy', rating: 4.4))
+            testList.add(new Course(title: 'testFindCourseOrderBy6', category: 'testFindCourseOrderBy', rating: 4.5))
+            if (!Course.findByTitle('testFindCourseOrderBy1')) {
+                testList.each {course -> course.save()}
+            }
+        }
+        and: "The expect result of the method"
+        List<String> expectedResult = category == 'testFindCourseOrderBy' ?
+                                        sortBy == 'title' ?
+                                            sortByAsc ?
+                                                    testList.sort { course1, course2 -> (course1.title <=> course2.title) }.collect{course -> course.title}
+                                            : testList.sort { course1, course2 -> (course1.title <=> course2.title) }.reverse().collect{course -> course.title}
+                                        : testList.sort { course1, course2 -> (course1.rating <=> course2.rating) }.reverse().collect{course -> course.title}
+                                     : []
+
+        when: "FindCourses method is called"
+        List<Course> output = courseService.findCourses(category, 10, 0, null, false, false, sortBy, sortByAsc, null)
+
+        then: "The output list must be equal to the expected list"
+        output.collect{course -> course.title} == expectedResult
+
+        cleanup:
+        Course.withNewSession { session ->
+            for (int i = 1; i < 7; i++) {
+                Course.findByTitle("testFindCourseOrderBy" + i).delete()
+            }
+        }
+
+        where:
+        category                | sortBy   | sortByAsc
+        "testFindCourseOrderBy" | 'title'  | true
+        "testFindCourseOrderBy" | 'title'  | false
+        "testFindCourseOrderBy" | 'rating' | false
+        "none"                  | 'title'  | true
+        "none"                  | 'title'  | false
+        "none"                  | 'rating' | false
+    }
 }
