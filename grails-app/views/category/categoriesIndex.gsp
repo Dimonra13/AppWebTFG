@@ -78,7 +78,7 @@
                     <div class="d-flex flex-wrap">
                         <input type="hidden" name="customSearch" value="true">
                         <div class="form-inline flex-nowrap mr-3 mr-sm-4 pb-3">
-                            <label class="text-nowrap mr-2 d-none d-sm-block" for="sorting">Ordenar por:</label>
+                            <label class="text-nowrap mr-2 d-none d-sm-block" for="sorting"><g:message code="categoryIndex.sortBy"></g:message></label>
                             <select class="form-control custom-select" name="sortBy" id="sorting">
                                 <option><g:message code="categoryIndex.sortBy.rating"></g:message></option>
                                 <option><g:message code="categoryIndex.sortBy.A-Z"></g:message></option>
@@ -86,7 +86,7 @@
                             </select>
                         </div>
                         <div class="form-inline flex-nowrap mr-3 mr-sm-4 pb-3">
-                            <label class="mr-2 d-none d-sm-block" for="number">Tamaño de la página:</label>
+                            <label class="mr-2 d-none d-sm-block" for="number"><g:message code="categoryIndex.pageSize"></g:message></label>
                             <select class="form-control custom-select mr-sm-2" name="pageSize" id="number">
                                 <option>12</option>
                                 <option>24</option>
@@ -94,23 +94,23 @@
                             </select>
                         </div>
                         <div class="form-inline flex-nowrap pb-3">
-                            <label class="mr-2" for="pager">Página:</label>
+                            <label class="mr-2" for="pager"><g:message code="categoryIndex.page"></g:message></label>
                             <input class="form-control mr-2" type="number" id="pager" name="page" value="1" min="1" pattern="^[0-9]+" style="width: 5.5rem;">
                         </div>
                         <div style="margin-top: -0.1rem;">
                             <div class="custom-control custom-checkbox">
                                 <input class="custom-control-input" type="checkbox" id="freeOnly" name="freeOnly">
-                                <label class="custom-control-label" for="freeOnly">Solo cursos gratis</label>
+                                <label class="custom-control-label" for="freeOnly"><g:message code="categoryIndex.freeOnly"></g:message></label>
                             </div>
                             <div class="custom-control custom-checkbox">
                                 <input class="custom-control-input" type="checkbox" id="englishOnly" name="englishOnly">
-                                <label class="custom-control-label" for="englishOnly">Solo cursos en inglés</label>
+                                <label class="custom-control-label" for="englishOnly"><g:message code="categoryIndex.englishOnly"></g:message></label>
                             </div>
                         </div>
                     </div>
                     <div class="d-flex flex-wrap">
                         <div class="form-inline flex-nowrap mr-3 mr-sm-4 pb-3">
-                            <label class="text-nowrap mr-2 d-none d-sm-block" for="difficulty">Dificultad:</label>
+                            <label class="text-nowrap mr-2 d-none d-sm-block" for="difficulty"><g:message code="categoryIndex.difficulty"></g:message></label>
                             <select class="form-control custom-select" name="difficulty" id="difficulty">
                                 <option><g:message code="categoryIndex.difficulty.all"></g:message></option>
                                 <option><g:message code="categoryIndex.difficulty.beginner"></g:message></option>
@@ -129,7 +129,7 @@
                         </div>
                     </div>
                     <div class="text-right mb-3">
-                        <input type="submit" class="btn btn-primary" name="submit" value="Buscar"/>
+                        <input type="submit" class="btn btn-primary" name="submit" value="${message(code: 'categoryIndex.search')}"/>
                     </div>
                 </form>
             </div>
@@ -189,7 +189,7 @@
                                      </ul>
                                  </div>
                                  <div class="product-card-body body-hidden pt-2">
-                                     <a href="/course/${course.id}"><button class="btn btn-primary btn-sm btn-block" type="button" data-toggle="toast" data-target="#cart-toast">Ver curso</button></a>
+                                     <a href="/course/${course.id}"><button class="btn btn-primary btn-sm btn-block" type="button" data-toggle="toast" data-target="#cart-toast"><g:message code="course.search.link"></g:message></button></a>
                                  </div>
                              </div>
                          </div>
