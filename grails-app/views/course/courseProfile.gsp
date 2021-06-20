@@ -25,7 +25,7 @@
             <!-- Course details -->
             <div class="d-flex flex-wrap justify-content-between pb-4">
                 <div class="pt-3 mr-3">
-                    <h3 class="mb-0">${course.title}</h3><span class="font-size-lg text-warning">${course.category}</span>
+                    <h3 class="mb-0">${course.title}</h3><span class="font-size-lg text-warning"><g:message code="categoryIndex.${course.category}"/></span>
                 </div>
             </div>
             <ul class="list-unstyled border p-3 mb-4">
