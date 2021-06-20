@@ -57,14 +57,21 @@ llevarla a cabo.
 Todos los usuarios podrán ver la información de las listas de cursos de un usario si este tiene un perfil público. Las lista de cursos pertenecientes a usuarios
 con un perfil privado no serán visibles por usuarios distintos a su dueño.
 ## Funcionalidades relativas a los cursos
-* ## Ver los cursos
-Todos los usuarios podrán ver la información de los diferentes cursos.
+* ### Ver los cursos
+Todos los usuarios podrán buscar cursos en función de su título y ver la información de estos cursos.
 * ### Añadir cursos a un lista
 Los usuarios registrados que tengan al menos una lista de cursos creada podrán añadir cursos a sus listas. Un mismo curso no podrá añadirse varias veces a la misma
 lista, pero si que podrá añadirse a listas distintas del mismo usuario.
 * ### Eliminar curso de una lista
 Los usuarios registrados que tengan al menos una lista con cursos podrán eliminar estos cursos de la lista. Los cursos eliminados de una lista podrán volver ser
 añadidos a la misma.
+## Funcionalidades relativas a las categorías
+* ### Ver categorías
+Todos los usuarios podrán ver las páginas correspondientes a las diferentes categorías en las que se organizan los cursos.
+* ### Ver los cursos de cada categoría
+Todos los usuarios podrán ver la información de los cursos de cada categoría en la página correspondiente a dicha categoría.
+* ### Busqueda avanzada de cursos en cada categoría
+Todos los usuarios podrán ralizar busquedas avanzadas de cursos en la página de cada categoría con diversos criterios de búsqueda, filtros y ordenaciones posibles. 
 ## Funcionalidades relativas a las páginas de error
 * ### Páginas de error específicas
 En caso de que se produzca un error 403 Forbidden, 404 Not Found o 500 Internal Server Error se redirigirá al usuario a una página personalizada con la información relativa al error específico. La información mostrada al usuario debe ser la justa y necesaria, nunca se mostrará información que pueda poner en peligro la seguridad de la aplicación. 
