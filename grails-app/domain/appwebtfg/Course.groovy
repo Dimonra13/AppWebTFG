@@ -6,7 +6,7 @@ class Course {
     String description
     String url
     String category
-    Integer duration
+    Float duration
     Long idCurso
     String language
     String author
@@ -22,6 +22,7 @@ class Course {
      */
     int isFree
     Float price
+    String originalPage
 
     static mapping = {
         description type: 'text'
@@ -40,6 +41,7 @@ class Course {
         popularity nullable: true, blank: true
         difficulty nullable: true, blank: true
         price nullable: true, blank: true
+        originalPage nullable: true, blank: true
 
     }
 }
