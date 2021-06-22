@@ -9,8 +9,8 @@ class BootStrap {
         addTestUser()
         if(!Course.get(100)){
             readCsvCoursera()
-            readCsvUdacity()
-            readCsvUdemy()
+            //readCsvUdacity()
+            //readCsvUdemy()
         }
 
     }

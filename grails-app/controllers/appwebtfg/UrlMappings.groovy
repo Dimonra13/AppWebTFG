@@ -20,6 +20,9 @@ class UrlMappings {
         //Course mappings
         "/course/$id"(controller: "course", action: "getCourse")
 
+        //Search mappings
+        "/search/semanticSearch"(controller: "search", action: "semanticSearch")
+
         //CourseList mappings
         "/courseList/$id"(controller: "courseList", action: "getCourseList")
         "/myCourseList/$id"(controller: "courseList", action: "getMyCourseList")

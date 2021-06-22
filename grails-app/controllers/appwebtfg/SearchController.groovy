@@ -1,6 +1,6 @@
 package appwebtfg
 
-
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 
 @Secured(["permitAll"])
@@ -8,6 +8,8 @@ class SearchController {
 
     UserService userService
     CourseService courseService
+    RecomenderService recomenderService
+    SpringSecurityService springSecurityService
 
     /**
      * Method the returns the page used for searching users with a certain name or email
@@ -54,7 +56,7 @@ class SearchController {
     @Secured(["permitAll"])
     def searchCourse(){
         String courseData = params.get("courseData")
-        List<User> foundCourses = null
+        List<Course> foundCourses = null
         boolean isMore = false;
         if(courseData && courseData!=""){
             if(!params.get("offset"))
@@ -65,5 +67,20 @@ class SearchController {
             isMore = courseService.findCoursesByTitle(courseData,10,params.offset+10) as boolean
         }
         render(view: "course", model: [courseData: courseData,foundCourses: foundCourses,search: true,isMore: isMore,params:params])
+    }
+
+    @Secured(["permitAll"])
+    def semantic(){
+    }
+
+    @Secured(["permitAll"])
+    def semanticSearch(){
+        String data = params.get("courseData")
+        List<Course> foundCourses = null
+        User authUser = springSecurityService.getCurrentUser() as User
+        if(data && data!=""){
+            foundCourses =  recomenderService.semanticSearch(data,authUser)
+        }
+        render(view: "semantic", model: [foundCourses: foundCourses,search: true])
     }
 }

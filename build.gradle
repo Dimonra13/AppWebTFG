@@ -35,6 +35,8 @@ configurations {
 dependencies {
     // https://mvnrepository.com/artifact/com.opencsv/opencsv
     compile group: 'com.opencsv', name: 'opencsv', version: '3.7'
+    // https://mvnrepository.com/artifact/com.github.groovy-wslite/groovy-wslite
+    compile group: 'com.github.groovy-wslite', name: 'groovy-wslite', version: '0.7.1'
     developmentOnly("org.springframework.boot:spring-boot-devtools")
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-autoconfigure"

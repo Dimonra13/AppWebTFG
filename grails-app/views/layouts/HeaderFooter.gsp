@@ -63,12 +63,12 @@
         </div>
         <!-- search-box-->
         <div class="flex-grow-1 pb-3 pt-sm-3 my-1 px-sm-2 pr-lg-4 order-sm-2">
-            <form action="/search/searchCourse" class="needs-validation" novalidate>
+            <form action="/search/semanticSearch" class="needs-validation" novalidate>
                 <div class="input-group flex-nowrap">
                     <div class="input-group-prepend"><span class="input-group-text rounded-left" id="search-icon"><i
                             data-feather="search"></i></span></div>
                     <input class="form-control rounded-right" type="text" id="search-course" name="courseData"
-                           placeholder="${message(code: 'course.search.bar')}" aria-label="Search site" aria-describedby="search-icon">
+                           placeholder="${message(code: 'course.search.semantic.bar')}" aria-label="Search site" aria-describedby="search-icon">
                 </div>
             </form>
         </div>
