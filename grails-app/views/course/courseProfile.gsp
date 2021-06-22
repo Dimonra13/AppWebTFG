@@ -137,6 +137,41 @@
                 </div>
             </div>
         </g:if>
+        <!-- Related courses -->
+        <g:if test="${related}">
+            <div class="col-12">
+                <br><br>
+                <div class="d-flex flex-wrap justify-content-between align-items-center pb-2">
+                    <h2 class="h3 mb-3"><g:message code="related.course.profile.title"/></h2>
+                </div>
+                <div class="row no-gutters">
+                    <g:each var="course" in="${related}" status="i">
+                        <!-- Course info -->
+                        <div class="col-lg-3 col-sm-4 col-6 border border-collapse">
+                            <div class="product-card">
+                                <div class="product-thumb"><asset:image src="Categories/cat_${course.category}.jpg" style="height: 18rem;"/></div>
+                                    <div class="product-card-body">
+                                        <h5><a href="/course/${course.id}">${course.title}</a></h5>
+                                        <g:if test="${course?.rating}">
+                                            <p><span class="my-rating" id="my-rating${i}"></span><span class="font-weight-semibold ml-1"> (${course.rating})</span></p>
+                                        </g:if>
+                                    </div>
+                            </div>
+                </div>
+                <g:javascript>
+                            $("#my-rating${i}").starRating({
+                                initialRating: ${course?.rating?:0},
+                                strokeColor: '#894A00',
+                                activeColor: '#894A00',
+                                readOnly: true,
+                                strokeWidth: 5,
+                                starSize: 25
+                            });
+                </g:javascript>
+            </g:each>
+        </div>
+            </div>
+        </g:if>
     </div>
 </div>
 <g:javascript>

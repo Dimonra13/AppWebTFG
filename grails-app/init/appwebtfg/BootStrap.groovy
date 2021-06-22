@@ -8,9 +8,9 @@ class BootStrap {
     def init = { servletContext ->
         addTestUser()
         if(!Course.get(100)){
-            readCsvCoursera()
+            //readCsvCoursera()
             //readCsvUdacity()
-            //readCsvUdemy()
+            readCsvUdemy()
         }
 
     }
