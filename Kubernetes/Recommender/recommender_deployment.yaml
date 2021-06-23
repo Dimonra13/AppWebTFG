@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recommender
+spec:
+  selector:
+    matchLabels:
+      app: recommender
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: recommender
+    spec:
+      containers:
+      - image: dimonra13/recommender:v1
+        imagePullPolicy: Always
+        name: recommender
+        ports:
+        - containerPort: 8011
+          name: recommender

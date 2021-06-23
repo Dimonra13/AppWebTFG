@@ -8,7 +8,7 @@ import java.nio.charset.*
 import grails.util.Environment
 @Transactional
 class RecomenderService {
-    final String URL = (Environment.current == Environment.PRODUCTION) ? "" : "http://0.0.0.0:8011"
+    final String URL = (Environment.current == Environment.PRODUCTION) ? "http://recommender:8011" : "http://0.0.0.0:8011"
     final def LANGUAGES = [
             "English",
             "Spanish",

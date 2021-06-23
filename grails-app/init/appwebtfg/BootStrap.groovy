@@ -21,7 +21,12 @@ class BootStrap {
     @Transactional
     void readCsvCoursera(){
         try {
-            CSVReader reader = new CSVReader(new FileReader("./grails-app/init/appwebtfg/cleaned_coursera.csv"))
+            String path
+            if(Environment.current == Environment.DEVELOPMENT)
+                path = "./grails-app/assets/data/cleaned_coursera.csv"
+            else
+                path = "./cleaned_coursera.csv"
+            CSVReader reader = new CSVReader(new FileReader(path))
             List<String[]> r = reader.readAll()
             r.remove(0)
             r.eachWithIndex{ String[] line, int index ->
@@ -89,7 +94,12 @@ class BootStrap {
     @Transactional
     void readCsvUdacity(){
         try {
-            CSVReader reader = new CSVReader(new FileReader("./grails-app/init/appwebtfg/cleaned_udacity.csv"))
+            String path
+            if(Environment.current == Environment.DEVELOPMENT)
+                path = "./grails-app/assets/data/cleaned_udacity.csv"
+            else
+                path = "./cleaned_udacity.csv"
+            CSVReader reader = new CSVReader(new FileReader(path))
             List<String[]> r = reader.readAll()
             r.remove(0)
             r.findAll {tokens -> tokens.size() == 14}.eachWithIndex{ String[] line, int index ->
@@ -131,7 +141,12 @@ class BootStrap {
     @Transactional
     void readCsvUdemy(){
         try {
-            CSVReader reader = new CSVReader(new FileReader("./grails-app/init/appwebtfg/cleaned_udemy.csv"))
+            String path
+            if(Environment.current == Environment.DEVELOPMENT)
+                path = "./grails-app/assets/data/cleaned_udemy.csv"
+            else
+                path = "./cleaned_udemy.csv"
+            CSVReader reader = new CSVReader(new FileReader(path))
             List<String[]> r = reader.readAll()
             r.remove(0)
             r.eachWithIndex{ String[] line, int index ->
