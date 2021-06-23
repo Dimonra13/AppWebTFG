@@ -5,10 +5,10 @@ import grails.gorm.transactions.Transactional
 import groovy.json.JsonSlurper
 import wslite.rest.*
 import java.nio.charset.*
-
+import grails.util.Environment
 @Transactional
 class RecomenderService {
-    final String URL = "http://0.0.0.0:8011"
+    final String URL = (Environment.current == Environment.PRODUCTION) ? "" : "http://0.0.0.0:8011"
     final def LANGUAGES = [
             "English",
             "Spanish",
@@ -87,6 +87,12 @@ class RecomenderService {
     final int DEFAULT_ISFREE = 1
     final String DEFAULT_INSTITUTION = "Coursera"
 
+    /**
+     * Method used to make the API request to obtain the semantic search results and return the list of corresponding courses.
+     * @param data
+     * @param user
+     * @return the list of courses resulting from the semantic search
+     */
     List<Course> semanticSearch(String data, User user) {
         try {
             RESTClient client = new RESTClient(URL)
@@ -110,6 +116,12 @@ class RecomenderService {
         }
     }
 
+    /**
+     * Method used to make the request to the API to obtain the courses related to the course received as parameter of this method.
+     * @param course
+     * @param user
+     * @return the list of related courses
+     */
     List<Course> relatedCourses(Course course, User user) {
         if(!course || !course?.idCurso)
             return []
@@ -150,10 +162,22 @@ class RecomenderService {
         }
     }
 
+    /**
+     * Method that returns the list of courses whose id belongs to the list of ids received in the API request.
+     * @param idsUdacity
+     * @param idsCoursera
+     * @param idsUdemy
+     * @return the list of requested courses
+     */
     private List<Course> getCourses(Set<Integer> idsUdacity, Set<Integer> idsCoursera, Set<Integer> idsUdemy) {
         getCoursesUdacity(idsUdacity)+getCoursesCoursera(idsCoursera)+getCoursesUdemy(idsUdemy)
     }
 
+    /**
+     * Method that returns the list of courses of Udacity whose id belongs to the list of ids received in the API request.
+     * @param idsUdacity
+     * @return the list of requested courses
+     */
     private List<Course> getCoursesUdacity(Set<Integer> idsUdacity) {
         List<Course> output = new LinkedList<>()
         idsUdacity.forEach { Integer courseID ->
@@ -164,6 +188,11 @@ class RecomenderService {
         output
     }
 
+    /**
+     * Method that returns the list of courses of Coursera whose id belongs to the list of ids received in the API request.
+     * @param idsCoursera
+     * @return the list of requested courses
+     */
     private List<Course> getCoursesCoursera(Set<Integer> idsCoursera) {
         List<Course> output = new LinkedList<>()
         idsCoursera.forEach { Integer courseID ->
@@ -174,6 +203,11 @@ class RecomenderService {
         output
     }
 
+    /**
+     * Method that returns the list of courses of Udemy whose id belongs to the list of ids received in the API request.
+     * @param idsUdemy
+     * @return the list of requested courses
+     */
     private List<Course> getCoursesUdemy(Set<Integer> idsUdemy) {
         List<Course> output = new LinkedList<>()
         idsUdemy.forEach { Integer courseID ->
@@ -184,6 +218,11 @@ class RecomenderService {
         output
     }
 
+    /**
+     * Method used to generate the "context" parameter needed to make API requests.
+     * @param user
+     * @return the "context" object
+     */
     private def generateContext(User user) {
         if (!user)
             return ["discarded_courses": [],
@@ -208,6 +247,11 @@ class RecomenderService {
         }
     }
 
+    /**
+     * Method used to generate the "profile" parameter needed to make API requests.
+     * @param user
+     * @return the "profile" object
+     */
     private def generateProfile(User user) {
         if(!user)
             return [
@@ -244,6 +288,11 @@ class RecomenderService {
 
     }
 
+    /**
+     * Method used to calculate the "isFree" parameter of the "profile" object from the list of courses received as parameter.
+     * @param courses
+     * @return the "isFree" parameter value
+     */
     private int calculateIsFree(List<Course> courses){
         float accFree = 0
         int coursesWithIsFree = 0
@@ -266,6 +315,13 @@ class RecomenderService {
             return DEFAULT_ISFREE
     }
 
+    /**
+     * Method used to calculate the "difficulty" parameter of the "profile" object from the list of courses
+     * and the user received as parameter.
+     * @param courses
+     * @param user
+     * @return the "difficulty" parameter value
+     */
     private String calculateAvgDifficulty(List<Course> courses, User user){
         float accDifficulty = 0
         int coursesWithDifficulty = 0
@@ -295,6 +351,11 @@ class RecomenderService {
             return DEFAULT_DIFFICULTY
     }
 
+    /**
+     * Method used to calculate the "rating" parameter of the "profile" object from the list of courses received as parameter.
+     * @param courses
+     * @return the "rating" parameter value
+     */
     private Float calculateAvgRating(List<Course> courses){
         float accRating = 0
         int ratedCourses = 0
@@ -304,12 +365,21 @@ class RecomenderService {
                 ratedCourses++
             }
         }
+        //If there are enough courses with rating in the user courseLists the result is the avg rating
         if(ratedCourses>0 && accRating>0)
             return Math.round((accRating/ratedCourses)*100)/100
+        //Otherwise, the result is the default value
         else
             return DEFAULT_RATING
     }
 
+    /**
+     * Method used to calculate the "duration" parameter of the "profile" object from the list of courses
+     * and the user received as parameter.
+     * @param courses
+     * @param user
+     * @return the "duration" parameter value
+     */
     private Float calculateAvgDuration(List<Course> courses,User user){
         float accDuration = 0
         int coursesWithDuration = 0
@@ -330,6 +400,13 @@ class RecomenderService {
             return DEFAULT_DURATION
     }
 
+    /**
+     * Method used to calculate the "students" parameter of the "profile" object from the list of courses
+     * and the user received as parameter.
+     * @param courses
+     * @param user
+     * @return the "students" parameter value
+     */
     private Float calculateAvgPopularity(List<Course> courses,User user){
         float accPopularity = 0
         int coursesWithPopularity = 0
@@ -350,6 +427,13 @@ class RecomenderService {
             return DEFAULT_POPULARITY
     }
 
+    /**
+     * Method used to calculate the "cost" parameter of the "profile" object from the list of courses
+     * and the user received as parameter.
+     * @param courses
+     * @param user
+     * @return the "cost" parameter value
+     */
     private Float calculateAvgCost(List<Course> courses, User user){
         float accCost = 0
         int coursesWithCost= 0
@@ -370,6 +454,11 @@ class RecomenderService {
             return DEFAULT_COST
     }
 
+    /**
+     * Method used to calculate the "institution" parameter of the "profile" object from the list of courses received as parameter.
+     * @param courses
+     * @return the "institution" parameter value
+     */
     private String calculateMostFrequentInstitution(List<Course> courses){
         Map<String,Integer> institutions =  new HashMap<>()
         courses.forEach{course ->
