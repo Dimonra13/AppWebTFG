@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta name="layout" content="HeaderFooter"/>
-    <title><g:message code="title.search.course"/></title>
+    <title><g:message code="title.search.course.semantic"/></title>
 </head>
 <!-- Body-->
 <body>
