@@ -59,6 +59,9 @@ class SearchController {
         List<Course> foundCourses = null
         boolean isMore = false;
         if(courseData && courseData!=""){
+            User authUser = springSecurityService.getCurrentUser() as User
+            if(authUser)
+                userService.saveRecentSearch(authUser,courseData)
             if(!params.get("offset"))
                 params.offset=0
             else
@@ -79,6 +82,8 @@ class SearchController {
         List<Course> foundCourses = null
         User authUser = springSecurityService.getCurrentUser() as User
         if(data && data!=""){
+            if(authUser)
+                userService.saveRecentSearch(authUser,data)
             foundCourses =  recomenderService.semanticSearch(data,authUser)
         }
         render(view: "semantic", model: [foundCourses: foundCourses,search: true])

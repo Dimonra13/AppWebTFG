@@ -129,5 +129,29 @@ class UserService {
         user.difficulty=difficulty
         user.save()
     }
+
+    private final int MAX_RECENT_SEARCHES = 20
+
+    /**
+     * Method that saves a search made by the user in its recent search list
+     * @param user
+     * @param search
+     * @return
+     */
+    User saveRecentSearch(User user, String search){
+        List<String> recentSearches = user?.recentSearches
+        if(!recentSearches)
+            recentSearches = []
+        if(search){
+            if(recentSearches.size()<MAX_RECENT_SEARCHES)
+                recentSearches.add(search)
+            else {
+                recentSearches.remove(0)
+                recentSearches.add(search)
+            }
+        }
+        user.recentSearches=recentSearches
+        user.save()
+    }
 }
 

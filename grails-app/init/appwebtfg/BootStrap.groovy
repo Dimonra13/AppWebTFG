@@ -2,17 +2,20 @@ package appwebtfg
 
 import com.opencsv.CSVReader
 import grails.gorm.transactions.Transactional
+import grails.util.Environment
 
 class BootStrap {
 
     def init = { servletContext ->
-        addTestUser()
-        if(!Course.get(100)){
-            //readCsvCoursera()
-            //readCsvUdacity()
-            readCsvUdemy()
+        if(Environment.current != Environment.TEST){
+            if(!Course.get(100)){
+                if(Environment.current == Environment.DEVELOPMENT)
+                    addTestUser()
+                readCsvCoursera()
+                readCsvUdacity()
+                readCsvUdemy()
+            }
         }
-
     }
 
     @Transactional

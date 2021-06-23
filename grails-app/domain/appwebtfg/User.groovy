@@ -29,6 +29,7 @@ class User implements Serializable {
                       mediumSkills: Skill,
                       expertSkills: Skill]
     List<String> interests
+    List<String> recentSearches
     //User preferences
     Float duration
     Float cost

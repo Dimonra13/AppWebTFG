@@ -237,4 +237,33 @@ class UserServiceIntegrationSpec extends Specification {
         1        | null | 3.56       | null
 
     }
+
+    @Unroll
+    void "test the saveRecentSearch method"(String userNewSearch, List<String> expectedOutput) {
+
+        given: "The test user"
+        User testUser
+
+        and: "There is one user registered in the database"
+        if (!User.findByUsername("test"))
+            testUser = registrationService.registerUser("test", "test", "test@gmail.com")
+
+        when: "User's recent search list is updated"
+        testUser = userService.saveRecentSearch(testUser, userNewSearch)
+
+        then: "The test user's recent search list must be updated correctly"
+        expectedOutput == testUser.recentSearches
+
+        cleanup:
+        User.withNewSession { session ->
+            User registeredUser = User.findByUsername("test")
+            UserRole.findByUser(registeredUser)?.delete()
+            registeredUser?.delete()
+        }
+
+        where:
+        userNewSearch            | expectedOutput
+        null                     | []
+        "test"                   | ["test"]
+    }
 }

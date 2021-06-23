@@ -1,10 +1,13 @@
 package appwebtfg
 
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 
 class CategoryController {
 
     CourseService courseService
+    UserService userService
+    SpringSecurityService springSecurityService
 
     Set<String> categories = ['Data-Science','Machine-Learning','Cloud-Computing','Engineering','Business-Finance',
                               'Security','Leadership','Entrepreneurship','Personal-Development','Human-Studies','Education','Arts',
@@ -61,6 +64,9 @@ class CategoryController {
                 sortBy=null
                 sortByAsc=false
             }
+            User authUser = springSecurityService.getCurrentUser() as User
+            if(title && authUser)
+                userService.saveRecentSearch(authUser,title)
             List<Course> courses = courseService.findCourses(id,pageSize,offset,title,freeOnly,englishOnly,sortBy,sortByAsc,difficulty)
             boolean isMore = courseService.findCourses(id,pageSize,offset+pageSize,title,freeOnly,englishOnly,sortBy,sortByAsc,difficulty) as boolean
             render(view: "categoriesIndex",model: [
