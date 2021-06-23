@@ -6,6 +6,8 @@
   </head>
   <!-- Body-->
   <body>
+    <asset:javascript src="jquery.star-rating-svg.js"/>
+    <asset:stylesheet src="star-rating-svg.css"/>
     <!-- Jumbotron -->
     <section class="container px-3">
       <br>
@@ -89,5 +91,81 @@
       </div>
     </section>
     <br>
+    <!-- Recommended courses -->
+    <g:if test="${recommendedCourses}">
+      <section class="container px-3 pb-4">
+        <div class="col-12">
+          <br><br>
+          <div>
+            <h2 class="h2 mb-3 text-center"><g:message code="recommended.index.title"/></h2>
+          </div>
+          <div class="row no-gutters">
+            <g:each var="course" in="${recommendedCourses}" status="i">
+              <!-- Course info -->
+              <div class="col-lg-3 col-sm-3 col-6 border border-collapse">
+                <div class="product-card">
+                  <div class="product-thumb"><asset:image src="Categories/cat_${course.category}.jpg" style="height: 15rem;"/></div>
+                  <div class="product-card-body">
+                    <h5><a href="/course/${course.id}">${course.title}</a></h5>
+                    <g:if test="${course?.rating}">
+                      <p><span class="my-rating" id="my-rating${i}"></span><span class="font-weight-semibold ml-1"> (${course.rating})</span></p>
+                    </g:if>
+                  </div>
+                </div>
+              </div>
+              <g:javascript>
+                            $("#my-rating${i}").starRating({
+                                initialRating: ${course?.rating?:0},
+                                strokeColor: '#894A00',
+                                activeColor: '#894A00',
+                                readOnly: true,
+                                strokeWidth: 5,
+                                starSize: 25
+                            });
+              </g:javascript>
+            </g:each>
+          </div>
+        </div>
+      </section>
+      <br>
+    </g:if>
+    <!-- Related to query courses -->
+    <g:if test="${relatedToQueryCourses}">
+      <section class="container px-3 pb-4">
+        <div class="col-12">
+          <br><br>
+          <div>
+            <h2 class="h2 mb-3 text-center"><g:message code="relatedToQuery.index.title"/></h2>
+          </div>
+          <div class="row no-gutters">
+            <g:each var="course" in="${relatedToQueryCourses}" status="i">
+              <!-- Course info -->
+              <div class="col-lg-3 col-sm-3 col-6 border border-collapse">
+                <div class="product-card">
+                  <div class="product-thumb"><asset:image src="Categories/cat_${course.category}.jpg" style="height: 15rem;"/></div>
+                  <div class="product-card-body">
+                    <h5><a href="/course/${course.id}">${course.title}</a></h5>
+                    <g:if test="${course?.rating}">
+                      <p><span class="my-rating" id="my-rating${i+20}"></span><span class="font-weight-semibold ml-1"> (${course.rating})</span></p>
+                    </g:if>
+                  </div>
+                </div>
+              </div>
+              <g:javascript>
+                            $("#my-rating${i+20}").starRating({
+                                initialRating: ${course?.rating?:0},
+                                strokeColor: '#894A00',
+                                activeColor: '#894A00',
+                                readOnly: true,
+                                strokeWidth: 5,
+                                starSize: 25
+                            });
+              </g:javascript>
+            </g:each>
+          </div>
+        </div>
+      </section>
+      <br>
+    </g:if>
   </body>
 </html>

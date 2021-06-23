@@ -1,13 +1,12 @@
 package appwebtfg
 
-import com.sun.org.apache.bcel.internal.generic.FLOAD
 import grails.gorm.transactions.Transactional
 import groovy.json.JsonSlurper
 import wslite.rest.*
 import java.nio.charset.*
 import grails.util.Environment
 @Transactional
-class RecomenderService {
+class RecommenderService {
     final String URL = (Environment.current == Environment.PRODUCTION) ? "http://recommender:8011" : "http://0.0.0.0:8011"
     final def LANGUAGES = [
             "English",
@@ -122,7 +121,7 @@ class RecomenderService {
      * @param user
      * @return the list of related courses
      */
-    List<Course> relatedCourses(Course course, User user) {
+    List<Course> getRelatedCourses(Course course, User user) {
         if(!course || !course?.idCurso)
             return []
         try {
@@ -147,6 +146,7 @@ class RecomenderService {
             }
             def slurper = new JsonSlurper()
             def responseData = slurper.parse(response.data)
+            //TODO:FIX ME WHEN THE API WORKS
             //Set<Integer> idsUdacity = (responseData.get("list_recommendations") as Map).keySet().collect { Integer.parseInt(it) }
             Set<Integer> relatedCoursesIDs = (responseData.get("list_recommendations") as Map).values().collect{Integer.parseInt(it.get("id"))}
             if(course.originalPage == "Coursera"){
@@ -156,6 +156,84 @@ class RecomenderService {
             }else{
                 getCoursesUdemy(relatedCoursesIDs)
             }
+        } catch (Exception e) {
+            e.printStackTrace()
+            return []
+        }
+    }
+
+    /**
+     * Method used to make the request to the API to obtain the courses recommended for the user received as parameter of this method.
+     * @param data
+     * @param user
+     * @return the list of recommended courses
+     */
+    List<Course> getRecommendedCourses(User user) {
+        try {
+            RESTClient client = new RESTClient(URL)
+            client.defaultAcceptHeader = ContentType.JSON
+            //TODO:FIX ME WHEN THE API WORKS
+            //def path = "/search_courses_global/?&k=4"
+            def path = "/recommend_courses_udemy/?k=9"
+            def params = [
+                    "perfil":generateProfile(user),
+                    "contexto":generateContext(user)
+            ]
+            def response = client.post(path: path) {
+                type ContentType.JSON
+                json params
+            }
+            def slurper = new JsonSlurper()
+            def responseData = slurper.parse(response.data)
+            //TODO:FIX ME WHEN THE API WORKS
+            /*
+            Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map).keySet().collect { Integer.parseInt(it) }
+            Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map).keySet().collect { Integer.parseInt(it) }
+            Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map).keySet().collect { Integer.parseInt(it) }
+            return getCourses(idsUdacity, idsCoursera, idsUdemy)
+             */
+            Set<Integer> relatedCoursesIDs = (responseData.get("list_recommendations") as Map).values().collect{Integer.parseInt(it.get("id"))}
+            return getCoursesUdemy(relatedCoursesIDs)
+        } catch (Exception e) {
+            e.printStackTrace()
+            return []
+        }
+    }
+
+    /**
+     * Method used to make the request to the API to obtain the courses related with a query recommended for the user
+     * received as parameter of this method.
+     * @param data
+     * @param user
+     * @return the list of recommended courses
+     */
+    List<Course> getRecommendedCoursesRelatedToQuery(User user,String query) {
+        try {
+            RESTClient client = new RESTClient(URL)
+            client.defaultAcceptHeader = ContentType.JSON
+            String data = URLEncoder.encode(query, StandardCharsets.UTF_8.toString())
+            //TODO:FIX ME WHEN THE API WORKS
+            //def path = "/recommend_related_query_global/?query=" + data + "&k=1"
+            def path = "/recommend_related_query_udemy/?query=" + data + "&k=3"
+            def params = [
+                    "perfil":generateProfile(user),
+                    "contexto":generateContext(user)
+            ]
+            def response = client.post(path: path) {
+                type ContentType.JSON
+                json params
+            }
+            def slurper = new JsonSlurper()
+            def responseData = slurper.parse(response.data)
+            //TODO:FIX ME WHEN THE API WORKS
+            /*
+            Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map).keySet().collect { Integer.parseInt(it) }
+            Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map).keySet().collect { Integer.parseInt(it) }
+            Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map).keySet().collect { Integer.parseInt(it) }
+            return getCourses(idsUdacity, idsCoursera, idsUdemy)
+             */
+            Set<Integer> relatedCoursesIDs = (responseData.get("list_recommendations") as Map).values().collect{Integer.parseInt(it.get("id"))}
+            return getCoursesUdemy(relatedCoursesIDs)
         } catch (Exception e) {
             e.printStackTrace()
             return []

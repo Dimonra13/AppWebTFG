@@ -10,7 +10,7 @@ import grails.plugin.springsecurity.annotation.Secured
 class CourseController {
 
     SpringSecurityService springSecurityService
-    RecomenderService recomenderService
+    RecommenderService recommenderService
 
     /**
      * Method that returns the page of a course if it exists or error 404 otherwise
@@ -22,7 +22,7 @@ class CourseController {
         Course course = Course.get(id)
         User authUser = springSecurityService.isLoggedIn() ? springSecurityService.getCurrentUser() : null
         def filteredLists = authUser?.lists?.findAll { CourseList it -> !it?.courses?.contains(course) }
-        List<Course> related = recomenderService.relatedCourses(course,authUser)
+        List<Course> related = recommenderService.getRelatedCourses(course,authUser)
         if (course)
             render(view: "courseProfile", model: [course: course, user: authUser, lists: filteredLists,related:related])
         else

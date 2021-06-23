@@ -8,7 +8,7 @@ class SearchController {
 
     UserService userService
     CourseService courseService
-    RecomenderService recomenderService
+    RecommenderService recommenderService
     SpringSecurityService springSecurityService
 
     /**
@@ -84,7 +84,7 @@ class SearchController {
         if(data && data!=""){
             if(authUser)
                 userService.saveRecentSearch(authUser,data)
-            foundCourses =  recomenderService.semanticSearch(data,authUser)
+            foundCourses =  recommenderService.semanticSearch(data,authUser)
         }
         render(view: "semantic", model: [foundCourses: foundCourses,search: true])
     }

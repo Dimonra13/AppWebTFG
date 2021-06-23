@@ -157,8 +157,8 @@
                                         </g:if>
                                     </div>
                             </div>
-                </div>
-                <g:javascript>
+                        </div>
+                        <g:javascript>
                             $("#my-rating${i}").starRating({
                                 initialRating: ${course?.rating?:0},
                                 strokeColor: '#894A00',
@@ -167,9 +167,9 @@
                                 strokeWidth: 5,
                                 starSize: 25
                             });
-                </g:javascript>
-            </g:each>
-        </div>
+                        </g:javascript>
+                    </g:each>
+                </div>
             </div>
         </g:if>
     </div>

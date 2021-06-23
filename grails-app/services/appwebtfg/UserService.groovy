@@ -130,7 +130,7 @@ class UserService {
         user.save()
     }
 
-    private final int MAX_RECENT_SEARCHES = 20
+    private final int MAX_RECENT_SEARCHES = 4
 
     /**
      * Method that saves a search made by the user in its recent search list
