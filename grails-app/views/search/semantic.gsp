@@ -83,7 +83,7 @@
                                 </li>
                             </ul>
                             <div class="text-right">
-                                <div class="pt-3"><a class="btn btn-outline-primary btn-sm" href="/course/${course.id}"><i class="mr-1" data-feather="chevrons-right"></i><g:message code="course.search.link"></g:message></a></div>
+                                <div class="pt-3"><a class="btn btn-outline-primary btn-sm" href="/course/${course.id}/?recommendation=semanticSearch"><i class="mr-1" data-feather="chevrons-right"></i><g:message code="course.search.link"></g:message></a></div>
                             </div>
                         </div>
                     </div>

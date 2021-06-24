@@ -11,6 +11,7 @@ class CourseController {
 
     SpringSecurityService springSecurityService
     RecommenderService recommenderService
+    UserFeedbackService userFeedbackService
 
     /**
      * Method that returns the page of a course if it exists or error 404 otherwise
@@ -21,6 +22,12 @@ class CourseController {
     def getCourse(Long id) {
         Course course = Course.get(id)
         User authUser = springSecurityService.isLoggedIn() ? springSecurityService.getCurrentUser() : null
+        String recommendation = params.get("recommendation")
+        if(authUser&&recommendation){
+            if(!authUser?.feedback)
+                userFeedbackService.createUserFeedback(authUser)
+            userFeedbackService.updateClicks(authUser,recommendation)
+        }
         def filteredLists = authUser?.lists?.findAll { CourseList it -> !it?.courses?.contains(course) }
         List<Course> related = recommenderService.getRelatedCourses(course,authUser)
         if (course)

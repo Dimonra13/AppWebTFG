@@ -106,7 +106,7 @@
                 <div class="product-card">
                   <div class="product-thumb"><asset:image src="Categories/cat_${course.category}.jpg" style="height: 15rem;"/></div>
                   <div class="product-card-body">
-                    <h5><a href="/course/${course.id}">${course.title}</a></h5>
+                    <h5><a href="/course/${course.id}/?recommendation=forUser">${course.title}</a></h5>
                     <g:if test="${course?.rating}">
                       <p><span class="my-rating" id="my-rating${i}"></span><span class="font-weight-semibold ml-1"> (${course.rating})</span></p>
                     </g:if>
@@ -144,7 +144,7 @@
                 <div class="product-card">
                   <div class="product-thumb"><asset:image src="Categories/cat_${course.category}.jpg" style="height: 15rem;"/></div>
                   <div class="product-card-body">
-                    <h5><a href="/course/${course.id}">${course.title}</a></h5>
+                    <h5><a href="/course/${course.id}/?recommendation=relatedQuery">${course.title}</a></h5>
                     <g:if test="${course?.rating}">
                       <p><span class="my-rating" id="my-rating${i+20}"></span><span class="font-weight-semibold ml-1"> (${course.rating})</span></p>
                     </g:if>

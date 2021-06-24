@@ -24,6 +24,7 @@ class User implements Serializable {
     boolean hasProfileImage
     byte[] profileImageBytes
     String profileImageContentType
+    static hasOne = [feedback:UserFeedback]
     static hasMany = [lists: CourseList,
                       basicSkills: Skill,
                       mediumSkills: Skill,
@@ -59,6 +60,7 @@ class User implements Serializable {
         cost nullable: true
         popularity nullable: true
         difficulty nullable: true
+        feedback nullable: true
     }
 
     static mapping = {
