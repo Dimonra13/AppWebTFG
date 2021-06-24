@@ -106,6 +106,12 @@
                 <div class="product-card">
                   <div class="text-right">
                     <form action="/home" method="post">
+                      <g:if test="${isLastRecommend}">
+                        <input type="hidden" name="isLastRecommend" value="${isLastRecommend}">
+                      </g:if>
+                      <g:if test="${isLastRelated}">
+                        <input type="hidden" name="isLastRelated" value="${isLastRelated}">
+                      </g:if>
                       <input type="hidden" name="bannedCourse" value="${course.id}">
                       <g:each var="reccourse" in="${recommendedCourses}">
                         <g:if test="${reccourse?.id != course?.id}">
@@ -158,6 +164,12 @@
                 <div class="product-card">
                   <div class="text-right">
                     <form action="/home" method="post">
+                      <g:if test="${isLastRecommend}">
+                        <input type="hidden" name="isLastRecommend" value="${isLastRecommend}">
+                      </g:if>
+                      <g:if test="${isLastRelated}">
+                        <input type="hidden" name="isLastRelated" value="${isLastRelated}">
+                      </g:if>
                       <input type="hidden" name="bannedCourse" value="${course.id}">
                       <g:each var="reccourse" in="${recommendedCourses}">
                         <input type="hidden" name="recommendedCoursesIDs" value="${reccourse?.id}">

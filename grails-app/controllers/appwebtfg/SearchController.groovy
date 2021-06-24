@@ -10,6 +10,7 @@ class SearchController {
     CourseService courseService
     RecommenderService recommenderService
     SpringSecurityService springSecurityService
+    UserFeedbackService userFeedbackService
 
     /**
      * Method the returns the page used for searching users with a certain name or email
@@ -78,14 +79,34 @@ class SearchController {
 
     @Secured(["permitAll"])
     def semanticSearch(){
-        String data = params.get("courseData")
-        List<Course> foundCourses = null
         User authUser = springSecurityService.getCurrentUser() as User
-        if(data && data!=""){
-            if(authUser)
-                userService.saveRecentSearch(authUser,data)
-            foundCourses =  recommenderService.semanticSearch(data,authUser)
+        Integer bannedCourse = params.get("bannedCourse") as Integer
+        List<Course> foundCourses = null
+        String isLast = null
+        if(bannedCourse && authUser){
+            userService.saveBannedCourse(authUser,bannedCourse)
+            if(!authUser?.feedback)
+                userFeedbackService.createUserFeedback(authUser)
+            userFeedbackService.updateNotInterested(authUser,Course?.get(bannedCourse)?.originalPage)
+            List<Integer> searchIDs
+            if(!params.isLast){
+                searchIDs = params.get("searchIDs").collect{it->Integer.parseInt(it)}
+                if (searchIDs.size()==2)
+                    isLast="true"
+            }else{
+                searchIDs = new LinkedList<>();
+                searchIDs.add(params.get("searchIDs") as Integer)
+                isLast=null
+            }
+            foundCourses = courseService.getCourses(searchIDs)
+        }else{
+            String data = params.get("courseData")
+            if(data && data!=""){
+                if(authUser)
+                    userService.saveRecentSearch(authUser,data)
+                foundCourses =  recommenderService.semanticSearch(data,authUser)
+            }
         }
-        render(view: "semantic", model: [foundCourses: foundCourses,search: true])
+        render(view: "semantic", model: [foundCourses: foundCourses,search: true,isLast:isLast])
     }
 }

@@ -105,9 +105,9 @@ class RecommenderService {
             }
             def slurper = new JsonSlurper()
             def responseData = slurper.parse(response.data)
-            Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map).keySet().collect { Integer.parseInt(it) }
-            Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map).keySet().collect { Integer.parseInt(it) }
-            Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map).keySet().collect { Integer.parseInt(it) }
+            Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map)?.keySet()?.collect { Integer.parseInt(it) }
+            Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map)?.keySet()?.collect { Integer.parseInt(it) }
+            Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map)?.keySet()?.collect { Integer.parseInt(it) }
             return getCourses(idsUdacity, idsCoursera, idsUdemy)
         } catch (Exception e) {
             e.printStackTrace()
@@ -146,7 +146,7 @@ class RecommenderService {
             }
             def slurper = new JsonSlurper()
             def responseData = slurper.parse(response.data)
-            Set<Integer> relatedCoursesIDs = (responseData.get("list_recommendations") as Map).keySet().collect { Integer.parseInt(it) }
+            Set<Integer> relatedCoursesIDs = (responseData.get("list_recommendations") as Map)?.keySet()?.collect { Integer.parseInt(it) }
             if(course.originalPage == "Coursera"){
                 return getCoursesCoursera(relatedCoursesIDs)
             }else if(course.originalPage == "Udacity"){
@@ -181,9 +181,9 @@ class RecommenderService {
             }
             def slurper = new JsonSlurper()
             def responseData = slurper.parse(response.data)
-            Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map).keySet().collect { Integer.parseInt(it) }
-            Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map).keySet().collect { Integer.parseInt(it) }
-            Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map).keySet().collect { Integer.parseInt(it) }
+            Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map)?.keySet()?.collect { Integer.parseInt(it) }
+            Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map)?.keySet()?.collect { Integer.parseInt(it) }
+            Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map)?.keySet()?.collect { Integer.parseInt(it) }
             return getCourses(idsUdacity, idsCoursera, idsUdemy)
         } catch (Exception e) {
             e.printStackTrace()
@@ -214,9 +214,9 @@ class RecommenderService {
             }
             def slurper = new JsonSlurper()
             def responseData = slurper.parse(response.data)
-            Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map).keySet().collect { Integer.parseInt(it) }
-            Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map).keySet().collect { Integer.parseInt(it) }
-            Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map).keySet().collect { Integer.parseInt(it) }
+            Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map)?.keySet()?.collect { Integer.parseInt(it) }
+            Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map)?.keySet()?.collect { Integer.parseInt(it) }
+            Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map)?.keySet()?.collect { Integer.parseInt(it) }
             return getCourses(idsUdacity, idsCoursera, idsUdemy)
         } catch (Exception e) {
             e.printStackTrace()
@@ -293,7 +293,7 @@ class RecommenderService {
         else {
             Set<Integer> bannedCourses = []
             Set<String> languages = []
-            user.lists.each { CourseList courseList ->
+            user?.lists?.each { CourseList courseList ->
                 courseList.courses.each { Course course ->
                     if (course.idCurso)
                         bannedCourses.add(course.idCurso)
@@ -301,6 +301,7 @@ class RecommenderService {
                         languages.add(course.language)
                 }
             }
+            bannedCourses=bannedCourses+user?.bannedCourses
             if (!languages)
                 languages = LANGUAGES
             return ["discarded_courses": bannedCourses,
@@ -328,7 +329,7 @@ class RecommenderService {
             ]
         else {
             List<Course> courses = user?.lists?.courses?.flatten()
-            String description = " " + user?.interests.join(",")+courses.collect{course -> course.title}.join(",")
+            String description = " " + user?.interests?.join(",")+courses?.collect{course -> course.title}?.join(",")
             String difficulty = calculateAvgDifficulty(courses,user)
             int free = calculateIsFree(courses)
             float rating = calculateAvgRating(courses)
@@ -358,7 +359,7 @@ class RecommenderService {
     private int calculateIsFree(List<Course> courses){
         float accFree = 0
         int coursesWithIsFree = 0
-        courses.forEach{course ->
+        courses?.forEach{course ->
             if(course?.isFree != null){
                 accFree=accFree + (course?.isFree == 2 ? 1 :
                                     (course?.isFree == 3 ? 0 :
@@ -387,7 +388,7 @@ class RecommenderService {
     private String calculateAvgDifficulty(List<Course> courses, User user){
         float accDifficulty = 0
         int coursesWithDifficulty = 0
-        courses.forEach{course ->
+        courses?.forEach{course ->
             if(course?.difficulty != null){
                 accDifficulty=accDifficulty + (course?.difficulty == "beginner" ? 1 :
                                                 (course?.difficulty == "intermediate" ? 2 :
@@ -421,7 +422,7 @@ class RecommenderService {
     private Float calculateAvgRating(List<Course> courses){
         float accRating = 0
         int ratedCourses = 0
-        courses.forEach{course ->
+        courses?.forEach{course ->
             if(course?.rating != null){
                 accRating=accRating+course?.rating
                 ratedCourses++
@@ -445,7 +446,7 @@ class RecommenderService {
     private Float calculateAvgDuration(List<Course> courses,User user){
         float accDuration = 0
         int coursesWithDuration = 0
-        courses.forEach{course ->
+        courses?.forEach{course ->
             if(course?.duration != null){
                 accDuration=accDuration+course?.duration
                 coursesWithDuration++
@@ -472,7 +473,7 @@ class RecommenderService {
     private Float calculateAvgPopularity(List<Course> courses,User user){
         float accPopularity = 0
         int coursesWithPopularity = 0
-        courses.forEach{course ->
+        courses?.forEach{course ->
             if(course?.popularity != null){
                 accPopularity=accPopularity+course?.popularity
                 coursesWithPopularity++
@@ -499,7 +500,7 @@ class RecommenderService {
     private Float calculateAvgCost(List<Course> courses, User user){
         float accCost = 0
         int coursesWithCost= 0
-        courses.forEach{course ->
+        courses?.forEach{course ->
             if(course?.price != null){
                 accCost=accCost+course?.price
                 coursesWithCost++
@@ -523,7 +524,7 @@ class RecommenderService {
      */
     private String calculateMostFrequentInstitution(List<Course> courses){
         Map<String,Integer> institutions =  new HashMap<>()
-        courses.forEach{course ->
+        courses?.forEach{course ->
             if(course?.originalPage == "Coursera" && course?.author){
                 Integer count = institutions.remove(course?.author)
                 if(count)

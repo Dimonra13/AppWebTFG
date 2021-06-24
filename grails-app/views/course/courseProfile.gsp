@@ -163,6 +163,9 @@
                                     <form action="/course/${course?.id}" method="post">
                                         <input type="hidden" name="bannedCourse" value="${course.id}">
                                         <input type="hidden" name="recommendation" value="${recommendationSource}">
+                                        <g:if test="${isLast}">
+                                            <input type="hidden" name="isLast" value="${isLast}">
+                                        </g:if>
                                         <g:each var="relatedcourse" in="${related}">
                                             <g:if test="${relatedcourse?.id != recourse?.id}">
                                                 <input type="hidden" name="relatedToCourseIDs" value="${relatedcourse?.id}">

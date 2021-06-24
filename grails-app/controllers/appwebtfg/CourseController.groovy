@@ -28,17 +28,21 @@ class CourseController {
         String recommendation = params.get("recommendation")
         Integer bannedCourse = params.get("bannedCourse") as Integer
         List<Course> related
+        String isLast = null
         if(bannedCourse && authUser){
             userService.saveBannedCourse(authUser,bannedCourse)
             if(!authUser?.feedback)
                 userFeedbackService.createUserFeedback(authUser)
             userFeedbackService.updateNotInterested(authUser,Course?.get(bannedCourse)?.originalPage)
             List<Integer> relatedToCourseIDs
-            try{
+            if(!params.isLast){
                 relatedToCourseIDs = params.get("relatedToCourseIDs").collect{it->Integer.parseInt(it)}
-            }catch(Exception e){
+                if (relatedToCourseIDs.size()==2)
+                    isLast="true"
+            }else{
                 relatedToCourseIDs = new LinkedList<>();
                 relatedToCourseIDs.add(params.get("relatedToCourseIDs") as Integer)
+                isLast=null
             }
             related = courseService.getCourses(relatedToCourseIDs)
         }else {
@@ -50,7 +54,7 @@ class CourseController {
             related = recommenderService.getRelatedCourses(course,authUser)
         }
         if (course)
-            render(view: "courseProfile", model: [course: course, user: authUser, lists: filteredLists,related:related,recommendationSource:recommendation])
+            render(view: "courseProfile", model: [course: course, user: authUser, lists: filteredLists,related:related,recommendationSource:recommendation,isLast:isLast])
         else
             render status: 404
     }

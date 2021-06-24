@@ -88,7 +88,7 @@ class UserFeedbackServiceIntegrationSpec extends Specification {
         and: "The UserFeedback is created"
         userFeedbackService.createUserFeedback(testUser)
 
-        when: "The addToList counter is updated are updated"
+        when: "The addToList counter are updated"
         UserFeedback expectedFeedback = userFeedbackService.updateAddToList(testUser, recommendation)
 
         then: "The output must be the same as the expected output of the method"
@@ -110,5 +110,41 @@ class UserFeedbackServiceIntegrationSpec extends Specification {
         "relatedQuery"   | _
         "semanticSearch" | _
         "relatedCourse"  | _
+    }
+
+    @Unroll
+    void "test the updateNotInterested method"(String recommendation) {
+
+        given: "The test user"
+        User testUser
+
+        and: "There is one user registered in the database"
+        testUser = User.findByUsername("testNotInterested")
+        if (!testUser)
+            testUser = registrationService.registerUser("testNotInterested", "test", "test@gmail.com")
+
+        and: "The UserFeedback is created"
+        userFeedbackService.createUserFeedback(testUser)
+
+        when: "The NotInterested counter are updated"
+        UserFeedback expectedFeedback = userFeedbackService.updateNotInterested(testUser, recommendation)
+
+        then: "The output must be the same as the expected output of the method"
+        (testUser?.feedback.notInterestedUdemy == expectedFeedback.notInterestedUdemy) &&
+                (testUser?.feedback.notInterestedUdacity == expectedFeedback.notInterestedUdacity) &&
+                (testUser?.feedback.notInterestedCoursera == expectedFeedback.notInterestedCoursera)
+
+        cleanup:
+        User.withNewSession { session ->
+            User registeredUser = User.findByUsername("testNotInterested")
+            UserRole.findByUser(registeredUser)?.delete()
+            registeredUser?.delete()
+        }
+
+        where:
+        recommendation | _
+        "Udemy"        | _
+        "Udacity"      | _
+        "Coursera"     | _
     }
 }

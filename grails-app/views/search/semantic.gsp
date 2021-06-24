@@ -52,8 +52,22 @@
                         <div class="col-md-8">
                             <!-- Course details -->
                             <div class="d-flex flex-wrap justify-content-between pb-4">
-                                <div class="pt-3 mr-3">
+                                <div class="pt-3 mr-3 col-8">
                                     <h3 class="mb-0">${course.title}</h3><span class="font-size-lg text-warning"><g:message code="categoryIndex.${course.category}"/></span>
+                                </div>
+                                <div class="text-right">
+                                    <form action="/search/semanticSearch" method="post">
+                                        <input type="hidden" name="bannedCourse" value="${course.id}">
+                                        <g:if test="${isLast}">
+                                            <input type="hidden" name="isLast" value="${isLast}">
+                                        </g:if>
+                                        <g:each var="searchCourse" in="${foundCourses}">
+                                            <g:if test="${searchCourse?.id != course?.id}">
+                                                <input type="hidden" name="searchIDs" value="${searchCourse?.id}">
+                                            </g:if>
+                                        </g:each>
+                                        <input type="submit" class="btn btn-primary" name="submit" value="${message(code: "recommender.notInterested")}">
+                                    </form>
                                 </div>
                             </div>
                             <ul class="list-unstyled border p-3 mb-4">
