@@ -163,7 +163,7 @@
                     <a href="/search/user" class="nav-link rounded"><g:message code="header.search.user"/></a>
                 </li>
                 <li class="nav-item">
-                    <a href="/search/course" class="nav-link rounded"><g:message code="header.search.course"/></a>
+                    <a href="/search/semantic" class="nav-link rounded"><g:message code="header.search.course"/></a>
                 </li>
             </ul>
 
