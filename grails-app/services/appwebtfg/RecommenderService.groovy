@@ -146,9 +146,7 @@ class RecommenderService {
             }
             def slurper = new JsonSlurper()
             def responseData = slurper.parse(response.data)
-            //TODO:FIX ME WHEN THE API WORKS
-            //Set<Integer> idsUdacity = (responseData.get("list_recommendations") as Map).keySet().collect { Integer.parseInt(it) }
-            Set<Integer> relatedCoursesIDs = (responseData.get("list_recommendations") as Map).values().collect{Integer.parseInt(it.get("id"))}
+            Set<Integer> relatedCoursesIDs = (responseData.get("list_recommendations") as Map).keySet().collect { Integer.parseInt(it) }
             if(course.originalPage == "Coursera"){
                 return getCoursesCoursera(relatedCoursesIDs)
             }else if(course.originalPage == "Udacity"){
@@ -172,9 +170,7 @@ class RecommenderService {
         try {
             RESTClient client = new RESTClient(URL)
             client.defaultAcceptHeader = ContentType.JSON
-            //TODO:FIX ME WHEN THE API WORKS
-            //def path = "/search_courses_global/?&k=4"
-            def path = "/recommend_courses_udemy/?k=9"
+            def path = "/recommend_courses_global/?k=4"
             def params = [
                     "perfil":generateProfile(user),
                     "contexto":generateContext(user)
@@ -185,15 +181,10 @@ class RecommenderService {
             }
             def slurper = new JsonSlurper()
             def responseData = slurper.parse(response.data)
-            //TODO:FIX ME WHEN THE API WORKS
-            /*
             Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map).keySet().collect { Integer.parseInt(it) }
             Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map).keySet().collect { Integer.parseInt(it) }
             Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map).keySet().collect { Integer.parseInt(it) }
             return getCourses(idsUdacity, idsCoursera, idsUdemy)
-             */
-            Set<Integer> relatedCoursesIDs = (responseData.get("list_recommendations") as Map).values().collect{Integer.parseInt(it.get("id"))}
-            return getCoursesUdemy(relatedCoursesIDs)
         } catch (Exception e) {
             e.printStackTrace()
             return []
@@ -212,9 +203,7 @@ class RecommenderService {
             RESTClient client = new RESTClient(URL)
             client.defaultAcceptHeader = ContentType.JSON
             String data = URLEncoder.encode(query, StandardCharsets.UTF_8.toString())
-            //TODO:FIX ME WHEN THE API WORKS
-            //def path = "/recommend_related_query_global/?query=" + data + "&k=1"
-            def path = "/recommend_related_query_udemy/?query=" + data + "&k=3"
+            def path = "/recommend_related_query_global/?query=" + data + "&k=2"
             def params = [
                     "perfil":generateProfile(user),
                     "contexto":generateContext(user)
@@ -225,15 +214,10 @@ class RecommenderService {
             }
             def slurper = new JsonSlurper()
             def responseData = slurper.parse(response.data)
-            //TODO:FIX ME WHEN THE API WORKS
-            /*
             Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map).keySet().collect { Integer.parseInt(it) }
             Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map).keySet().collect { Integer.parseInt(it) }
             Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map).keySet().collect { Integer.parseInt(it) }
             return getCourses(idsUdacity, idsCoursera, idsUdemy)
-             */
-            Set<Integer> relatedCoursesIDs = (responseData.get("list_recommendations") as Map).values().collect{Integer.parseInt(it.get("id"))}
-            return getCoursesUdemy(relatedCoursesIDs)
         } catch (Exception e) {
             e.printStackTrace()
             return []
@@ -248,7 +232,7 @@ class RecommenderService {
      * @return the list of requested courses
      */
     private List<Course> getCourses(Set<Integer> idsUdacity, Set<Integer> idsCoursera, Set<Integer> idsUdemy) {
-        getCoursesUdacity(idsUdacity)+getCoursesCoursera(idsCoursera)+getCoursesUdemy(idsUdemy)
+        getCoursesUdemy(idsUdemy)+getCoursesCoursera(idsCoursera)+getCoursesUdacity(idsUdacity)
     }
 
     /**

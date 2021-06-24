@@ -130,7 +130,7 @@ class UserService {
         user.save()
     }
 
-    private final int MAX_RECENT_SEARCHES = 4
+    private final int MAX_RECENT_SEARCHES = 2
 
     /**
      * Method that saves a search made by the user in its recent search list
@@ -142,7 +142,7 @@ class UserService {
         List<String> recentSearches = user?.recentSearches
         if(!recentSearches)
             recentSearches = []
-        if(search){
+        if(search && !recentSearches.contains(search)){
             if(recentSearches.size()<MAX_RECENT_SEARCHES)
                 recentSearches.add(search)
             else {
