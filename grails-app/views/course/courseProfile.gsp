@@ -155,22 +155,34 @@
                     <h2 class="h3 mb-3"><g:message code="related.course.profile.title"/></h2>
                 </div>
                 <div class="row no-gutters">
-                    <g:each var="course" in="${related}" status="i">
+                    <g:each var="recourse" in="${related}" status="i">
                         <!-- Course info -->
                         <div class="col-lg-3 col-sm-4 col-6 border border-collapse">
                             <div class="product-card">
-                                <div class="product-thumb"><asset:image src="Categories/cat_${course.category}.jpg" style="height: 18rem;"/></div>
+                                <div class="text-right">
+                                    <form action="/course/${course?.id}" method="post">
+                                        <input type="hidden" name="bannedCourse" value="${course.id}">
+                                        <input type="hidden" name="recommendation" value="${recommendationSource}">
+                                        <g:each var="relatedcourse" in="${related}">
+                                            <g:if test="${relatedcourse?.id != recourse?.id}">
+                                                <input type="hidden" name="relatedToCourseIDs" value="${relatedcourse?.id}">
+                                            </g:if>
+                                        </g:each>
+                                        <input style="position:relative; z-index:1;" type="submit" class="btn btn-primary" name="submit" value="${message(code: "recommender.notInterested")}">
+                                    </form>
+                                </div>
+                                <div style="margin-top: -2.6rem" class="product-thumb"><asset:image src="Categories/cat_${recourse.category}.jpg" style="height: 18rem;"/></div>
                                     <div class="product-card-body">
-                                        <h5><a href="/course/${course.id}/?recommendation=relatedCourse">${course.title}</a></h5>
-                                        <g:if test="${course?.rating}">
-                                            <p><span class="my-rating" id="my-rating${i}"></span><span class="font-weight-semibold ml-1"> (${course.rating})</span></p>
+                                        <h5><a href="/course/${recourse.id}/?recommendation=relatedCourse">${recourse.title}</a></h5>
+                                        <g:if test="${recourse?.rating}">
+                                            <p><span class="my-rating" id="my-rating${i}"></span><span class="font-weight-semibold ml-1"> (${recourse.rating})</span></p>
                                         </g:if>
                                     </div>
                             </div>
                         </div>
                         <g:javascript>
                             $("#my-rating${i}").starRating({
-                                initialRating: ${course?.rating?:0},
+                                initialRating: ${recourse?.rating?:0},
                                 strokeColor: '#894A00',
                                 activeColor: '#894A00',
                                 readOnly: true,

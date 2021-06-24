@@ -17,6 +17,12 @@ class UserFeedbackService {
         uf
     }
 
+    /**
+     * Method used to update the AddToList counters of the specified user's userFeedback
+     * @param owner
+     * @param recommendationType
+     * @return the updated userFeedback
+     */
     UserFeedback updateAddToList(User owner,String recommendationType){
         if(!owner?.feedback)
             return null
@@ -41,6 +47,12 @@ class UserFeedbackService {
         }
     }
 
+    /**
+     * Method used to update the clicks counters of the specified user's userFeedback
+     * @param owner
+     * @param recommendationType
+     * @return the updated userFeedback
+     */
     UserFeedback updateClicks(User owner,String recommendationType){
         if(!owner?.feedback)
             return null
@@ -57,6 +69,33 @@ class UserFeedbackService {
                     break
                 case "relatedCourse":
                     owner.feedback.clicksRelatedToCourse++
+                    break
+                default:
+                    return null
+            }
+            owner.feedback.save()
+        }
+    }
+
+    /**
+     * Method used to update the notInterested counters of the specified user's userFeedback
+     * @param owner
+     * @param recommendationType
+     * @return the updated userFeedback
+     */
+    UserFeedback updateNotInterested(User owner,String recommendationType){
+        if(!owner?.feedback)
+            return null
+        else{
+            switch (recommendationType){
+                case "Coursera":
+                    owner.feedback.notInterestedCoursera++
+                    break
+                case "Udacity":
+                    owner.feedback.notInterestedUdacity++
+                    break
+                case "Udemy":
+                    owner.feedback.notInterestedUdemy++
                     break
                 default:
                     return null

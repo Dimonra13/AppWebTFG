@@ -102,9 +102,23 @@
           <div class="row no-gutters">
             <g:each var="course" in="${recommendedCourses}" status="i">
               <!-- Course info -->
-              <div class="col-lg-3 col-sm-3 col-6 border border-collapse">
+              <div class="col-lg-3 col-sm-4 col-6 border border-collapse">
                 <div class="product-card">
-                  <div class="product-thumb"><asset:image src="Categories/cat_${course.category}.jpg" style="height: 15rem;"/></div>
+                  <div class="text-right">
+                    <form action="/home" method="post">
+                      <input type="hidden" name="bannedCourse" value="${course.id}">
+                      <g:each var="reccourse" in="${recommendedCourses}">
+                        <g:if test="${reccourse?.id != course?.id}">
+                          <input type="hidden" name="recommendedCoursesIDs" value="${reccourse?.id}">
+                        </g:if>
+                      </g:each>
+                      <g:each var="relatedcourse" in="${relatedToQueryCourses}">
+                        <input type="hidden" name="relatedToQueryCoursesIDs" value="${relatedcourse?.id}">
+                      </g:each>
+                      <input style="position:relative; z-index:1;" type="submit" class="btn btn-primary" name="submit" value="${message(code: "recommender.notInterested")}">
+                    </form>
+                  </div>
+                  <div style="margin-top: -2.6rem" class="product-thumb"><asset:image src="Categories/cat_${course.category}.jpg" style="height: 15rem;"/></div>
                   <div class="product-card-body">
                     <h5><a href="/course/${course.id}/?recommendation=forUser">${course.title}</a></h5>
                     <g:if test="${course?.rating}">
@@ -140,14 +154,29 @@
           <div class="row no-gutters">
             <g:each var="course" in="${relatedToQueryCourses}" status="i">
               <!-- Course info -->
-              <div class="col-lg-3 col-sm-3 col-6 border border-collapse">
+              <div class="col-lg-3 col-sm-4 col-6 border border-collapse">
                 <div class="product-card">
-                  <div class="product-thumb"><asset:image src="Categories/cat_${course.category}.jpg" style="height: 15rem;"/></div>
+                  <div class="text-right">
+                    <form action="/home" method="post">
+                      <input type="hidden" name="bannedCourse" value="${course.id}">
+                      <g:each var="reccourse" in="${recommendedCourses}">
+                        <input type="hidden" name="recommendedCoursesIDs" value="${reccourse?.id}">
+                      </g:each>
+                      <g:each var="relatedcourse" in="${relatedToQueryCourses}">
+                        <g:if test="${relatedcourse?.id != course?.id}">
+                          <input type="hidden" name="relatedToQueryCoursesIDs" value="${relatedcourse?.id}">
+                        </g:if>
+                      </g:each>
+                      <input style="position:relative; z-index:1;" type="submit" class="btn btn-primary" name="submit" value="${message(code: "recommender.notInterested")}">
+                    </form>
+                  </div>
+                  <div style="margin-top: -2.6rem" class="product-thumb"><asset:image src="Categories/cat_${course.category}.jpg" style="height: 15rem;"/></div>
                   <div class="product-card-body">
                     <h5><a href="/course/${course.id}/?recommendation=relatedQuery">${course.title}</a></h5>
                     <g:if test="${course?.rating}">
                       <p><span class="my-rating" id="my-rating${i+20}"></span><span class="font-weight-semibold ml-1"> (${course.rating})</span></p>
                     </g:if>
+
                   </div>
                 </div>
               </div>

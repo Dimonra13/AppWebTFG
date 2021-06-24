@@ -242,7 +242,7 @@ class RecommenderService {
      */
     private List<Course> getCoursesUdacity(Set<Integer> idsUdacity) {
         List<Course> output = new LinkedList<>()
-        idsUdacity.forEach { Integer courseID ->
+        idsUdacity?.forEach { Integer courseID ->
             Course course = Course.findByIdCursoAndOriginalPage(courseID, "Udacity")
             if (course)
                 output.add(course)
@@ -257,7 +257,7 @@ class RecommenderService {
      */
     private List<Course> getCoursesCoursera(Set<Integer> idsCoursera) {
         List<Course> output = new LinkedList<>()
-        idsCoursera.forEach { Integer courseID ->
+        idsCoursera?.forEach { Integer courseID ->
             Course course = Course.findByIdCursoAndOriginalPage(courseID, "Coursera")
             if (course)
                 output.add(course)
@@ -272,7 +272,7 @@ class RecommenderService {
      */
     private List<Course> getCoursesUdemy(Set<Integer> idsUdemy) {
         List<Course> output = new LinkedList<>()
-        idsUdemy.forEach { Integer courseID ->
+        idsUdemy?.forEach { Integer courseID ->
             Course course = Course.findByIdCursoAndOriginalPage(courseID, "Udemy")
             if (course)
                 output.add(course)

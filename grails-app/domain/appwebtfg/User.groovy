@@ -31,7 +31,7 @@ class User implements Serializable {
                       expertSkills: Skill]
     List<String> interests
     List<String> recentSearches
-    List<Integer> bannedCourses
+    Set<Integer> bannedCourses
     //User preferences
     Float duration
     Float cost

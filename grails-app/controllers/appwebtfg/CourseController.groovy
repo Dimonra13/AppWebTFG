@@ -12,6 +12,8 @@ class CourseController {
     SpringSecurityService springSecurityService
     RecommenderService recommenderService
     UserFeedbackService userFeedbackService
+    UserService userService
+    CourseService courseService
 
     /**
      * Method that returns the page of a course if it exists or error 404 otherwise
@@ -22,14 +24,31 @@ class CourseController {
     def getCourse(Long id) {
         Course course = Course.get(id)
         User authUser = springSecurityService.isLoggedIn() ? springSecurityService.getCurrentUser() : null
+        def filteredLists = authUser?.lists?.findAll { CourseList it -> !it?.courses?.contains(course) }
         String recommendation = params.get("recommendation")
-        if(authUser&&recommendation){
+        Integer bannedCourse = params.get("bannedCourse") as Integer
+        List<Course> related
+        if(bannedCourse && authUser){
+            userService.saveBannedCourse(authUser,bannedCourse)
             if(!authUser?.feedback)
                 userFeedbackService.createUserFeedback(authUser)
-            userFeedbackService.updateClicks(authUser,recommendation)
+            userFeedbackService.updateNotInterested(authUser,Course?.get(bannedCourse)?.originalPage)
+            List<Integer> relatedToCourseIDs
+            try{
+                relatedToCourseIDs = params.get("relatedToCourseIDs").collect{it->Integer.parseInt(it)}
+            }catch(Exception e){
+                relatedToCourseIDs = new LinkedList<>();
+                relatedToCourseIDs.add(params.get("relatedToCourseIDs") as Integer)
+            }
+            related = courseService.getCourses(relatedToCourseIDs)
+        }else {
+            if(authUser&&recommendation){
+                if(!authUser?.feedback)
+                    userFeedbackService.createUserFeedback(authUser)
+                userFeedbackService.updateClicks(authUser,recommendation)
+            }
+            related = recommenderService.getRelatedCourses(course,authUser)
         }
-        def filteredLists = authUser?.lists?.findAll { CourseList it -> !it?.courses?.contains(course) }
-        List<Course> related = recommenderService.getRelatedCourses(course,authUser)
         if (course)
             render(view: "courseProfile", model: [course: course, user: authUser, lists: filteredLists,related:related,recommendationSource:recommendation])
         else

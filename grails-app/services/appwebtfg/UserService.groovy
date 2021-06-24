@@ -136,7 +136,7 @@ class UserService {
      * Method that saves a search made by the user in its recent search list
      * @param user
      * @param search
-     * @return
+     * @return user
      */
     User saveRecentSearch(User user, String search){
         List<String> recentSearches = user?.recentSearches
@@ -151,6 +151,23 @@ class UserService {
             }
         }
         user.recentSearches=recentSearches
+        user.save()
+    }
+
+    /**
+     * Method that saves the id of the banned course by the user in the banned courses list
+     * @param user
+     * @param id
+     * @return user
+     */
+    User saveBannedCourse(User user, Integer id){
+        Set<Integer> bannedCourses = user?.bannedCourses
+        if(!bannedCourses)
+            bannedCourses = []
+        if(id){
+            bannedCourses.add(id)
+        }
+        user.bannedCourses=bannedCourses
         user.save()
     }
 }

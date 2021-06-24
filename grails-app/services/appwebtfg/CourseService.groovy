@@ -48,4 +48,20 @@ class CourseService {
             ilike("title","%${title}%")
         } as List<Course>
     }
+
+
+    /**
+     * Method that returns the list of courses whose id belongs to the list of ids received as parameter
+     * @param ids
+     * @return the list of requested courses
+     */
+    List<Course> getCourses(List<Integer> ids) {
+        List<Course> output = new LinkedList<>()
+        ids?.forEach { Integer id ->
+            Course course = Course.get(id)
+            if (course)
+                output.add(course)
+        }
+        output
+    }
 }

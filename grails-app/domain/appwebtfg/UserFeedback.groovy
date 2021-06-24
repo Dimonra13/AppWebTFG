@@ -11,9 +11,9 @@ class UserFeedback {
     int addToListRecommend
     int addToListRelatedToQuery
     int addToListRelatedToCourse
-    int noInteresaCoursera
-    int noInteresaUdemy
-    int noInteresaUdacity
+    int notInterestedCoursera
+    int notInterestedUdemy
+    int notInterestedUdacity
 
     static constraints = {
     }

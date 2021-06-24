@@ -262,8 +262,37 @@ class UserServiceIntegrationSpec extends Specification {
         }
 
         where:
-        userNewSearch            | expectedOutput
-        null                     | []
-        "test"                   | ["test"]
+        userNewSearch | expectedOutput
+        null          | []
+        "test"        | ["test"]
+    }
+
+    @Unroll
+    void "test the saveBannedCourse method"(Integer userNewBannedCourse, Set<String> expectedOutput) {
+
+        given: "The test user"
+        User testUser
+
+        and: "There is one user registered in the database"
+        if (!User.findByUsername("testBannedCourse"))
+            testUser = registrationService.registerUser("testBannedCourse", "test", "test@gmail.com")
+
+        when: "User's banned courses list is updated"
+        testUser = userService.saveBannedCourse(testUser, userNewBannedCourse)
+
+        then: "The test user's banned courses list must be updated correctly"
+        expectedOutput == testUser.bannedCourses
+
+        cleanup:
+        User.withNewSession { session ->
+            User registeredUser = User.findByUsername("testBannedCourse")
+            UserRole.findByUser(registeredUser)?.delete()
+            registeredUser?.delete()
+        }
+
+        where:
+        userNewBannedCourse | expectedOutput
+        null                | []
+        1                   | [1]
     }
 }
