@@ -31,7 +31,7 @@ class CourseController {
         def filteredLists = authUser?.lists?.findAll { CourseList it -> !it?.courses?.contains(course) }
         List<Course> related = recommenderService.getRelatedCourses(course,authUser)
         if (course)
-            render(view: "courseProfile", model: [course: course, user: authUser, lists: filteredLists,related:related])
+            render(view: "courseProfile", model: [course: course, user: authUser, lists: filteredLists,related:related,recommendationSource:recommendation])
         else
             render status: 404
     }

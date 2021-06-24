@@ -10,6 +10,7 @@ class CourseListController {
 
     SpringSecurityService springSecurityService
     CourseListService courseListService
+    UserFeedbackService userFeedbackService
 
     def index() {}
 
@@ -57,7 +58,7 @@ class CourseListController {
      */
     @Secured('isAuthenticated()')
     def createCourseList() {
-        render(view: 'createCourseList', model: [idCourse: params?.idCourse])
+        render(view: 'createCourseList', model: [idCourse: params?.idCourse,recommendation: params?.get("recommendation")])
     }
 
     /**
@@ -73,7 +74,7 @@ class CourseListController {
         CourseList newcl = courseListService.createCourseList(authUser, params?.name, params?.description)
         if (newcl) {
             if (params?.idCourse) {
-                redirect(controller: "course", action: "getCourse", params: [id: params?.idCourse])
+                redirect(controller: "course", action: "getCourse", params: [id: params?.idCourse,recommendation: params?.get("recommendation")])
             } else {
                 redirect(controller: "User", action: "myProfile")
             }
@@ -131,6 +132,12 @@ class CourseListController {
         if (cl) {
             if (authUser == cl.owner) {
                 courseListService.addCourseToList(params?.idList as Long, params?.idCourse as Long)
+                String recommendation = params.get("recommendation")
+                if(recommendation){
+                    if(!authUser?.feedback)
+                        userFeedbackService.createUserFeedback(authUser)
+                    userFeedbackService.updateAddToList(authUser,recommendation)
+                }
                 redirect(action: "getMyCourseList", params: [id: params?.idList as Long])
             } else {
                 render status: 403

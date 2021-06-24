@@ -17,6 +17,30 @@ class UserFeedbackService {
         uf
     }
 
+    UserFeedback updateAddToList(User owner,String recommendationType){
+        if(!owner?.feedback)
+            return null
+        else{
+            switch (recommendationType){
+                case "forUser":
+                    owner.feedback.addToListRecommend++
+                    break
+                case "relatedQuery":
+                    owner.feedback.addToListRelatedToQuery++
+                    break
+                case "semanticSearch":
+                    owner.feedback.addToListSearch++
+                    break
+                case "relatedCourse":
+                    owner.feedback.addToListRelatedToCourse++
+                    break
+                default:
+                    return null
+            }
+            owner.feedback.save()
+        }
+    }
+
     UserFeedback updateClicks(User owner,String recommendationType){
         if(!owner?.feedback)
             return null

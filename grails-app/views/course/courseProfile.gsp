@@ -114,6 +114,7 @@
                             <p><g:message code="course.profile.addCourseToList.description"/></p>
                             <g:form url="/courseList/addCourseToMyCourseList">
                                 <g:field type="hidden" name="idCourse" value="${course.id}"/>
+                                <input type="hidden" name="recommendation" value="${recommendationSource}">
                                 <!-- Textual addon -->
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -130,6 +131,7 @@
                         <p><g:message code="course.profile.noAvailableLists"/></p>
                         <g:form url="/createCourseList/">
                             <g:field type="hidden" name="idCourse" value="${course.id}"/>
+                            <input type="hidden" name="recommendation" value="${recommendationSource}">
                             <g:submitButton class="btn btn-primary" name="submit" value="${message(code: 'profile.lists.create')}"></g:submitButton>
                         </g:form>
                     </g:else>

@@ -34,6 +34,7 @@
                         </g:if>
                         <div>
                             <g:field type="hidden" name="idCourse" value="${idCourse}"/>
+                            <input type="hidden" name="recommendation" value="${recommendation}">
                             <g:submitButton name="submit" class="btn btn-primary"
                                             value="${message(code: 'create.courseList.submit')}"></g:submitButton>
                         </div>

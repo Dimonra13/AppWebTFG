@@ -73,4 +73,42 @@ class UserFeedbackServiceIntegrationSpec extends Specification {
         "semanticSearch" | _
         "relatedCourse"  | _
     }
+
+    @Unroll
+    void "test the updateAddToList method"(String recommendation) {
+
+        given: "The test user"
+        User testUser
+
+        and: "There is one user registered in the database"
+        testUser = User.findByUsername("testUpdateAddToList")
+        if (!testUser)
+            testUser = registrationService.registerUser("testUpdateAddToList", "test", "test@gmail.com")
+
+        and: "The UserFeedback is created"
+        userFeedbackService.createUserFeedback(testUser)
+
+        when: "The addToList counter is updated are updated"
+        UserFeedback expectedFeedback = userFeedbackService.updateAddToList(testUser, recommendation)
+
+        then: "The output must be the same as the expected output of the method"
+        (testUser?.feedback.addToListSearch == expectedFeedback.addToListSearch) &&
+                (testUser?.feedback.addToListRelatedToCourse == expectedFeedback.addToListRelatedToCourse) &&
+                (testUser?.feedback.addToListRelatedToQuery == expectedFeedback.addToListRelatedToQuery) &&
+                (testUser?.feedback.addToListRecommend == expectedFeedback.addToListRecommend)
+
+        cleanup:
+        User.withNewSession { session ->
+            User registeredUser = User.findByUsername("testUpdateClicks")
+            UserRole.findByUser(registeredUser)?.delete()
+            registeredUser?.delete()
+        }
+
+        where:
+        recommendation   | _
+        "forUser"        | _
+        "relatedQuery"   | _
+        "semanticSearch" | _
+        "relatedCourse"  | _
+    }
 }
