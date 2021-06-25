@@ -37,7 +37,7 @@
 <header class="navbar navbar-expand-lg navbar-light bg-light px-0">
     <div class="container flex-sm-nowrap px-3">
         <!-- navbar brand (Page icon) -->
-        <a class="navbar-brand mr-0 mr-sm-4" style="min-width: 100px;" href="/"><asset:image width="100" src="utilities/logo-dark.png" alt="MStore"/></a>
+        <a class="navbar-brand mr-0 mr-sm-4" style="width: 130px;" href="/"><asset:image style="width: 130px;"  width="100" src="utilities/coursing_azul.png" alt="MStore"/></a>
         <!-- navbar buttons-->
         <div class="navbar-btns d-flex position-relative order-sm-3">
             <div class="navbar-toggler navbar-btn collapsed bg-0 border-left-0 my-3" data-toggle="collapse" data-target="#menu">

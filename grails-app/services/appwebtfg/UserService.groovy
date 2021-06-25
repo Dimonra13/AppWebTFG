@@ -160,7 +160,7 @@ class UserService {
      * @param id
      * @return user
      */
-    User saveBannedCourse(User user, Integer id){
+    User saveBannedCourse(User user, Long id){
         Set<Integer> bannedCourses = user?.bannedCourses
         if(!bannedCourses)
             bannedCourses = []

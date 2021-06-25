@@ -105,9 +105,9 @@ class RecommenderService {
             }
             def slurper = new JsonSlurper()
             def responseData = slurper.parse(response.data)
-            Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map)?.keySet()?.collect { Integer.parseInt(it) }
-            Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map)?.keySet()?.collect { Integer.parseInt(it) }
-            Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map)?.keySet()?.collect { Integer.parseInt(it) }
+            Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map)?.keySet()?.collect { Integer.parseInt(it) }.take(5)
+            Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map)?.keySet()?.collect { Integer.parseInt(it) }.take(5)
+            Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map)?.keySet()?.collect { Integer.parseInt(it) }.take(5)
             return getCourses(idsUdacity, idsCoursera, idsUdemy)
         } catch (Exception e) {
             e.printStackTrace()

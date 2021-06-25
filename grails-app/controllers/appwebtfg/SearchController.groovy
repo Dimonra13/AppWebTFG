@@ -84,7 +84,7 @@ class SearchController {
         List<Course> foundCourses = null
         String isLast = null
         if(bannedCourse && authUser){
-            userService.saveBannedCourse(authUser,bannedCourse)
+            userService.saveBannedCourse(authUser,Course?.get(bannedCourse)?.idCurso)
             if(!authUser?.feedback)
                 userFeedbackService.createUserFeedback(authUser)
             userFeedbackService.updateNotInterested(authUser,Course?.get(bannedCourse)?.originalPage)

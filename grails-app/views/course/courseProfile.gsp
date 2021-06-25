@@ -161,7 +161,7 @@
                             <div class="product-card">
                                 <div class="text-right">
                                     <form action="/course/${course?.id}" method="post">
-                                        <input type="hidden" name="bannedCourse" value="${course.id}">
+                                        <input type="hidden" name="bannedCourse" value="${recourse.id}">
                                         <input type="hidden" name="recommendation" value="${recommendationSource}">
                                         <g:if test="${isLast}">
                                             <input type="hidden" name="isLast" value="${isLast}">

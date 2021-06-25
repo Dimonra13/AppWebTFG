@@ -268,7 +268,7 @@ class UserServiceIntegrationSpec extends Specification {
     }
 
     @Unroll
-    void "test the saveBannedCourse method"(Integer userNewBannedCourse, Set<String> expectedOutput) {
+    void "test the saveBannedCourse method"(Long userNewBannedCourse, Set<String> expectedOutput) {
 
         given: "The test user"
         User testUser

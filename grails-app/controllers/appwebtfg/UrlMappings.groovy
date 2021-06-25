@@ -39,5 +39,8 @@ class UrlMappings {
         "500"(controller: "error", action: "internalError")
         "404"(controller: "error", action: "notFound")
         "403"(controller: "error", action: "notAllowed")
+
+        //Statistics
+        "/userfeedback/statistics" (controller: "userFeedback", action: "statistics")
     }
 }
