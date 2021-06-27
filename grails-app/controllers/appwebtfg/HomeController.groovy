@@ -21,10 +21,13 @@ class HomeController {
         User authUser = springSecurityService.getCurrentUser()
         List<Course> recommendedCourses = []
         List<Course> relatedToQueryCourses = []
+        List<Course> exploreCourses = []
         String isLastRecommend = null
         String isLastRelated=null
         if(bannedCourse && authUser){
             userService.saveBannedCourse(authUser,Course?.get(bannedCourse)?.idCurso)
+            userService.removeBannedCoursesFromExploreRecommendations(authUser)
+            exploreCourses = courseService.getCourses(authUser?.exploreRecommendationsIds)
             if(!authUser?.feedback)
                 userFeedbackService.createUserFeedback(authUser)
             userFeedbackService.updateNotInterested(authUser,Course?.get(bannedCourse)?.originalPage)
@@ -54,15 +57,17 @@ class HomeController {
                 }
             }
             relatedToQueryCourses = courseService.getCourses(relatedToQueryCoursesIDs)
-            render(view:"/index",model: [authUser: authUser,recommendedCourses:recommendedCourses,relatedToQueryCourses:relatedToQueryCourses,isLastRecommend:isLastRecommend,isLastRelated:isLastRelated])
+            render(view:"/index",model: [authUser: authUser,recommendedCourses:recommendedCourses,relatedToQueryCourses:relatedToQueryCourses,isLastRecommend:isLastRecommend,isLastRelated:isLastRelated,exploreCourses:exploreCourses])
         }else{
             if(authUser){
+                userService.removeBannedCoursesFromExploreRecommendations(authUser)
+                exploreCourses = courseService.getCourses(authUser?.exploreRecommendationsIds)
                 recommendedCourses = recommenderService.getRecommendedCourses(authUser)
                 authUser?.recentSearches?.each {String query ->
                     relatedToQueryCourses = relatedToQueryCourses + recommenderService.getRecommendedCoursesRelatedToQuery(authUser,query)
                 }
             }
-            render(view:"/index",model: [authUser: authUser,recommendedCourses:recommendedCourses,relatedToQueryCourses:relatedToQueryCourses])
+            render(view:"/index",model: [authUser: authUser,recommendedCourses:recommendedCourses,relatedToQueryCourses:relatedToQueryCourses,exploreCourses:exploreCourses])
         }
     }
 }

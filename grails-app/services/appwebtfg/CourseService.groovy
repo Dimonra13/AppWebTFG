@@ -55,9 +55,9 @@ class CourseService {
      * @param ids
      * @return the list of requested courses
      */
-    List<Course> getCourses(List<Integer> ids) {
+    List<Course> getCourses(List<Long> ids) {
         List<Course> output = new LinkedList<>()
-        ids?.forEach { Integer id ->
+        ids?.forEach { Long id ->
             Course course = Course.get(id)
             if (course)
                 output.add(course)

@@ -158,7 +158,7 @@ class UserService {
      * Method that saves the id of the banned course by the user in the banned courses list
      * @param user
      * @param id
-     * @return user
+     * @return updated user
      */
     User saveBannedCourse(User user, Long id){
         Set<Integer> bannedCourses = user?.bannedCourses
@@ -169,6 +169,25 @@ class UserService {
         }
         user.bannedCourses=bannedCourses
         user.save()
+    }
+
+    /**
+     * Method that remove the banned courses from the user explore recommendations
+     * @param user
+     * @return updated user
+     */
+    User removeBannedCoursesFromExploreRecommendations(User user){
+        if(!user?.exploreRecommendationsIds || !user?.bannedCourses)
+            return user
+        else{
+            List<Long> exploreRecommendationsIds = user?.exploreRecommendationsIds
+            List<Course> courses = user?.lists?.courses?.flatten()
+            exploreRecommendationsIds = exploreRecommendationsIds?.findAll{Long id ->
+                !user?.bannedCourses?.contains(Course?.get(id)?.idCurso) && !courses?.contains(Course?.get(id))
+            }
+            user.exploreRecommendationsIds = exploreRecommendationsIds
+            user.save()
+        }
     }
 }
 

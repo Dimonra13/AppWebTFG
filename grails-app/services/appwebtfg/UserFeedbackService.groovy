@@ -40,6 +40,9 @@ class UserFeedbackService {
                 case "relatedCourse":
                     owner.feedback.addToListRelatedToCourse++
                     break
+                case "explore":
+                    owner.feedback.addToListExplore++
+                    break
                 default:
                     return null
             }
@@ -69,6 +72,9 @@ class UserFeedbackService {
                     break
                 case "relatedCourse":
                     owner.feedback.clicksRelatedToCourse++
+                    break
+                case "explore":
+                    owner.feedback.clicksExplore++
                     break
                 default:
                     return null

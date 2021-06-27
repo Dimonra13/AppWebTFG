@@ -208,5 +208,61 @@
       </section>
       <br>
     </g:if>
+    <!-- Explore courses -->
+    <g:if test="${exploreCourses}">
+      <section class="container px-3 pb-4">
+        <div class="col-12">
+          <br><br>
+          <div>
+            <h2 class="h2 mb-3 text-center"><g:message code="explore.index.title"/></h2>
+          </div>
+          <div class="row no-gutters">
+            <g:each var="course" in="${exploreCourses}" status="i">
+              <!-- Course info -->
+              <div class="col-lg-3 col-sm-4 col-6 border border-collapse">
+                <div class="product-card">
+                  <div class="text-right">
+                    <form action="/home" method="post">
+                      <g:if test="${isLastRecommend}">
+                        <input type="hidden" name="isLastRecommend" value="${isLastRecommend}">
+                      </g:if>
+                      <g:if test="${isLastRelated}">
+                        <input type="hidden" name="isLastRelated" value="${isLastRelated}">
+                      </g:if>
+                      <input type="hidden" name="bannedCourse" value="${course.id}">
+                      <g:each var="reccourse" in="${recommendedCourses}">
+                        <input type="hidden" name="recommendedCoursesIDs" value="${reccourse?.id}">
+                      </g:each>
+                      <g:each var="relatedcourse" in="${relatedToQueryCourses}">
+                          <input type="hidden" name="relatedToQueryCoursesIDs" value="${relatedcourse?.id}">
+                      </g:each>
+                      <input style="position:relative; z-index:1;" type="submit" class="btn btn-primary" name="submit" value="${message(code: "recommender.notInterested")}">
+                    </form>
+                  </div>
+                  <div style="margin-top: -2.6rem" class="product-thumb"><asset:image src="Categories/cat_${course.category}.jpg" style="height: 15rem;"/></div>
+                  <div class="product-card-body">
+                    <h5><a href="/course/${course.id}/?recommendation=explore">${course.title}</a></h5>
+                    <g:if test="${course?.rating}">
+                      <p><span class="my-rating" id="my-rating${i+50}"></span><span class="font-weight-semibold ml-1"> (${course.rating})</span></p>
+                    </g:if>
+                  </div>
+                </div>
+              </div>
+              <g:javascript>
+                            $("#my-rating${i+50}").starRating({
+                                initialRating: ${course?.rating?:0},
+                                strokeColor: '#894A00',
+                                activeColor: '#894A00',
+                                readOnly: true,
+                                strokeWidth: 5,
+                                starSize: 25
+                            });
+              </g:javascript>
+            </g:each>
+          </div>
+        </div>
+      </section>
+      <br>
+    </g:if>
   </body>
 </html>

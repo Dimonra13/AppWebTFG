@@ -295,4 +295,41 @@ class UserServiceIntegrationSpec extends Specification {
         null                | []
         1                   | [1]
     }
+
+    @Unroll
+    void "test the removeBannedCoursesFromExploreRecommendations method"(Long userNewBannedCourse, List<Long> expectedOutput) {
+
+        given: "The test user"
+        User testUser
+
+        and: "There is one user registered in the database and one course"
+        testUser = User.findByUsername("testRemoveBannedCoursesFromExploreRecommendations")
+        if (!testUser) {
+            testUser = new User(username: "testRemoveBannedCoursesFromExploreRecommendations", password: "test", email: "test@gmail.com", exploreRecommendationsIds: [3]).save()
+            new Course(title: "testRemoveBannedCoursesFromExploreRecommendations", category: "Software-Engineering", idCurso: 10).save()
+        }
+
+        and: "The banned course is added to the user banned courses list"
+        testUser = userService.saveBannedCourse(testUser, userNewBannedCourse)
+
+
+        when: "User's explore recomendations list is updated"
+        testUser = userService.removeBannedCoursesFromExploreRecommendations(testUser)
+
+        then: "The test user's explore recommendations list must be updated correctly"
+        expectedOutput == testUser.exploreRecommendationsIds
+
+        cleanup:
+        User.withNewSession { session ->
+            User registeredUser = User.findByUsername("testRemoveBannedCoursesFromExploreRecommendations")
+            UserRole.findByUser(registeredUser)?.delete()
+            registeredUser?.delete()
+        }
+
+        where:
+        userNewBannedCourse | expectedOutput
+        null                | [3]
+        12                  | [3]
+        10                  | []
+    }
 }

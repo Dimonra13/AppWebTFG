@@ -242,6 +242,9 @@ class BootStrap {
              it.clear()
          }
 
+         new User(username: "me1", password: 'password', email: 'email@gmail.com',isPublicProfile: true).save()
+         new User(username: "me2", password: 'password', email: 'email@gmail.com',isPublicProfile: true).save()
+
          Course c1 = new Course(title: "testCourse",category: "Software-Engineering").save()
          Course c2 = new Course(title: "nombre",category: "Software-Engineering", rating: 3.4, description: "sdvfgbahnsjmkmdjhnsfgbdvscdfvgthytjuryikjdhtsgvfdascaxnhtmjyk,tu,kgumfjhgdnfsbdvfscdk,umfjyhgdnfbvdfc").save()
          Course c3 = new Course(title: "nombre",category: "Software-Engineering", description: "sdvfgbahnsjmkmdjhnsfgbdvscdfvgt").save()
@@ -278,10 +281,6 @@ class BootStrap {
          for(int i=0;i<5;i++)
              new Skill(name:"Angular",level: "expert").save()
 
-         //Save test users
-         for (int i=0;i<22;i++) {
-             new User(username: "me${i}", password: 'password', email: 'email@gmail.com',isPublicProfile: true).save()
-         }
      }
 
      def destroy = {

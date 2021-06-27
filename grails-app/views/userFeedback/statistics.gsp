@@ -33,10 +33,12 @@
                             <th><g:message code="statistic.clicksRecommend"/></th>
                             <th><g:message code="statistic.clicksRelatedToQuery"/></th>
                             <th><g:message code="statistic.clicksRelatedToCourse"/></th>
+                            <th><g:message code="statistic.clicksExplore"/></th>
                             <th><g:message code="statistic.addToListSearch"/></th>
                             <th><g:message code="statistic.addToListRecommend"/></th>
                             <th><g:message code="statistic.addToListRelatedToQuery"/></th>
                             <th><g:message code="statistic.addToListRelatedToCourse"/></th>
+                            <th><g:message code="statistic.addToListExplore"/></th>
                             <th><g:message code="statistic.notInterestedCoursera"/></th>
                             <th><g:message code="statistic.notInterestedUdemy"/></th>
                             <th><g:message code="statistic.notInterestedUdacity"/></th>
@@ -54,10 +56,12 @@
                             <td>${feedback?.clicksRecommend}</td>
                             <td>${feedback?.clicksRelatedToQuery}</td>
                             <td>${feedback?.clicksRelatedToCourse}</td>
+                            <td>${feedback?.clicksExplore}</td>
                             <td>${feedback?.addToListSearch}</td>
                             <td>${feedback?.addToListRecommend}</td>
                             <td>${feedback?.addToListRelatedToQuery}</td>
                             <td>${feedback?.addToListRelatedToCourse}</td>
+                            <td>${feedback?.addToListExplore}</td>
                             <td>${feedback?.notInterestedCoursera}</td>
                             <td>${feedback?.notInterestedUdemy}</td>
                             <td>${feedback?.notInterestedUdacity}</td>

@@ -72,6 +72,7 @@ class UserFeedbackServiceIntegrationSpec extends Specification {
         "relatedQuery"   | _
         "semanticSearch" | _
         "relatedCourse"  | _
+        "explore"        | _
     }
 
     @Unroll
@@ -110,6 +111,7 @@ class UserFeedbackServiceIntegrationSpec extends Specification {
         "relatedQuery"   | _
         "semanticSearch" | _
         "relatedCourse"  | _
+        "explore"        | _
     }
 
     @Unroll
