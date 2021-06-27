@@ -1,0 +1,7 @@
+FROM gprevost/mysql-utf8mb4
+
+ENV MYSQL_ROOT_PASSWORD=pass
+ENV MYSQL_DATABASE=test
+
+EXPOSE 3306
+
