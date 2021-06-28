@@ -251,6 +251,58 @@ class UserController {
         User authUser = springSecurityService.getCurrentUser()
         userService.updateInterests(authUser,userInterests)
         if(params.get("fromRegister"))
+            redirect(controller: "user", action: "addLanguagesFromRegister")
+        else
+            redirect(controller:  "user", action: "myProfile")
+    }
+
+    /**
+     * Method that returns the page used to add languages to the authenticated user profile
+     * @return view "languages"
+     */
+    @Secured('isAuthenticated()')
+    def addLanguages() {
+        render(view: "languages")
+    }
+
+    /**
+     * Method that returns the page used to add languages to the authenticated user profile,
+     * call after the user creates a new account
+     * @return view "languages"
+     */
+    @Secured('isAuthenticated()')
+    def addLanguagesFromRegister() {
+        render(view: "languages", model: [fromRegister: true])
+    }
+
+    /**
+     * Method that returns the page used to edit the authenticated user languages list
+     * @return view "languages"
+     */
+    @Secured('isAuthenticated()')
+    def editLanguages() {
+        User authUser = springSecurityService.getCurrentUser()
+        render(view: "languages", model: [userLanguages: authUser?.languages,update: true])
+    }
+
+    /**
+     * Method used to update the authenticated user languages list
+     * @return redirect to "/"
+     */
+    @Secured('isAuthenticated()')
+    def updateLanguages(){
+        List<String> languages = null;
+        try{
+            languages = params.get("languages[]")
+            //In case only one language has been selected, the front-end will return a String as a parameter, not a List <String>.
+            //throwing an exception. This exception is catch so the String can be converted into a List<String> safely
+        }catch(Exception e){
+            languages = new LinkedList<>();
+            languages.add(params.get("languages[]"))
+        }
+        User authUser = springSecurityService.getCurrentUser()
+        userService.updateLanguages(authUser,languages)
+        if(params.get("fromRegister"))
             redirect(controller: "user", action: "addSkillsFromRegister")
         else
             redirect(controller:  "user", action: "myProfile")

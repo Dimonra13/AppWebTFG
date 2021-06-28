@@ -114,6 +114,17 @@ class UserService {
     }
 
     /**
+     * Method used to update the user $user language list
+     * @param user
+     * @param languages
+     * @return the user with the list of languages updated
+     */
+    User updateLanguages(User user,List<String> languages){
+        user?.languages = languages ?: []
+        user?.save()
+    }
+
+    /**
      * Method used to update the user $user course preferences (duration, cost, popularity, difficulty)
      * @param user
      * @param duration

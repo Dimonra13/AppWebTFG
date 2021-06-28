@@ -102,6 +102,33 @@ class UserControllerIntegrationSpec extends BaseControllerIntegrationSpec {
         userController.response.status == 200
     }
 
+    void "Validate the addLanguages method"() {
+
+        setup: 'The controller action is call'
+        userController.addLanguages()
+
+        expect: 'validate the method output'
+        userController.response.status == 200
+    }
+
+    void "Validate the addLanguagesFromRegister method"() {
+
+        setup: 'The controller action is call'
+        userController.addLanguagesFromRegister()
+
+        expect: 'validate the method output'
+        userController.response.status == 200
+    }
+
+    void "Validate the editLanguages method"() {
+
+        setup: 'The controller action is call'
+        userController.editLanguages()
+
+        expect: 'validate the method output'
+        userController.response.status == 200
+    }
+
     void "Validate the addSkills method"() {
 
         setup: 'The controller action is call'

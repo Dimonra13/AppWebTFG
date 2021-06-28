@@ -194,6 +194,42 @@ class UserServiceIntegrationSpec extends Specification {
     }
 
     @Unroll
+    void "test the updateLanguages method"(List<String> userNewLanguages) {
+
+        given: "The expected languages list and the test user"
+        User testUser
+        List<String> expectedLanguagesList
+
+        and: "There is one user registered in the database"
+        if (!User.findByUsername("test"))
+            testUser = registrationService.registerUser("test", "test", "test@gmail.com")
+
+        and: "The expected languages list is specified"
+        expectedLanguagesList = userNewLanguages ?: []
+
+        when: "User's languages list is updated"
+        testUser = userService.updateLanguages(testUser,userNewLanguages)
+
+        then: "The test user's languages list must be updated correctly"
+        expectedLanguagesList == testUser.languages
+
+        cleanup:
+        User.withNewSession { session ->
+            User registeredUser = User.findByUsername("test")
+            UserRole.findByUser(registeredUser)?.delete()
+            registeredUser?.delete()
+        }
+
+        where:
+        userNewLanguages           | _
+        null                       | _
+        []                         | _
+        ["test"]                   | _
+        ["test", "test2", "test3"] | _
+
+    }
+
+    @Unroll
     void "test the updatePreferences method"(Float duration, Float cost, Float popularity, Float difficulty) {
 
         given: "The expected user course preferences and the test user"

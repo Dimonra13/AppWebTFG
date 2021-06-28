@@ -33,6 +33,7 @@ class User implements Serializable {
     List<String> recentSearches
     Set<Long> bannedCourses
     List<Long> exploreRecommendationsIds
+    List<String> languages
     //User preferences
     Float duration
     Float cost

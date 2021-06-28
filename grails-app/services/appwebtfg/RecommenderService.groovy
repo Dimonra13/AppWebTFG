@@ -292,18 +292,21 @@ class RecommenderService {
             ]
         else {
             Set<Integer> bannedCourses = []
-            Set<String> languages = []
+            Set<String> languages = (user?.languages) ?: []
             user?.lists?.each { CourseList courseList ->
                 courseList.courses.each { Course course ->
                     if (course.idCurso)
                         bannedCourses.add(course.idCurso)
-                    if (course.language)
-                        languages.add(course.language)
                 }
             }
             bannedCourses=bannedCourses+user?.bannedCourses
             if (!languages)
                 languages = LANGUAGES
+            else if(languages?.contains("Chinese")){
+                languages.remove("Chinese")
+                languages.add("Traditional Chinese")
+                languages.add("Simplified Chinese")
+            }
             return ["discarded_courses": bannedCourses,
                     "language_list"    : languages
             ]

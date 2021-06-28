@@ -64,7 +64,67 @@
                     </g:else>
                 </li>
             </ul>
-            <!-- User interests -->
+            <!-- User profile visibility -->
+            <g:if test="${isregistered}">
+                <div class="card">
+                    <div class="card-body">
+                        <g:if test="${!user.isPublicProfile}">
+                            <div class="col-12">
+                                <h4><g:message code="profile.visibility"/></h4>
+                                <p><g:message code="profile.isPrivate"/></p>
+                                <g:form url="[controller: 'User', action: 'makeProfilePublic']">
+                                    <g:submitButton name="submit" class="btn btn-primary" id="public"
+                                                    value="${message(code: 'profile.makePublic')}"
+                                                    onclick="return confirm('${message(code: 'profile.makePublic.check')}')"></g:submitButton>
+                                </g:form>
+                            </div>
+                        </g:if>
+                        <g:else>
+                            <div class="col-12">
+                                <h4><g:message code="profile.visibility"/></h4>
+                                <p><g:message code="profile.isPublic"/></p>
+                                <g:form url="[controller: 'User', action: 'makeProfilePrivate']">
+                                    <g:submitButton name="submit" class="btn btn-primary" id="private"
+                                                    value="${message(code: 'profile.makePrivate')}"
+                                                    onclick="return confirm('${message(code: 'profile.makePrivate.check')}')"></g:submitButton>
+                                </g:form>
+                            </div>
+                        </g:else>
+                    </div>
+                </div>
+            </g:if>
+            <!-- User profile visibility -->
+            <g:if test="${isregistered}">
+                <br>
+                <div class="card">
+                    <div class="card-body">
+                        <g:if test="${!user.languages}">
+                            <div class="col-12">
+                                <h4><g:message code="profile.languages.title"/></h4>
+                                <p><g:message code="profile.languages.description.add"/></p>
+                                <g:form url="[controller: 'User', action: 'addLanguages']">
+                                    <g:submitButton name="submit" class="btn btn-primary" id="public"
+                                                    value="${message(code: 'profile.languages.add')}"></g:submitButton>
+                                </g:form>
+                            </div>
+                        </g:if>
+                        <g:else>
+                            <div class="col-12">
+                                <h4><g:message code="profile.languages.title"/></h4>
+                                <p><g:message code="profile.languages.description.edit"/></p>
+                                <g:form url="[controller: 'User', action: 'editLanguages']">
+                                    <g:submitButton name="submit" class="btn btn-primary" id="public"
+                                                    value="${message(code: 'profile.languages.edit')}"></g:submitButton>
+                                </g:form>
+                            </div>
+                        </g:else>
+                    </div>
+                </div>
+            </g:if>
+        </div>
+
+        <section class="container px-3 pt-4 mt-3">
+        <!-- User interests -->
             <g:if test="${user.interests}">
                 <div class="card">
                     <div class="card-body">
@@ -102,38 +162,6 @@
                 </div>
             </g:elseif>
             <br>
-            <!-- User profile visibility -->
-            <g:if test="${isregistered}">
-                <div class="card">
-                    <div class="card-body">
-                        <g:if test="${!user.isPublicProfile}">
-                            <div class="col-12">
-                                <h4><g:message code="profile.visibility"/></h4>
-                                <p><g:message code="profile.isPrivate"/></p>
-                                <g:form url="[controller: 'User', action: 'makeProfilePublic']">
-                                    <g:submitButton name="submit" class="btn btn-primary" id="public"
-                                                    value="${message(code: 'profile.makePublic')}"
-                                                    onclick="return confirm('${message(code: 'profile.makePublic.check')}')"></g:submitButton>
-                                </g:form>
-                            </div>
-                        </g:if>
-                        <g:else>
-                            <div class="col-12">
-                                <h4><g:message code="profile.visibility"/></h4>
-                                <p><g:message code="profile.isPublic"/></p>
-                                <g:form url="[controller: 'User', action: 'makeProfilePrivate']">
-                                    <g:submitButton name="submit" class="btn btn-primary" id="private"
-                                                    value="${message(code: 'profile.makePrivate')}"
-                                                    onclick="return confirm('${message(code: 'profile.makePrivate.check')}')"></g:submitButton>
-                                </g:form>
-                            </div>
-                        </g:else>
-                    </div>
-                </div>
-            </g:if>
-        </div>
-
-        <section class="container px-3 pt-4 mt-3">
             <!-- User skills -->
             <g:if test="${user.basicSkills || user.mediumSkills || user.expertSkills}">
                 <div class="d-flex flex-wrap justify-content-between align-items-center pb-2">
