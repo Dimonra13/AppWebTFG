@@ -95,6 +95,14 @@
                                         <span class="font-weight-semibold ml-1"><g:message code="course.profile.noLanguage"/></span>
                                     </g:else>
                                 </li>
+                                <li class="pb-1"><span class="opacity-80">- <g:message code="course.profile.ogpage"/>:</span>
+                                    <g:if test="${course?.originalPage}">
+                                        <span class="font-weight-semibold ml-1">${course.originalPage}</span>
+                                    </g:if>
+                                    <g:else>
+                                        <span class="font-weight-semibold ml-1"><g:message code="course.profile.noOgPage"/></span>
+                                    </g:else>
+                                </li>
                             </ul>
                             <div class="text-right">
                                 <div class="pt-3"><a class="btn btn-outline-primary btn-sm" href="/course/${course.id}/?recommendation=semanticSearch"><i class="mr-1" data-feather="chevrons-right"></i><g:message code="course.search.link"></g:message></a></div>

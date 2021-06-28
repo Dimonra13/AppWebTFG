@@ -49,7 +49,8 @@
                         <label for="password"><g:message code="update.user.password.label"/></label>
                         <div class="input-group form-group">
                             <div class="input-group-prepend"><span class="input-group-text"><i data-feather="lock"></i></span></div>
-                            <g:field class="form-control" type="password" name="password" id="password" value=""/>
+                            <g:field class="form-control" type="password" name="password" id="password" value="" minlength="8" maxlength="12"
+                                     pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,12}"/>
                             <div class="invalid-feedback"><g:message code="register.user.password.error"/></div>
                         </div>
                     </div>
@@ -57,7 +58,8 @@
                         <label for="confirmPassword"><g:message code="update.user.confirmPassword.label"/></label>
                         <div class="input-group form-group">
                             <div class="input-group-prepend"><span class="input-group-text"><i data-feather="lock"></i></span></div>
-                            <g:field class="form-control" type="password" name="confirmPassword" id="confirmPassword" value=""/>
+                            <g:field class="form-control" type="password" name="confirmPassword" id="confirmPassword" value="" minlength="8" maxlength="12"
+                                     pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,12}"/>
                             <div class="invalid-feedback"><g:message code="register.user.password.error"/></div>
                         </div>
                     </div>
