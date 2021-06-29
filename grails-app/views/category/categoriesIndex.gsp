@@ -73,12 +73,12 @@
                 <br>
             </div>
             <!-- Toolbar-->
-            <div class="d-flex flex-wrap justify-content-center justify-content-sm-between pb-3">
+            <div>
                 <form action="/category/${currentCategory}">
-                    <div class="d-flex flex-wrap">
+                    <div class="d-flex flex-wrap justify-content-center justify-content-sm-between" style="margin: auto;">
                         <input type="hidden" name="customSearch" value="true">
                         <div class="form-inline flex-nowrap mr-3 mr-sm-4 pb-3">
-                            <label class="text-nowrap mr-2 d-none d-sm-block" for="sorting"><g:message code="categoryIndex.sortBy"></g:message></label>
+                            <label class="text-nowrap mr-2" for="sorting"><g:message code="categoryIndex.sortBy"></g:message></label>
                             <select class="form-control custom-select" name="sortBy" id="sorting">
                                 <option><g:message code="categoryIndex.sortBy.rating"></g:message></option>
                                 <option><g:message code="categoryIndex.sortBy.A-Z"></g:message></option>
@@ -86,7 +86,7 @@
                             </select>
                         </div>
                         <div class="form-inline flex-nowrap mr-3 mr-sm-4 pb-3">
-                            <label class="mr-2 d-none d-sm-block" for="number"><g:message code="categoryIndex.pageSize"></g:message></label>
+                            <label class="mr-2" for="number"><g:message code="categoryIndex.pageSize"></g:message></label>
                             <select class="form-control custom-select mr-sm-2" name="pageSize" id="number">
                                 <option>12</option>
                                 <option>24</option>
@@ -107,10 +107,8 @@
                                 <label class="custom-control-label" for="englishOnly"><g:message code="categoryIndex.englishOnly"></g:message></label>
                             </div>
                         </div>
-                    </div>
-                    <div class="d-flex flex-wrap">
-                        <div class="form-inline flex-nowrap mr-3 mr-sm-4 pb-3">
-                            <label class="text-nowrap mr-2 d-none d-sm-block" for="difficulty"><g:message code="categoryIndex.difficulty"></g:message></label>
+                        <div class="form-inline flex-nowrap mr-3 mr-sm-4 pb-3" style="padding-left: 1rem;">
+                            <label class="text-nowrap mr-2" for="difficulty"><g:message code="categoryIndex.difficulty"></g:message></label>
                             <select class="form-control custom-select" name="difficulty" id="difficulty">
                                 <option><g:message code="categoryIndex.difficulty.all"></g:message></option>
                                 <option><g:message code="categoryIndex.difficulty.beginner"></g:message></option>
@@ -119,7 +117,7 @@
                             </select>
                         </div>
                         <!-- search-box-->
-                        <div class="flex-grow-1 flex-nowrap mr-3 mr-sm-4 pb-3">
+                        <div class="flex-grow-1 flex-nowrap mr-3 mr-sm-4 pb-3" >
                             <div class="input-group flex-nowrap">
                                 <div class="input-group-prepend"><span class="input-group-text rounded-left" id="search-icon"><i
                                         data-feather="search"></i></span></div>
@@ -217,65 +215,56 @@
                 <!-- Pagination-->
                 <br>
                 <div class="row">
-                    <div class="col-3"></div>
-                    <g:if test="${offset}">
-                        <div class="col-2">
-                            <div class="text-right">
-                                <form action="/category/${currentCategory}">
-                                    <input type="hidden" name="customSearch" value="true">
-                                    <input type="hidden" name="offset" value="${offset-pageSize}">
-                                    <input type="hidden" name="pageSize" value="${pageSize}">
-                                    <g:if test="${englishOnly}">
-                                        <input type="hidden" name="englishOnly" value="on">
-                                    </g:if>
-                                    <g:if test="${freeOnly}">
-                                        <input type="hidden" name="freeOnly" value="on">
-                                    </g:if>
-                                    <g:if test="${sortBy}">
-                                        <input type="hidden" name="sortBy" value="${sortBy}">
-                                    </g:if>
-                                    <g:if test="${difficulty}">
-                                        <input type="hidden" name="difficulty" value="${difficulty}">
-                                    </g:if>
-                                    <input type="submit" class="btn btn-primary" name="submit" value="<< ${message(code: "course.search.pagination.previous")}"/>
-                                </form>
+                    <div class="btn-group" style="margin: auto" role="group" aria-label="Solid button group">
+                        <g:if test="${offset}">
+                                    <form action="/category/${currentCategory}">
+                                        <input type="hidden" name="customSearch" value="true">
+                                        <input type="hidden" name="offset" value="${offset-pageSize}">
+                                        <input type="hidden" name="pageSize" value="${pageSize}">
+                                        <g:if test="${englishOnly}">
+                                            <input type="hidden" name="englishOnly" value="on">
+                                        </g:if>
+                                        <g:if test="${freeOnly}">
+                                            <input type="hidden" name="freeOnly" value="on">
+                                        </g:if>
+                                        <g:if test="${sortBy}">
+                                            <input type="hidden" name="sortBy" value="${sortBy}">
+                                        </g:if>
+                                        <g:if test="${difficulty}">
+                                            <input type="hidden" name="difficulty" value="${difficulty}">
+                                        </g:if>
+                                        <input type="submit" class="btn btn-primary" name="submit" value="<< ${message(code: "course.search.pagination.previous")}"/>
+                                    </form>
+                        </g:if><g:else>
+                            <div class="col-2"></div>
+                        </g:else>
+                            <div class="text-center" style="padding-left: 3rem; padding-right: 3rem;">
+                                <h5 style="padding-top: 10px;">${offset ? (offset/pageSize)+1 : 1}</h5>
                             </div>
-                        </div>
-                    </g:if><g:else>
-                        <div class="col-2"></div>
-                    </g:else>
-                    <div class="col-2">
-                        <div class="text-center">
-                            <h5 style="padding-top: 10px;">${offset ? (offset/pageSize)+1 : 1}</h5>
-                        </div>
+                        <g:if test="${isMore}">
+                                    <form action="/category/${currentCategory}">
+                                        <input type="hidden" name="customSearch" value="true">
+                                        <input type="hidden" name="offset" value="${offset+pageSize}">
+                                        <input type="hidden" name="pageSize" value="${pageSize}">
+                                        <g:if test="${title}">
+                                            <input type="hidden" name="title" value="${title}">
+                                        </g:if>
+                                        <g:if test="${englishOnly}">
+                                            <input type="hidden" name="englishOnly" value="on">
+                                        </g:if>
+                                        <g:if test="${freeOnly}">
+                                            <input type="hidden" name="freeOnly" value="on">
+                                        </g:if>
+                                        <g:if test="${sortBy}">
+                                            <input type="hidden" name="sortBy" value="${sortBy}">
+                                        </g:if>
+                                        <g:if test="${difficulty}">
+                                            <input type="hidden" name="difficulty" value="${difficulty}">
+                                        </g:if>
+                                        <input type="submit" class="btn btn-primary" name="submit" value="${message(code: "course.search.pagination.next")} >>"/>
+                                    </form>
+                        </g:if>
                     </div>
-                    <g:if test="${isMore}">
-                        <div class="col-2">
-                            <div class="text-left">
-                                <form action="/category/${currentCategory}">
-                                    <input type="hidden" name="customSearch" value="true">
-                                    <input type="hidden" name="offset" value="${offset+pageSize}">
-                                    <input type="hidden" name="pageSize" value="${pageSize}">
-                                    <g:if test="${title}">
-                                        <input type="hidden" name="title" value="${title}">
-                                    </g:if>
-                                    <g:if test="${englishOnly}">
-                                        <input type="hidden" name="englishOnly" value="on">
-                                    </g:if>
-                                    <g:if test="${freeOnly}">
-                                        <input type="hidden" name="freeOnly" value="on">
-                                    </g:if>
-                                    <g:if test="${sortBy}">
-                                        <input type="hidden" name="sortBy" value="${sortBy}">
-                                    </g:if>
-                                    <g:if test="${difficulty}">
-                                        <input type="hidden" name="difficulty" value="${difficulty}">
-                                    </g:if>
-                                    <input type="submit" class="btn btn-primary" name="submit" value="${message(code: "course.search.pagination.next")} >>"/>
-                                </form>
-                            </div>
-                        </div>
-                    </g:if>
                 </div>
             </g:else>
         </div>

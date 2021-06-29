@@ -103,37 +103,27 @@
 
         <br>
         <div class="row">
-            <div class="col-3"></div>
-            <g:if test="${params?.offset}">
-                <div class="col-2">
-                    <div class="text-right">
+            <div class="btn-group" style="margin: auto" role="group" aria-label="Solid button group">
+                <g:if test="${params?.offset}">
                         <form action="/search/searchCourse">
                             <input type="hidden" name="courseData" value="${courseData}">
                             <input type="hidden" name="offset" value="${params.offset-10}">
                             <input type="submit" class="btn btn-primary" name="submit" value="<< ${message(code: "course.search.pagination.previous")}"/>
                         </form>
+                </g:if><g:else>
+                    <div class="col-2"></div>
+                </g:else>
+                    <div class="text-center" style="padding-left: 3rem; padding-right: 3rem;">
+                        <h5 style="padding-top: 10px;">${params.offset ? (params.offset/10)+1 : 1}</h5>
                     </div>
-                </div>
-            </g:if><g:else>
-            <div class="col-2"></div>
-        </g:else>
-            <div class="col-2">
-                <div class="text-center">
-                    <h5 style="padding-top: 10px;">${params.offset ? (params.offset/10)+1 : 1}</h5>
-                </div>
-            </div>
-            <g:if test="${isMore}">
-                <div class="col-2">
-                    <div class="text-left">
+                <g:if test="${isMore}">
                         <form action="/search/searchCourse">
                             <input type="hidden" name="courseData" value="${courseData}">
                             <input type="hidden" name="offset" value="${params.offset+10}">
                             <input type="submit" class="btn btn-primary" name="submit" value="${message(code: "course.search.pagination.next")} >>"/>
                         </form>
-                    </div>
-                </div>
-            </g:if>
-        </div>
+                </g:if>
+            </div>
         </div>
     </g:elseif>
     </div>

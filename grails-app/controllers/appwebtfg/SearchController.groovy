@@ -107,6 +107,6 @@ class SearchController {
                 foundCourses =  recommenderService.semanticSearch(data,authUser)
             }
         }
-        render(view: "semantic", model: [foundCourses: foundCourses,search: true,isLast:isLast])
+        render(view: "semantic", model: [foundCourses: foundCourses,search: true,isLast:isLast,user:authUser])
     }
 }

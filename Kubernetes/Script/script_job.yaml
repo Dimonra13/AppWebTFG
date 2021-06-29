@@ -1,0 +1,13 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: explore
+spec:
+  template:
+    spec:
+      containers:
+      - name: explore
+        image: dimonra13/groovyscript:v1
+        imagePullPolicy: Always
+      restartPolicy: Never
+  backoffLimit: 4

@@ -159,22 +159,26 @@
                         <!-- Course info -->
                         <div class="col-lg-3 col-sm-4 col-6 border border-collapse">
                             <div class="product-card">
-                                <div class="text-right">
-                                    <form action="/course/${course?.id}" method="post">
-                                        <input type="hidden" name="bannedCourse" value="${recourse.id}">
-                                        <input type="hidden" name="recommendation" value="${recommendationSource}">
-                                        <g:if test="${isLast}">
-                                            <input type="hidden" name="isLast" value="${isLast}">
-                                        </g:if>
-                                        <g:each var="relatedcourse" in="${related}">
-                                            <g:if test="${relatedcourse?.id != recourse?.id}">
-                                                <input type="hidden" name="relatedToCourseIDs" value="${relatedcourse?.id}">
+                                <g:if test="${user}">
+                                    <div class="text-right">
+                                        <form action="/course/${course?.id}" method="post">
+                                            <input type="hidden" name="bannedCourse" value="${recourse.id}">
+                                            <input type="hidden" name="recommendation" value="${recommendationSource}">
+                                            <g:if test="${isLast}">
+                                                <input type="hidden" name="isLast" value="${isLast}">
                                             </g:if>
-                                        </g:each>
-                                        <input style="position:relative; z-index:1;" type="submit" class="btn btn-primary" name="submit" value="${message(code: "recommender.notInterested")}">
-                                    </form>
-                                </div>
+                                            <g:each var="relatedcourse" in="${related}">
+                                                <g:if test="${relatedcourse?.id != recourse?.id}">
+                                                    <input type="hidden" name="relatedToCourseIDs" value="${relatedcourse?.id}">
+                                                </g:if>
+                                            </g:each>
+                                            <input style="position:relative; z-index:1;" type="submit" class="btn btn-primary" name="submit" value="${message(code: "recommender.notInterested")}">
+                                        </form>
+                                    </div>
                                 <div style="margin-top: -2.6rem" class="product-thumb"><asset:image src="Categories/cat_${recourse.category}.jpg" style="height: 18rem;"/></div>
+                                </g:if><g:else>
+                                <div class="product-thumb"><asset:image src="Categories/cat_${recourse.category}.jpg" style="height: 18rem;"/></div>
+                                </g:else>
                                     <div class="product-card-body">
                                         <h5><a href="/course/${recourse.id}/?recommendation=relatedCourse">${recourse.title}</a></h5>
                                         <g:if test="${recourse?.rating}">

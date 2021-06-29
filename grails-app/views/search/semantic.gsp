@@ -55,20 +55,22 @@
                                 <div class="pt-3 mr-3 col-8">
                                     <h3 class="mb-0">${course.title}</h3><a class="font-size-lg text-warning" href="/category/${course.category}"><span><g:message code="categoryIndex.${course.category}"/></span></a>
                                 </div>
-                                <div class="text-right">
-                                    <form action="/search/semanticSearch" method="post">
-                                        <input type="hidden" name="bannedCourse" value="${course.id}">
-                                        <g:if test="${isLast}">
-                                            <input type="hidden" name="isLast" value="${isLast}">
-                                        </g:if>
-                                        <g:each var="searchCourse" in="${foundCourses}">
-                                            <g:if test="${searchCourse?.id != course?.id}">
-                                                <input type="hidden" name="searchIDs" value="${searchCourse?.id}">
+                                <g:if test="${user}">
+                                    <div class="text-right">
+                                        <form action="/search/semanticSearch" method="post">
+                                            <input type="hidden" name="bannedCourse" value="${course.id}">
+                                            <g:if test="${isLast}">
+                                                <input type="hidden" name="isLast" value="${isLast}">
                                             </g:if>
-                                        </g:each>
-                                        <input type="submit" class="btn btn-primary" name="submit" value="${message(code: "recommender.notInterested")}">
-                                    </form>
-                                </div>
+                                            <g:each var="searchCourse" in="${foundCourses}">
+                                                <g:if test="${searchCourse?.id != course?.id}">
+                                                    <input type="hidden" name="searchIDs" value="${searchCourse?.id}">
+                                                </g:if>
+                                            </g:each>
+                                            <input type="submit" class="btn btn-primary" name="submit" value="${message(code: "recommender.notInterested")}">
+                                        </form>
+                                    </div>
+                                </g:if>
                             </div>
                             <ul class="list-unstyled border p-3 mb-4">
                                 <li class="pb-1"><span class="opacity-80">&ndash; <g:message code="course.profile.avgscore"/>:</span>
