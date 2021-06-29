@@ -53,7 +53,7 @@
                             <!-- Course details -->
                             <div class="d-flex flex-wrap justify-content-between pb-4">
                                 <div class="pt-3 mr-3 col-8">
-                                    <h3 class="mb-0">${course.title}</h3><span class="font-size-lg text-warning"><g:message code="categoryIndex.${course.category}"/></span>
+                                    <h3 class="mb-0">${course.title}</h3><a class="font-size-lg text-warning" href="/category/${course.category}"><span><g:message code="categoryIndex.${course.category}"/></span></a>
                                 </div>
                                 <div class="text-right">
                                     <form action="/search/semanticSearch" method="post">

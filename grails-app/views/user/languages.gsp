@@ -94,6 +94,7 @@
                         </g:if>
                         <button onclick="selectAll()" class="btn btn-primary btn-sm btn-block select" type="button"><g:message code="language.select.all"/></button>
                         <button onclick="deselectAll()" class="btn btn-primary btn-sm btn-block select" type="button"><g:message code="language.deselect.all"/></button>
+                        <br>
                     </div>
                 </div>
             </div>

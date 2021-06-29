@@ -43,23 +43,28 @@
             <div class="navbar-toggler navbar-btn collapsed bg-0 border-left-0 my-3" data-toggle="collapse" data-target="#menu">
                 <i class="mx-auto mb-2" data-feather="menu"></i>Menu
             </div>
-            <span class="d-block position-relative">
                 <g:if test="${s.loggedUser()}">
+                    <div class="border-left-0 my-3" style="width: 5.5rem;">
                     <a class="navbar-btn bg-0 my-3" href="/logout">
                         <i class="mx-auto mb-1" data-feather="log-out"></i><g:message code="logout.user.title"/>
                     </a>
+                    </div>
                 </g:if>
                 <g:else>
+                    <div class="border-left-0 my-3" style="width: 6.5rem;">
                     <a class="navbar-btn bg-0 my-3" href="/login">
                         <i class="mx-auto mb-1" data-feather="log-in"></i><g:message code="login.user.title"/>
                     </a>
+                    </div>
+                    <div class="border-left-0 my-3" style="width: 5.5rem;">
                     <a class="navbar-btn bg-0 my-3" href="/register">
                         <span class="d-block position-relative">
                             <i class="mx-auto mb-1" data-feather="user-plus"></i><g:message code="register.user.title"/>
                         </span>
                     </a>
+                    </div>
                 </g:else>
-            </span>
+
         </div>
         <!-- search-box-->
         <div class="flex-grow-1 pb-3 pt-sm-3 my-1 px-sm-2 pr-lg-4 order-sm-2">
@@ -78,10 +83,10 @@
 <div class="navbar navbar-expand-lg navbar-light bg-light px-0">
     <div class="container px-3">
         <!-- navbar collapse area-->
-        <div class="collapse navbar-collapse" id="menu">
+        <div class="collapse navbar-collapse text-center" id="menu">
             <!-- Site menu-->
-            <ul class="navbar-nav">
-                <li class="nav-item dropdown mega-dropdown dropdown-more"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"><g:message code="header.category"/><i data-feather="more-horizontal"></i></a>
+            <ul class="navbar-nav nav-pills">
+                <li class="nav-item dropdown mega-dropdown dropdown-more"><a class="nav-link" href="/category/Architecture"><g:message code="header.category"/><i data-feather="more-horizontal"></i></a>
                     <div class="dropdown-menu">
                         <div class="dropdown-inner">
                             <div class="dropdown-column">
@@ -141,10 +146,8 @@
                         </div>
                     </div>
                 </li>
-            </ul>
-            <g:if test="${s.loggedUser()}">
-                <ul class="navbar-nav">
-                    <li class="nav-item dropdown active"><a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"><g:message code="header.user.account"/></a>
+                <g:if test="${s.loggedUser()}">
+                    <li class="nav-item dropdown"><a class="nav-link" href="/myProfile"><g:message code="header.user.account"/></a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" href="/myProfile"><g:message code="header.myProfile"/></a></li>
                             <li class="dropdown-divider"></li>
@@ -153,9 +156,7 @@
                             <li><a class="dropdown-item" href="/createCourseList"><g:message code="header.profile.new.list"/></a></li>
                         </ul>
                     </li>
-                </ul>
-            </g:if>
-            <ul class="nav nav-pills">
+                </g:if>
                 <li class="nav-item">
                     <a href="/" class="nav-link rounded"><g:message code="header.home"/></a>
                 </li>
@@ -165,6 +166,10 @@
                 <li class="nav-item">
                     <a href="/search/semantic" class="nav-link rounded"><g:message code="header.search.course"/></a>
                 </li>
+            </ul>
+            <ul class="nav nav-pills">
+
+
             </ul>
 
             <!-- Rounded nav pills -->
