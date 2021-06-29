@@ -10,7 +10,7 @@
     <g:set var="catList" value="${['Data-Science','Machine-Learning','Cloud-Computing','Engineering','Business-Finance',
                                       'Security','Leadership','Entrepreneurship','Personal-Development','Human-Studies','Education','Arts',
                                       'Maths','Health','Science','Marketing','Architecture','Software-Engineering','IT-Certification','Test-Prep',
-                                      'Graphic-Design','Gaming','Google','Apple','Oracle','Microsoft','SAP']}"/>
+                                      'Graphic-Design','Gaming','Google','Oracle','Microsoft','SAP']}"/>
     <div class="row">
         <!-- Featured products grid-->
         <section class="container px-3 pt-4 mt-3">
@@ -71,7 +71,7 @@
                 let catList = ['Data-Science','Machine-Learning','Cloud-Computing','Engineering','Business-Finance',
                 'Security','Leadership','Entrepreneurship','Personal-Development','Human-Studies','Education','Arts',
                 'Maths','Health','Science','Marketing','Architecture','Software-Engineering','IT-Certification','Test-Prep',
-                'Gaming','Google','Apple','Oracle','Microsoft','SAP','Graphic-Design']
+                'Gaming','Google','Oracle','Microsoft','SAP','Graphic-Design']
                 catList.forEach(it => {
                     $('#unselect-' + it).hide()
                 })

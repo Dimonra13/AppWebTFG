@@ -53,7 +53,7 @@
                                 </li>
                                 <li class="has-children"><a href="#brands" data-toggle="collapse"><i class="widget-categories-indicator" data-feather="chevron-down"></i><g:message code="category.title.brands"/></a>
                                     <ul class="collapse" id="brands" data-parent="#shopCategories">
-                                        <li><a href="/category/Apple"><span class="iconify" data-icon="ant-design:apple-filled" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.brand.apple"/></span></a></li>
+                                        <!-- <li><a href="/category/Apple"><span class="iconify" data-icon="ant-design:apple-filled" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.brand.apple"/></span></a></li> -->
                                         <li><a href="/category/Google"><span class="iconify" data-icon="akar-icons:google-fill" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.brand.google"/></span></a></li>
                                         <li><a href="/category/Microsoft"><span class="iconify" data-icon="bx:bxl-microsoft" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.brand.microsoft"/></span></a></li>
                                         <li><a href="/category/Oracle"><span class="iconify" data-icon="simple-icons:oracle" data-inline="false"></span> <span class="font-size-sm"><g:message code="category.brand.oracle"/></span></a></li>

@@ -73,9 +73,9 @@
         <h2 class="h2 mb-3 text-center"><g:message code="home.brands.title"/></h2>
       </div>
       <div class="owl-carousel border-right" data-owl-carousel="{ &quot;nav&quot;: false, &quot;dots&quot;: false, &quot;autoplay&quot;: true, &quot;autoplayTimeout&quot;: 3500, &quot;loop&quot;: true, &quot;responsive&quot;: {&quot;0&quot;:{&quot;items&quot;:1},&quot;360&quot;:{&quot;items&quot;:2},&quot;600&quot;:{&quot;items&quot;:3},&quot;991&quot;:{&quot;items&quot;:4},&quot;1200&quot;:{&quot;items&quot;:4}} }">
-        <a class="d-block bg-white border py-4 py-sm-5 px-2" href="/category/Apple" style="margin-right: -.0625rem;">
+        <!-- <a class="d-block bg-white border py-4 py-sm-5 px-2" href="/category/Apple" style="margin-right: -.0625rem;">
           <asset:image class="d-block mx-auto" src="Brands/Apple.png" style="height: 135px;" alt="Apple"/>
-        </a>
+        </a> -->
         <a class="d-block bg-white border py-4 py-sm-5 px-2" href="/category/Microsoft" style="margin-right: -.0625rem;">
           <asset:image class="d-block mx-auto" src="Brands/Microsoft.png" style="height: 135px;" alt="Microsoft"/>
         </a>
