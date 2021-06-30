@@ -179,6 +179,9 @@
                                 </g:if><g:else>
                                 <div class="product-thumb"><asset:image src="Categories/cat_${recourse.category}.jpg" style="height: 18rem;"/></div>
                                 </g:else>
+                                <div class="text-left">
+                                    <asset:image src="ogpageicons/${recourse.originalPage}.png" style="width: 5rem;height:5rem;position:relative; z-index:1;margin-top: -7rem"/>
+                                </div>
                                     <div class="product-card-body">
                                         <h5><a href="/course/${recourse.id}/?recommendation=relatedCourse">${recourse.title}</a></h5>
                                         <g:if test="${recourse?.rating}">

@@ -46,12 +46,14 @@ class CourseController {
             }
             related = courseService.getCourses(relatedToCourseIDs)
         }else {
-            if(authUser&&recommendation){
+            if(authUser&&recommendation&&!params.fromCreate){
                 if(!authUser?.feedback)
                     userFeedbackService.createUserFeedback(authUser)
                 userFeedbackService.updateClicks(authUser,recommendation)
+                if(recommendation=="semanticSearch")
+                        userService.saveRecentSearch(authUser,course.title)
             }
-            related = recommenderService.getRelatedCourses(course,authUser)
+            related = recommenderService.getRelatedCourses(course,authUser).findAll{it -> it.id != id}.take(8)
         }
         if (course)
             render(view: "courseProfile", model: [course: course, user: authUser, lists: filteredLists,related:related,recommendationSource:recommendation,isLast:isLast])

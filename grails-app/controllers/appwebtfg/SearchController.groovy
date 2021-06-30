@@ -102,8 +102,6 @@ class SearchController {
         }else{
             String data = params.get("courseData")
             if(data && data!=""){
-                if(authUser)
-                    userService.saveRecentSearch(authUser,data)
                 foundCourses =  recommenderService.semanticSearch(data,authUser)
             }
         }

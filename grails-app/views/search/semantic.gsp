@@ -56,7 +56,7 @@
                                     <h3 class="mb-0">${course.title}</h3><a class="font-size-lg text-warning" href="/category/${course.category}"><span><g:message code="categoryIndex.${course.category}"/></span></a>
                                 </div>
                                 <g:if test="${user}">
-                                    <div class="text-right">
+                                    <div class="text-right" style="margin-top: 1rem;">
                                         <form action="/search/semanticSearch" method="post">
                                             <input type="hidden" name="bannedCourse" value="${course.id}">
                                             <g:if test="${isLast}">
@@ -109,6 +109,7 @@
                             <div class="text-right">
                                 <div class="pt-3"><a class="btn btn-outline-primary btn-sm" href="/course/${course.id}/?recommendation=semanticSearch"><i class="mr-1" data-feather="chevrons-right"></i><g:message code="course.search.link"></g:message></a></div>
                             </div>
+                            <asset:image class="text-left" src="ogpageicons/${course.originalPage}.png" style="width: 5rem;height:5rem;position:relative; z-index:1;margin-top: -3rem;margin-left: 0.5rem;"/>
                         </div>
                     </div>
                 </div>

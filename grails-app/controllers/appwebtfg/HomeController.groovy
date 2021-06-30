@@ -33,8 +33,8 @@ class HomeController {
             userFeedbackService.updateNotInterested(authUser,Course?.get(bannedCourse)?.originalPage)
             List<Integer> recommendedCoursesIDs
             if(!params.isLastRecommend || (params.isLastRecommend && params?.get("recommendedCoursesIDs")?.size()==2)){
-                recommendedCoursesIDs = params?.get("recommendedCoursesIDs")?.collect{it->Integer.parseInt(it)}
-                if (recommendedCoursesIDs?.size()==2)
+                recommendedCoursesIDs = params?.get("recommendedCoursesIDs")?.findAll{it -> !authUser.bannedCourses.contains(Course?.get(it)?.idCurso)}?.collect{it->Integer.parseInt(it)}
+                if (recommendedCoursesIDs?.size()<=2)
                     isLastRecommend="true"
             }else{
                 recommendedCoursesIDs = new LinkedList<>()
@@ -46,8 +46,8 @@ class HomeController {
             recommendedCourses = courseService.getCourses(recommendedCoursesIDs)
             List<Integer> relatedToQueryCoursesIDs
             if(!params.isLastRelated || (params.isLastRelated && params?.get("relatedToQueryCoursesIDs")?.size()==2)){
-                relatedToQueryCoursesIDs = params?.get("relatedToQueryCoursesIDs")?.collect{it->Integer.parseInt(it)}
-                if (relatedToQueryCoursesIDs?.size()==2)
+                relatedToQueryCoursesIDs = params?.get("relatedToQueryCoursesIDs")?.findAll{it -> !authUser.bannedCourses.contains(Course?.get(it)?.idCurso)}?.collect{it->Integer.parseInt(it)}
+                if (relatedToQueryCoursesIDs?.size()<=2)
                     isLastRelated="true"
             }else{
                 relatedToQueryCoursesIDs = new LinkedList<>();
@@ -61,13 +61,18 @@ class HomeController {
         }else{
             if(authUser){
                 userService.removeBannedCoursesFromExploreRecommendations(authUser)
-                exploreCourses = courseService.getCourses(authUser?.exploreRecommendationsIds)
-                recommendedCourses = recommenderService.getRecommendedCourses(authUser)
+                exploreCourses = courseService.getCourses(authUser?.exploreRecommendationsIds).toSet().toList()
+                recommendedCourses = recommenderService?.getRecommendedCourses(authUser)?.findAll{it -> !authUser.bannedCourses.contains(it.idCurso)}?.toSet()?.toList()
+                if (recommendedCourses?.size()<=2)
+                    isLastRecommend="true"
                 authUser?.recentSearches?.each {String query ->
                     relatedToQueryCourses = relatedToQueryCourses + recommenderService.getRecommendedCoursesRelatedToQuery(authUser,query)
                 }
+                relatedToQueryCourses = relatedToQueryCourses?.findAll{it -> !authUser.bannedCourses.contains(it.idCurso)}?.toSet()?.toList()
+                if (relatedToQueryCourses?.size()<=2)
+                    isLastRelated="true"
             }
-            render(view:"/index",model: [authUser: authUser,recommendedCourses:recommendedCourses,relatedToQueryCourses:relatedToQueryCourses,exploreCourses:exploreCourses])
+            render(view:"/index",model: [authUser: authUser,recommendedCourses:recommendedCourses,relatedToQueryCourses:relatedToQueryCourses,exploreCourses:exploreCourses,isLastRecommend: isLastRecommend,isLastRelated: isLastRelated])
         }
     }
 }

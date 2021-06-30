@@ -125,6 +125,9 @@
                     </form>
                   </div>
                   <div style="margin-top: -2.6rem" class="product-thumb"><asset:image src="Categories/cat_${course.category}.jpg" style="height: 15rem;"/></div>
+                  <div class="text-left">
+                    <asset:image src="ogpageicons/${course.originalPage}.png" style="width: 5rem;height:5rem;position:relative; z-index:1;margin-top: -7rem"/>
+                  </div>
                   <div class="product-card-body">
                     <h5><a href="/course/${course.id}/?recommendation=forUser">${course.title}</a></h5>
                     <g:if test="${course?.rating}">
@@ -183,6 +186,9 @@
                     </form>
                   </div>
                   <div style="margin-top: -2.6rem" class="product-thumb"><asset:image src="Categories/cat_${course.category}.jpg" style="height: 15rem;"/></div>
+                  <div class="text-left">
+                    <asset:image src="ogpageicons/${course.originalPage}.png" style="width: 5rem;height:5rem;position:relative; z-index:1;margin-top: -7rem"/>
+                  </div>
                   <div class="product-card-body">
                     <h5><a href="/course/${course.id}/?recommendation=relatedQuery">${course.title}</a></h5>
                     <g:if test="${course?.rating}">
@@ -240,6 +246,9 @@
                     </form>
                   </div>
                   <div style="margin-top: -2.6rem" class="product-thumb"><asset:image src="Categories/cat_${course.category}.jpg" style="height: 15rem;"/></div>
+                  <div class="text-left">
+                    <asset:image src="ogpageicons/${course.originalPage}.png" style="width: 5rem;height:5rem;position:relative; z-index:1;margin-top: -7rem"/>
+                  </div>
                   <div class="product-card-body">
                     <h5><a href="/course/${course.id}/?recommendation=explore">${course.title}</a></h5>
                     <g:if test="${course?.rating}">
