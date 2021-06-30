@@ -328,7 +328,10 @@ class RecommenderService {
             ]
         else {
             List<Course> courses = user?.lists?.courses?.flatten()
-            String description = " " + user?.interests?.join(",")+courses?.collect{course -> course.title}?.join(",")
+            String description = " " + user?.interests?.join(",")+
+                    (user?.basicSkills) ? ","+user?.basicSkills?.collect{it.name}?.join(",") : "" +
+                    (user?.mediumSkills) ? ","+user?.mediumSkills?.collect{it.name}?.join(",") : "" +
+                    (user?.expertSkills) ? ","+user?.expertSkills?.collect{it.name}?.join(",") : ""
             String difficulty = calculateAvgDifficulty(courses,user)
             int free = calculateIsFree(courses)
             float rating = calculateAvgRating(courses)
