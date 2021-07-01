@@ -46,10 +46,10 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-4" style="display: flex;justify-content: center;">
+                        <div class="col-lg-4 col-md-12 col-sm-12" style="display: flex;justify-content: center;">
                             <asset:image src="Categories/cat_${course.category}.jpg"/>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-lg-8 col-md-12 col-sm-12">
                             <!-- Course details -->
                             <div class="d-flex flex-wrap justify-content-between pb-4">
                                 <div class="pt-3 mr-3">

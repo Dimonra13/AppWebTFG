@@ -44,7 +44,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-4" style="display: flex;justify-content: center;">
+                            <div class="col-lg-4 col-md-12 col-sm-12" style="display: flex;justify-content: center;">
                                 <g:if test="${user?.hasProfileImage}">
                                     <img style="max-height: 18rem;display:block;margin:auto;" src="<g:createLink controller="user" action="renderProfileImage" id="${user.id}"/>"/>
                                     <br>
@@ -54,13 +54,12 @@
                                     <br>
                                 </g:else>
                             </div>
-                            <div class="col-md-8">
+                            <div class="col-lg-8 col-md-12 col-sm-12">
                                 <!-- User details-->
                                 <div class="d-flex flex-wrap justify-content-between pb-4">
                                     <div class="pt-3 mr-3">
                                         <h3 class="mb-0">${user.username}</h3><span class="font-size-lg text-warning">${user.email}</span>
                                     </div>
-                                    <div class="pt-3"><a class="btn btn-outline-primary btn-sm" href="/profile/${user.id}"><i class="mr-1" data-feather="chevrons-right"></i><g:message code="user.search.profile.link"></g:message></a></div>
                                 </div>
                                 <ul class="list-unstyled border p-3 mb-4">
                                     <li class="pb-1"><span class="opacity-80">&ndash; <g:message code="profile.date"/>:</span><span class="font-weight-semibold ml-1">${user?.date}</span></li>
@@ -81,6 +80,9 @@
                                         </g:else>
                                     </li>
                                 </ul>
+                                <div class="text-right">
+                                    <div class="pt-3"><a class="btn btn-outline-primary btn-sm" href="/profile/${user.id}"><i class="mr-1" data-feather="chevrons-right"></i><g:message code="user.search.profile.link"></g:message></a></div>
+                                </div>
                             </div>
                         </div>
                     </div>

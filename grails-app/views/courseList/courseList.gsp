@@ -36,7 +36,6 @@
         <table class='courseList-display-table'>
             <tr>
                 <th><g:message code="courseList.course.table.name"/></th>
-                <th><g:message code="courseList.course.table.description"/></th>
                 <th><g:message code="courseList.course.table.avgScore"/></th>
                 <th><g:message code="courseList.course.table.link"/></th>
                 <g:if test="${isregistered}">
@@ -52,12 +51,6 @@
                     <tr class="odd-row">
                 </g:else>
                 <td>${course.title}</td>
-                <g:if test="${course?.description?.length()<20}">
-                    <td>${course.description}</td>
-                </g:if>
-                <g:else>
-                    <td>${course?.description?.substring(0,20)}</td>
-                </g:else>
                 <td>${course?.rating}</td>
                 <td>
                     <g:form url="/course/$course.id">

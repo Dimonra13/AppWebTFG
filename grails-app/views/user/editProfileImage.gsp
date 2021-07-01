@@ -24,15 +24,16 @@
                     <g:uploadForm name="uploadProfileImage" action="updateProfileImage">
                         <g:hiddenField name="ownerId" value="${user?.id}" />
                         <div class="row">
-                        <div class="file-input col-4">
-                            <input name="featuredImageFile" type="file" id="file" class="file">
-                            <label for="file" class="font-size-lg" id="file-name">
-                                <g:message code="profile.image.choose"></g:message>
-                            </label>
-                        </div>
-                        <div class="col-8">
-                            <p class="file-name"></p>
-                        </div>
+                            <div class="col-lg-1"></div>
+                            <div class="file-input col-lg-4 col-md-6 col-sm-12">
+                                <input name="featuredImageFile" type="file" id="file" class="file">
+                                <label for="file" class="font-size-lg" id="file-name" style="margin: auto">
+                                    <g:message code="profile.image.choose"></g:message>
+                                </label>
+                            </div>
+                            <div class="text-center col-lg-7 col-md-6 col-sm-12">
+                                <p class="file-name"></p>
+                            </div>
                         </div>
                         <br>
                         <g:if test="${error}">
@@ -41,12 +42,12 @@
                         <g:if test="${errorNoImage}">
                             <p style="color:red"><g:message code="profile.image.error.noImage"/></p>
                         </g:if>
-                        <fieldset class="buttons">
+                        <fieldset class="buttons text-center">
                             <div class="row">
-                                <div class="col-4">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
                                     <input class="btn btn-primary" type="submit" value="${message(code: 'profile.image.update.button', default: 'Upload')}"/>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-lg-6 col-md-6 col-sm-12">
                                     <g:actionSubmit class="btn btn-primary" value="${message(code: 'profile.image.delete.button')}" action="deleteProfileImage"/>
                                 </div>
                             </div>

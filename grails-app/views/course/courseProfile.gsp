@@ -15,7 +15,7 @@
         <div class="col-xl-4 col-lg-4">
             <!-- Course category picture-->
             <div class="card">
-                <div class="card-body">
+                <div class="card-body" style="display: flex;justify-content: center;">
                     <asset:image src="Categories/cat_${course.category}.jpg"/>
                 </div>
             </div>

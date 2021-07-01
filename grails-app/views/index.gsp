@@ -99,10 +99,15 @@
           <div>
             <h2 class="h2 mb-3 text-center"><g:message code="recommended.index.title"/></h2>
           </div>
-          <div class="row no-gutters">
+          <div class="owl-carousel" data-owl-carousel='{ "nav": true, "dots": true }'>
+            <div class="row no-gutters" style="margin-top: 4rem;">
             <g:each var="course" in="${recommendedCourses}" status="i">
+              <g:if test="${ (i>0) && (i%8 == 0)}">
+                </div>
+                <div class="row no-gutters" style="margin-top: 4rem;">
+              </g:if>
               <!-- Course info -->
-              <div class="col-lg-3 col-sm-4 col-6 border border-collapse">
+              <div class="col-lg-3 col-sm-4 col-6 border">
                 <div class="product-card">
                   <div class="text-right">
                     <form action="/home" method="post">
@@ -147,6 +152,7 @@
                             });
               </g:javascript>
             </g:each>
+            </div>
           </div>
         </div>
       </section>
@@ -160,10 +166,15 @@
           <div>
             <h2 class="h2 mb-3 text-center"><g:message code="relatedToQuery.index.title"/></h2>
           </div>
-          <div class="row no-gutters">
+          <div class="owl-carousel" data-owl-carousel='{ "nav": true, "dots": true }'>
+            <div class="row no-gutters" style="margin-top: 4rem;">
             <g:each var="course" in="${relatedToQueryCourses}" status="i">
+              <g:if test="${ (i>0) && (i%8 == 0)}">
+                </div>
+                <div class="row no-gutters" style="margin-top: 4rem;">
+              </g:if>
               <!-- Course info -->
-              <div class="col-lg-3 col-sm-4 col-6 border border-collapse">
+              <div class="col-lg-3 col-sm-4 col-6 border">
                 <div class="product-card">
                   <div class="text-right">
                     <form action="/home" method="post">
@@ -192,14 +203,13 @@
                   <div class="product-card-body">
                     <h5><a href="/course/${course.id}/?recommendation=relatedQuery">${course.title}</a></h5>
                     <g:if test="${course?.rating}">
-                      <p><span class="my-rating" id="my-rating${i+20}"></span><span class="font-weight-semibold ml-1"> (${course.rating})</span></p>
+                      <p><span class="my-rating" id="my-rating${i+100}"></span><span class="font-weight-semibold ml-1"> (${course.rating})</span></p>
                     </g:if>
-
                   </div>
                 </div>
               </div>
               <g:javascript>
-                            $("#my-rating${i+20}").starRating({
+                            $("#my-rating${i+100}").starRating({
                                 initialRating: ${course?.rating?:0},
                                 strokeColor: '#894A00',
                                 activeColor: '#894A00',
@@ -209,6 +219,7 @@
                             });
               </g:javascript>
             </g:each>
+            </div>
           </div>
         </div>
       </section>
@@ -252,13 +263,13 @@
                   <div class="product-card-body">
                     <h5><a href="/course/${course.id}/?recommendation=explore">${course.title}</a></h5>
                     <g:if test="${course?.rating}">
-                      <p><span class="my-rating" id="my-rating${i+50}"></span><span class="font-weight-semibold ml-1"> (${course.rating})</span></p>
+                      <p><span class="my-rating" id="my-rating${i+200}"></span><span class="font-weight-semibold ml-1"> (${course.rating})</span></p>
                     </g:if>
                   </div>
                 </div>
               </div>
               <g:javascript>
-                            $("#my-rating${i+50}").starRating({
+                            $("#my-rating${i+200}").starRating({
                                 initialRating: ${course?.rating?:0},
                                 strokeColor: '#894A00',
                                 activeColor: '#894A00',

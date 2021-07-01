@@ -46,17 +46,17 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-4" style="display: flex;justify-content: center;">
+                        <div class="col-lg-4 col-md-12 col-sm-12" style="display: flex;justify-content: center;">
                             <asset:image src="Categories/cat_${course.category}.jpg"/>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-lg-8 col-md-12 col-sm-12">
                             <!-- Course details -->
-                            <div class="d-flex flex-wrap justify-content-between pb-4">
-                                <div class="pt-3 mr-3 col-8">
+                            <div class="d-flex flex-wrap justify-content-between pb-4 row">
+                                <div class="col-lg-8 col-md-12 col-sm-12">
                                     <h3 class="mb-0">${course.title}</h3><a class="font-size-lg text-warning" href="/category/${course.category}"><span><g:message code="categoryIndex.${course.category}"/></span></a>
                                 </div>
                                 <g:if test="${user}">
-                                    <div class="text-right" style="margin-top: 1rem;">
+                                    <div class=" col-lg-4 col-md-12 col-sm-12 text-right" style="margin-top: 1rem;">
                                         <form action="/search/semanticSearch" method="post">
                                             <input type="hidden" name="bannedCourse" value="${course.id}">
                                             <g:if test="${isLast}">

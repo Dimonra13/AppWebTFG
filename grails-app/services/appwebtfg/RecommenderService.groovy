@@ -7,7 +7,7 @@ import java.nio.charset.*
 import grails.util.Environment
 @Transactional
 class RecommenderService {
-    final String URL = (Environment.current == Environment.PRODUCTION) ? "http://165.227.230.218:80" : "http://localhost:8011"
+    final String URL = (Environment.current == Environment.PRODUCTION) ? "http://165.227.230.218:80" : "http://165.227.230.218:80"
     final def LANGUAGES = [
             "English",
             "Spanish",
@@ -166,7 +166,7 @@ class RecommenderService {
         try {
             RESTClient client = new RESTClient(URL)
             client.defaultAcceptHeader = ContentType.JSON
-            def path = "/courses/global/recommend/profile?k=4"
+            def path = "/courses/global/recommend/profile?k=8"
             def params = [
                     "perfil":generateProfile(user),
                     "contexto":generateContext(user)
@@ -199,7 +199,7 @@ class RecommenderService {
             RESTClient client = new RESTClient(URL)
             client.defaultAcceptHeader = ContentType.JSON
             String data = URLEncoder.encode(query, StandardCharsets.UTF_8.toString())
-            def path = "/courses/global/recommend/query?query=" + data + "&k=1"
+            def path = "/courses/global/recommend/query?query=" + data + "&k=2"
             def params = [
                     "perfil":generateProfile(user),
                     "contexto":generateContext(user)

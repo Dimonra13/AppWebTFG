@@ -25,14 +25,14 @@
                             <div class="invalid-feedback"><g:message code="create.courseList.name.error"></g:message></div>
                         </div>
                         <div class="input-group form-group">
-                            <div class="input-group-prepend"><span class="input-group-text"><g:message code="create.courseList.description.label"/> <g:message code="create.courseList.description.label.2"/></span></div>
+                            <div class="input-group-prepend"><span class="input-group-text"><g:message code="create.courseList.description.label"/></span></div>
                             <g:textArea class="form-control" name="description" value="" rows="5" cols="40"/>
                         </div>
                         <g:if test="${error}">
                             <p style="color:red"><g:message code="create.courseList.error"/></p>
                             <br>
                         </g:if>
-                        <div>
+                        <div class="text-right">
                             <g:field type="hidden" name="idCourse" value="${idCourse}"/>
                             <input type="hidden" name="recommendation" value="${recommendation}">
                             <g:submitButton name="submit" class="btn btn-primary"

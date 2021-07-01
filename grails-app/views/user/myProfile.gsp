@@ -171,7 +171,7 @@
                     </g:if>
                 </div>
                 <div class="row">
-                    <div class="card col-4">
+                    <div class="card col-lg-4 col-md-4 col-sm-12">
                         <div class="card-body">
                             <h4><g:message code="profile.skills.basic"/></h4>
                             <g:if test="${!user?.basicSkills}">
@@ -186,7 +186,7 @@
                             </g:each>
                         </div>
                     </div>
-                    <div class="card col-4">
+                    <div class="card col-lg-4 col-md-4 col-sm-12">
                         <div class="card-body">
                             <h4><g:message code="profile.skills.medium"/></h4>
                             <g:if test="${!user?.mediumSkills}">
@@ -201,7 +201,7 @@
                             </g:each>
                         </div>
                     </div>
-                    <div class="card col-4">
+                    <div class="card col-lg-4 col-md-4 col-sm-12">
                         <div class="card-body">
                             <h4><g:message code="profile.skills.expert"/></h4>
                             <g:if test="${!user?.expertSkills}">
@@ -255,7 +255,6 @@
                     <table class='courseList-display-table'>
                         <tr>
                             <th><g:message code="profile.lists.table.name"/></th>
-                            <th><g:message code="profile.lists.table.description"/></th>
                             <th><g:message code="profile.lists.table.courseNumber"/></th>
                             <th><g:message code="profile.lists.table.link"/></th>
                             <g:if test="${isregistered}">
@@ -271,12 +270,6 @@
                                 <tr class="odd-row">
                             </g:else>
                             <td>${courseList.name}</td>
-                            <g:if test="${courseList?.description?.length()<20}">
-                                <td>${courseList.description}</td>
-                            </g:if>
-                            <g:else>
-                                <td>${courseList?.description?.substring(0,20)}</td>
-                            </g:else>
                             <td>${courseList.courses.size()}</td>
                             <g:if test="${isregistered}">
                                 <td>
