@@ -252,6 +252,33 @@ en función de la tasa de uso que tenga cada uno. Para configurar el load balanc
 ![Load-6](https://i.imgur.com/p9q8Yaz.png)  
 8.- Pulsar en "Save"
 
+## Paso 10. Desplegar el script encargado de generar las recomendaciones de "Explore"
+El módulo de inteligencia artificial permite generar recomendaciones de cursos de diversas categorías que se salen de las busquedas normales de cada usuario. Gracias a esto, los usuarios pueden descubrir cursos interesantes para ellos que no podrían encontrar de otra forma.  
+Sin embargo, el cómputo de estas recomendaciones es muy lento, por lo que la aplicación no puede esperar a que se generen cada vez que el usuario hace una petición. La solución a este problema es el uso de un script que se ejecute una vez al día y genere estas recomenadaciones para todos los usuarios.  
+Para ello, usuaremos un cronjob y seguiremos los siguientes pasos para desplegarlo:
+
+### 10.1. Ir a la carpeta Script en una shell
+
+Abrir una shell en la carpeta raíz del proyecto y escribimos:
+
+```
+cd ./Kubernetes/Script
+```
+### 10.2. Desplegar el cronjob del script
+
+```
+kubectl create -f script_cronjob.yaml
+```
+### Ejecutar el script directamente
+A veces podemos querer ejecutar el script en el momento de desplegarlo, en vez de tener que esperar a la hora programada en el cronjob. Para ello podemos desplegar un job estándar para el script antes de desplegar el cronjob:
+```
+kubectl create -f script_job.yaml
+```
+**Es importante tener en cuenta que antes de desplegar el cronjob es necesario eliminar este job para evitar posibles interferencias entre ambos**
+```
+kubectl delete -f script_job.yaml
+```
+
 ## Eliminar el cluster y el load balancer  
 Para eliminar el cluster y el load balancer de forma que no consuman recursos y no se incurra en costes se deben seguir los siguientes pasos:  
 1.- En la sección de Networking/Load Balancers, pulsar "More" en el load balancer que se desea borrar y seleccionar "Destroy"
