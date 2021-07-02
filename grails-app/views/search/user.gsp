@@ -56,7 +56,7 @@
                             </div>
                             <div class="col-lg-8 col-md-12 col-sm-12">
                                 <!-- User details-->
-                                <div class="d-flex flex-wrap justify-content-between pb-4">
+                                <div class="d-flex flex-wrap justify-content-between pb-4" style="display: inline-block;word-break: break-word;">
                                     <div class="pt-3 mr-3">
                                         <h3 class="mb-0">${user.username}</h3><span class="font-size-lg text-warning">${user.email}</span>
                                     </div>

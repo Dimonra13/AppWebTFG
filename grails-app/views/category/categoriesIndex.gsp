@@ -149,7 +149,7 @@
                              <div class="product-card">
                                  <div class="product-card-body">
                                      <div class="product-card-title">
-                                        <h5  style="text-color: black;"><a href="/course/${course.id}">${course.title}</a></h5>
+                                        <h5  style="text-color: black;word-break: break-word;"><a href="/course/${course.id}/?search=true">${course.title}</a></h5>
                                         <g:if test="${course?.rating}">
                                              <span class="my-rating" id="my-rating${i}"></span><span class="font-weight-semibold ml-1"> (${course.rating})</span>
                                         </g:if>
@@ -195,7 +195,7 @@
                                      </ul>
                                  </div>
                                  <div class="product-card-body body-hidden pt-2">
-                                     <a href="/course/${course.id}"><button class="btn btn-primary btn-sm btn-block" type="button" data-toggle="toast" data-target="#cart-toast"><g:message code="course.search.link"></g:message></button></a>
+                                     <a href="/course/${course.id}/?search=true"><button class="btn btn-primary btn-sm btn-block" type="button" data-toggle="toast" data-target="#cart-toast"><g:message code="course.search.link"></g:message></button></a>
                                  </div>
                              </div>
                          </div>

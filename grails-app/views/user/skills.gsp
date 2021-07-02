@@ -44,7 +44,9 @@
                         <div class="form-group">
                             <input type="text" id="basic" name="basic" data-role="tagsinput" value="${bs}">
                         </div>
-                        <br>
+                        <div class="text-right">
+                            <button type="button" class="btn btn-info"><g:message code="skills.recommend.add"/></button>
+                        </div>
                         <h2 class="h4 mb-3"><g:message code="skills.recommend"/></h2>
                         <p class="text-muted mb-4"><g:message code="skills.recommend.explain"/></p>
                         <div>
@@ -63,7 +65,9 @@
                         <div class="form-group">
                             <input type="text" id="medium" name="medium" data-role="tagsinput" value="${ms}">
                         </div>
-                        <br>
+                        <div class="text-right">
+                            <button type="button" class="btn btn-info"><g:message code="skills.recommend.add"/></button>
+                        </div>
                         <h2 class="h4 mb-3"><g:message code="skills.recommend"/></h2>
                         <p class="text-muted mb-4"><g:message code="skills.recommend.explain"/></p>
                         <div>
@@ -82,7 +86,9 @@
                         <div class="form-group">
                             <input type="text" id="expert" name="expert" data-role="tagsinput" value="${es}">
                         </div>
-                        <br>
+                        <div class="text-right">
+                            <button type="button" class="btn btn-info"><g:message code="skills.recommend.add"/></button>
+                        </div>
                         <h2 class="h4 mb-3"><g:message code="skills.recommend"/></h2>
                         <p class="text-muted mb-4"><g:message code="skills.recommend.explain"/></p>
                         <div>

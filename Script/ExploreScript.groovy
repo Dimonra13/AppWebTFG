@@ -554,7 +554,7 @@ private def generateProfile(User user) {
         ]
     else {
         List<Course> courses = user?.lists?.courses?.flatten()
-        String description = " " + user?.interests?.join(",")+courses?.collect{course -> course.title}?.join(",")
+        String description = " " + user?.interests?.join(" ")+courses?.collect{course -> course.title}?.join(" ")
         String difficulty = calculateAvgDifficulty(courses,user)
         int free = calculateIsFree(courses)
         float rating = calculateAvgRating(courses)
@@ -595,7 +595,7 @@ private int calculateIsFree(List<Course> courses){
         }
     }
     //If there are enough courses with isFree in the user courseLists the result is the avg free
-    if(coursesWithIsFree>0 && accFree>0){
+    if(coursesWithIsFree>0){
         float  isFree = Math.round((accFree/coursesWithIsFree)*100)/100
         return (isFree < 0.5 ? 0 : 1 )
         //Otherwise, the result is the default value
@@ -615,9 +615,9 @@ private String calculateAvgDifficulty(List<Course> courses, User user){
     int coursesWithDifficulty = 0
     courses?.forEach{course ->
         if(course?.difficulty != null){
-            accDifficulty=accDifficulty + (course?.difficulty == "beginner" ? 1 :
+            accDifficulty=accDifficulty + (course?.difficulty == "advanced" ? 3 :
                     (course?.difficulty == "intermediate" ? 2 :
-                            3
+                            1
                     )
             )
             coursesWithDifficulty++

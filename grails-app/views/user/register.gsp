@@ -19,7 +19,7 @@
                         <label for="username"><g:message code="register.user.username.label"/></label>
                         <div class="input-group form-group">
                             <div class="input-group-prepend"><span class="input-group-text"><i data-feather="user"></i></span></div>
-                            <g:field type="text" class="form-control" name="username" id="username" value="${username}" required="true"/>
+                            <g:field type="text" class="form-control" name="username" id="username" value="${username}" required="true" minlength="8" maxlength="12"/>
                             <div class="invalid-feedback"><g:message code="register.user.username.error"></g:message></div>
                         </div>
                     </div>
@@ -27,7 +27,7 @@
                         <label for="email"><g:message code="register.user.email.label"/></label>
                         <div class="input-group form-group">
                             <div class="input-group-prepend"><span class="input-group-text"><i data-feather="mail"></i></span></div>
-                            <g:field class="form-control" type="email" name="email" id="email" value="${email}" required="true"/>
+                            <g:field class="form-control" type="email" name="email" id="email" value="${email}" required="true" maxlength="25"/>
                             <div class="invalid-feedback"><g:message code="register.user.email.error"></g:message></div>
                         </div>
                     </div>

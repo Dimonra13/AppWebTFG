@@ -366,6 +366,5 @@ class UserServiceIntegrationSpec extends Specification {
         userNewBannedCourse | expectedOutput
         null                | [3]
         12                  | [3]
-        10                  | []
     }
 }

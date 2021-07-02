@@ -33,7 +33,7 @@
         </div>
     </g:if>
     <g:else>
-        <table class='courseList-display-table'>
+        <table class='courseList-display-table' style="word-break: break-word;">
             <tr>
                 <th><g:message code="courseList.course.table.name"/></th>
                 <th><g:message code="courseList.course.table.avgScore"/></th>

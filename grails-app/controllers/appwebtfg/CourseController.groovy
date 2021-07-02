@@ -52,6 +52,8 @@ class CourseController {
                 userFeedbackService.updateClicks(authUser,recommendation)
                 if(recommendation=="semanticSearch")
                         userService.saveRecentSearch(authUser,course.title)
+            }else if(authUser&&params.search&&!params.fromCreate){
+                userService.saveRecentSearch(authUser,course.title)
             }
             related = recommenderService.getRelatedCourses(course,authUser).findAll{it -> it.id != id}.take(8)
         }

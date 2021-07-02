@@ -50,27 +50,71 @@ class SearchController {
     }
 
     /**
-     * Method that returns the page used for searching courses with a certain title, with the results of the query
+     * Method that returns the page used for searching courses, with the results of the query
      * paginated in pages of maximum 10 elements
      * @return view "search/course"
      */
     @Secured(["permitAll"])
     def searchCourse(){
-        String courseData = params.get("courseData")
-        List<Course> foundCourses = null
-        boolean isMore = false;
-        if(courseData && courseData!=""){
-            User authUser = springSecurityService.getCurrentUser() as User
-            if(authUser)
-                userService.saveRecentSearch(authUser,courseData)
-            if(!params.get("offset"))
-                params.offset=0
+        int pageSize
+        int offset
+        String title = null
+        String sortBy
+        boolean sortByAsc
+        boolean freeOnly = params.freeOnly as boolean
+        boolean englishOnly = params.englishOnly as boolean
+        String difficulty = null
+        String ogpage = null
+        if(params.get("customSearch")){
+            pageSize=Integer.parseInt(params.pageSize)
+            if(params.offset)
+                offset=Integer.parseInt(params.offset)
             else
-                params.offset=Integer.parseInt(params.get("offset"))
-            foundCourses = courseService.findCoursesByTitle(courseData,10,params.offset)
-            isMore = courseService.findCoursesByTitle(courseData,10,params.offset+10) as boolean
+                offset=(Integer.parseInt(params.page)-1)*pageSize
+            if(params.title)
+                title=params.title
+            if(params.sortBy == g.message(code: "categoryIndex.sortBy.rating")){
+                sortBy='rating'
+                sortByAsc=false
+            }else if(params.sortBy == g.message(code: "categoryIndex.sortBy.A-Z")){
+                sortBy='title'
+                sortByAsc=true
+            }else if(params.sortBy == g.message(code: "categoryIndex.sortBy.Z-A")){
+                sortBy='title'
+                sortByAsc=false
+            }else{
+                sortBy=null
+                sortByAsc=false
+            }
+            if(params.difficulty == g.message(code: "categoryIndex.difficulty.beginner"))
+                difficulty= 'beginner'
+            else if(params.difficulty == g.message(code: "categoryIndex.difficulty.intermediate"))
+                difficulty= 'intermediate'
+            else if(params.difficulty == g.message(code: "categoryIndex.difficulty.advanced"))
+                difficulty= 'advanced'
+            if(params.ogpage)
+                ogpage=(params.ogpage==g.message(code: "course.search.ogpage.all"))? null : params.ogpage
+        }else{
+            pageSize=12
+            offset=0
+            sortBy=null
+            sortByAsc=false
         }
-        render(view: "course", model: [courseData: courseData,foundCourses: foundCourses,search: true,isMore: isMore,params:params])
+        List<Course> courses = courseService.findCourses(null,pageSize,offset,title,freeOnly,englishOnly,sortBy,sortByAsc,difficulty,ogpage)
+        boolean isMore = courseService.findCourses(null,pageSize,offset+pageSize,title,freeOnly,englishOnly,sortBy,sortByAsc,difficulty,ogpage) as boolean
+        render(view: "course",model: [
+                courses: courses,
+                isMore: isMore,
+                pageSize: pageSize,
+                offset: offset,
+                title: title,
+                freeOnly: freeOnly,
+                englishOnly: englishOnly,
+                difficulty: params.difficulty,
+                ogpage: ogpage,
+                sortBy: params.sortBy,
+                customSearch: "true"
+        ])
     }
 
     @Secured(["permitAll"])

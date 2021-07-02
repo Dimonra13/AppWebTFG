@@ -21,7 +21,7 @@
                     <form action="/createCourseList/create" class="needs-validation"  novalidate>
                         <div class="input-group form-group">
                             <div class="input-group-prepend"><span class="input-group-text"><g:message code="create.courseList.name.label"/></span></div>
-                            <g:field type="text" class="form-control" name="name" id="name" value="" required="true"/>
+                            <g:field type="text" class="form-control" name="name" id="name" value="" required="true" maxlength="25"/>
                             <div class="invalid-feedback"><g:message code="create.courseList.name.error"></g:message></div>
                         </div>
                         <div class="input-group form-group">

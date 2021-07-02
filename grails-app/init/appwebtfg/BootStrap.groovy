@@ -32,8 +32,8 @@ class BootStrap {
             r.eachWithIndex{ String[] line, int index ->
                 Course course = new Course(title: line[14], description: line[1],url: line[15],
                         category: mapCourseraCategory(line[17]),idCurso: index,language: line[9],author: line[7],
-                        rating: Float.parseFloat(line[11]),difficulty: line[2],isFree: 2,duration: line[20],price: 0,
-                        popularity: line[5],originalPage: "Coursera")
+                        rating: Float.parseFloat(line[11]),difficulty: line[2],isFree: 2,duration: Float.parseFloat(line[20]),price: 0,
+                        popularity: Float.parseFloat(line[5]).intValue(),originalPage: "Coursera")
                 if(course)
                     course.save()
             }
@@ -106,7 +106,8 @@ class BootStrap {
                  Course course = new Course(title: line[10], description: line[1],url: line[11],
                          category: mapUdacityCategory(line[8]),idCurso: index,language: line[12],
                          author: line[0],rating: Math.round((Float.parseFloat(line[7])/20) * 100)/ 100,difficulty: line[2],
-                         isFree: 3, duration: line[3],price: 359, popularity: line[6],originalPage: "Udacity")
+                         isFree: (line[4]=="1") ? 1 : 3, duration: Float.parseFloat(line[3]),price: (line[4]=="1") ? 0 : 359,
+                         popularity: Float.parseFloat(line[6]).intValue(),originalPage: "Udacity")
                  if(course)
                      course.save()
              }
@@ -153,8 +154,8 @@ class BootStrap {
                     try{
                         Course course = new Course(title: line[11], description: line[2],url: line[12],
                                 category: mapUdemyCategory(line[10]),idCurso: index,language: line[6],
-                                rating: Float.parseFloat(line[8]),popularity: line[7], originalPage: "Udemy",
-                                isFree: line[4], duration: Math.round(Float.parseFloat(line[13]) * 100) / 100,price: line[1])
+                                rating: Float.parseFloat(line[8]),popularity: Float.parseFloat(line[7]).intValue(), originalPage: "Udemy",
+                                isFree: line[4], duration: Math.round(Float.parseFloat(line[13]) * 100) / 100,price: Float.parseFloat(line[1]))
                         if(course)
                             course.save()
                     }catch(Exception e){

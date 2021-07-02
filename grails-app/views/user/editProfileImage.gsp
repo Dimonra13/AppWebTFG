@@ -31,7 +31,7 @@
                                     <g:message code="profile.image.choose"></g:message>
                                 </label>
                             </div>
-                            <div class="text-center col-lg-7 col-md-6 col-sm-12">
+                            <div class="text-center col-lg-7 col-md-6 col-sm-12" style="display: inline-block;word-break: break-word;">
                                 <p class="file-name"></p>
                             </div>
                         </div>

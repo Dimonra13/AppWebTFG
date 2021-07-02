@@ -6,7 +6,7 @@ import grails.gorm.transactions.Transactional
 class CourseService {
 
     /**
-     * Method to get all the courses of the specified category that meet the search criteria received as parameter
+     * Method to get all the courses that meet the search criteria received as parameter
      * paginated with offset $offset and page size $max and order by $sortBy and $sortByAsc (if present)
      * @param category
      * @param max
@@ -17,11 +17,12 @@ class CourseService {
      * @param sortBy
      * @param sortByAsc
      * @param difficulty
+     * @param ogpage
      * @return the list of courses that meet these criteria
      */
-    List<Course> findCourses(String category, int max, int offset, String title, boolean freeOnly, boolean englishOnly, String sortBy, boolean sortByAsc, String difficulty){
+    List<Course> findCourses(String category, int max, int offset, String title, boolean freeOnly, boolean englishOnly, String sortBy, boolean sortByAsc, String difficulty,String ogpage){
         Course.createCriteria().list(max:max,offset:offset) {
-            eq("category",category)
+            if(category) eq("category",category)
             if(title) ilike("title","%${title}%")
             if (freeOnly) or{
                 eq("isFree",1)
@@ -32,9 +33,11 @@ class CourseService {
                 eq("language","english")
             }
             if(difficulty) eq("difficulty",difficulty)
+            if(ogpage) eq("originalPage",ogpage)
             if(sortBy) order sortBy, sortByAsc ? 'asc' : 'desc'
         } as List<Course>
     }
+
 
     /**
      * Method to get all the courses with paginated with offset $offset and page size $max

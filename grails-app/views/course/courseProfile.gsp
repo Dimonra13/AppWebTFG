@@ -24,8 +24,8 @@
         <div class="col-lg-8">
             <!-- Course details -->
             <div class="d-flex flex-wrap justify-content-between pb-4">
-                <div class="pt-3 mr-3">
-                    <h3 class="mb-0">${course.title}</h3><span class="font-size-lg text-warning"><g:message code="categoryIndex.${course.category}"/></span>
+                <div class="pt-3 mr-3" style="display: inline-block;word-break: break-word;">
+                    <h3 class="mb-0">${course.title}</h3><a class="font-size-lg text-warning" href="/category/${course.category}"><span><g:message code="categoryIndex.${course.category}"/></span></a>
                 </div>
             </div>
             <ul class="list-unstyled border p-3 mb-4">
@@ -90,7 +90,7 @@
                         <span class="font-weight-semibold ml-1"><g:message code="course.profile.noPrice"/></span>
                     </g:else>
                 </li>
-                <li class="pb-1"><span class="opacity-80">- <g:message code="course.profile.url"/>:</span>
+                <li class="pb-1" style="display: inline-block;word-break: break-word;"><span class="opacity-80">- <g:message code="course.profile.url"/>:</span>
                     <g:if test="${course?.url}">
                         <span class="font-weight-semibold ml-1"><a href="${course.url}">${course.url}</a></span>
                     </g:if>
@@ -104,7 +104,7 @@
         <g:if test="${course?.description}">
             <div class="col-12">
                 <div class="card">
-                    <div class="card-body">
+                    <div class="card-body" style="display: inline-block;word-break: break-word;">
                         <h4><g:message code="course.profile.description"/></h4>
                         <p>${course?.description}</p>
                     </div>
@@ -182,7 +182,7 @@
                                 <div class="text-left">
                                     <asset:image src="ogpageicons/${recourse.originalPage}.png" style="width: 5rem;height:5rem;position:relative; z-index:1;margin-top: -7rem"/>
                                 </div>
-                                    <div class="product-card-body">
+                                    <div class="product-card-body" style="word-break: break-word;">
                                         <h5><a href="/course/${recourse.id}/?recommendation=relatedCourse">${recourse.title}</a></h5>
                                         <g:if test="${recourse?.rating}">
                                             <p><span class="my-rating" id="my-rating${i}"></span><span class="font-weight-semibold ml-1"> (${recourse.rating})</span></p>

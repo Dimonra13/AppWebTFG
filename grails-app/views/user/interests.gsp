@@ -32,13 +32,8 @@
                 </g:else>
             </div>
             <div class="col-md-12 pt-6 pt-sm-3">
-            <div class="owl-carousel" data-owl-carousel='{ "nav": true, "dots": true }'>
-                <div class="row no-gutters" style="margin-top: 4rem;">
+                <div class="row no-gutters">
                 <g:each var="category" in="${catList}" status="i">
-                    <g:if test="${ (i>0) && (i%8 == 0)}">
-                        </div>
-                        <div class="row no-gutters" style="margin-top: 4rem;">
-                    </g:if>
                     <!-- Product-->
                     <div class="col-lg-3 col-sm-4 col-6 border border-collapse">
                         <div class="product-card">
@@ -58,7 +53,6 @@
                 </div>
             </div>
             <br>
-            </div>
             <form name="imageSubmit" action="/user/updateInterests">
                 <input type="hidden" name="fromRegister" value="${fromRegister}">
                 <div class="text-right">

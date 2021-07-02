@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <asset:link rel="shortcut icon" href="favicon.ico"/>
     <title>
         <g:layoutTitle default="Coursing.me"/>
     </title>
@@ -164,7 +165,10 @@
                     <a href="/search/user" class="nav-link rounded"><g:message code="header.search.user"/></a>
                 </li>
                 <li class="nav-item">
-                    <a href="/search/semantic" class="nav-link rounded"><g:message code="header.search.course"/></a>
+                    <a href="/search/semantic" class="nav-link rounded"><g:message code="header.search.course.semantic"/></a>
+                </li>
+                <li class="nav-item">
+                    <a href="/search/course" class="nav-link rounded"><g:message code="header.search.course.complete"/></a>
                 </li>
             </ul>
             <ul class="nav nav-pills">

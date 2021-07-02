@@ -137,7 +137,7 @@ class RecommenderService {
             }
             def path = endpoint+"?k=3"
             def params = [
-                          "perfil":generateProfile(user),
+                          "perfil":generateProfile(user,false),
                           "contexto":generateContext(user)
                          ]
             def response = client.post(path: path) {
@@ -168,7 +168,7 @@ class RecommenderService {
             client.defaultAcceptHeader = ContentType.JSON
             def path = "/courses/global/recommend/profile?k=8"
             def params = [
-                    "perfil":generateProfile(user),
+                    "perfil":generateProfile(user,false),
                     "contexto":generateContext(user)
             ]
             def response = client.post(path: path) {
@@ -201,7 +201,7 @@ class RecommenderService {
             String data = URLEncoder.encode(query, StandardCharsets.UTF_8.toString())
             def path = "/courses/global/recommend/query?query=" + data + "&k=2"
             def params = [
-                    "perfil":generateProfile(user),
+                    "perfil":generateProfile(user,true),
                     "contexto":generateContext(user)
             ]
             def response = client.post(path: path) {
@@ -314,7 +314,7 @@ class RecommenderService {
      * @param user
      * @return the "profile" object
      */
-    private def generateProfile(User user) {
+    private def generateProfile(User user,boolean relatedToQuery) {
         if(!user)
             return [
                 "description": " ",
@@ -328,10 +328,11 @@ class RecommenderService {
             ]
         else {
             List<Course> courses = user?.lists?.courses?.flatten()
-            String description = " " + user?.interests?.join(",")+
-                    (user?.basicSkills) ? ","+user?.basicSkills?.collect{it.name}?.join(",") : "" +
-                    (user?.mediumSkills) ? ","+user?.mediumSkills?.collect{it.name}?.join(",") : "" +
-                    (user?.expertSkills) ? ","+user?.expertSkills?.collect{it.name}?.join(",") : ""
+            String description = " " + user?.interests?.join(" ")+
+                    ((user?.basicSkills) ? " "+user?.basicSkills?.collect{it.name}?.join(" ") : "") +
+                    ((user?.mediumSkills) ? " "+user?.mediumSkills?.collect{it.name}?.join(" ") : "") +
+                    ((user?.expertSkills) ? " "+user?.expertSkills?.collect{it.name}?.join(" ") : "") +
+                    ((relatedToQuery) ? "" : " "+courses?.collect{course -> course.title}?.join(" "))
             String difficulty = calculateAvgDifficulty(courses,user)
             int free = calculateIsFree(courses)
             float rating = calculateAvgRating(courses)
@@ -372,7 +373,7 @@ class RecommenderService {
             }
         }
         //If there are enough courses with isFree in the user courseLists the result is the avg free
-        if(coursesWithIsFree>0 && accFree>0){
+        if(coursesWithIsFree>0){
             float  isFree = Math.round((accFree/coursesWithIsFree)*100)/100
             return (isFree < 0.5 ? 0 : 1 )
         //Otherwise, the result is the default value
@@ -392,9 +393,9 @@ class RecommenderService {
         int coursesWithDifficulty = 0
         courses?.forEach{course ->
             if(course?.difficulty != null){
-                accDifficulty=accDifficulty + (course?.difficulty == "beginner" ? 1 :
+                accDifficulty=accDifficulty + (course?.difficulty == "advanced" ? 3 :
                                                 (course?.difficulty == "intermediate" ? 2 :
-                                                        3
+                                                        1
                                                 )
                                               )
                 coursesWithDifficulty++
