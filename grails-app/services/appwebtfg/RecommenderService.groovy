@@ -97,7 +97,7 @@ class RecommenderService {
             RESTClient client = new RESTClient(URL)
             client.defaultAcceptHeader = ContentType.JSON
             data = URLEncoder.encode(data.toLowerCase(), StandardCharsets.UTF_8.toString())
-            def path = "/courses/global/search/?query=" + data + "&k=10"
+            def path = "/courses/global/search/?query=" + data + "&k=12"
             def params = generateContext(user)
             def response = client.post(path: path) {
                 type ContentType.JSON
@@ -105,9 +105,9 @@ class RecommenderService {
             }
             def slurper = new JsonSlurper()
             def responseData = slurper.parse(response.data)
-            Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map)?.keySet()?.collect { Integer.parseInt(it) }.take(5)
-            Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map)?.keySet()?.collect { Integer.parseInt(it) }.take(10)
-            Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map)?.keySet()?.collect { Integer.parseInt(it) }.take(10)
+            Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map)?.keySet()?.collect { Integer.parseInt(it) }.take(2)
+            Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map)?.keySet()?.collect { Integer.parseInt(it) }.take(11)
+            Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map)?.keySet()?.collect { Integer.parseInt(it) }.take(12)
             return getCourses(idsUdacity, idsCoursera, idsUdemy).toSet().toList()
         } catch (Exception e) {
             e.printStackTrace()
@@ -135,7 +135,7 @@ class RecommenderService {
             }else{
                 endpoint = "/courses/udemy/"+ course.idCurso +"/related"
             }
-            def path = endpoint+"?k=3"
+            def path = endpoint+"?k=5"
             def params = [
                           "perfil":generateProfile(user,false),
                           "contexto":generateContext(user)
@@ -146,9 +146,9 @@ class RecommenderService {
             }
             def slurper = new JsonSlurper()
             def responseData = slurper.parse(response.data)
-            Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map)?.keySet()?.collect { Integer.parseInt(it) }
-            Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map)?.keySet()?.collect { Integer.parseInt(it) }
-            Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map)?.keySet()?.collect { Integer.parseInt(it) }
+            Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map)?.keySet()?.collect { Integer.parseInt(it) }.findAll{it != course.idCurso}.take(1)
+            Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map)?.keySet()?.collect { Integer.parseInt(it) }.findAll{it != course.idCurso}.take(3)
+            Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map)?.keySet()?.collect { Integer.parseInt(it) }.findAll{it != course.idCurso}.take(4)
             return getCourses(idsUdacity, idsCoursera, idsUdemy)
         } catch (Exception e) {
             e.printStackTrace()
@@ -166,7 +166,7 @@ class RecommenderService {
         try {
             RESTClient client = new RESTClient(URL)
             client.defaultAcceptHeader = ContentType.JSON
-            def path = "/courses/global/recommend/profile?k=8"
+            def path = "/courses/global/recommend/profile?k=11"
             def params = [
                     "perfil":generateProfile(user,false),
                     "contexto":generateContext(user)
@@ -177,7 +177,7 @@ class RecommenderService {
             }
             def slurper = new JsonSlurper()
             def responseData = slurper.parse(response.data)
-            Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map)?.keySet()?.collect { Integer.parseInt(it) }
+            Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map)?.keySet()?.collect { Integer.parseInt(it) }.take(2)
             Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map)?.keySet()?.collect { Integer.parseInt(it) }
             Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map)?.keySet()?.collect { Integer.parseInt(it) }
             return getCourses(idsUdacity, idsCoursera, idsUdemy)
@@ -194,12 +194,12 @@ class RecommenderService {
      * @param user
      * @return the list of recommended courses
      */
-    List<Course> getRecommendedCoursesRelatedToQuery(User user,String query) {
+    List<Course> getRecommendedCoursesRelatedToQuery(User user,String query,int k) {
         try {
             RESTClient client = new RESTClient(URL)
             client.defaultAcceptHeader = ContentType.JSON
             String data = URLEncoder.encode(query, StandardCharsets.UTF_8.toString())
-            def path = "/courses/global/recommend/query?query=" + data + "&k=2"
+            def path = "/courses/global/recommend/query?query=" + data + "&k=${k}"
             def params = [
                     "perfil":generateProfile(user,true),
                     "contexto":generateContext(user)
@@ -210,10 +210,9 @@ class RecommenderService {
             }
             def slurper = new JsonSlurper()
             def responseData = slurper.parse(response.data)
-            Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map)?.keySet()?.collect { Integer.parseInt(it) }
             Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map)?.keySet()?.collect { Integer.parseInt(it) }
             Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map)?.keySet()?.collect { Integer.parseInt(it) }
-            return getCourses(idsUdacity, idsCoursera, idsUdemy)
+            return getCourses(null, idsCoursera, idsUdemy)
         } catch (Exception e) {
             e.printStackTrace()
             return []
