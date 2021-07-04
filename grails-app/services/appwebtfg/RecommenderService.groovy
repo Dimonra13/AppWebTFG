@@ -5,6 +5,9 @@ import groovy.json.JsonSlurper
 import wslite.rest.*
 import java.nio.charset.*
 import grails.util.Environment
+
+import java.util.stream.Collectors
+
 @Transactional
 class RecommenderService {
     final String URL = (Environment.current == Environment.PRODUCTION) ? "http://165.227.230.218:80" : "http://165.227.230.218:80"
@@ -86,6 +89,12 @@ class RecommenderService {
     final int DEFAULT_ISFREE = 1
     final String DEFAULT_INSTITUTION = "Coursera"
 
+    final Set<String> brands = ['Google','Apple','Oracle','Microsoft','SAP']
+    final Set<String> science = ['Data-Science','Machine-Learning','Cloud-Computing','Engineering','Security',
+                                 'Software-Engineering','Maths','Science','Gaming','IT-Certification',
+                                 'Test-Prep','Architecture']
+    final Set<String> humanities = ['Business-Finance','Leadership','Entrepreneurship','Personal-Development',
+                                    'Human-Studies','Arts','Education','Health','Marketing','Graphic-Design']
     /**
      * Method used to make the API request to obtain the semantic search results and return the list of corresponding courses.
      * @param data
@@ -122,6 +131,70 @@ class RecommenderService {
      * @return the list of related courses
      */
     List<Course> getRelatedCourses(Course course, User user) {
+        if(user&&user?.interests){
+            List<String> scienceInterests = new ArrayList<>()
+            List<String> humanitiesInterests = new ArrayList<>()
+            List<String> brandsInterests = new ArrayList<>()
+            user?.interests.each {String interest ->
+                if(science.contains(interest))
+                    scienceInterests.add(interest)
+                else if(humanities.contains(interest))
+                    humanitiesInterests.add(interest)
+                else if(brands.contains(interest))
+                    brandsInterests.add(interest)
+            }
+            if(scienceInterests.isEmpty()){
+                if(humanitiesInterests.isEmpty()){
+                    return getRelatedCourses(course,user,5,brandsInterests,1,4,3)
+                }else{
+                    if(brandsInterests.isEmpty()){
+                        return getRelatedCourses(course,user,5,humanitiesInterests,1,4,3)
+                    }else{
+                        return (getRelatedCourses(course,user,3,humanitiesInterests,1,2,1) +
+                                getRelatedCourses(course,user,4,brandsInterests,0,4,4))
+                                .stream().distinct().collect(Collectors.toList()).take(8)
+                    }
+                }
+            }else{
+                if(humanitiesInterests.isEmpty()){
+                    if(brandsInterests.isEmpty()){
+                        return getRelatedCourses(course,user,5,scienceInterests,1,4,3)
+                    }else{
+                        return (getRelatedCourses(course,user,3,scienceInterests,1,2,1) +
+                                getRelatedCourses(course,user,4,brandsInterests,0,4,4))
+                                .stream().distinct().collect(Collectors.toList()).take(8)
+                    }
+                }else{
+                    if(brandsInterests.isEmpty()){
+                        return (getRelatedCourses(course,user,3,scienceInterests,1,2,1) +
+                                getRelatedCourses(course,user,4,humanitiesInterests,0,4,4))
+                                .stream().distinct().collect(Collectors.toList()).take(8)
+                    }else{
+                        return (getRelatedCourses(course,user,3,humanitiesInterests,0,1,1) +
+                                getRelatedCourses(course,user,3,brandsInterests,0,1,2) +
+                                getRelatedCourses(course,user,5,scienceInterests,1,5,2))
+                                .stream().distinct().collect(Collectors.toList()).take(8)
+                    }
+                }
+            }
+        }else{
+            return getRelatedCourses(course,user,5,null,1,4,3)
+        }
+    }
+
+    /**
+     * Method used to make the request to the API to obtain the specified amount of courses related to the course
+     * received as parameter of this method.
+     * @param course
+     * @param user
+     * @param k
+     * @param userInterests
+     * @param nUdacity
+     * @param nUdemy
+     * @param nCoursera
+     * @return the list of related courses
+     */
+    List<Course> getRelatedCourses(Course course, User user, int k,List<String> userInterests,int nUdacity,int nUdemy,int nCoursera) {
         if(!course || !course?.idCurso)
             return []
         try {
@@ -135,9 +208,9 @@ class RecommenderService {
             }else{
                 endpoint = "/courses/udemy/"+ course.idCurso +"/related"
             }
-            def path = endpoint+"?k=5"
+            def path = endpoint+"?k=${k}"
             def params = [
-                          "perfil":generateProfile(user,false),
+                          "perfil":generateProfile(user,true,userInterests),
                           "contexto":generateContext(user)
                          ]
             def response = client.post(path: path) {
@@ -146,9 +219,9 @@ class RecommenderService {
             }
             def slurper = new JsonSlurper()
             def responseData = slurper.parse(response.data)
-            Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map)?.keySet()?.collect { Integer.parseInt(it) }.findAll{it != course.idCurso}.take(1)
-            Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map)?.keySet()?.collect { Integer.parseInt(it) }.findAll{it != course.idCurso}.take(3)
-            Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map)?.keySet()?.collect { Integer.parseInt(it) }.findAll{it != course.idCurso}.take(4)
+            Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map)?.keySet()?.collect { Integer.parseInt(it) }.findAll{it != course.idCurso}.take(nUdacity)
+            Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map)?.keySet()?.collect { Integer.parseInt(it) }.findAll{it != course.idCurso}.take(nCoursera)
+            Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map)?.keySet()?.collect { Integer.parseInt(it) }.findAll{it != course.idCurso}.take(nUdemy)
             return getCourses(idsUdacity, idsCoursera, idsUdemy)
         } catch (Exception e) {
             e.printStackTrace()
@@ -168,7 +241,7 @@ class RecommenderService {
             client.defaultAcceptHeader = ContentType.JSON
             def path = "/courses/global/recommend/profile?k=11"
             def params = [
-                    "perfil":generateProfile(user,false),
+                    "perfil":generateProfile(user,false,null),
                     "contexto":generateContext(user)
             ]
             def response = client.post(path: path) {
@@ -195,13 +268,74 @@ class RecommenderService {
      * @return the list of recommended courses
      */
     List<Course> getRecommendedCoursesRelatedToQuery(User user,String query,int k) {
+        if(user&&user?.interests){
+            List<String> scienceInterests = new ArrayList<>()
+            List<String> humanitiesInterests = new ArrayList<>()
+            List<String> brandsInterests = new ArrayList<>()
+            user?.interests.each {String interest ->
+                if(science.contains(interest))
+                    scienceInterests.add(interest)
+                else if(humanities.contains(interest))
+                    humanitiesInterests.add(interest)
+                else if(brands.contains(interest))
+                    brandsInterests.add(interest)
+            }
+            if(scienceInterests.isEmpty()){
+                if(humanitiesInterests.isEmpty()){
+                    return getRecommendedCoursesRelatedToQuery(user,query,k,brandsInterests)
+                }else{
+                    if(brandsInterests.isEmpty()){
+                        return
+                    }else{
+                        return (getRecommendedCoursesRelatedToQuery(user,query,(k/2) as int,humanitiesInterests) +
+                                getRecommendedCoursesRelatedToQuery(user,query,k,brandsInterests))
+                                .stream().distinct().collect(Collectors.toList()).take(k*2)
+                    }
+                }
+            }else{
+                if(humanitiesInterests.isEmpty()){
+                    if(brandsInterests.isEmpty()){
+                        return getRecommendedCoursesRelatedToQuery(user,query,k,scienceInterests)
+                    }else{
+                        return (getRecommendedCoursesRelatedToQuery(user,query,(k/2) as int,scienceInterests) +
+                                getRecommendedCoursesRelatedToQuery(user,query,k,brandsInterests))
+                                .stream().distinct().collect(Collectors.toList()).take(k*2)
+                    }
+                }else{
+                    if(brandsInterests.isEmpty()){
+                        return (getRecommendedCoursesRelatedToQuery(user,query,(k/2) as int,scienceInterests) +
+                                getRecommendedCoursesRelatedToQuery(user,query,k,humanitiesInterests))
+                                .stream().distinct().collect(Collectors.toList()).take(k*2)
+                    }else{
+                        return (getRecommendedCoursesRelatedToQuery(user,query,(k/3) as int,brandsInterests) +
+                                getRecommendedCoursesRelatedToQuery(user,query,(k/3) as int,humanitiesInterests)+
+                                getRecommendedCoursesRelatedToQuery(user,query,k,scienceInterests))
+                                .stream().distinct().collect(Collectors.toList()).take(k*2)
+                    }
+                }
+            }
+        }else{
+            return getRecommendedCoursesRelatedToQuery(user,query,k,null)
+        }
+    }
+
+    /**
+     * Method used to make the request to the API to obtain the specified amount of courses related with a query
+     * recommended for the user received as parameter of this method.
+     * @param user
+     * @param query
+     * @param k
+     * @param userInterests
+     * @return the list of recommended courses
+     */
+    List<Course> getRecommendedCoursesRelatedToQuery(User user,String query,int k,List<String> userInterests) {
         try {
             RESTClient client = new RESTClient(URL)
             client.defaultAcceptHeader = ContentType.JSON
             String data = URLEncoder.encode(query, StandardCharsets.UTF_8.toString())
             def path = "/courses/global/recommend/query?query=" + data + "&k=${k}"
             def params = [
-                    "perfil":generateProfile(user,true),
+                    "perfil":generateProfile(user,true,userInterests),
                     "contexto":generateContext(user)
             ]
             def response = client.post(path: path) {
@@ -227,7 +361,7 @@ class RecommenderService {
      * @return the list of requested courses
      */
     private List<Course> getCourses(Set<Integer> idsUdacity, Set<Integer> idsCoursera, Set<Integer> idsUdemy) {
-        getCoursesUdemy(idsUdemy)+getCoursesCoursera(idsCoursera)+getCoursesUdacity(idsUdacity)
+        getCoursesUdacity(idsUdacity)+getCoursesUdemy(idsUdemy)+getCoursesCoursera(idsCoursera)
     }
 
     /**
@@ -313,7 +447,7 @@ class RecommenderService {
      * @param user
      * @return the "profile" object
      */
-    private def generateProfile(User user,boolean relatedToQuery) {
+    private def generateProfile(User user,boolean relatedTo,List<String> userInterests) {
         if(!user)
             return [
                 "description": " ",
@@ -327,11 +461,12 @@ class RecommenderService {
             ]
         else {
             List<Course> courses = user?.lists?.courses?.flatten()
-            String description = " " + user?.interests?.join(" ")+
+            String description = " " +
+                    ((userInterests)? userInterests.join(" ") : user?.interests?.join(" "))+
                     ((user?.basicSkills) ? " "+user?.basicSkills?.collect{it.name}?.join(" ") : "") +
                     ((user?.mediumSkills) ? " "+user?.mediumSkills?.collect{it.name}?.join(" ") : "") +
                     ((user?.expertSkills) ? " "+user?.expertSkills?.collect{it.name}?.join(" ") : "") +
-                    ((relatedToQuery) ? "" : " "+courses?.collect{course -> course.title}?.join(" "))
+                    ((relatedTo) ? "" : ". "+courses?.collect{course -> course.title}?.join(". "))
             String difficulty = calculateAvgDifficulty(courses,user)
             int free = calculateIsFree(courses)
             float rating = calculateAvgRating(courses)

@@ -74,7 +74,8 @@ class CourseListController {
         CourseList newcl = courseListService.createCourseList(authUser, params?.name, params?.description)
         if (newcl) {
             if (params?.idCourse) {
-                redirect(controller: "course", action: "getCourse", params: [id: params?.idCourse,recommendation: params?.get("recommendation"),fromCreate:"true"])
+                redirect(controller: "courseList", action: "addCourseToMyCourseList",
+                        params: [idList:newcl.id,idCourse: params?.idCourse,recommendation: params?.get("recommendation")])
             } else {
                 redirect(controller: "User", action: "myProfile")
             }

@@ -11,7 +11,7 @@ class UserController {
     SpringSecurityService springSecurityService
     UserService userService
     SkillService skillService
-    CourseService courseService
+    CourseListService courseListService
 
     /**
      * Method that returns the register page
@@ -36,6 +36,7 @@ class UserController {
         } else {
             User newUser = registrationService.registerUser(params?.username, params?.password, params?.email)
             if (newUser) {
+                courseListService.createCourseList(newUser,g.message(code: "courseList.default.title"),g.message(code: "courseList.default.description"))
                 springSecurityService.reauthenticate(newUser.username)
                 redirect(controller: "user", action: "addInterestsFromRegister")
             } else {
