@@ -26,9 +26,11 @@ class UrlMappings {
         //CourseList mappings
         "/courseList/$id"(controller: "courseList", action: "getCourseList")
         "/myCourseList/$id"(controller: "courseList", action: "getMyCourseList")
+        "/editMyCourseList/$id"(controller: "courseList", action: "editCourseList")
         "/createCourseList/"(controller: "courseList", action: "createCourseList")
         "/deleteMyCourseList/$id"(controller: "courseList", action: "deleteMyCourseList")
         "/createCourseList/create"(controller: "courseList", action: "create")
+        "/editMyCourseList/edit"(controller: "courseList", action: "edit")
         "/courseList/deleteCourseFromMyCourseList"(controller: "courseList", action: "deleteCourseFromMyCourseList")
         "/courseList/addCourseToMyCourseList"(controller: "courseList", action: "addCourseToMyCourseList")
 

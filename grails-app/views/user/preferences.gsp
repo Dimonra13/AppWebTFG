@@ -9,11 +9,15 @@
 <asset:javascript src="jquery.range.js"/>
 <asset:stylesheet src="jquery.range.css"/>
 <div class="container pt-lg-3 pb-5 mb-sm-5">
+    <g:if test="${update}">
+        <div class="text-right">
+            <a class="btn btn-outline-primary btn-sm" href="/user/myProfile/"><i class="mr-1" data-feather="chevrons-left"></i><g:message code="profile.image.back"></g:message></a>
+        </div>
+    </g:if>
     <div class="row">
         <div class="col-md-12 pt-6 pt-sm-3 d-flex flex-wrap justify-content-between align-items-center pb-2">
             <g:if test="${update}">
                 <h2 class="h3 mb-3"><g:message code="preferences.title.update"/></h2>
-                <a class="btn btn-outline-primary btn-sm" href="/user/myProfile/"><i class="mr-1" data-feather="chevrons-left"></i><g:message code="profile.image.back"></g:message></a>
             </g:if>
             <g:else>
                 <h2 class="h3 mb-3"><g:message code="preferences.title"/></h2>

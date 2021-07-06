@@ -119,8 +119,11 @@
                         <!-- search-box-->
                         <div class="flex-grow-1 flex-nowrap mr-3 mr-sm-4 pb-3" >
                             <div class="input-group flex-nowrap">
-                                <div class="input-group-prepend"><span class="input-group-text rounded-left" id="search-icon"><i
-                                        data-feather="search"></i></span></div>
+                                <div class="input-group-prepend">
+                                    <button type="submit" class="btn searchbutton input-group-text rounded-left" id="search-icon">
+                                        <i data-feather="search"></i>
+                                    </button>
+                                </div>
                                 <g:if test="${title && title!=""}">
                                     <input class="form-control rounded-right" type="text" id="search-course" name="title" value="${title}"
                                            placeholder="${message(code: 'course.search.bar')}" aria-label="Search site" aria-describedby="search-icon">

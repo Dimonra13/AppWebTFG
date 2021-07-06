@@ -20,8 +20,11 @@
                 <!-- search-box-->
                 <div class="flex-grow-1 pb-3 pt-sm-3 my-1 px-sm-2 pr-lg-4 order-sm-2">
                     <div class="input-group flex-nowrap">
-                        <div class="input-group-prepend"><span class="input-group-text rounded-left" id="search-icon"><i
-                                data-feather="search"></i></span></div>
+                        <div class="input-group-prepend">
+                            <button type="submit" class="btn searchbutton input-group-text rounded-left" id="search-icon">
+                                <i data-feather="search"></i>
+                            </button>
+                        </div>
                         <g:if test="${userData && userData!=""}">
                             <input class="form-control rounded-right" type="text" id="search-user" name="userData" value="${userData}"
                                    placeholder="${message(code: 'user.search.bar')}" aria-label="Search site" aria-describedby="search-icon">

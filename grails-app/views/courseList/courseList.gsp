@@ -11,15 +11,23 @@
 
 <!-- User course lists -->
 <section class="container px-3 pt-4 mt-3">
-    <div class="d-flex flex-wrap justify-content-between align-items-center pb-2">
-        <h2 class="h3 mb-3">${courseList.name}</h2>
-        <g:if test="${isregistered}">
+    <g:if test="${isregistered}">
+        <div class="text-right">
             <a class="btn btn-outline-primary btn-sm" href="/user/myProfile/"><i class="mr-1" data-feather="chevrons-left"></i><g:message code="profile.image.back"></g:message></a>
-        </g:if>
+        </div>
+        <br>
+    </g:if>
+    <div class="d-flex flex-wrap-reverse justify-content-between align-items-center pb-2">
+        <div class="d-flex flex-wrap">
+            <h2 class="h3 mb-3" style="word-break: break-word;">${courseList.name}</h2>
+            <g:if test="${isregistered}">
+                <a class="btn btn-outline-primary btn-sm mb-3" href="/editMyCourseList/${courseList?.id}" style="margin-left: 0.8rem;"><g:message code="courselist.edit"></g:message> <i class="mr-1" data-feather="edit"></i></a>
+            </g:if>
+        </div>
     </div>
     <g:if test="${courseList.description && courseList.description}">
         <div>
-            <p class="lead">${courseList.description}</p>
+            <p class="lead" style="word-break: break-word;">${courseList.description}</p>
         </div>
     </g:if>
 
@@ -33,7 +41,7 @@
         </div>
     </g:if>
     <g:else>
-        <table class='courseList-display-table' style="word-break: break-word;">
+        <table class='courseList-display-table'>
             <tr>
                 <th><g:message code="courseList.course.table.name"/></th>
                 <th><g:message code="courseList.course.table.avgScore"/></th>
@@ -50,8 +58,8 @@
                 <g:else>
                     <tr class="odd-row">
                 </g:else>
-                <td>${course.title}</td>
-                <td>${course?.rating}</td>
+                <td style="word-break: break-word;">${course.title}</td>
+                <td style="word-break: break-word;">${course?.rating}</td>
                 <td>
                     <g:form url="/course/$course.id">
                         <g:submitButton name="submit" class="btn btn-outline-primary"

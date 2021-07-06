@@ -62,6 +62,51 @@ class CourseListController {
     }
 
     /**
+     * Method that returns the page used to edit a courseList
+     * @return view "createCourseList", status 404 or status 403
+     */
+    @Secured('isAuthenticated()')
+    def editCourseList(Long id) {
+        User authUser = springSecurityService.getCurrentUser() as User
+        CourseList cl = CourseList.get(id)
+        if (cl)
+            if (authUser == cl.owner)
+                render(view: 'createCourseList', model: [courseList: cl, edit:true])
+            else
+                render status: 403
+        else
+            render status: 404
+    }
+
+    /**
+     * Method used to edit a courseList of a user
+     * @return redirect to "/getMyCourseList/$idCourse", status 404 or status 403
+     */
+    @Secured('isAuthenticated()')
+    def edit() {
+        User authUser = springSecurityService.getCurrentUser() as User
+        if(!params?.courseListid)
+            render status: 404
+        Long id = params?.courseListid as Long
+        if(!id || id == 0)
+            render status: 404
+        CourseList cl = CourseList.get(id)
+        if (cl){
+            if (authUser == cl.owner){
+                cl = courseListService.editCourseList(id,params?.name, params?.description)
+                if(cl)
+                    redirect(action: "getMyCourseList", params: [id: cl?.id])
+                else
+                    render status: 403
+            }else{
+                render status: 403
+            }
+        } else {
+            render status: 404
+        }
+    }
+
+    /**
      * Method used to create a new courseList for the user. If idCourse is not null the origin of the request is
      * "/course/$idCourse" else the origin of the request is "/user/myProfile", so the redirect output depends of the
      * origin of the request. In case of an error the view 'createCourseList' is rendered instead.
@@ -71,6 +116,8 @@ class CourseListController {
     @Secured('isAuthenticated()')
     def create() {
         User authUser = springSecurityService.getCurrentUser() as User
+        if(!params?.name)
+            render status: 404
         CourseList newcl = courseListService.createCourseList(authUser, params?.name, params?.description)
         if (newcl) {
             if (params?.idCourse) {

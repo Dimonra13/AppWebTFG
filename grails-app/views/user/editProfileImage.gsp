@@ -16,9 +16,11 @@
         <div class="col-8">
             <div class="card">
                 <div class="card-body">
+                    <div class="text-right">
+                        <a class="btn btn-outline-primary btn-sm" href="/user/myProfile/"><i class="mr-1" data-feather="chevrons-left"></i><g:message code="profile.image.back"></g:message></a>
+                    </div>
                     <div class="d-flex flex-wrap justify-content-between align-items-center pb-2">
                         <h2 class="h3 mb-3"><g:message code="profile.image.title"/></h2>
-                        <a class="btn btn-outline-primary btn-sm" href="/user/myProfile/"><i class="mr-1" data-feather="chevrons-left"></i><g:message code="profile.image.back"></g:message></a>
                     </div>
                     <br>
                     <g:uploadForm name="uploadProfileImage" action="updateProfileImage">

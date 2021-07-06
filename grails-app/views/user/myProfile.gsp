@@ -37,13 +37,15 @@
         <!-- Main content-->
         <div class="col-lg-8">
             <!-- User details-->
+            <g:if test="${isregistered}">
+                <div class="text-right">
+                    <a class="btn btn-outline-primary btn-sm" href="/user/editProfile"><i class="mr-1" data-feather="edit"></i><g:message code="profile.edit"></g:message></a>
+                </div>
+            </g:if>
             <div class="d-flex flex-wrap justify-content-between pb-4">
                 <div class="pt-3 mr-3" style="display: inline-block;word-break: break-word;">
                     <h3 class="mb-0">${user.username}</h3><span class="font-size-sm text-warning">${user.email}</span>
                 </div>
-                <g:if test="${isregistered}">
-                    <div class="pt-3"><a class="btn btn-outline-primary btn-sm" href="/user/editProfile"><i class="mr-1" data-feather="edit"></i><g:message code="profile.edit"></g:message></a></div>
-                </g:if>
             </div>
             <ul class="list-unstyled border p-3 mb-4">
                 <li class="pb-1"><span class="opacity-80">&ndash; <g:message code="profile.date"/>:</span><span class="font-weight-semibold ml-1">${user?.date}</span></li>
@@ -134,7 +136,7 @@
                                     <h3 class="mb-1"><g:message code="profile.interests"/></h3>
                                 </div>
                                 <g:if test="${isregistered}">
-                                    <div class="pt-3"><a class="btn btn-outline-primary btn-sm" href="/user/editInterests"><i class="mr-1" data-feather="edit"></i><g:message code="profile.interests.edit"></g:message></a></div>
+                                    <div class="pt-3 mb-3"><a class="btn btn-outline-primary btn-sm" href="/user/editInterests"><i class="mr-1" data-feather="edit"></i><g:message code="profile.interests.edit"></g:message></a></div>
                                 </g:if>
                             </div>
                             <g:each var="interest" in="${user?.interests}">
@@ -167,7 +169,7 @@
                 <div class="d-flex flex-wrap justify-content-between align-items-center pb-2">
                     <h2 class="h3 mb-3"><g:message code="profile.skills.title"/></h2>
                     <g:if test="${isregistered}">
-                        <a class="btn btn-outline-primary btn-sm" href="/user/editSkills/"><i class="mr-1" data-feather="edit"></i><g:message code="profile.skills.edit"></g:message></a>
+                        <a class="btn btn-outline-primary btn-sm mb-3" href="/user/editSkills/"><i class="mr-1" data-feather="edit"></i><g:message code="profile.skills.edit"></g:message></a>
                     </g:if>
                 </div>
                 <div class="row">
@@ -238,7 +240,7 @@
             <div class="d-flex flex-wrap justify-content-between align-items-center pb-2">
                 <h2 class="h3 mb-3"><g:message code="profile.lists.title"/></h2>
                 <g:if test="${isregistered}">
-                    <a class="btn btn-outline-primary btn-sm" href="/createCourseList/"><i class="mr-1" data-feather="plus"></i><g:message code="profile.lists.create"></g:message></a>
+                    <a class="btn btn-outline-primary btn-sm mb-3" href="/createCourseList/"><i class="mr-1" data-feather="plus"></i><g:message code="profile.lists.create"></g:message></a>
                 </g:if>
             </div>
             <g:if test="${!user?.lists}">
@@ -252,7 +254,7 @@
             </g:if>
             <g:else>
                 <div>
-                    <table class='courseList-display-table' style="word-break: break-word;">
+                    <table class='courseList-display-table'>
                         <tr>
                             <th><g:message code="profile.lists.table.name"/></th>
                             <th><g:message code="profile.lists.table.courseNumber"/></th>
@@ -269,7 +271,7 @@
                             <g:else>
                                 <tr class="odd-row">
                             </g:else>
-                            <td>${courseList.name}</td>
+                            <td style="word-break: break-word;">${courseList.name}</td>
                             <td>${courseList.courses.size()}</td>
                             <g:if test="${isregistered}">
                                 <td>

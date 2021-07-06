@@ -388,10 +388,12 @@ class UserController {
 
     /**
      * Method used to update the authenticated user preferences
-     * @return redirect to "/"
+     * @return redirect to "/" or return error 404 if the params are missing
      */
     @Secured('isAuthenticated()')
     def updatePreferences() {
+        if(!params?.duration || !params?.cost || !params?.popularity || !params?.difficulty)
+            render status: 404
         float duration = java.lang.Float.parseFloat(params.duration)
         float cost = java.lang.Float.parseFloat(params.cost)
         float popularity = java.lang.Float.parseFloat(params.popularity)

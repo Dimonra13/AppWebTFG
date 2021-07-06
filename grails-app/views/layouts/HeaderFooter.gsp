@@ -24,6 +24,7 @@
     <asset:javascript src="application"></asset:javascript>
     <asset:javascript src="iconify.min.js"></asset:javascript>
     <asset:stylesheet src="myIconify.css"></asset:stylesheet>
+    <asset:stylesheet src="customButtons.css"></asset:stylesheet>
     <!-- Vendor Styles including: Font Icons, Plugins, etc.-->
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'vendor.min.css')}" type="text/css">
     <!-- Main Theme Styles + Bootstrap-->
@@ -78,8 +79,11 @@
         <div class="flex-grow-1 pb-3 pt-sm-3 my-1 px-sm-2 pr-lg-4 order-sm-2">
             <form action="/search/semanticSearch" class="needs-validation" novalidate>
                 <div class="input-group flex-nowrap">
-                    <div class="input-group-prepend"><span class="input-group-text rounded-left" id="search-icon"><i
-                            data-feather="search"></i></span></div>
+                    <div class="input-group-prepend">
+                        <button type="submit" class="btn searchbutton input-group-text rounded-left" id="search-icon">
+                            <i data-feather="search"></i>
+                        </button>
+                    </div>
                     <input class="form-control rounded-right" type="text" id="search-course" name="courseData"
                            placeholder="${message(code: 'course.search.semantic.bar')}" aria-label="Search site" aria-describedby="search-icon">
                 </div>

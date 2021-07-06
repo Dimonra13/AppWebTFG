@@ -13,6 +13,8 @@ class CourseListService {
      * @return the new CourseList created cl
      */
     CourseList createCourseList(User owner, String name, String description) {
+        if (!owner)
+            return null
         CourseList cl = new CourseList(name: name, description: description, owner: owner)
         owner.addToLists(cl)
         owner.save()
@@ -29,6 +31,24 @@ class CourseListService {
         if (cl) {
             user.removeFromLists(cl)
             cl.delete()
+        }
+    }
+
+    /**
+     * Method used to edit the courseList with id $id
+     * @param idList
+     * @param title
+     * @param description
+     * @return the updated course list
+     */
+    CourseList editCourseList(Long idList, String title, String description){
+        CourseList courseList = CourseList.get(idList)
+        if (!courseList || !title || title=="")
+            return null
+        else{
+            courseList?.name = title
+            courseList?.description=description
+            courseList?.save()
         }
     }
 

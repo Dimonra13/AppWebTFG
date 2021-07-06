@@ -7,3 +7,11 @@
     background: #ee4194 !important;
     border: 2px solid #ee4194 !important;
 }
+
+.searchbutton{
+    box-shadow: none !important;
+}
+
+.searchbutton:hover{
+    box-shadow: 0px 0px 5px lightgrey !important;
+}

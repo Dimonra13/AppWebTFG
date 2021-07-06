@@ -77,6 +77,11 @@
     <div class="row">
         <!-- Featured products grid-->
         <section class="container px-3 pt-4 mt-3">
+            <g:if test="${update}">
+                <div class="text-right">
+                    <a class="btn btn-outline-primary btn-sm" href="/user/myProfile/"><i class="mr-1" data-feather="chevrons-left"></i><g:message code="profile.image.back"></g:message></a>
+                </div>
+            </g:if>
             <div class="row">
                 <div class="col-md-9 pt-6 pt-sm-3 d-flex flex-wrap justify-content-between align-items-center pb-2">
                     <g:if test="${update}">
@@ -88,11 +93,7 @@
                     <p class="text-muted mb-4"><g:message code="language.explanation"/></p>
                 </div>
                 <div class="col-md-3 pt-2 pt-sm-2">
-                    <div class="text-right">
-                        <g:if test="${update}">
-                            <a class="btn btn-outline-primary btn-sm" href="/user/myProfile/"><i class="mr-1" data-feather="chevrons-left"></i><g:message code="profile.image.back"></g:message></a>
-                            <br><br>
-                        </g:if>
+                    <div class="text-right" style="margin-top: 1.8rem;">
                         <button onclick="selectAll()" class="btn btn-primary btn-sm btn-block mybutton select" style="" type="button"><g:message code="language.select.all"/></button>
                         <button onclick="deselectAll()" class="btn btn-primary btn-sm btn-block select" type="button"><g:message code="language.deselect.all"/></button>
                         <br>
