@@ -41,6 +41,7 @@
             </div>
         </g:if><g:elseif test="${foundUsers}">
             <g:each var="user" in="${foundUsers}" status="i">
+                <g:if test="${user}">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
@@ -87,6 +88,7 @@
                         </div>
                     </div>
                 </div>
+                </g:if>
             </g:each>
                 <br>
                 <div class="row">

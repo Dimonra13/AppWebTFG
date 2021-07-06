@@ -144,6 +144,7 @@
             </g:if><g:else>
                 <div class="row no-gutters">
                      <g:each var="course" in="${courses}" status="i">
+                         <g:if test="${course}">
                          <!-- Course info -->
                          <div class="col-xl-4 col-sm-6 col-6 border border-collapse">
                              <div class="product-card">
@@ -209,6 +210,7 @@
                                 starSize: 25
                             });
                          </g:javascript>
+                         </g:if>
                      </g:each>
                 </div>
                 <div class="pb-4 mb-2"></div>

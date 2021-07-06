@@ -156,6 +156,7 @@
                 </div>
                 <div class="row no-gutters">
                     <g:each var="recourse" in="${related}" status="i">
+                        <g:if test="${recourse}">
                         <!-- Course info -->
                         <div class="col-lg-3 col-sm-4 col-6 border border-collapse">
                             <div class="product-card">
@@ -200,6 +201,7 @@
                                 starSize: 25
                             });
                         </g:javascript>
+                        </g:if>
                     </g:each>
                 </div>
             </div>

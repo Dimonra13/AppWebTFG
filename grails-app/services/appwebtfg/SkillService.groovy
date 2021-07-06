@@ -79,7 +79,8 @@ class SkillService {
         Set<Skill> newUserSkills = new HashSet<>()
         for (String skillName: basicSkills){
             Skill skill = new Skill(name:skillName,level:"basic").save()
-            newUserSkills.add(skill)
+            if(skill)
+                newUserSkills.add(skill)
         }
         user.basicSkills = newUserSkills
         deleteSkills(oldUserSkills)
@@ -97,7 +98,8 @@ class SkillService {
         Set<Skill> newUserSkills = new HashSet<>()
         for (String skillName: mediumSkills){
             Skill skill = new Skill(name:skillName,level:"medium").save()
-            newUserSkills.add(skill)
+            if(skill)
+                newUserSkills.add(skill)
         }
         user.mediumSkills = newUserSkills
         deleteSkills(oldUserSkills)
@@ -115,7 +117,8 @@ class SkillService {
         Set<Skill> newUserSkills = new HashSet<>()
         for (String skillName: expertSkills){
             Skill skill = new Skill(name:skillName,level:"expert").save()
-            newUserSkills.add(skill)
+            if(skill)
+                newUserSkills.add(skill)
         }
         user.expertSkills = newUserSkills
         deleteSkills(oldUserSkills)

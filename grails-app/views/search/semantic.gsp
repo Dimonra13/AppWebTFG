@@ -43,6 +43,7 @@
             </div>
         </g:if><g:elseif test="${foundCourses}">
         <g:each var="course" in="${foundCourses}" status="i">
+            <g:if test="${course}">
             <div class="card">
                 <div class="card-body">
                     <div class="row">
@@ -124,6 +125,7 @@
                 starSize: 25
             });
             </g:javascript>
+            </g:if>
         </g:each>
     </g:elseif>
     </div>

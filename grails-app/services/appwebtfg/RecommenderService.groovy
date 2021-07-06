@@ -114,10 +114,10 @@ class RecommenderService {
             }
             def slurper = new JsonSlurper()
             def responseData = slurper.parse(response.data)
-            Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map)?.keySet()?.collect { Integer.parseInt(it) }.take(2)
-            Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map)?.keySet()?.collect { Integer.parseInt(it) }.take(11)
-            Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map)?.keySet()?.collect { Integer.parseInt(it) }.take(12)
-            return getCourses(idsUdacity, idsCoursera, idsUdemy).toSet().toList()
+            Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map)?.keySet()?.collect { Integer.parseInt(it) }?.take(2)
+            Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map)?.keySet()?.collect { Integer.parseInt(it) }?.take(11)
+            Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map)?.keySet()?.collect { Integer.parseInt(it) }?.take(12)
+            return getCourses(idsUdacity, idsCoursera, idsUdemy)
         } catch (Exception e) {
             e.printStackTrace()
             return []
@@ -170,9 +170,9 @@ class RecommenderService {
                                 getRelatedCourses(course,user,4,humanitiesInterests,0,4,4))
                                 .stream().distinct().collect(Collectors.toList()).take(8)
                     }else{
-                        return (getRelatedCourses(course,user,3,humanitiesInterests,0,1,1) +
+                        return (getRelatedCourses(course,user,3,humanitiesInterests,1,1,1) +
                                 getRelatedCourses(course,user,3,brandsInterests,0,1,2) +
-                                getRelatedCourses(course,user,5,scienceInterests,1,5,2))
+                                getRelatedCourses(course,user,5,scienceInterests,0,5,2))
                                 .stream().distinct().collect(Collectors.toList()).take(8)
                     }
                 }
@@ -219,9 +219,9 @@ class RecommenderService {
             }
             def slurper = new JsonSlurper()
             def responseData = slurper.parse(response.data)
-            Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map)?.keySet()?.collect { Integer.parseInt(it) }.findAll{it != course.idCurso}.take(nUdacity)
-            Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map)?.keySet()?.collect { Integer.parseInt(it) }.findAll{it != course.idCurso}.take(nCoursera)
-            Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map)?.keySet()?.collect { Integer.parseInt(it) }.findAll{it != course.idCurso}.take(nUdemy)
+            Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map)?.keySet()?.collect { Integer.parseInt(it) }?.findAll{it != course?.idCurso}?.take(nUdacity)
+            Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map)?.keySet()?.collect { Integer.parseInt(it) }?.findAll{it != course?.idCurso}?.take(nCoursera)
+            Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map)?.keySet()?.collect { Integer.parseInt(it) }?.findAll{it != course?.idCurso}?.take(nUdemy)
             return getCourses(idsUdacity, idsCoursera, idsUdemy)
         } catch (Exception e) {
             e.printStackTrace()
@@ -250,9 +250,9 @@ class RecommenderService {
             }
             def slurper = new JsonSlurper()
             def responseData = slurper.parse(response.data)
-            Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map)?.keySet()?.collect { Integer.parseInt(it) }.take(2)
-            Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map)?.keySet()?.collect { Integer.parseInt(it) }
-            Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map)?.keySet()?.collect { Integer.parseInt(it) }
+            Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map)?.keySet()?.collect { Integer.parseInt(it) }?.take(2)
+            Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map)?.keySet()?.collect { Integer.parseInt(it) }?.take(11)
+            Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map)?.keySet()?.collect { Integer.parseInt(it) }?.take(11)
             return getCourses(idsUdacity, idsCoursera, idsUdemy)
         } catch (Exception e) {
             e.printStackTrace()
@@ -344,8 +344,8 @@ class RecommenderService {
             }
             def slurper = new JsonSlurper()
             def responseData = slurper.parse(response.data)
-            Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map)?.keySet()?.collect { Integer.parseInt(it) }
-            Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map)?.keySet()?.collect { Integer.parseInt(it) }
+            Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map)?.keySet()?.collect { Integer.parseInt(it) }?.take(k)
+            Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map)?.keySet()?.collect { Integer.parseInt(it) }?.take(k)
             return getCourses(null, idsCoursera, idsUdemy)
         } catch (Exception e) {
             e.printStackTrace()
@@ -361,7 +361,7 @@ class RecommenderService {
      * @return the list of requested courses
      */
     private List<Course> getCourses(Set<Integer> idsUdacity, Set<Integer> idsCoursera, Set<Integer> idsUdemy) {
-        getCoursesUdacity(idsUdacity)+getCoursesUdemy(idsUdemy)+getCoursesCoursera(idsCoursera)
+        getCoursesUdemy(idsUdemy)+getCoursesCoursera(idsCoursera)+getCoursesUdacity(idsUdacity)
     }
 
     /**
@@ -423,8 +423,8 @@ class RecommenderService {
             Set<Integer> bannedCourses = []
             Set<String> languages = (user?.languages) ?: []
             user?.lists?.each { CourseList courseList ->
-                courseList.courses.each { Course course ->
-                    if (course.idCurso)
+                courseList?.courses?.each { Course course ->
+                    if (course?.idCurso)
                         bannedCourses.add(course.idCurso)
                 }
             }
@@ -462,11 +462,11 @@ class RecommenderService {
         else {
             List<Course> courses = user?.lists?.courses?.flatten()
             String description = " " +
-                    ((userInterests)? userInterests.join(" ") : user?.interests?.join(" "))+
-                    ((user?.basicSkills) ? " "+user?.basicSkills?.collect{it.name}?.join(" ") : "") +
-                    ((user?.mediumSkills) ? " "+user?.mediumSkills?.collect{it.name}?.join(" ") : "") +
-                    ((user?.expertSkills) ? " "+user?.expertSkills?.collect{it.name}?.join(" ") : "") +
-                    ((relatedTo) ? "" : ". "+courses?.collect{course -> course.title}?.join(". "))
+                    ((userInterests)? userInterests?.join(" ") : user?.interests?.join(" "))+
+                    ((user?.basicSkills) ? " "+user?.basicSkills?.collect{it?.name}?.join(" ") : "") +
+                    ((user?.mediumSkills) ? " "+user?.mediumSkills?.collect{it?.name}?.join(" ") : "") +
+                    ((user?.expertSkills) ? " "+user?.expertSkills?.collect{it?.name}?.join(" ") : "") +
+                    ((relatedTo) ? "" : ". "+courses?.collect{course -> course?.title}?.join(". "))
             String difficulty = calculateAvgDifficulty(courses,user)
             int free = calculateIsFree(courses)
             float rating = calculateAvgRating(courses)
@@ -671,12 +671,12 @@ class RecommenderService {
             }
         }
         //If there are enough courses with institution in the user courseLists the result is the most frequent institution
-        if(institutions.size()>0){
+        if(institutions?.size()>0){
             String institution = institutions
                                     .entrySet()
                                     .stream()
                                     .reduce({ institution1, institution2 ->
-                                        institution1.value > institution2.value ? institution1 : institution2
+                                        institution1?.value > institution2?.value ? institution1 : institution2
                                     })
                                     .get().key
             return institution?: DEFAULT_INSTITUTION

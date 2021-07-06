@@ -45,6 +45,7 @@
                         </tr>
 
                         <g:each var="feedback" in="${feedbackList}" status="i">
+                        <g:if test="${feedback}">
                             <g:if test="${i % 2 == 0}">
                                 <tr class="even-row">
                             </g:if>
@@ -66,6 +67,7 @@
                             <td>${feedback?.notInterestedUdemy}</td>
                             <td>${feedback?.notInterestedUdacity}</td>
                             </tr>
+                        </g:if>
                         </g:each>
                     </table>
                 </div>

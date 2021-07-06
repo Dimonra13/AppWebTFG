@@ -61,14 +61,14 @@ class HomeController {
         }else{
             if(authUser){
                 userService.removeBannedCoursesFromExploreRecommendations(authUser)
-                exploreCourses = courseService.getCourses(authUser?.exploreRecommendationsIds).toSet().toList()
-                recommendedCourses = recommenderService?.getRecommendedCourses(authUser)?.findAll{it -> !authUser.bannedCourses.contains(it.idCurso)}?.toSet()?.toList()
+                exploreCourses = courseService.getCourses(authUser?.exploreRecommendationsIds)?.toSet()?.toList()
+                recommendedCourses = recommenderService?.getRecommendedCourses(authUser)?.findAll{it -> !authUser?.bannedCourses?.contains(it?.idCurso)}?.toSet()?.toList()
                 if (recommendedCourses?.size()<=2)
                     isLastRecommend="true"
                 authUser?.recentSearches?.each {String query ->
                     relatedToQueryCourses = relatedToQueryCourses + recommenderService.getRecommendedCoursesRelatedToQuery(authUser,query,(16/authUser?.recentSearches.size()) as int)
                 }
-                relatedToQueryCourses = relatedToQueryCourses?.findAll{it -> !authUser.bannedCourses.contains(it.idCurso)}?.toSet()?.toList().take(24)
+                relatedToQueryCourses = relatedToQueryCourses?.findAll{it -> !authUser?.bannedCourses?.contains(it?.idCurso)}?.toSet()?.toList()?.take(24)
                 if (relatedToQueryCourses?.size()<=2)
                     isLastRelated="true"
             }

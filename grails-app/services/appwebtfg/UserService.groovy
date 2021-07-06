@@ -153,7 +153,7 @@ class UserService {
         List<String> recentSearches = user?.recentSearches
         if(!recentSearches)
             recentSearches = []
-        if(search && !recentSearches.contains(search)){
+        if(search && !recentSearches?.contains(search)){
             if(recentSearches.size()<MAX_RECENT_SEARCHES)
                 recentSearches.add(search)
             else {

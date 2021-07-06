@@ -31,6 +31,7 @@
                 </div>
                 <div class="row no-gutters" style="margin-top: 4rem;">
               </g:if>
+              <g:if test="${course}">
               <!-- Course info -->
               <div class="col-lg-3 col-sm-4 col-6 border">
                 <div class="product-card">
@@ -76,6 +77,7 @@
                                 starSize: 25
                             });
               </g:javascript>
+              </g:if>
             </g:each>
             </div>
           </div>
@@ -98,6 +100,7 @@
                 </div>
                 <div class="row no-gutters" style="margin-top: 4rem;">
               </g:if>
+              <g:if test="${course}">
               <!-- Course info -->
               <div class="col-lg-3 col-sm-4 col-6 border">
                 <div class="product-card">
@@ -143,6 +146,7 @@
                                 starSize: 25
                             });
               </g:javascript>
+              </g:if>
             </g:each>
             </div>
           </div>
@@ -160,6 +164,7 @@
           </div>
           <div class="row no-gutters">
             <g:each var="course" in="${exploreCourses}" status="i">
+              <g:if test="${course}">
               <!-- Course info -->
               <div class="col-lg-3 col-sm-4 col-6 border border-collapse">
                 <div class="product-card">
@@ -203,6 +208,7 @@
                                 starSize: 25
                             });
               </g:javascript>
+              </g:if>
             </g:each>
           </div>
         </div>

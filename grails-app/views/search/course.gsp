@@ -99,6 +99,7 @@
             </div>
         </g:if><g:elseif test="${courses}">
         <g:each var="course" in="${courses}" status="i">
+            <g:if test="${course}">
             <div class="card">
                 <div class="card-body">
                     <div class="row">
@@ -156,6 +157,7 @@
                 starSize: 25
             });
             </g:javascript>
+            </g:if>
         </g:each>
         <!-- Pagination-->
         <br>

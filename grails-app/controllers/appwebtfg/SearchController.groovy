@@ -134,7 +134,7 @@ class SearchController {
             userFeedbackService.updateNotInterested(authUser,Course?.get(bannedCourse)?.originalPage)
             List<Integer> searchIDs
             if(!params.isLast){
-                searchIDs = params.get("searchIDs").collect{it->Integer.parseInt(it)}
+                searchIDs = params?.get("searchIDs")?.collect{it->Integer.parseInt(it)}
                 if (searchIDs.size()==2)
                     isLast="true"
             }else{
