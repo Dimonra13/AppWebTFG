@@ -24,8 +24,13 @@
                     <div class="input-group flex-nowrap">
                         <div class="input-group-prepend"><span class="input-group-text rounded-left" id="search-icon"><i
                                 data-feather="search"></i></span></div>
-                        <input class="form-control rounded-right" type="text" id="search-course" name="courseData"
+                        <g:if test="${courseData && courseData!=""}">
+                            <input class="form-control rounded-right" type="text" id="search-course" name="courseData" value="${courseData}"
+                                   placeholder="${message(code: 'course.search.semantic.bar')}" aria-label="Search site" aria-describedby="search-icon">
+                        </g:if><g:else>
+                            <input class="form-control rounded-right" type="text" id="search-course" name="courseData"
                                placeholder="${message(code: 'course.search.semantic.bar')}" aria-label="Search site" aria-describedby="search-icon">
+                        </g:else>
                     </div>
                 </div>
             </form>
@@ -42,6 +47,8 @@
                 " -- <g:message code="course.search.noCourseFound"/>
             </div>
         </g:if><g:elseif test="${foundCourses}">
+        <h2 style="display: inline-block;word-break: break-word;"><g:message code="search.results.for"></g:message> "${courseData}"</h2>
+        <br><br>
         <g:each var="course" in="${foundCourses}" status="i">
             <g:if test="${course}">
             <div class="card">

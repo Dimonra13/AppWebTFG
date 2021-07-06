@@ -45,24 +45,31 @@
                 <i class="mx-auto mb-2" data-feather="menu"></i>Menu
             </div>
                 <g:if test="${s.loggedUser()}">
+                    <div class="border-left-0 my-3" style="width: 4.8rem;">
+                        <a class="navbar-btn bg-0 my-3" href="/myProfile">
+                            <span class="d-block position-relative">
+                                <i class="mx-auto mb-1" data-feather="user"></i><g:message code="header.user.account"/>
+                            </span>
+                        </a>
+                    </div>
                     <div class="border-left-0 my-3" style="width: 5.5rem;">
-                    <a class="navbar-btn bg-0 my-3" href="/logout">
-                        <i class="mx-auto mb-1" data-feather="log-out"></i><g:message code="logout.user.title"/>
-                    </a>
+                        <a class="navbar-btn bg-0 my-3" href="/logout">
+                            <i class="mx-auto mb-1" data-feather="log-out"></i><g:message code="logout.user.title"/>
+                        </a>
                     </div>
                 </g:if>
                 <g:else>
-                    <div class="border-left-0 my-3" style="width: 6.5rem;">
-                    <a class="navbar-btn bg-0 my-3" href="/login">
-                        <i class="mx-auto mb-1" data-feather="log-in"></i><g:message code="login.user.title"/>
-                    </a>
+                    <div class="border-left-0 my-3" style="width: 4.8rem;">
+                        <a class="navbar-btn bg-0 my-3" href="/register">
+                            <span class="d-block position-relative">
+                                <i class="mx-auto mb-1" data-feather="user-plus"></i><g:message code="register.user.title"/>
+                            </span>
+                        </a>
                     </div>
                     <div class="border-left-0 my-3" style="width: 5.5rem;">
-                    <a class="navbar-btn bg-0 my-3" href="/register">
-                        <span class="d-block position-relative">
-                            <i class="mx-auto mb-1" data-feather="user-plus"></i><g:message code="register.user.title"/>
-                        </span>
-                    </a>
+                        <a class="navbar-btn bg-0 my-3" href="/login">
+                            <i class="mx-auto mb-1" data-feather="log-in"></i><g:message code="login.user.title"/>
+                        </a>
                     </div>
                 </g:else>
 
@@ -147,35 +154,16 @@
                         </div>
                     </div>
                 </li>
-                <g:if test="${s.loggedUser()}">
-                    <li class="nav-item dropdown"><a class="nav-link" href="/myProfile"><g:message code="header.user.account"/></a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="/myProfile"><g:message code="header.myProfile"/></a></li>
-                            <li class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/user/editProfile"><g:message code="header.profile.settings"/></a></li>
-                            <li class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/createCourseList"><g:message code="header.profile.new.list"/></a></li>
-                        </ul>
-                    </li>
-                </g:if>
-                <li class="nav-item">
-                    <a href="/" class="nav-link rounded"><g:message code="header.home"/></a>
-                </li>
-                <li class="nav-item">
-                    <a href="/search/user" class="nav-link rounded"><g:message code="header.search.user"/></a>
-                </li>
                 <li class="nav-item">
                     <a href="/search/semantic" class="nav-link rounded"><g:message code="header.search.course.semantic"/></a>
                 </li>
                 <li class="nav-item">
                     <a href="/search/course" class="nav-link rounded"><g:message code="header.search.course.complete"/></a>
                 </li>
+                <li class="nav-item">
+                    <a href="/search/user" class="nav-link rounded"><g:message code="header.search.user"/></a>
+                </li>
             </ul>
-            <ul class="nav nav-pills">
-
-
-            </ul>
-
             <!-- Rounded nav pills -->
         </div>
     </div>
@@ -245,9 +233,6 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="py-3" style="background-color: #1a1a1a;">
-        <div class="container font-size-xs text-center" aria-label="Copyright"><span class="text-white opacity-60 mr-1">© All rights reserved. Made by</span><a class="nav-link-inline nav-link-light" href="https://createx.studio/" target="_blank">Createx Studio</a></div>
     </div>
 </footer>
 <!-- Back To Top Button--><a class="scroll-to-top-btn" href="#"><i class="scroll-to-top-btn-icon" data-feather="chevron-up"></i></a>

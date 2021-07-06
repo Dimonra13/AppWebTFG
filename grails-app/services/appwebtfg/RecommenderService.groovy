@@ -106,7 +106,12 @@ class RecommenderService {
             RESTClient client = new RESTClient(URL)
             client.defaultAcceptHeader = ContentType.JSON
             data = URLEncoder.encode(data.toLowerCase(), StandardCharsets.UTF_8.toString())
-            def path = "/courses/global/search/?query=" + data + "&k=12"
+            def path = "/courses/global/search/?query=" + data
+            if(user && user?.languages && !user?.languages?.contains("English")){
+                path = path + "&k=80"
+            }else{
+                path = path + "&k=12"
+            }
             def params = generateContext(user)
             def response = client.post(path: path) {
                 type ContentType.JSON
@@ -208,7 +213,13 @@ class RecommenderService {
             }else{
                 endpoint = "/courses/udemy/"+ course.idCurso +"/related"
             }
-            def path = endpoint+"?k=${k}"
+            def path
+            if(user && user?.languages && !user?.languages?.contains("English")){
+                path = endpoint+"?k=" + (k*5)
+            }else{
+                path = endpoint+"?k=${k}"
+            }
+
             def params = [
                           "perfil":generateProfile(user,true,userInterests),
                           "contexto":generateContext(user)
@@ -239,7 +250,12 @@ class RecommenderService {
         try {
             RESTClient client = new RESTClient(URL)
             client.defaultAcceptHeader = ContentType.JSON
-            def path = "/courses/global/recommend/profile?k=11"
+            def path = "/courses/global/recommend/profile?k="
+            if(user && user?.languages && !user?.languages?.contains("English")){
+                path = path+"60"
+            }else{
+                path = path+"11"
+            }
             def params = [
                     "perfil":generateProfile(user,false,null),
                     "contexto":generateContext(user)
@@ -285,7 +301,7 @@ class RecommenderService {
                     return getRecommendedCoursesRelatedToQuery(user,query,k,brandsInterests)
                 }else{
                     if(brandsInterests.isEmpty()){
-                        return
+                        return getRecommendedCoursesRelatedToQuery(user,query,k,humanitiesInterests)
                     }else{
                         return (getRecommendedCoursesRelatedToQuery(user,query,(k/2) as int,humanitiesInterests) +
                                 getRecommendedCoursesRelatedToQuery(user,query,k,brandsInterests))
@@ -333,7 +349,12 @@ class RecommenderService {
             RESTClient client = new RESTClient(URL)
             client.defaultAcceptHeader = ContentType.JSON
             String data = URLEncoder.encode(query, StandardCharsets.UTF_8.toString())
-            def path = "/courses/global/recommend/query?query=" + data + "&k=${k}"
+            def path = "/courses/global/recommend/query?query=" + data
+            if(user && user?.languages && !user?.languages?.contains("English")){
+                path = path+"&k=" + (k*5)
+            }else{
+                path = path+"&k=${k}"
+            }
             def params = [
                     "perfil":generateProfile(user,true,userInterests),
                     "contexto":generateContext(user)
@@ -678,7 +699,7 @@ class RecommenderService {
                                     .reduce({ institution1, institution2 ->
                                         institution1?.value > institution2?.value ? institution1 : institution2
                                     })
-                                    .get().key
+                                    .get()?.key
             return institution?: DEFAULT_INSTITUTION
             //Otherwise, the result is the default value
         }else

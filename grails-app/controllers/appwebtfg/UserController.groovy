@@ -263,7 +263,7 @@ class UserController {
      */
     @Secured('isAuthenticated()')
     def addLanguages() {
-        render(view: "languages")
+        render(view: "languages", model: [update: false])
     }
 
     /**
@@ -273,7 +273,7 @@ class UserController {
      */
     @Secured('isAuthenticated()')
     def addLanguagesFromRegister() {
-        render(view: "languages", model: [fromRegister: true])
+        render(view: "languages", model: [fromRegister: true,update: false])
     }
 
     /**

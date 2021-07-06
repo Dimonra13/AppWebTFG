@@ -516,8 +516,8 @@ private def generateContext(User user) {
         Set<Integer> bannedCourses = []
         Set<String> languages = (user?.languages) ?: []
         user?.lists?.each { CourseList courseList ->
-            courseList.courses.each { Course course ->
-                if (course.idCurso)
+            courseList?.courses?.each { Course course ->
+                if (course?.idCurso)
                     bannedCourses.add(course.idCurso)
             }
         }
@@ -540,7 +540,7 @@ private def generateContext(User user) {
  * @param user
  * @return the "profile" object
  */
-private def generateProfile(User user) {
+private def generateProfile(User user,boolean relatedTo) {
     if(!user)
         return [
                 "description": " ",
@@ -555,10 +555,10 @@ private def generateProfile(User user) {
     else {
         List<Course> courses = user?.lists?.courses?.flatten()
         String description = " " + user?.interests?.join(" ")+
-                ((user?.basicSkills) ? " "+user?.basicSkills?.collect{it.name}?.join(" ") : "") +
-                ((user?.mediumSkills) ? " "+user?.mediumSkills?.collect{it.name}?.join(" ") : "") +
-                ((user?.expertSkills) ? " "+user?.expertSkills?.collect{it.name}?.join(" ") : "") +
-                ((relatedToQuery) ? "" : " "+courses?.collect{course -> course.title}?.join(" "))
+                ((user?.basicSkills) ? " "+user?.basicSkills?.collect{it?.name}?.join(" ") : "") +
+                ((user?.mediumSkills) ? " "+user?.mediumSkills?.collect{it?.name}?.join(" ") : "") +
+                ((user?.expertSkills) ? " "+user?.expertSkills?.collect{it?.name}?.join(" ") : "") +
+                ((relatedTo) ? "" : ". "+courses?.collect{course -> course?.title}?.join(". "))
         String difficulty = calculateAvgDifficulty(courses,user)
         int free = calculateIsFree(courses)
         float rating = calculateAvgRating(courses)
@@ -770,7 +770,7 @@ private String calculateMostFrequentInstitution(List<Course> courses){
                 .reduce({ institution1, institution2 ->
                     institution1.value > institution2.value ? institution1 : institution2
                 })
-                .get().key
+                .get()?.key
         return institution?: DEFAULT_INSTITUTION
         //Otherwise, the result is the default value
     }else
@@ -787,9 +787,14 @@ List<Course> getexploreCourses(User user) {
     try {
         RESTClient client = new RESTClient("http://165.227.230.218:80")
         client.defaultAcceptHeader = ContentType.JSON
-        def path = "/explore/?k=4"
+        def path = "/explore/?k="
+        if(user && user?.languages && !user?.languages?.contains("English")){
+            path = path+"25"
+        }else{
+            path = path+"6"
+        }
         def params = [
-                "perfil":generateProfile(user),
+                "perfil":generateProfile(user,false),
                 "contexto":generateContext(user)
         ]
         def response = client.post(path: path) {
@@ -798,9 +803,9 @@ List<Course> getexploreCourses(User user) {
         }
         def slurper = new JsonSlurper()
         def responseData = slurper.parse(response.data)
-        Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map)?.keySet()?.collect { Integer.parseInt(it) }
-        Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map)?.keySet()?.collect { Integer.parseInt(it) }
-        Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map)?.keySet()?.collect { Integer.parseInt(it) }
+        Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map)?.keySet()?.collect { Integer.parseInt(it) }?.take(2)
+        Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map)?.keySet()?.collect { Integer.parseInt(it) }?.take(5)
+        Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map)?.keySet()?.collect { Integer.parseInt(it) }?.take(5)
         return getCourses(idsUdacity, idsCoursera, idsUdemy)
     } catch (Exception e) {
         e.printStackTrace()
@@ -824,13 +829,16 @@ for (int i=1; i<=nusers;i++) {
 
     User.withTransaction {
         user = User.get(i)
-        exploreResults = getexploreCourses(user)
+        if(user)
+            exploreResults = getexploreCourses(user)
     }
 
     User.withTransaction {
         User updateUser = User.get(i)
-        updateUser?.exploreRecommendationsIds = exploreResults.collect{it.id as Long}
-        updateUser?.save()
+        if(updateUser){
+            updateUser?.exploreRecommendationsIds = exploreResults?.collect{it?.id as Long}
+            updateUser?.save()
+        }
     }
 
     println 'Explore recommendations successfully generated for user '+i

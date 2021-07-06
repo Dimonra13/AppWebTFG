@@ -6,6 +6,7 @@
 </head>
 <!-- Body-->
 <body>
+<asset:stylesheet src="customButtons.css"/>
 <div class="container pt-lg-3 pb-5 mb-sm-5">
     <g:set var="lanList" value="${["English",
                                    "Spanish",
@@ -92,7 +93,7 @@
                             <a class="btn btn-outline-primary btn-sm" href="/user/myProfile/"><i class="mr-1" data-feather="chevrons-left"></i><g:message code="profile.image.back"></g:message></a>
                             <br><br>
                         </g:if>
-                        <button onclick="selectAll()" class="btn btn-primary btn-sm btn-block select" type="button"><g:message code="language.select.all"/></button>
+                        <button onclick="selectAll()" class="btn btn-primary btn-sm btn-block mybutton select" style="" type="button"><g:message code="language.select.all"/></button>
                         <button onclick="deselectAll()" class="btn btn-primary btn-sm btn-block select" type="button"><g:message code="language.deselect.all"/></button>
                         <br>
                     </div>
@@ -213,114 +214,118 @@
                 /*Code used to auto-select the categories the user have previously selected,
                   necesary to allow users to edit their interests
                  */
+            if(${update}){
                 let userInterests = []
-                <g:each var="language" in="${userLanguages}">
-                userInterests.push('${language}')
+                    <g:each var="language" in="${userLanguages}">
+                        userInterests.push('${language}')
                 </g:each>
                 userInterests.forEach(it => {
                     addCategoryInput(it)
                 })
-            });
+            }else{
+                selectAll()
+            }
+        });
 
 let languageList = ["English",
-            "Spanish",
-            "German",
-            "Portuguese",
-            "Romanian",
-            "Arabic",
-            "Italian",
-            "Hungarian",
-            "French",
-            "Persian",
-            "Turkish",
-            "Indonesian",
-            "Chinese",
-            "Japanese",
-            "Polish",
-            "Hindi",
-            "Russian",
-            "Vietnamese",
-            "Thai",
-            "Dutch",
-            "Kazakh",
-            "Hebrew",
-            "Urdu",
-            "Bengali",
-            "Tamil",
-            "Telugu",
-            "Norwegian",
-            "Korean",
-            "Czech",
-            "Greek",
-            "Burmese",
-            "Serbian",
-            "Finnish",
-            "Filipino",
-            "Pashto",
-            "Malayalam",
-            "Croatian",
-            "Kannada",
-            "Danish",
-            "Marathi",
-            "Azeri",
-            "Georgian",
-            "Afrikaans",
-            "Bulgarian",
-            "Ukrainian",
-            "Slovenian",
-            "Punjabi",
-            "Mongolian",
-            "Swahili",
-            "Catalan",
-            "Albanian",
-            "Slovak",
-            "Somali",
-            "Irish",
-            "Estonian",
-            "Uzbek",
-            "Gujarati",
-            "Lithuanian",
-            "Latvian",
-            "Armenian",
-            "Swedish",
-            "Kurdish",
-            "Aymara",
-            "Khmer",
-            "Malay",
-            "Nepali"]
+        "Spanish",
+        "German",
+        "Portuguese",
+        "Romanian",
+        "Arabic",
+        "Italian",
+        "Hungarian",
+        "French",
+        "Persian",
+        "Turkish",
+        "Indonesian",
+        "Chinese",
+        "Japanese",
+        "Polish",
+        "Hindi",
+        "Russian",
+        "Vietnamese",
+        "Thai",
+        "Dutch",
+        "Kazakh",
+        "Hebrew",
+        "Urdu",
+        "Bengali",
+        "Tamil",
+        "Telugu",
+        "Norwegian",
+        "Korean",
+        "Czech",
+        "Greek",
+        "Burmese",
+        "Serbian",
+        "Finnish",
+        "Filipino",
+        "Pashto",
+        "Malayalam",
+        "Croatian",
+        "Kannada",
+        "Danish",
+        "Marathi",
+        "Azeri",
+        "Georgian",
+        "Afrikaans",
+        "Bulgarian",
+        "Ukrainian",
+        "Slovenian",
+        "Punjabi",
+        "Mongolian",
+        "Swahili",
+        "Catalan",
+        "Albanian",
+        "Slovak",
+        "Somali",
+        "Irish",
+        "Estonian",
+        "Uzbek",
+        "Gujarati",
+        "Lithuanian",
+        "Latvian",
+        "Armenian",
+        "Swedish",
+        "Kurdish",
+        "Aymara",
+        "Khmer",
+        "Malay",
+        "Nepali"]
 
-            function selectAll(){
-                languageList.forEach(it => {
-                    addCategoryInput(it)
-                })
-            }
+        function selectAll(){
+            languageList.forEach(it => {
+                addCategoryInput(it)
+            })
+        }
 
-            function deselectAll(){
-                languageList.forEach(it => {
-                    removeCategoryInput(it)
-                })
-            }
+        function deselectAll(){
+            languageList.forEach(it => {
+                removeCategoryInput(it)
+            })
+        }
 
-            function addCategoryInput(id) {
-                if (id != '' && !document.getElementById('input_' + id)) {
-                    var categoryInput = document.createElement('input');
-                    categoryInput.type = 'hidden';
-                    categoryInput.id = 'input_' + id;
-                    categoryInput.name = 'languages[]';
-                    categoryInput.value = id;
-                    document.imageSubmit.appendChild(categoryInput);
-                    $('#select-' + id).hide()
-                    $('#unselect-' + id).show()
-                }
+        function addCategoryInput(id) {
+            if (id != '' && !document.getElementById('input_' + id)) {
+                var categoryInput = document.createElement('input');
+                categoryInput.type = 'hidden';
+                categoryInput.id = 'input_' + id;
+                categoryInput.name = 'languages[]';
+                categoryInput.value = id;
+                document.imageSubmit.appendChild(categoryInput);
+                $('#select-' + id).hide()
+                $('#unselect-' + id).show()
             }
+        }
 
-            function removeCategoryInput(id) {
-                if (id != '' && document.getElementById('input_' + id)) {
-                    $('#input_' + id).remove()
-                    $('#unselect-' + id).hide()
-                    $('#select-' + id).show()
-                }
+        function removeCategoryInput(id) {
+            if (id != '' && document.getElementById('input_' + id)) {
+                $('#input_' + id).remove()
+                $('#unselect-' + id).hide()
+                $('#select-' + id).show()
             }
+        }
         </g:javascript>
     </div>
 </div>

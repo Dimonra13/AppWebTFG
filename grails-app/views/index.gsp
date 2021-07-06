@@ -17,7 +17,7 @@
       </div>
     </section>
     <!-- Recommended courses -->
-    <g:if test="${recommendedCourses}">
+    <g:if test="${recommendedCourses && !recommendedCourses?.isEmpty()}">
       <section class="container px-3 pb-4">
         <div class="col-12">
           <br><br>
@@ -86,7 +86,7 @@
       <br>
     </g:if>
     <!-- Related to query courses -->
-    <g:if test="${relatedToQueryCourses}">
+    <g:if test="${relatedToQueryCourses && !relatedToQueryCourses?.isEmpty()}">
       <section class="container px-3 pb-4">
         <div class="col-12">
           <br><br>
@@ -155,7 +155,7 @@
       <br>
     </g:if>
     <!-- Explore courses -->
-    <g:if test="${exploreCourses}">
+    <g:if test="${exploreCourses && !exploreCourses?.isEmpty()}">
       <section class="container px-3 pb-4">
         <div class="col-12">
           <br><br>

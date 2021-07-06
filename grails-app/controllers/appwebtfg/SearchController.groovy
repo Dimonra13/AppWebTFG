@@ -127,6 +127,7 @@ class SearchController {
         Integer bannedCourse = params.get("bannedCourse") as Integer
         List<Course> foundCourses = null
         String isLast = null
+        String data = params.get("courseData")
         if(bannedCourse && authUser){
             userService.saveBannedCourse(authUser,Course?.get(bannedCourse)?.idCurso)
             if(!authUser?.feedback)
@@ -144,11 +145,10 @@ class SearchController {
             }
             foundCourses = courseService.getCourses(searchIDs)
         }else{
-            String data = params.get("courseData")
             if(data && data!=""){
                 foundCourses =  recommenderService.semanticSearch(data,authUser)
             }
         }
-        render(view: "semantic", model: [foundCourses: foundCourses,search: true,isLast:isLast,user:authUser])
+        render(view: "semantic", model: [foundCourses: foundCourses,search: true,isLast:isLast,user:authUser,courseData:data])
     }
 }

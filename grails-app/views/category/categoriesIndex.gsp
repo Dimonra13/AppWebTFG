@@ -121,8 +121,13 @@
                             <div class="input-group flex-nowrap">
                                 <div class="input-group-prepend"><span class="input-group-text rounded-left" id="search-icon"><i
                                         data-feather="search"></i></span></div>
+                                <g:if test="${title && title!=""}">
+                                    <input class="form-control rounded-right" type="text" id="search-course" name="title" value="${title}"
+                                           placeholder="${message(code: 'course.search.bar')}" aria-label="Search site" aria-describedby="search-icon">
+                                </g:if><g:else>
                                 <input class="form-control rounded-right" type="text" id="search-course" name="title"
                                        placeholder="${message(code: 'course.search.bar')}" aria-label="Search site" aria-describedby="search-icon">
+                            </g:else>
                             </div>
                         </div>
                     </div>
@@ -142,6 +147,10 @@
                     " -- <g:message code="categoryIndex.search.noCourseFound"/>
                 </div>
             </g:if><g:else>
+                <g:if test="${title}">
+                    <h2 style="display: inline-block;word-break: break-word;"><g:message code="search.results.for"></g:message> "${title}"</h2>
+                    <br><br>
+                </g:if>
                 <div class="row no-gutters">
                      <g:each var="course" in="${courses}" status="i">
                          <g:if test="${course}">
