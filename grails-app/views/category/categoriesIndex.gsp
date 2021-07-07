@@ -309,7 +309,7 @@
                 <div class="row">
                     <div class="btn-group" style="margin: auto" role="group" aria-label="Solid button group">
                         <g:if test="${offset}">
-                                    <form action="/category/${currentCategory}">
+                                    <form action="/category/${currentCategory}" method="post">
                                         <input type="hidden" name="customSearch" value="true">
                                         <input type="hidden" name="offset" value="${offset-pageSize}">
                                         <input type="hidden" name="pageSize" value="${pageSize}">
@@ -328,6 +328,13 @@
                                         <g:if test="${ogpage}">
                                             <input type="hidden" name="ogpage" value="${ogpage}">
                                         </g:if>
+                                        <g:if test="${max}">
+                                            <input type="hidden" name="max" value="${max}">
+                                        </g:if>
+                                        <g:if test="${min}">
+                                            <input type="hidden" name="min" value="${min}">
+                                        </g:if>
+                                        <g:select style="display:none;" clase="form-control custom-select" name="languageList" valueMessagePrefix="language" from="${languages}" multiple="multiple" value="${languageList}"/>
                                         <input type="submit" class="btn btn-primary" name="submit" value="<< ${message(code: "course.search.pagination.previous")}"/>
                                     </form>
                         </g:if><g:else>
@@ -337,7 +344,7 @@
                                 <h5 style="padding-top: 10px;">${offset ? (offset/pageSize)+1 : 1}</h5>
                             </div>
                         <g:if test="${isMore}">
-                                    <form action="/category/${currentCategory}">
+                                    <form action="/category/${currentCategory}" method="post">
                                         <input type="hidden" name="customSearch" value="true">
                                         <input type="hidden" name="offset" value="${offset+pageSize}">
                                         <input type="hidden" name="pageSize" value="${pageSize}">
@@ -359,6 +366,13 @@
                                         <g:if test="${ogpage}">
                                             <input type="hidden" name="ogpage" value="${ogpage}">
                                         </g:if>
+                                        <g:if test="${max}">
+                                            <input type="hidden" name="max" value="${max}">
+                                        </g:if>
+                                        <g:if test="${min}">
+                                            <input type="hidden" name="min" value="${min}">
+                                        </g:if>
+                                        <g:select style="display:none;" clase="form-control custom-select" name="languageList" valueMessagePrefix="language" from="${languages}" multiple="multiple" value="${languageList}"/>
                                         <input type="submit" class="btn btn-primary" name="submit" value="${message(code: "course.search.pagination.next")} >>"/>
                                     </form>
                         </g:if>

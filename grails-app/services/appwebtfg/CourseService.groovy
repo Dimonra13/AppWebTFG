@@ -39,7 +39,7 @@ class CourseService {
             }
             if(difficulty) eq("difficulty",difficulty)
             if(ogpage) eq("originalPage",ogpage)
-            if(maxPrice && minPrice) between("price",minPrice,maxPrice)
+            if(maxPrice != null && minPrice != null) between("price",minPrice,maxPrice)
             if(sortBy) order sortBy, sortByAsc ? 'asc' : 'desc'
         } as List<Course>
     }
