@@ -8,6 +8,8 @@
 <body>
 <asset:javascript src="jquery.star-rating-svg.js"/>
 <asset:stylesheet src="star-rating-svg.css"/>
+<asset:javascript src="jquery.dropdown.js"/>
+<asset:stylesheet src="jquery.dropdown.css"/>
 <br>
 <div class="container pb-5 mb-4">
     <div class="row">
@@ -74,48 +76,8 @@
             </div>
             <!-- Toolbar-->
             <div>
-                <form action="/category/${currentCategory}">
+                <form action="/category/${currentCategory}" method="post">
                     <div class="d-flex flex-wrap justify-content-center justify-content-sm-between" style="margin: auto;">
-                        <input type="hidden" name="customSearch" value="true">
-                        <div class="form-inline flex-nowrap mr-3 mr-sm-4 pb-3">
-                            <label class="text-nowrap mr-2" for="sorting"><g:message code="categoryIndex.sortBy"></g:message></label>
-                            <select class="form-control custom-select" name="sortBy" id="sorting">
-                                <option><g:message code="categoryIndex.sortBy.rating"></g:message></option>
-                                <option><g:message code="categoryIndex.sortBy.A-Z"></g:message></option>
-                                <option><g:message code="categoryIndex.sortBy.Z-A"></g:message></option>
-                            </select>
-                        </div>
-                        <div class="form-inline flex-nowrap mr-3 mr-sm-4 pb-3">
-                            <label class="mr-2" for="number"><g:message code="categoryIndex.pageSize"></g:message></label>
-                            <select class="form-control custom-select mr-sm-2" name="pageSize" id="number">
-                                <option>12</option>
-                                <option>24</option>
-                                <option>48</option>
-                            </select>
-                        </div>
-                        <div class="form-inline flex-nowrap pb-3">
-                            <label class="mr-2" for="pager"><g:message code="categoryIndex.page"></g:message></label>
-                            <input class="form-control mr-2" type="number" id="pager" name="page" value="1" min="1" pattern="^[0-9]+" style="width: 5.5rem;">
-                        </div>
-                        <div style="margin-top: -0.1rem;">
-                            <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" type="checkbox" id="freeOnly" name="freeOnly">
-                                <label class="custom-control-label" for="freeOnly"><g:message code="categoryIndex.freeOnly"></g:message></label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input class="custom-control-input" type="checkbox" id="englishOnly" name="englishOnly">
-                                <label class="custom-control-label" for="englishOnly"><g:message code="categoryIndex.englishOnly"></g:message></label>
-                            </div>
-                        </div>
-                        <div class="form-inline flex-nowrap mr-3 mr-sm-4 pb-3" style="padding-left: 1rem;">
-                            <label class="text-nowrap mr-2" for="difficulty"><g:message code="categoryIndex.difficulty"></g:message></label>
-                            <select class="form-control custom-select" name="difficulty" id="difficulty">
-                                <option><g:message code="categoryIndex.difficulty.all"></g:message></option>
-                                <option><g:message code="categoryIndex.difficulty.beginner"></g:message></option>
-                                <option><g:message code="categoryIndex.difficulty.intermediate"></g:message></option>
-                                <option><g:message code="categoryIndex.difficulty.advanced"></g:message></option>
-                            </select>
-                        </div>
                         <!-- search-box-->
                         <div class="flex-grow-1 flex-nowrap mr-3 mr-sm-4 pb-3" >
                             <div class="input-group flex-nowrap">
@@ -132,6 +94,122 @@
                                        placeholder="${message(code: 'course.search.bar')}" aria-label="Search site" aria-describedby="search-icon">
                             </g:else>
                             </div>
+                        </div>
+                    </div>
+                    <div class="d-flex flex-wrap justify-content-center justify-content-sm-between" style="margin: auto;">
+                        <input type="hidden" name="customSearch" value="true">
+                        <input type="hidden" name="pageSize" value="12">
+                        <input type="hidden" name="page" value="1">
+                        <div class="form-inline flex-nowrap mr-3 mr-sm-4 pb-3" style="padding-left: 1rem;">
+                            <label class="text-nowrap mr-2" for="difficulty"><g:message code="categoryIndex.difficulty"></g:message></label>
+                            <select class="form-control custom-select" name="difficulty" id="difficulty">
+                                <g:if test="${difficulty == g.message(code: "categoryIndex.difficulty.all")}">
+                                    <option><g:message code="categoryIndex.difficulty.all"></g:message></option>
+                                </g:if><g:elseif test="${difficulty == g.message(code: "categoryIndex.difficulty.beginner")}">
+                                    <option><g:message code="categoryIndex.difficulty.beginner"></g:message></option>
+                                </g:elseif><g:elseif test="${difficulty == g.message(code: "categoryIndex.difficulty.intermediate")}">
+                                    <option><g:message code="categoryIndex.difficulty.intermediate"></g:message></option>
+                                </g:elseif><g:elseif test="${difficulty == g.message(code: "categoryIndex.difficulty.advanced")}">
+                                    <option><g:message code="categoryIndex.difficulty.advanced"></g:message></option>
+                                </g:elseif>
+                                <g:if test="${difficulty != g.message(code: "categoryIndex.difficulty.all")}">
+                                    <option><g:message code="categoryIndex.difficulty.all"></g:message></option>
+                                </g:if>
+                                <g:if test="${difficulty != g.message(code: "categoryIndex.difficulty.beginner")}">
+                                    <option><g:message code="categoryIndex.difficulty.beginner"></g:message></option>
+                                </g:if>
+                                <g:if test="${difficulty != g.message(code: "categoryIndex.difficulty.intermediate")}">
+                                    <option><g:message code="categoryIndex.difficulty.intermediate"></g:message></option>
+                                </g:if>
+                                <g:if test="${difficulty != g.message(code: "categoryIndex.difficulty.advanced")}">
+                                    <option><g:message code="categoryIndex.difficulty.advanced"></g:message></option>
+                                </g:if>
+                            </select>
+                        </div>
+                        <!-- Price range widget -->
+                        <div class="widget form-inline flex-nowrap mr-3 mr-sm-4 pb-3" style="padding-left: 1rem; padding-top: 2rem;">
+                            <g:if test="${min && max}">
+                                <div class="range-slider" data-start-min="${min}" data-start-max="${max}" data-min="0" data-max="400" data-step="1">
+                            </g:if><g:else>
+                                <div class="range-slider" data-start-min="0" data-start-max="400" data-min="0" data-max="400" data-step="1">
+                            </g:else>
+                                <div class="ui-range-slider"></div>
+                                <footer class="ui-range-slider-footer">
+                                    <div class="form-check-inline" style="margin-left: 1.2rem;">
+                                        <div class="ui-range-label"><g:message code="categoryIndex.price.range"></g:message></div>
+                                        <div class="ui-range-value-min">
+                                            &nbsp;<span></span>€
+                                            <input type="hidden" name="min">
+                                        </div>
+                                        &nbsp;&ndash;&nbsp;
+                                        <div class="ui-range-value-max">
+                                            <span></span>€
+                                            <input type="hidden" name="max">
+                                        </div>
+                                    </div>
+                                </footer>
+                            </div>
+                        </div>
+                        <div class="form-inline flex-nowrap mr-3 mr-sm-4 pb-3" style="padding-left: 1rem;">
+                            <label class="text-nowrap mr-2" for="ogpage"><g:message code="course.search.ogpage"></g:message></label>
+                            <select class="form-control custom-select" name="ogpage" id="ogpage">
+                                <g:if test="${ogpage == g.message(code: "course.search.ogpage.all")}">
+                                    <option><g:message code="course.search.ogpage.all"></g:message></option>
+                                </g:if><g:elseif test="${ogpage == g.message(code: "course.search.ogpage.coursera")}">
+                                    <option><g:message code="course.search.ogpage.coursera"></g:message></option>
+                                </g:elseif><g:elseif test="${ogpage == g.message(code: "course.search.ogpage.udemy")}">
+                                    <option><g:message code="course.search.ogpage.udemy"></g:message></option>
+                                </g:elseif><g:elseif test="${ogpage == g.message(code: "course.search.ogpage.udacity")}">
+                                    <option><g:message code="course.search.ogpage.udacity"></g:message></option>
+                                </g:elseif>
+                                <g:if test="${ogpage != g.message(code: "course.search.ogpage.all")}">
+                                    <option><g:message code="course.search.ogpage.all"></g:message></option>
+                                </g:if>
+                                <g:if test="${ogpage != g.message(code: "course.search.ogpage.coursera")}">
+                                    <option><g:message code="course.search.ogpage.coursera"></g:message></option>
+                                </g:if>
+                                <g:if test="${ogpage != g.message(code: "course.search.ogpage.udemy")}">
+                                    <option><g:message code="course.search.ogpage.udemy"></g:message></option>
+                                </g:if>
+                                <g:if test="${ogpage != g.message(code: "course.search.ogpage.udacity")}">
+                                    <option><g:message code="course.search.ogpage.udacity"></g:message></option>
+                                </g:if>
+                            </select>
+                        </div>
+                        <div class="form-inline flex-nowrap mr-3 mr-sm-4 pb-3">
+                            <label class="text-nowrap mr-2" for="sorting"><g:message code="categoryIndex.sortBy"></g:message></label>
+                            <select class="form-control custom-select" name="sortBy" id="sorting">
+                                <g:if test="${sortBy == g.message(code: "categoryIndex.sortBy.A-Z")}">
+                                    <option><g:message code="categoryIndex.sortBy.A-Z"></g:message></option>
+                                </g:if><g:elseif test="${sortBy == g.message(code: "categoryIndex.sortBy.Z-A")}">
+                                <option><g:message code="categoryIndex.sortBy.Z-A"></g:message></option>
+                            </g:elseif><g:elseif test="${sortBy == g.message(code: "categoryIndex.sortBy.price.asc")}">
+                                <option><g:message code="categoryIndex.sortBy.price.asc"></g:message></option>
+                            </g:elseif><g:elseif test="${sortBy == g.message(code: "categoryIndex.sortBy.price.desc")}">
+                                <option><g:message code="categoryIndex.sortBy.price.desc"></g:message></option>
+                            </g:elseif><g:elseif test="${sortBy == g.message(code: "categoryIndex.sortBy.rating")}">
+                                <option><g:message code="categoryIndex.sortBy.rating"></g:message></option>
+                            </g:elseif>
+                                <g:if test="${sortBy != g.message(code: "categoryIndex.sortBy.rating")}">
+                                    <option><g:message code="categoryIndex.sortBy.rating"></g:message></option>
+                                </g:if>
+                                <g:if test="${sortBy != g.message(code: "categoryIndex.sortBy.A-Z")}">
+                                    <option><g:message code="categoryIndex.sortBy.A-Z"></g:message></option>
+                                </g:if>
+                                <g:if test="${sortBy != g.message(code: "categoryIndex.sortBy.Z-A")}">
+                                    <option><g:message code="categoryIndex.sortBy.Z-A"></g:message></option>
+                                </g:if>
+                                <g:if test="${sortBy != g.message(code: "categoryIndex.sortBy.price.asc")}">
+                                    <option><g:message code="categoryIndex.sortBy.price.asc"></g:message></option>
+                                </g:if>
+                                <g:if test="${sortBy != g.message(code: "categoryIndex.sortBy.price.desc")}">
+                                    <option><g:message code="categoryIndex.sortBy.price.desc"></g:message></option>
+                                </g:if>
+                            </select>
+                        </div>
+                        <div class="form-inline flex-nowrap mr-3 mr-sm-4 pb-3 multi" style="min-width: 16.5rem;max-width: 30rem">
+                            <label class="text-nowrap mr-2" for="languageList"><g:message code="categoryIndex.languages"></g:message></label>
+                            <g:select style="display:none;" clase="form-control custom-select" id="languageList" name="languageList" valueMessagePrefix="language" from="${languages}" multiple="multiple" value="${languageList}"/>
                         </div>
                     </div>
                     <div class="text-right mb-3">
@@ -247,6 +325,9 @@
                                         <g:if test="${difficulty}">
                                             <input type="hidden" name="difficulty" value="${difficulty}">
                                         </g:if>
+                                        <g:if test="${ogpage}">
+                                            <input type="hidden" name="ogpage" value="${ogpage}">
+                                        </g:if>
                                         <input type="submit" class="btn btn-primary" name="submit" value="<< ${message(code: "course.search.pagination.previous")}"/>
                                     </form>
                         </g:if><g:else>
@@ -275,6 +356,9 @@
                                         <g:if test="${difficulty}">
                                             <input type="hidden" name="difficulty" value="${difficulty}">
                                         </g:if>
+                                        <g:if test="${ogpage}">
+                                            <input type="hidden" name="ogpage" value="${ogpage}">
+                                        </g:if>
                                         <input type="submit" class="btn btn-primary" name="submit" value="${message(code: "course.search.pagination.next")} >>"/>
                                     </form>
                         </g:if>
@@ -288,6 +372,12 @@
     $(document).ready(function () {
         let catGroup = "#${categoryGroup}"
         $( catGroup ).addClass( "show" );
+    });
+</g:javascript>
+<g:javascript>
+    $('.multi').dropdown({
+        searchable:false,
+        multipleMode:'label'
     });
 </g:javascript>
 </body>

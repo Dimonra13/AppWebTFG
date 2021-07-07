@@ -57,6 +57,53 @@ class CourseListServiceIntegrationSpec extends Specification {
     }
 
     @Unroll
+    void "test the editCourseList method"(String name, String description, boolean correct) {
+
+        given: "The expected CourseList, the test CourseList and the test user"
+        User testUser
+        CourseList expectedCourseList
+        CourseList testCourseList
+
+        and: "There is one user registered in the database"
+        testUser = User.findByUsername("testEditCourseList")
+        if (!testUser)
+            testUser = registrationService.registerUser("testEditCourseList", "test", "test@gmail.com")
+
+        and: "The expected CourseList is specified"
+        expectedCourseList = correct ? new CourseList(name: name, description: description, owner: testUser) : null
+
+        and: "The CourseList is created"
+        testCourseList = courseListService.createCourseList(testUser, "name", "description")
+
+        when: "The CourseList is updated"
+        testCourseList = courseListService.editCourseList(testCourseList?.id,name,description)
+
+        then: "The output must be the same as the expected output of the method"
+        (expectedCourseList?.name == testCourseList?.name) && (expectedCourseList?.description == testCourseList?.description)
+
+        cleanup:
+        User.withNewSession { session ->
+            CourseList cl = CourseList.findByName(name)
+            User registeredUser = User.findByUsername("testEditCourseList")
+            if (cl) {
+                registeredUser.removeFromLists(cl)
+                cl.delete()
+            }
+            UserRole.findByUser(registeredUser)?.delete()
+            registeredUser?.delete()
+        }
+
+        where:
+        name    | description       | correct
+        "test"  | null              | true
+        "test"  | "testdescription" | true
+        "diego" | null              | true
+        null    | null              | false
+        null    | "testDescription" | false
+
+    }
+
+    @Unroll
     void "test the deleteCourseList method"(String name) {
 
         given: "the test CourseList and the test user"

@@ -16,6 +16,76 @@ class CategoryController {
                             'Test-Prep','Architecture']
     Set<String> humanities = ['Business-Finance','Leadership','Entrepreneurship','Personal-Development',
                               'Human-Studies','Arts','Education','Health','Marketing','Graphic-Design']
+    List<String> languages = [
+            "English",
+            "Spanish",
+            "German",
+            "Portuguese",
+            "Romanian",
+            "Arabic",
+            "Italian",
+            "Hungarian",
+            "French",
+            "Persian",
+            "Turkish",
+            "Indonesian",
+            "Chinese",
+            "Japanese",
+            "Polish",
+            "Hindi",
+            "Russian",
+            "Vietnamese",
+            "Thai",
+            "Dutch",
+            "Kazakh",
+            "Hebrew",
+            "Urdu",
+            "Bengali",
+            "Tamil",
+            "Telugu",
+            "Norwegian",
+            "Korean",
+            "Czech",
+            "Greek",
+            "Burmese",
+            "Serbian",
+            "Finnish",
+            "Filipino",
+            "Pashto",
+            "Malayalam",
+            "Croatian",
+            "Kannada",
+            "Danish",
+            "Marathi",
+            "Azeri",
+            "Georgian",
+            "Afrikaans",
+            "Bulgarian",
+            "Ukrainian",
+            "Slovenian",
+            "Punjabi",
+            "Mongolian",
+            "Swahili",
+            "Catalan",
+            "Albanian",
+            "Slovak",
+            "Somali",
+            "Irish",
+            "Estonian",
+            "Uzbek",
+            "Gujarati",
+            "Lithuanian",
+            "Latvian",
+            "Armenian",
+            "Swedish",
+            "Kurdish",
+            "Aymara",
+            "Khmer",
+            "Malay",
+            "Nepali",
+            "Tatar"
+    ]
+
     @Secured(["permitAll"])
     def getCategory(String id) {
         if(!id||!categories.contains(id))
@@ -29,6 +99,10 @@ class CategoryController {
             boolean freeOnly = params.freeOnly as boolean
             boolean englishOnly = params.englishOnly as boolean
             String difficulty = null
+            String ogpage = null
+            Float min = null
+            Float max = null
+            List<String> languageList = languages
             if(params.get("customSearch")){
                 pageSize=Integer.parseInt(params.pageSize)
                 if(params.offset)
@@ -46,6 +120,12 @@ class CategoryController {
                 }else if(params.sortBy == g.message(code: "categoryIndex.sortBy.Z-A")){
                     sortBy='title'
                     sortByAsc=false
+                }else if(params.sortBy == g.message(code: "categoryIndex.sortBy.price.asc")){
+                    sortBy='price'
+                    sortByAsc=true
+                }else if(params.sortBy == g.message(code: "categoryIndex.sortBy.price.desc")){
+                    sortBy='price'
+                    sortByAsc=false
                 }else{
                     sortBy=null
                     sortByAsc=false
@@ -56,14 +136,36 @@ class CategoryController {
                     difficulty= 'intermediate'
                 else if(params.difficulty == g.message(code: "categoryIndex.difficulty.advanced"))
                     difficulty= 'advanced'
+                if(params.ogpage)
+                    ogpage=(params.ogpage==g.message(code: "course.search.ogpage.all"))? null : params.ogpage
+                if(params.min)
+                    min = Float.parseFloat(params.min)
+                if(params.max)
+                    max = Float.parseFloat(params.max)
+                if(params.languageList){
+                    try{
+                        languageList = params.languageList
+                    }catch(Exception e){
+                        languageList = new LinkedList<>();
+                        languageList.add(params.languageList)
+                    }
+                    if(languageList.contains("all"))
+                        languageList=languages
+                }
             }else{
                 pageSize=12
                 offset=0
                 sortBy=null
                 sortByAsc=false
             }
-            List<Course> courses = courseService.findCourses(id,pageSize,offset,title,freeOnly,englishOnly,sortBy,sortByAsc,difficulty,null)
-            boolean isMore = courseService.findCourses(id,pageSize,offset+pageSize,title,freeOnly,englishOnly,sortBy,sortByAsc,difficulty,null) as boolean
+            List<String> queryList = languageList.clone()
+            if(queryList?.contains("Chinese")){
+                queryList.remove("Chinese")
+                queryList.add("Traditional Chinese")
+                queryList.add("Simplified Chinese")
+            }
+            List<Course> courses = courseService.findCourses(id,pageSize,offset,title,freeOnly,englishOnly,sortBy,sortByAsc,difficulty,ogpage,max,min,queryList)
+            boolean isMore = courseService.findCourses(id,pageSize,offset+pageSize,title,freeOnly,englishOnly,sortBy,sortByAsc,difficulty,ogpage,max,min,queryList) as boolean
             render(view: "categoriesIndex",model: [
                     currentCategory: id,
                     courses: courses,
@@ -71,10 +173,15 @@ class CategoryController {
                     pageSize: pageSize,
                     offset: offset,
                     title: title,
+                    ogpage: params?.ogpage,
                     freeOnly: freeOnly,
                     englishOnly: englishOnly,
-                    difficulty: params.difficulty,
-                    sortBy: params.sortBy,
+                    difficulty: params?.difficulty,
+                    sortBy: params?.sortBy,
+                    min: params?.min,
+                    max: params?.max,
+                    languages: (["all"]+languages) as List<String>,
+                    languageList: (languageList == languages)? ["all"] : languageList,
                     categoryGroup: science.contains(id) ? "science" : humanities.contains(id) ? "humanities" : "brands"
             ])
         }

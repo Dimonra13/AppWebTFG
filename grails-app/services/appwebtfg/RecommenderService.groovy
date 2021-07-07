@@ -122,7 +122,7 @@ class RecommenderService {
             Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map)?.keySet()?.collect { Integer.parseInt(it) }?.take(2)
             Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map)?.keySet()?.collect { Integer.parseInt(it) }?.take(11)
             Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map)?.keySet()?.collect { Integer.parseInt(it) }?.take(12)
-            return getCourses(idsUdacity, idsCoursera, idsUdemy)
+            return (getCoursesUdemy(idsUdemy) + getCoursesCoursera(idsCoursera))?.toSet()?.toList() + getCoursesUdacity(idsUdacity)
         } catch (Exception e) {
             e.printStackTrace()
             return []

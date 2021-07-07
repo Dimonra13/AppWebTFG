@@ -59,7 +59,7 @@ class CourseServiceIntegrationSpec extends Specification {
             }
         }
         when: "FindCourses method is called"
-        List<Course> output = courseService.findCourses(category, 10, offset, null, false, false, null, false, null, null)
+        List<Course> output = courseService.findCourses(category, 10, offset, null, false, false, null, false, null, null,null,null,null)
         then: "The output list must have the specified size"
         output?.size() == size
 
@@ -94,7 +94,7 @@ class CourseServiceIntegrationSpec extends Specification {
             }
         }
         when: "FindCourses method is called"
-        List<Course> output = courseService.findCourses(category, 10, 0, title, false, false, null, false, null, null)
+        List<Course> output = courseService.findCourses(category, 10, 0, title, false, false, null, false, null, null,null,null,null)
         then: "The output list must have the specified size"
         output?.size() == size
 
@@ -133,7 +133,7 @@ class CourseServiceIntegrationSpec extends Specification {
             }
         }
         when: "FindCourses method is called"
-        List<Course> output = courseService.findCourses(category, 10, 0, null, false, false, null, false, difficulty, null)
+        List<Course> output = courseService.findCourses(category, 10, 0, null, false, false, null, false, difficulty, null,null,null,null)
         then: "The output list must have the specified size"
         output?.size() == size
 
@@ -169,7 +169,7 @@ class CourseServiceIntegrationSpec extends Specification {
             }
         }
         when: "FindCourses method is called"
-        List<Course> output = courseService.findCourses(category, 10, 0, null, false, false, null, false, null, ogpage)
+        List<Course> output = courseService.findCourses(category, 10, 0, null, false, false, null, false, null, ogpage,null,null,null)
         then: "The output list must have the specified size"
         output?.size() == size
 
@@ -207,7 +207,7 @@ class CourseServiceIntegrationSpec extends Specification {
             }
         }
         when: "FindCourses method is called"
-        List<Course> output = courseService.findCourses(category, 10, 0, null, freeOnly, false, null, false, null, null)
+        List<Course> output = courseService.findCourses(category, 10, 0, null, freeOnly, false, null, false, null, null,null,null,null)
         then: "The output list must have the specified size"
         output?.size() == size
 
@@ -242,7 +242,7 @@ class CourseServiceIntegrationSpec extends Specification {
             }
         }
         when: "FindCourses method is called"
-        List<Course> output = courseService.findCourses(category, 10, 0, null, false, englishOnly, null, false, null, null)
+        List<Course> output = courseService.findCourses(category, 10, 0, null, false, englishOnly, null, false, null, null,null,null,null)
         then: "The output list must have the specified size"
         output?.size() == size
 
@@ -288,7 +288,7 @@ class CourseServiceIntegrationSpec extends Specification {
                 : []
 
         when: "FindCourses method is called"
-        List<Course> output = courseService.findCourses(category, 10, 0, null, false, false, sortBy, sortByAsc, null, null)
+        List<Course> output = courseService.findCourses(category, 10, 0, null, false, false, sortBy, sortByAsc, null, null,null,null,null)
 
         then: "The output list must be equal to the expected list"
         output.collect { course -> course.title } == expectedResult

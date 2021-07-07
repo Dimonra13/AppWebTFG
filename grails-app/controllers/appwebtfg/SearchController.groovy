@@ -100,8 +100,8 @@ class SearchController {
             sortBy=null
             sortByAsc=false
         }
-        List<Course> courses = courseService.findCourses(null,pageSize,offset,title,freeOnly,englishOnly,sortBy,sortByAsc,difficulty,ogpage)
-        boolean isMore = courseService.findCourses(null,pageSize,offset+pageSize,title,freeOnly,englishOnly,sortBy,sortByAsc,difficulty,ogpage) as boolean
+        List<Course> courses = courseService.findCourses(null,pageSize,offset,title,freeOnly,englishOnly,sortBy,sortByAsc,difficulty,ogpage,null,null,null)
+        boolean isMore = courseService.findCourses(null,pageSize,offset+pageSize,title,freeOnly,englishOnly,sortBy,sortByAsc,difficulty,ogpage,null,null,null) as boolean
         render(view: "course",model: [
                 courses: courses,
                 isMore: isMore,

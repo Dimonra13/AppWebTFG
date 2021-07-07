@@ -20,7 +20,7 @@ class CourseService {
      * @param ogpage
      * @return the list of courses that meet these criteria
      */
-    List<Course> findCourses(String category, int max, int offset, String title, boolean freeOnly, boolean englishOnly, String sortBy, boolean sortByAsc, String difficulty,String ogpage){
+    List<Course> findCourses(String category, int max, int offset, String title, boolean freeOnly, boolean englishOnly, String sortBy, boolean sortByAsc, String difficulty,String ogpage,Float maxPrice,Float minPrice,List<String> languages){
         Course.createCriteria().list(max:max,offset:offset) {
             if(category) eq("category",category)
             if(title) ilike("title","%${title}%")
@@ -32,8 +32,14 @@ class CourseService {
                 eq("language","English")
                 eq("language","english")
             }
+            if (languages) or{
+                for (i in 0..<languages.size()) {
+                    eq("language",languages[i])
+                }
+            }
             if(difficulty) eq("difficulty",difficulty)
             if(ogpage) eq("originalPage",ogpage)
+            if(maxPrice && minPrice) between("price",minPrice,maxPrice)
             if(sortBy) order sortBy, sortByAsc ? 'asc' : 'desc'
         } as List<Course>
     }

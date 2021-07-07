@@ -55,7 +55,7 @@ class CourseController {
             }else if(authUser&&params.search&&!params.fromCreate){
                 userService.saveRecentSearch(authUser,course.title)
             }
-            related = recommenderService.getRelatedCourses(course,authUser)?.findAll{it -> it?.id != id}.take(8)
+            related = recommenderService.getRelatedCourses(course,authUser)?.findAll{it -> it?.id != id}?.take(8)?.toSet()?.toList()
         }
         if (course)
             render(view: "courseProfile", model: [course: course, user: authUser, lists: filteredLists,related:related,recommendationSource:recommendation,isLast:isLast])

@@ -12,8 +12,6 @@ class CourseListController {
     CourseListService courseListService
     UserFeedbackService userFeedbackService
 
-    def index() {}
-
     /**
      * Method that returns the public page of a courseList if it exists or error 404 otherwise
      * In case this user's profile is private the method will return error 403.
@@ -132,15 +130,25 @@ class CourseListController {
     }
 
     /**
-     * Method used to delete the courseList with id=params.id for the user.
+     * Method used to delete the courseList with id=params.id for the user. In case the authenticated user is not
+     * the owner of the courseList to delete the method will return error 403.
      * @param id
-     * @return redirect to "/user/myProfile"
+     * @return redirect to "/user/myProfile", status 404 or status 403
      */
     @Secured('isAuthenticated()')
     def deleteMyCourseList(Long id) {
         User authUser = springSecurityService.getCurrentUser() as User
-        courseListService.deleteCourseList(authUser, id)
-        redirect(controller: "User", action: "myProfile")
+        CourseList cl = CourseList.get(id)
+        if(cl && authUser){
+            if(cl.owner==authUser){
+                courseListService.deleteCourseList(authUser, id)
+                redirect(controller: "User", action: "myProfile")
+            }else{
+                render status: 403
+            }
+        }else{
+            render status: 404
+        }
     }
 
     /**
