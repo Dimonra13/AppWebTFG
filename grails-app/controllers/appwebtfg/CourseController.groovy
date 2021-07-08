@@ -36,8 +36,8 @@ class CourseController {
             userFeedbackService.updateNotInterested(authUser,Course?.get(bannedCourse)?.originalPage)
             List<Integer> relatedToCourseIDs
             if(!params.isLast){
-                relatedToCourseIDs = params.get("relatedToCourseIDs").collect{it->Integer.parseInt(it)}
-                if (relatedToCourseIDs.size()==2)
+                relatedToCourseIDs = params.get("relatedToCourseIDs")?.collect{it->Integer.parseInt(it)}
+                if (relatedToCourseIDs?.size()==2)
                     isLast="true"
             }else{
                 relatedToCourseIDs = new LinkedList<>();

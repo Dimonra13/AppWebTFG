@@ -18,6 +18,9 @@ class CourseService {
      * @param sortByAsc
      * @param difficulty
      * @param ogpage
+     * @param maxPrice
+     * @param minPrice
+     * @param languages
      * @return the list of courses that meet these criteria
      */
     List<Course> findCourses(String category, int max, int offset, String title, boolean freeOnly, boolean englishOnly, String sortBy, boolean sortByAsc, String difficulty,String ogpage,Float maxPrice,Float minPrice,List<String> languages){

@@ -139,7 +139,12 @@ class UserController {
         } else if (!cmd || cmd.ownerId != authUser.id || cmd.hasErrors()) {
             render(view: 'editProfileImage', model: [user: authUser, error: true])
         } else {
-            User updatedUser = userService.updateProfileImage(authUser, cmd)
+            User updatedUser
+            try {
+                updatedUser = userService.updateProfileImage(authUser, cmd)
+            }catch(Exception e){
+                render(view: 'editProfileImage', model: [user: authUser, error: true])
+            }
             if (updatedUser) {
                 springSecurityService.reauthenticate(updatedUser.username)
                 redirect(action: "myProfile")

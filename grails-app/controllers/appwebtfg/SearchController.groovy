@@ -117,7 +117,7 @@ class SearchController {
                               'Graphic-Design','Gaming','Google','Oracle','Microsoft','SAP']
 
     /**
-     * Method the returns the page used for searching courses with a certain title
+     * Method the returns the page used for searching courses
      * @return view "search/course"
      */
     @Secured(["permitAll"])
@@ -235,10 +235,18 @@ class SearchController {
         ])
     }
 
+    /**
+     * Method the returns the page used for searching courses using the semantic search of the API
+     * @return view "search/semantic"
+     */
     @Secured(["permitAll"])
     def semantic(){
     }
 
+    /**
+     * Method the returns the page used for searching courses using the semantic search of the API, with the results of the query
+     * @return view "search/semantic"
+     */
     @Secured(["permitAll"])
     def semanticSearch(){
         User authUser = springSecurityService.getCurrentUser() as User
@@ -254,7 +262,7 @@ class SearchController {
             List<Integer> searchIDs
             if(!params.isLast){
                 searchIDs = params?.get("searchIDs")?.collect{it->Integer.parseInt(it)}
-                if (searchIDs.size()==2)
+                if (searchIDs?.size()==2)
                     isLast="true"
             }else{
                 searchIDs = new LinkedList<>();

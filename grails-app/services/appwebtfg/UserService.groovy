@@ -47,12 +47,14 @@ class UserService {
      * @return the user with the new personal information
      */
     User updateUser(User updatedUser, User currentUser, boolean changedPassword){
-        currentUser.username = updatedUser.username
-        currentUser.email = updatedUser.email
-        currentUser.phoneNumber = updatedUser.phoneNumber
-        currentUser.age = updatedUser.age
+        if(updatedUser == null || currentUser == null)
+            return null
+        currentUser?.username = updatedUser?.username
+        currentUser?.email = updatedUser?.email
+        currentUser?.phoneNumber = updatedUser?.phoneNumber
+        currentUser?.age = updatedUser?.age
         if(changedPassword){
-            currentUser.password = updatedUser.password
+            currentUser?.password = updatedUser?.password
         }
         currentUser.save()
     }
@@ -64,8 +66,10 @@ class UserService {
      * @return the user with the profile image updated
      */
     User updateProfileImage(User user, ImageCommandObject cmd) {
-        user.profileImageBytes = cmd.featuredImageFile.bytes
-        user.profileImageContentType = cmd.featuredImageFile.contentType
+        if(user == null || cmd == null)
+            return null
+        user.profileImageBytes = cmd?.featuredImageFile?.bytes
+        user.profileImageContentType = cmd?.featuredImageFile?.contentType
         user.hasProfileImage = true
         user.save()
     }
@@ -76,6 +80,8 @@ class UserService {
      * @return the user with the profile image deleted
      */
     User deleteProfileImage(User user) {
+        if(user == null)
+            return null
         user.profileImageBytes = null
         user.profileImageContentType = null
         user.hasProfileImage = false
@@ -88,6 +94,8 @@ class UserService {
      * @return the user with the profile public
      */
     User makeProfilePublic(User user) {
+        if (user == null)
+            return null
         user?.isPublicProfile=true
         user?.save()
     }
@@ -98,6 +106,8 @@ class UserService {
      * @return the user with the profile private
      */
     User makeProfilePrivate(User user) {
+        if (user == null)
+            return null
         user?.isPublicProfile=false
         user?.save()
     }
@@ -109,6 +119,8 @@ class UserService {
      * @return the user with the list of interests updated
      */
     User updateInterests(User user,List<String> userInterests){
+        if (user == null)
+            return null
         user?.interests = userInterests ?: []
         user?.save()
     }
@@ -120,6 +132,8 @@ class UserService {
      * @return the user with the list of languages updated
      */
     User updateLanguages(User user,List<String> languages){
+        if (user == null)
+            return null
         user?.languages = languages ?: []
         user?.save()
     }
@@ -134,6 +148,8 @@ class UserService {
      * @return the user with the preferences updated
      */
     User updatePreferences(User user, Float duration, Float  cost, Float popularity, Float difficulty){
+        if(user == null)
+            return null
         user.duration=duration
         user.cost=cost
         user.popularity=popularity
@@ -150,6 +166,8 @@ class UserService {
      * @return user
      */
     User saveRecentSearch(User user, String search){
+        if (user == null)
+            return null
         List<String> recentSearches = user?.recentSearches
         if(!recentSearches)
             recentSearches = []
@@ -172,6 +190,8 @@ class UserService {
      * @return updated user
      */
     User saveBannedCourse(User user, Long id){
+        if (user == null)
+            return null
         Set<Integer> bannedCourses = user?.bannedCourses
         if(!bannedCourses)
             bannedCourses = []

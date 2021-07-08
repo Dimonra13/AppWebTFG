@@ -130,7 +130,7 @@ class RecommenderService {
     }
 
     /**
-     * Method used to make the request to the API to obtain the courses related to the course received as parameter of this method.
+     * Method used to make the requests to the API to obtain the courses related to the course received as parameter of this method.
      * @param course
      * @param user
      * @return the list of related courses
@@ -277,7 +277,7 @@ class RecommenderService {
     }
 
     /**
-     * Method used to make the request to the API to obtain the courses related with a query recommended for the user
+     * Method used to make the requests to the API to obtain the courses related with a query recommended for the user
      * received as parameter of this method.
      * @param data
      * @param user

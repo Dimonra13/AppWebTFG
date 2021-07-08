@@ -125,6 +125,10 @@ class SkillService {
         user.save()
     }
 
+    /**
+     * Method used to delete the specified skills
+     * @param skills
+     */
     private def deleteSkills(Set<Skill> skills){
         while(skills && !skills.isEmpty()){
             Skill skill = skills.getAt(0)

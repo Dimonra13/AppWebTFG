@@ -86,6 +86,11 @@ class CategoryController {
             "Tatar"
     ]
 
+    /**
+     * Method that returns the page of a category if it exists or error 404 otherwise
+     * @param id
+     * @return view "categoriesIndex" or status 404
+     */
     @Secured(["permitAll"])
     def getCategory(String id) {
         if(!id||!categories.contains(id))
