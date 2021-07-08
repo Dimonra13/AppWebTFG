@@ -209,7 +209,7 @@
                         </div>
                         <div class="form-inline flex-nowrap mr-3 mr-sm-4 pb-3 multi" style="min-width: 16.5rem;max-width: 30rem">
                             <label class="text-nowrap mr-2" for="languageList"><g:message code="categoryIndex.languages"></g:message></label>
-                            <g:select style="display:none;" clase="form-control custom-select" id="languageList" name="languageList" valueMessagePrefix="language" from="${languages}" multiple="multiple" value="${languageList}"/>
+                            <g:select style="display:none;" id="languageList" name="languageList" valueMessagePrefix="language" from="${languages}" multiple="multiple" value="${languageList}"/>
                         </div>
                     </div>
                     <div class="text-right mb-3">
@@ -274,14 +274,14 @@
                                              <g:if test="${course.isFree==2}">
                                                  <span class="font-weight-semibold ml-1"><g:message code="course.profile.price.coursera"/></span>
                                              </g:if><g:elseif test="${course.isFree==3}">
-                                             <span class="font-weight-semibold ml-1"><g:message code="course.profile.price.udacity"/></span>
-                                         </g:elseif><g:elseif test="${course.isFree==1}">
-                                             <span class="font-weight-semibold ml-1"><g:message code="course.profile.price.free"/></span>
-                                         </g:elseif><g:elseif test="${course.isFree==0 && course?.price}">
-                                             <span class="font-weight-semibold ml-1">${course.price}€</span>
-                                         </g:elseif><g:else>
-                                             <span class="font-weight-semibold ml-1"><g:message code="course.profile.noPrice"/></span>
-                                         </g:else>
+                                                <span class="font-weight-semibold ml-1"><g:message code="course.profile.price.udacity"/></span>
+                                             </g:elseif><g:elseif test="${course.isFree==1}">
+                                                <span class="font-weight-semibold ml-1"><g:message code="course.profile.price.free"/></span>
+                                             </g:elseif><g:elseif test="${course.isFree==0 && course?.price}">
+                                                <span class="font-weight-semibold ml-1">${course.price}€</span>
+                                             </g:elseif><g:else>
+                                                <span class="font-weight-semibold ml-1"><g:message code="course.profile.noPrice"/></span>
+                                             </g:else>
                                          </li>
                                      </ul>
                                  </div>
@@ -334,7 +334,7 @@
                                         <g:if test="${min}">
                                             <input type="hidden" name="min" value="${min}">
                                         </g:if>
-                                        <g:select style="display:none;" clase="form-control custom-select" name="languageList" valueMessagePrefix="language" from="${languages}" multiple="multiple" value="${languageList}"/>
+                                        <g:select style="display:none;" name="languageList" valueMessagePrefix="language" from="${languages}" multiple="multiple" value="${languageList}"/>
                                         <input type="submit" class="btn btn-primary" name="submit" value="<< ${message(code: "course.search.pagination.previous")}"/>
                                     </form>
                         </g:if><g:else>
@@ -372,7 +372,7 @@
                                         <g:if test="${min}">
                                             <input type="hidden" name="min" value="${min}">
                                         </g:if>
-                                        <g:select style="display:none;" clase="form-control custom-select" name="languageList" valueMessagePrefix="language" from="${languages}" multiple="multiple" value="${languageList}"/>
+                                        <g:select style="display:none;" name="languageList" valueMessagePrefix="language" from="${languages}" multiple="multiple" value="${languageList}"/>
                                         <input type="submit" class="btn btn-primary" name="submit" value="${message(code: "course.search.pagination.next")} >>"/>
                                     </form>
                         </g:if>

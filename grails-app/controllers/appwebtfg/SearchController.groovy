@@ -41,12 +41,92 @@ class SearchController {
         render(view: "user", model: [userData: userData,foundUsers: foundUsers,search: true,isMore: isMore,params:params])
     }
 
+    List<String> languages = [
+            "English",
+            "Spanish",
+            "German",
+            "Portuguese",
+            "Romanian",
+            "Arabic",
+            "Italian",
+            "Hungarian",
+            "French",
+            "Persian",
+            "Turkish",
+            "Indonesian",
+            "Chinese",
+            "Japanese",
+            "Polish",
+            "Hindi",
+            "Russian",
+            "Vietnamese",
+            "Thai",
+            "Dutch",
+            "Kazakh",
+            "Hebrew",
+            "Urdu",
+            "Bengali",
+            "Tamil",
+            "Telugu",
+            "Norwegian",
+            "Korean",
+            "Czech",
+            "Greek",
+            "Burmese",
+            "Serbian",
+            "Finnish",
+            "Filipino",
+            "Pashto",
+            "Malayalam",
+            "Croatian",
+            "Kannada",
+            "Danish",
+            "Marathi",
+            "Azeri",
+            "Georgian",
+            "Afrikaans",
+            "Bulgarian",
+            "Ukrainian",
+            "Slovenian",
+            "Punjabi",
+            "Mongolian",
+            "Swahili",
+            "Catalan",
+            "Albanian",
+            "Slovak",
+            "Somali",
+            "Irish",
+            "Estonian",
+            "Uzbek",
+            "Gujarati",
+            "Lithuanian",
+            "Latvian",
+            "Armenian",
+            "Swedish",
+            "Kurdish",
+            "Aymara",
+            "Khmer",
+            "Malay",
+            "Nepali",
+            "Tatar"
+    ]
+
+    Set<String> categories = ['Data-Science','Machine-Learning','Cloud-Computing','Engineering','Business-Finance',
+                              'Security','Leadership','Entrepreneurship','Personal-Development','Human-Studies','Education','Arts',
+                              'Maths','Health','Science','Marketing','Architecture','Software-Engineering','IT-Certification','Test-Prep',
+                              'Graphic-Design','Gaming','Google','Oracle','Microsoft','SAP']
+
     /**
      * Method the returns the page used for searching courses with a certain title
      * @return view "search/course"
      */
     @Secured(["permitAll"])
     def course() {
+        render(view: "course", model: [languages:(["all"]+languages) as List<String>,
+                                       languageList:["all"],
+                                       categories: (["all"]+categories) as List<String>,
+                                       category: (params?.category)?: "all"
+                                      ])
     }
 
     /**
@@ -65,6 +145,10 @@ class SearchController {
         boolean englishOnly = params.englishOnly as boolean
         String difficulty = null
         String ogpage = null
+        Float min = null
+        Float max = null
+        List<String> languageList = languages
+        String category = null
         if(params.get("customSearch")){
             pageSize=Integer.parseInt(params.pageSize)
             if(params.offset)
@@ -82,6 +166,12 @@ class SearchController {
             }else if(params.sortBy == g.message(code: "categoryIndex.sortBy.Z-A")){
                 sortBy='title'
                 sortByAsc=false
+            }else if(params.sortBy == g.message(code: "categoryIndex.sortBy.price.asc")){
+                sortBy='price'
+                sortByAsc=true
+            }else if(params.sortBy == g.message(code: "categoryIndex.sortBy.price.desc")){
+                sortBy='price'
+                sortByAsc=false
             }else{
                 sortBy=null
                 sortByAsc=false
@@ -94,25 +184,53 @@ class SearchController {
                 difficulty= 'advanced'
             if(params.ogpage)
                 ogpage=(params.ogpage==g.message(code: "course.search.ogpage.all"))? null : params.ogpage
+            if(params.min)
+                min = Float.parseFloat(params.min)
+            if(params.max)
+                max = Float.parseFloat(params.max)
+            if(params.languageList){
+                try{
+                    languageList = params.languageList
+                }catch(Exception e){
+                    languageList = new LinkedList<>();
+                    languageList.add(params.languageList)
+                }
+                if(languageList.contains("all"))
+                    languageList=languages
+            }
+            if(params?.category && params?.category!="all")
+                category = params.category
         }else{
             pageSize=12
             offset=0
             sortBy=null
             sortByAsc=false
         }
-        List<Course> courses = courseService.findCourses(null,pageSize,offset,title,freeOnly,englishOnly,sortBy,sortByAsc,difficulty,ogpage,null,null,null)
-        boolean isMore = courseService.findCourses(null,pageSize,offset+pageSize,title,freeOnly,englishOnly,sortBy,sortByAsc,difficulty,ogpage,null,null,null) as boolean
+        List<String> queryList = languageList.clone()
+        if(queryList?.contains("Chinese")){
+            queryList.remove("Chinese")
+            queryList.add("Traditional Chinese")
+            queryList.add("Simplified Chinese")
+        }
+        List<Course> courses = courseService.findCourses(category,pageSize,offset,title,freeOnly,englishOnly,sortBy,sortByAsc,difficulty,ogpage,max,min,queryList)
+        boolean isMore = courseService.findCourses(category,pageSize,offset+pageSize,title,freeOnly,englishOnly,sortBy,sortByAsc,difficulty,ogpage,max,min,queryList) as boolean
         render(view: "course",model: [
                 courses: courses,
                 isMore: isMore,
                 pageSize: pageSize,
                 offset: offset,
                 title: title,
+                ogpage: params?.ogpage,
                 freeOnly: freeOnly,
                 englishOnly: englishOnly,
-                difficulty: params.difficulty,
-                ogpage: ogpage,
-                sortBy: params.sortBy,
+                difficulty: params?.difficulty,
+                sortBy: params?.sortBy,
+                min: params?.min,
+                max: params?.max,
+                languages: (["all"]+languages) as List<String>,
+                languageList: (languageList == languages)? ["all"] : languageList,
+                categories: (["all"]+categories) as List<String>,
+                category: (params?.category)?: "all",
                 customSearch: "true"
         ])
     }

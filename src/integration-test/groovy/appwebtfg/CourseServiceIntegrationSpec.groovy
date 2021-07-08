@@ -59,7 +59,7 @@ class CourseServiceIntegrationSpec extends Specification {
             }
         }
         when: "FindCourses method is called"
-        List<Course> output = courseService.findCourses(category, 10, offset, null, false, false, null, false, null, null,null,null,null)
+        List<Course> output = courseService.findCourses(category, 10, offset, null, false, false, null, false, null, null, null, null, null)
         then: "The output list must have the specified size"
         output?.size() == size
 
@@ -94,7 +94,7 @@ class CourseServiceIntegrationSpec extends Specification {
             }
         }
         when: "FindCourses method is called"
-        List<Course> output = courseService.findCourses(category, 10, 0, title, false, false, null, false, null, null,null,null,null)
+        List<Course> output = courseService.findCourses(category, 10, 0, title, false, false, null, false, null, null, null, null, null)
         then: "The output list must have the specified size"
         output?.size() == size
 
@@ -133,7 +133,7 @@ class CourseServiceIntegrationSpec extends Specification {
             }
         }
         when: "FindCourses method is called"
-        List<Course> output = courseService.findCourses(category, 10, 0, null, false, false, null, false, difficulty, null,null,null,null)
+        List<Course> output = courseService.findCourses(category, 10, 0, null, false, false, null, false, difficulty, null, null, null, null)
         then: "The output list must have the specified size"
         output?.size() == size
 
@@ -169,7 +169,7 @@ class CourseServiceIntegrationSpec extends Specification {
             }
         }
         when: "FindCourses method is called"
-        List<Course> output = courseService.findCourses(category, 10, 0, null, false, false, null, false, null, ogpage,null,null,null)
+        List<Course> output = courseService.findCourses(category, 10, 0, null, false, false, null, false, null, ogpage, null, null, null)
         then: "The output list must have the specified size"
         output?.size() == size
 
@@ -191,6 +191,88 @@ class CourseServiceIntegrationSpec extends Specification {
     }
 
     @Unroll
+    void "test the findCourses method filter by minPrice y maxPrice"(String category, Float minPrice, Float maxPrice, int size) {
+
+        given: "There are 5 courses in the database"
+        Course.withNewSession {
+            //Save test course
+            if (!Course.findByTitle('testFindCourseMinMax1')) {
+                new Course(title: 'testFindCourseMinMax1', category: 'testFindCourseMinMax', price: 19.99).save()
+                new Course(title: 'testFindCourseMinMax2', category: 'testFindCourseMinMax', price: 0.0).save()
+                new Course(title: 'testFindCourseMinMax3', category: 'testFindCourseMinMax', price: 119.99).save()
+                new Course(title: 'testFindCourseMinMax4', category: 'testFindCourseMinMax', price: 29.99).save()
+                new Course(title: 'testFindCourseMinMax5', category: 'testFindCourseMinMax', price: 39.99).save()
+            }
+        }
+        when: "FindCourses method is called"
+        List<Course> output = courseService.findCourses(category, 10, 0, null, false, false, null, false, null, null, maxPrice, minPrice, null)
+        then: "The output list must have the specified size"
+        output?.size() == size
+
+        cleanup:
+        Course.withNewSession { session ->
+            for (int i = 1; i < 6; i++) {
+                Course.findByTitle("testFindCourseMinMax" + i).delete()
+            }
+        }
+
+        where:
+        category               | minPrice | maxPrice | size
+        "testFindCourseMinMax" | null     | null     | 5
+        "testFindCourseMinMax" | 20.0     | null     | 5
+        "testFindCourseMinMax" | null     | 20.0     | 5
+        "testFindCourseMinMax" | 0.0      | 120.0    | 5
+        "testFindCourseMinMax" | 0.0      | 40.0     | 4
+        "testFindCourseMinMax" | 0.0      | 30.0     | 3
+        "testFindCourseMinMax" | 10.0     | 30.0     | 2
+        "testFindCourseMinMax" | 20.0     | 30.0     | 1
+        "testFindCourseMinMax" | 30.0     | 30.0     | 0
+        "shouldFail"           | 0.0      | 120.0    | 0
+    }
+
+    @Unroll
+    void "test the findCourses method filter by languages list"(String category, List<String> languages, int size) {
+
+        given: "There are 5 courses in the database"
+        Course.withNewSession {
+            //Save test course
+            if (!Course.findByTitle('testFindCourseLanguage1')) {
+                new Course(title: 'testFindCourseLanguage1', category: 'testFindCourseLanguage', language: "English").save()
+                new Course(title: 'testFindCourseLanguage2', category: 'testFindCourseLanguage', language: "English").save()
+                new Course(title: 'testFindCourseLanguage3', category: 'testFindCourseLanguage', language: "Spanish").save()
+                new Course(title: 'testFindCourseLanguage4', category: 'testFindCourseLanguage', language: "French").save()
+                new Course(title: 'testFindCourseLanguage5', category: 'testFindCourseLanguage', language: "Japanese").save()
+            }
+        }
+        when: "FindCourses method is called"
+        List<Course> output = courseService.findCourses(category, 10, 0, null, false, false, null, false, null, null, null, null, languages)
+        then: "The output list must have the specified size"
+        output?.size() == size
+
+        cleanup:
+        Course.withNewSession { session ->
+            for (int i = 1; i < 6; i++) {
+                Course.findByTitle("testFindCourseLanguage" + i).delete()
+            }
+        }
+
+        where:
+        category                 | languages                                    | size
+        "testFindCourseLanguage" | null                                         | 5
+        "testFindCourseLanguage" | []                                           | 5
+        "testFindCourseLanguage" | ["English"]                                  | 2
+        "testFindCourseLanguage" | ["Chinese"]                                  | 0
+        "testFindCourseLanguage" | ["Spanish"]                                  | 1
+        "testFindCourseLanguage" | ["French"]                                   | 1
+        "testFindCourseLanguage" | ["Spanish", "French"]                        | 2
+        "testFindCourseLanguage" | ["English", "French"]                        | 3
+        "testFindCourseLanguage" | ["Japanese", "French", "Spanish"]            | 3
+        "testFindCourseLanguage" | ["English", "French", "Spanish"]             | 4
+        "testFindCourseLanguage" | ["English", "French", "Spanish", "Japanese"] | 5
+        "none"                   | ["English", "French", "Spanish", "Japanese"] | 0
+    }
+
+    @Unroll
     void "test the findCourses method free courses only filter"(String category, boolean freeOnly, int size) {
 
         given: "There are 7 courses in the database"
@@ -207,7 +289,7 @@ class CourseServiceIntegrationSpec extends Specification {
             }
         }
         when: "FindCourses method is called"
-        List<Course> output = courseService.findCourses(category, 10, 0, null, freeOnly, false, null, false, null, null,null,null,null)
+        List<Course> output = courseService.findCourses(category, 10, 0, null, freeOnly, false, null, false, null, null, null, null, null)
         then: "The output list must have the specified size"
         output?.size() == size
 
@@ -242,7 +324,7 @@ class CourseServiceIntegrationSpec extends Specification {
             }
         }
         when: "FindCourses method is called"
-        List<Course> output = courseService.findCourses(category, 10, 0, null, false, englishOnly, null, false, null, null,null,null,null)
+        List<Course> output = courseService.findCourses(category, 10, 0, null, false, englishOnly, null, false, null, null, null, null, null)
         then: "The output list must have the specified size"
         output?.size() == size
 
@@ -288,7 +370,7 @@ class CourseServiceIntegrationSpec extends Specification {
                 : []
 
         when: "FindCourses method is called"
-        List<Course> output = courseService.findCourses(category, 10, 0, null, false, false, sortBy, sortByAsc, null, null,null,null,null)
+        List<Course> output = courseService.findCourses(category, 10, 0, null, false, false, sortBy, sortByAsc, null, null, null, null, null)
 
         then: "The output list must be equal to the expected list"
         output.collect { course -> course.title } == expectedResult
