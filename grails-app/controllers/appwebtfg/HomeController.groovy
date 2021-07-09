@@ -75,4 +75,8 @@ class HomeController {
             render(view:"/index",model: [authUser: authUser,recommendedCourses:recommendedCourses,relatedToQueryCourses:relatedToQueryCourses,exploreCourses:exploreCourses,isLastRecommend: isLastRecommend,isLastRelated: isLastRelated])
         }
     }
+
+    def coursingmldocs(){
+        redirect(url: "http://206.189.26.121/")
+    }
 }

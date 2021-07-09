@@ -44,5 +44,8 @@ class UrlMappings {
 
         //Statistics
         "/userfeedback/statistics" (controller: "userFeedback", action: "statistics")
+
+        //Api docs
+        "/coursingml/docs"(controller: "home",action: "coursingmldocs")
     }
 }
