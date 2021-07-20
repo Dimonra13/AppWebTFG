@@ -24,7 +24,7 @@
                         <label for="username"><g:message code="update.user.username.label"/></label>
                         <div class="input-group form-group">
                             <div class="input-group-prepend"><span class="input-group-text"><i data-feather="user"></i></span></div>
-                            <g:field type="text" class="form-control" name="username" id="username" value="${user.username}" required="true"/>
+                            <g:field type="text" class="form-control" name="username" id="username" value="${user.username}" required="true" minlength="8" maxlength="12"/>
                             <div class="invalid-feedback"><g:message code="register.user.username.error"></g:message></div>
                         </div>
                     </div>
@@ -39,11 +39,11 @@
                     <g:if test="${isregistered}">
                         <div class="col-12">
                             <!-- Warning alert -->
-                            <div class="alert alert-warning" role="alert">
+                            <div class="alert alert-warning alert-with-icon" role="alert">
                                 <div class="alert-icon-box">
                                     <i class="alert-icon" data-feather="alert-triangle"></i>
                                 </div>
-                            " -- <g:message code="update.user.isRegistered"/>
+                                <g:message code="update.user.isRegistered"/>
                             </div>
                         </div>
                     </g:if>
@@ -68,11 +68,11 @@
                     <g:if test="${diferentPass}">
                         <div class="col-12">
                             <!-- Warning alert -->
-                            <div class="alert alert-warning" role="alert">
+                            <div class="alert alert-warning alert-with-icon" role="alert">
                                 <div class="alert-icon-box">
                                     <i class="alert-icon" data-feather="alert-triangle"></i>
                                 </div>
-                                " -- <g:message code="update.user.diferentPass"/>
+                                <g:message code="update.user.diferentPass"/>
                             </div>
                         </div>
                     </g:if>

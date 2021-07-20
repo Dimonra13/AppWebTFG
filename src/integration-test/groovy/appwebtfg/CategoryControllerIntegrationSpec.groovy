@@ -23,7 +23,9 @@ class CategoryControllerIntegrationSpec extends BaseControllerIntegrationSpec {
     void "Validate the getCategory method"(String id) {
 
         when: 'The controller action is call'
-        categoryController.getCategory(id)
+        Course.withNewSession { it ->
+            categoryController.getCategory(id)
+        }
 
         then: 'validate that the method output is 200 when the category exists and 404 otherwise'
         categoryController.response.status == categories.contains(id) ? 200 : 404

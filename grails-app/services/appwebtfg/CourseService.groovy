@@ -1,5 +1,6 @@
 package appwebtfg
 
+import grails.gorm.PagedResultList
 import grails.gorm.transactions.Transactional
 
 @Transactional
@@ -23,8 +24,8 @@ class CourseService {
      * @param languages
      * @return the list of courses that meet these criteria
      */
-    List<Course> findCourses(String category, int max, int offset, String title, boolean freeOnly, boolean englishOnly, String sortBy, boolean sortByAsc, String difficulty,String ogpage,Float maxPrice,Float minPrice,List<String> languages){
-        Course.createCriteria().list(max:max,offset:offset) {
+    PagedResultList<Course> findCourses(String category, int max, int offset, String title, boolean freeOnly, boolean englishOnly, String sortBy, boolean sortByAsc, String difficulty,String ogpage,Float maxPrice,Float minPrice,List<String> languages){
+        PagedResultList<Course> result = Course.createCriteria().list(max:max,offset:offset) {
             if(category) eq("category",category)
             if(title) ilike("title","%${title}%")
             if (freeOnly) or{
@@ -44,7 +45,7 @@ class CourseService {
             if(ogpage) eq("originalPage",ogpage)
             if(maxPrice != null && minPrice != null) between("price",minPrice,maxPrice)
             if(sortBy) order sortBy, sortByAsc ? 'asc' : 'desc'
-        } as List<Course>
+        }
     }
 
 

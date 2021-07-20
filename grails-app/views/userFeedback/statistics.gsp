@@ -17,11 +17,11 @@
             </div>
             <g:if test="${!feedbackList}">
                 <!-- Info alert -->
-                <div class="alert alert-info" role="alert">
+                <div class="alert alert-info alert-with-icon" role="alert">
                     <div class="alert-icon-box">
                         <i class="alert-icon" data-feather="info"></i>
                     </div>
-                    " -- <g:message code="statistic.noFeedback"/>
+                    <g:message code="statistic.noFeedback"/>
                 </div>
             </g:if>
             <g:else>

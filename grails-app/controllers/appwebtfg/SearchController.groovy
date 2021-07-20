@@ -1,5 +1,6 @@
 package appwebtfg
 
+import grails.gorm.PagedResultList
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 
@@ -27,18 +28,25 @@ class SearchController {
      */
     @Secured(["permitAll"])
     def searchUser(){
+        final int PAGE_SIZE = 10
         String userData = params.get("userData")
-        List<User> foundUsers = null
+        int offset = 0
+        PagedResultList<User> foundUsers = null
         boolean isMore = false;
         if(userData && userData!=""){
-            if(!params.get("offset"))
-                params.offset=0
-            else
-                params.offset=Integer.parseInt(params.get("offset"))
-            foundUsers = userService.findUsers(userData,userData,10,params.offset)
-            isMore = userService.findUsers(userData,userData,10,params.offset+10) as boolean
+            if(params.get("offset"))
+                offset=Integer.parseInt(params.get("offset"))
+            foundUsers = userService.findUsers(userData,userData,PAGE_SIZE,offset)
+            isMore = userService.findUsers(userData,userData,PAGE_SIZE,offset+PAGE_SIZE) as boolean
         }
-        render(view: "user", model: [userData: userData,foundUsers: foundUsers,search: true,isMore: isMore,params:params])
+        render(view: "user", model: [userData: userData,
+                                     foundUsers: foundUsers,
+                                     offset: offset,
+                                     page:offset ? (offset/PAGE_SIZE)+1 : 1,
+                                     lastPage: foundUsers?.totalCount ? ( (foundUsers?.totalCount%PAGE_SIZE) ? (foundUsers?.totalCount/PAGE_SIZE)+1 as int : (foundUsers?.totalCount/PAGE_SIZE) as int) : 1,
+                                     isMore: isMore,
+                                     search: true,
+                                     params:params])
     }
 
     List<String> languages = [
@@ -212,13 +220,15 @@ class SearchController {
             queryList.add("Traditional Chinese")
             queryList.add("Simplified Chinese")
         }
-        List<Course> courses = courseService.findCourses(category,pageSize,offset,title,freeOnly,englishOnly,sortBy,sortByAsc,difficulty,ogpage,max,min,queryList)
+        PagedResultList<Course> courses = courseService.findCourses(category,pageSize,offset,title,freeOnly,englishOnly,sortBy,sortByAsc,difficulty,ogpage,max,min,queryList)
         boolean isMore = courseService.findCourses(category,pageSize,offset+pageSize,title,freeOnly,englishOnly,sortBy,sortByAsc,difficulty,ogpage,max,min,queryList) as boolean
         render(view: "course",model: [
                 courses: courses,
                 isMore: isMore,
                 pageSize: pageSize,
                 offset: offset,
+                page:offset ? (offset/pageSize)+1 : 1,
+                lastPage: courses?.totalCount ? ( (courses?.totalCount%pageSize) ? (courses?.totalCount/pageSize)+1 as int : (courses?.totalCount/pageSize) as int) : 1,
                 title: title,
                 ogpage: params?.ogpage,
                 freeOnly: freeOnly,

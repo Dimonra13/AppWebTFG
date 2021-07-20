@@ -27,18 +27,18 @@
                         <label for="email"><g:message code="register.user.email.label"/></label>
                         <div class="input-group form-group">
                             <div class="input-group-prepend"><span class="input-group-text"><i data-feather="mail"></i></span></div>
-                            <g:field class="form-control" type="email" name="email" id="email" value="${email}" required="true" maxlength="25"/>
+                            <g:field class="form-control" type="email" name="email" id="email" value="${email}" required="true"/>
                             <div class="invalid-feedback"><g:message code="register.user.email.error"></g:message></div>
                         </div>
                     </div>
                     <g:if test="${isregistered}">
                         <div class="col-12">
                             <!-- Warning alert -->
-                            <div class="alert alert-warning" role="alert">
+                            <div class="alert alert-warning alert-with-icon" role="alert">
                                 <div class="alert-icon-box">
                                     <i class="alert-icon" data-feather="alert-triangle"></i>
                                 </div>
-                                " -- <g:message code="register.user.isRegistered"/>
+                                <g:message code="register.user.isRegistered"/>
                             </div>
                         </div>
                     </g:if>
@@ -63,11 +63,11 @@
                     <g:if test="${diferentPass}">
                         <div class="col-12">
                             <!-- Warning alert -->
-                            <div class="alert alert-warning" role="alert">
+                            <div class="alert alert-warning alert-with-icon" role="alert">
                                 <div class="alert-icon-box">
                                     <i class="alert-icon" data-feather="alert-triangle"></i>
                                 </div>
-                                " -- <g:message code="register.user.diferentPass"/>
+                                <g:message code="register.user.diferentPass"/>
                             </div>
                         </div>
                     </g:if>

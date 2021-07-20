@@ -171,11 +171,11 @@
     <div class="col-md-10 pt-6 pt-sm-3">
         <g:if test="${!courses && customSearch}">
             <!-- Info alert -->
-            <div class="alert alert-info" role="alert">
+            <div class="alert alert-info alert-with-icon" role="alert">
                 <div class="alert-icon-box">
                     <i class="alert-icon" data-feather="info"></i>
                 </div>
-                " -- <g:message code="course.search.noCourseFound"/>
+                <g:message code="course.search.noCourseFound"/>
             </div>
         </g:if><g:elseif test="${courses}">
         <g:if test="${title}">
@@ -259,78 +259,416 @@
         <!-- Pagination-->
         <br>
         <div class="row">
-            <div class="btn-group" style="margin: auto" role="group" aria-label="Solid button group">
-                <g:if test="${offset}">
-                    <form action="/search/searchCourse" method="post">
-                        <input type="hidden" name="customSearch" value="true">
-                        <input type="hidden" name="offset" value="${offset-pageSize}">
-                        <input type="hidden" name="pageSize" value="${pageSize}">
-                        <g:if test="${englishOnly}">
-                            <input type="hidden" name="englishOnly" value="on">
-                        </g:if>
-                        <g:if test="${freeOnly}">
-                            <input type="hidden" name="freeOnly" value="on">
-                        </g:if>
-                        <g:if test="${sortBy}">
-                            <input type="hidden" name="sortBy" value="${sortBy}">
-                        </g:if>
-                        <g:if test="${difficulty}">
-                            <input type="hidden" name="difficulty" value="${difficulty}">
-                        </g:if>
-                        <g:if test="${ogpage}">
-                            <input type="hidden" name="ogpage" value="${ogpage}">
-                        </g:if>
-                        <g:if test="${max}">
-                            <input type="hidden" name="max" value="${max}">
-                        </g:if>
-                        <g:if test="${min}">
-                            <input type="hidden" name="min" value="${min}">
-                        </g:if>
-                        <g:select style="display:none;" name="languageList" valueMessagePrefix="language" from="${languages}" multiple="multiple" value="${languageList}"/>
-                        <g:select style="display:none;" name="category" valueMessagePrefix="categoryIndex" from="${categories}" value="${category}"/>
-                        <input type="submit" class="btn btn-primary" name="submit" value="<< ${message(code: "course.search.pagination.previous")}"/>
-                    </form>
-                </g:if><g:else>
-                <div class="col-2"></div>
-            </g:else>
-                <div class="text-center" style="padding-left: 3rem; padding-right: 3rem;">
-                    <h5 style="padding-top: 10px;">${offset ? (offset/pageSize)+1 : 1}</h5>
-                </div>
-                <g:if test="${isMore}">
-                    <form action="/search/searchCourse" method="post">
-                        <input type="hidden" name="customSearch" value="true">
-                        <input type="hidden" name="offset" value="${offset+pageSize}">
-                        <input type="hidden" name="pageSize" value="${pageSize}">
-                        <g:if test="${title}">
-                            <input type="hidden" name="title" value="${title}">
-                        </g:if>
-                        <g:if test="${englishOnly}">
-                            <input type="hidden" name="englishOnly" value="on">
-                        </g:if>
-                        <g:if test="${freeOnly}">
-                            <input type="hidden" name="freeOnly" value="on">
-                        </g:if>
-                        <g:if test="${sortBy}">
-                            <input type="hidden" name="sortBy" value="${sortBy}">
-                        </g:if>
-                        <g:if test="${difficulty}">
-                            <input type="hidden" name="difficulty" value="${difficulty}">
-                        </g:if>
-                        <g:if test="${ogpage}">
-                            <input type="hidden" name="ogpage" value="${ogpage}">
-                        </g:if>
-                        <g:if test="${max}">
-                            <input type="hidden" name="max" value="${max}">
-                        </g:if>
-                        <g:if test="${min}">
-                            <input type="hidden" name="min" value="${min}">
-                        </g:if>
-                        <g:select style="display:none;" name="languageList" valueMessagePrefix="language" from="${languages}" multiple="multiple" value="${languageList}"/>
-                        <g:select style="display:none;" name="category" valueMessagePrefix="categoryIndex" from="${categories}" value="${category}"/>
-                        <input type="submit" class="btn btn-primary" name="submit" value="${message(code: "course.search.pagination.next")} >>"/>
-                    </form>
-                </g:if>
-            </div>
+            <nav style="margin: auto" aria-label="Page navigation example">
+                <ul class="pagination">
+                    <g:if test="${offset}">
+                        <li class="page-item">
+                            <form action="/search/searchCourse" method="post">
+                                <input type="hidden" name="customSearch" value="true">
+                                <input type="hidden" name="offset" value="${offset-pageSize}">
+                                <input type="hidden" name="pageSize" value="${pageSize}">
+                                <g:if test="${title}">
+                                    <input type="hidden" name="title" value="${title}">
+                                </g:if>
+                                <g:if test="${englishOnly}">
+                                    <input type="hidden" name="englishOnly" value="on">
+                                </g:if>
+                                <g:if test="${freeOnly}">
+                                    <input type="hidden" name="freeOnly" value="on">
+                                </g:if>
+                                <g:if test="${sortBy}">
+                                    <input type="hidden" name="sortBy" value="${sortBy}">
+                                </g:if>
+                                <g:if test="${difficulty}">
+                                    <input type="hidden" name="difficulty" value="${difficulty}">
+                                </g:if>
+                                <g:if test="${ogpage}">
+                                    <input type="hidden" name="ogpage" value="${ogpage}">
+                                </g:if>
+                                <g:if test="${max}">
+                                    <input type="hidden" name="max" value="${max}">
+                                </g:if>
+                                <g:if test="${min}">
+                                    <input type="hidden" name="min" value="${min}">
+                                </g:if>
+                                <g:select style="display:none;" name="languageList" valueMessagePrefix="language" from="${languageList}" multiple="multiple" value="${languageList}"/>
+                                <input type="hidden" name="category" value="${category}"/>
+                                <button type="submit" class="page-link" name="submit"><i data-feather="chevron-left"></i><g:message code="course.search.pagination.previous"/></button>
+                            </form>
+                        </li>
+                    </g:if>
+                <!-- First page pointer -->
+                    <g:if test="${page==1}">
+                        <li class="page-item active">
+                            <span class="page-link">
+                                1
+                            </span>
+                        </li>
+                    </g:if><g:else>
+                    <li class="page-item">
+                        <form action="/search/searchCourse" method="post">
+                            <input type="hidden" name="customSearch" value="true">
+                            <input type="hidden" name="offset" value="0">
+                            <input type="hidden" name="pageSize" value="${pageSize}">
+                            <g:if test="${title}">
+                                <input type="hidden" name="title" value="${title}">
+                            </g:if>
+                            <g:if test="${englishOnly}">
+                                <input type="hidden" name="englishOnly" value="on">
+                            </g:if>
+                            <g:if test="${freeOnly}">
+                                <input type="hidden" name="freeOnly" value="on">
+                            </g:if>
+                            <g:if test="${sortBy}">
+                                <input type="hidden" name="sortBy" value="${sortBy}">
+                            </g:if>
+                            <g:if test="${difficulty}">
+                                <input type="hidden" name="difficulty" value="${difficulty}">
+                            </g:if>
+                            <g:if test="${ogpage}">
+                                <input type="hidden" name="ogpage" value="${ogpage}">
+                            </g:if>
+                            <g:if test="${max}">
+                                <input type="hidden" name="max" value="${max}">
+                            </g:if>
+                            <g:if test="${min}">
+                                <input type="hidden" name="min" value="${min}">
+                            </g:if>
+                            <g:select style="display:none;" name="languageList" valueMessagePrefix="language" from="${languageList}" multiple="multiple" value="${languageList}"/>
+                            <input type="hidden" name="category" value="${category}"/>
+                            <button type="submit" class="page-link" name="submit">1</button>
+                        </form>
+                    </li>
+                    </g:else>
+                <!-- Second page pointer or ... -->
+                    <g:if test="${(page==1 || page==3) && lastPage>2}">
+                        <li class="page-item">
+                            <form action="/search/searchCourse" method="post">
+                                <input type="hidden" name="customSearch" value="true">
+                                <input type="hidden" name="offset" value="${pageSize}">
+                                <input type="hidden" name="pageSize" value="${pageSize}">
+                                <g:if test="${title}">
+                                    <input type="hidden" name="title" value="${title}">
+                                </g:if>
+                                <g:if test="${englishOnly}">
+                                    <input type="hidden" name="englishOnly" value="on">
+                                </g:if>
+                                <g:if test="${freeOnly}">
+                                    <input type="hidden" name="freeOnly" value="on">
+                                </g:if>
+                                <g:if test="${sortBy}">
+                                    <input type="hidden" name="sortBy" value="${sortBy}">
+                                </g:if>
+                                <g:if test="${difficulty}">
+                                    <input type="hidden" name="difficulty" value="${difficulty}">
+                                </g:if>
+                                <g:if test="${ogpage}">
+                                    <input type="hidden" name="ogpage" value="${ogpage}">
+                                </g:if>
+                                <g:if test="${max}">
+                                    <input type="hidden" name="max" value="${max}">
+                                </g:if>
+                                <g:if test="${min}">
+                                    <input type="hidden" name="min" value="${min}">
+                                </g:if>
+                                <g:select style="display:none;" name="languageList" valueMessagePrefix="language" from="${languageList}" multiple="multiple" value="${languageList}"/>
+                                <input type="hidden" name="category" value="${category}"/>
+                                <button type="submit" class="page-link" name="submit">2</button>
+                            </form>
+                        </li>
+                    </g:if><g:elseif test="${page==2 && lastPage>2}">
+                    <li class="page-item active">
+                        <span class="page-link">
+                            2
+                        </span>
+                    </li>
+                    </g:elseif><g:elseif test="${page>3 && lastPage>4}">
+                    <li class="page-item" style="pointer-events: none;">
+                        <span class="page-link"> ... </span>
+                    </li>
+                    </g:elseif>
+
+                    <g:if test="${page>3 && page==lastPage}">
+                        <li class="page-item">
+                            <form action="/search/searchCourse" method="post">
+                                <input type="hidden" name="customSearch" value="true">
+                                <input type="hidden" name="offset" value="${pageSize*(page-3)}">
+                                <input type="hidden" name="pageSize" value="${pageSize}">
+                                <g:if test="${title}">
+                                    <input type="hidden" name="title" value="${title}">
+                                </g:if>
+                                <g:if test="${englishOnly}">
+                                    <input type="hidden" name="englishOnly" value="on">
+                                </g:if>
+                                <g:if test="${freeOnly}">
+                                    <input type="hidden" name="freeOnly" value="on">
+                                </g:if>
+                                <g:if test="${sortBy}">
+                                    <input type="hidden" name="sortBy" value="${sortBy}">
+                                </g:if>
+                                <g:if test="${difficulty}">
+                                    <input type="hidden" name="difficulty" value="${difficulty}">
+                                </g:if>
+                                <g:if test="${ogpage}">
+                                    <input type="hidden" name="ogpage" value="${ogpage}">
+                                </g:if>
+                                <g:if test="${max}">
+                                    <input type="hidden" name="max" value="${max}">
+                                </g:if>
+                                <g:if test="${min}">
+                                    <input type="hidden" name="min" value="${min}">
+                                </g:if>
+                                <g:select style="display:none;" name="languageList" valueMessagePrefix="language" from="${languageList}" multiple="multiple" value="${languageList}"/>
+                                <input type="hidden" name="category" value="${category}"/>
+                                <button type="submit" class="page-link" name="submit">${page-2}</button>
+                            </form>
+                        </li>
+                    </g:if>
+                <!-- Third page pointer or previous page pointer -->
+                    <g:if test="${(page==1 || page==2) && lastPage>3}">
+                        <li class="page-item">
+                            <form action="/search/searchCourse" method="post">
+                                <input type="hidden" name="customSearch" value="true">
+                                <input type="hidden" name="offset" value="${pageSize*2}">
+                                <input type="hidden" name="pageSize" value="${pageSize}">
+                                <g:if test="${title}">
+                                    <input type="hidden" name="title" value="${title}">
+                                </g:if>
+                                <g:if test="${englishOnly}">
+                                    <input type="hidden" name="englishOnly" value="on">
+                                </g:if>
+                                <g:if test="${freeOnly}">
+                                    <input type="hidden" name="freeOnly" value="on">
+                                </g:if>
+                                <g:if test="${sortBy}">
+                                    <input type="hidden" name="sortBy" value="${sortBy}">
+                                </g:if>
+                                <g:if test="${difficulty}">
+                                    <input type="hidden" name="difficulty" value="${difficulty}">
+                                </g:if>
+                                <g:if test="${ogpage}">
+                                    <input type="hidden" name="ogpage" value="${ogpage}">
+                                </g:if>
+                                <g:if test="${max}">
+                                    <input type="hidden" name="max" value="${max}">
+                                </g:if>
+                                <g:if test="${min}">
+                                    <input type="hidden" name="min" value="${min}">
+                                </g:if>
+                                <g:select style="display:none;" name="languageList" valueMessagePrefix="language" from="${languageList}" multiple="multiple" value="${languageList}"/>
+                                <input type="hidden" name="category" value="${category}"/>
+                                <button type="submit" class="page-link" name="submit">3</button>
+                            </form>
+                        </li>
+                    </g:if><g:elseif test="${page==3 && lastPage>3}">
+                    <li class="page-item active">
+                        <span class="page-link">
+                            3
+                        </span>
+                    </li>
+                    </g:elseif><g:elseif test="${lastPage>3}">
+                    <li class="page-item">
+                        <form action="/search/searchCourse" method="post">
+                            <input type="hidden" name="customSearch" value="true">
+                            <input type="hidden" name="offset" value="${pageSize*(page-2)}">
+                            <input type="hidden" name="pageSize" value="${pageSize}">
+                            <g:if test="${title}">
+                                <input type="hidden" name="title" value="${title}">
+                            </g:if>
+                            <g:if test="${englishOnly}">
+                                <input type="hidden" name="englishOnly" value="on">
+                            </g:if>
+                            <g:if test="${freeOnly}">
+                                <input type="hidden" name="freeOnly" value="on">
+                            </g:if>
+                            <g:if test="${sortBy}">
+                                <input type="hidden" name="sortBy" value="${sortBy}">
+                            </g:if>
+                            <g:if test="${difficulty}">
+                                <input type="hidden" name="difficulty" value="${difficulty}">
+                            </g:if>
+                            <g:if test="${ogpage}">
+                                <input type="hidden" name="ogpage" value="${ogpage}">
+                            </g:if>
+                            <g:if test="${max}">
+                                <input type="hidden" name="max" value="${max}">
+                            </g:if>
+                            <g:if test="${min}">
+                                <input type="hidden" name="min" value="${min}">
+                            </g:if>
+                            <g:select style="display:none;" name="languageList" valueMessagePrefix="language" from="${languageList}" multiple="multiple" value="${languageList}"/>
+                            <input type="hidden" name="category" value="${category}"/>
+                            <button type="submit" class="page-link" name="submit">${page-1}</button>
+                        </form>
+                    </li>
+                    </g:elseif>
+                <!-- Four page pointer or actual page pointer -->
+                    <g:if test="${page==3 && lastPage>4}">
+                        <li class="page-item">
+                            <form action="/search/searchCourse" method="post">
+                                <input type="hidden" name="customSearch" value="true">
+                                <input type="hidden" name="offset" value="${pageSize*3}">
+                                <input type="hidden" name="pageSize" value="${pageSize}">
+                                <g:if test="${title}">
+                                    <input type="hidden" name="title" value="${title}">
+                                </g:if>
+                                <g:if test="${englishOnly}">
+                                    <input type="hidden" name="englishOnly" value="on">
+                                </g:if>
+                                <g:if test="${freeOnly}">
+                                    <input type="hidden" name="freeOnly" value="on">
+                                </g:if>
+                                <g:if test="${sortBy}">
+                                    <input type="hidden" name="sortBy" value="${sortBy}">
+                                </g:if>
+                                <g:if test="${difficulty}">
+                                    <input type="hidden" name="difficulty" value="${difficulty}">
+                                </g:if>
+                                <g:if test="${ogpage}">
+                                    <input type="hidden" name="ogpage" value="${ogpage}">
+                                </g:if>
+                                <g:if test="${max}">
+                                    <input type="hidden" name="max" value="${max}">
+                                </g:if>
+                                <g:if test="${min}">
+                                    <input type="hidden" name="min" value="${min}">
+                                </g:if>
+                                <g:select style="display:none;" name="languageList" valueMessagePrefix="language" from="${languageList}" multiple="multiple" value="${languageList}"/>
+                                <input type="hidden" name="category" value="${category}"/>
+                                <button type="submit" class="page-link" name="submit">4</button>
+                            </form>
+                        </li>
+                    </g:if><g:elseif test="${page>3 && lastPage>page}">
+                    <li class="page-item active">
+                        <span class="page-link">
+                            ${page}
+                        </span>
+                    </li>
+                    </g:elseif>
+                <!-- Next page pointer -->
+                    <g:if test="${page>3 && lastPage>(page+1)}">
+                        <li class="page-item">
+                            <form action="/search/searchCourse" method="post">
+                                <input type="hidden" name="customSearch" value="true">
+                                <input type="hidden" name="offset" value="${pageSize*page}">
+                                <input type="hidden" name="pageSize" value="${pageSize}">
+                                <g:if test="${title}">
+                                    <input type="hidden" name="title" value="${title}">
+                                </g:if>
+                                <g:if test="${englishOnly}">
+                                    <input type="hidden" name="englishOnly" value="on">
+                                </g:if>
+                                <g:if test="${freeOnly}">
+                                    <input type="hidden" name="freeOnly" value="on">
+                                </g:if>
+                                <g:if test="${sortBy}">
+                                    <input type="hidden" name="sortBy" value="${sortBy}">
+                                </g:if>
+                                <g:if test="${difficulty}">
+                                    <input type="hidden" name="difficulty" value="${difficulty}">
+                                </g:if>
+                                <g:if test="${ogpage}">
+                                    <input type="hidden" name="ogpage" value="${ogpage}">
+                                </g:if>
+                                <g:if test="${max}">
+                                    <input type="hidden" name="max" value="${max}">
+                                </g:if>
+                                <g:if test="${min}">
+                                    <input type="hidden" name="min" value="${min}">
+                                </g:if>
+                                <g:select style="display:none;" name="languageList" valueMessagePrefix="language" from="${languageList}" multiple="multiple" value="${languageList}"/>
+                                <input type="hidden" name="category" value="${category}"/>
+                                <button type="submit" class="page-link" name="submit">${page+1}</button>
+                            </form>
+                        </li>
+                    </g:if>
+                <!-- Second ... -->
+                    <g:if test="${lastPage>4 && lastPage>(page+2)}">
+                        <li class="page-item" style="pointer-events: none;">
+                            <span class="page-link"> ... </span>
+                        </li>
+                    </g:if>
+                <!-- last page pointer -->
+                    <g:if test="${page==lastPage && lastPage>1}">
+                        <li class="page-item active">
+                            <span class="page-link">
+                                ${lastPage}
+                            </span>
+                        </li>
+                    </g:if><g:elseif test="${lastPage>1}">
+                    <li class="page-item">
+                        <form action="/search/searchCourse" method="post">
+                            <input type="hidden" name="customSearch" value="true">
+                            <input type="hidden" name="offset" value="${pageSize*(lastPage-1)}">
+                            <input type="hidden" name="pageSize" value="${pageSize}">
+                            <g:if test="${title}">
+                                <input type="hidden" name="title" value="${title}">
+                            </g:if>
+                            <g:if test="${englishOnly}">
+                                <input type="hidden" name="englishOnly" value="on">
+                            </g:if>
+                            <g:if test="${freeOnly}">
+                                <input type="hidden" name="freeOnly" value="on">
+                            </g:if>
+                            <g:if test="${sortBy}">
+                                <input type="hidden" name="sortBy" value="${sortBy}">
+                            </g:if>
+                            <g:if test="${difficulty}">
+                                <input type="hidden" name="difficulty" value="${difficulty}">
+                            </g:if>
+                            <g:if test="${ogpage}">
+                                <input type="hidden" name="ogpage" value="${ogpage}">
+                            </g:if>
+                            <g:if test="${max}">
+                                <input type="hidden" name="max" value="${max}">
+                            </g:if>
+                            <g:if test="${min}">
+                                <input type="hidden" name="min" value="${min}">
+                            </g:if>
+                            <g:select style="display:none;" name="languageList" valueMessagePrefix="language" from="${languageList}" multiple="multiple" value="${languageList}"/>
+                            <input type="hidden" name="category" value="${category}"/>
+                            <button type="submit" class="page-link" name="submit">${lastPage}</button>
+                        </form>
+                    </li>
+                    </g:elseif>
+                    <g:if test="${isMore}">
+                        <li class="page-item">
+                            <form action="/search/searchCourse" method="post">
+                                <input type="hidden" name="customSearch" value="true">
+                                <input type="hidden" name="offset" value="${offset+pageSize}">
+                                <input type="hidden" name="pageSize" value="${pageSize}">
+                                <g:if test="${title}">
+                                    <input type="hidden" name="title" value="${title}">
+                                </g:if>
+                                <g:if test="${englishOnly}">
+                                    <input type="hidden" name="englishOnly" value="on">
+                                </g:if>
+                                <g:if test="${freeOnly}">
+                                    <input type="hidden" name="freeOnly" value="on">
+                                </g:if>
+                                <g:if test="${sortBy}">
+                                    <input type="hidden" name="sortBy" value="${sortBy}">
+                                </g:if>
+                                <g:if test="${difficulty}">
+                                    <input type="hidden" name="difficulty" value="${difficulty}">
+                                </g:if>
+                                <g:if test="${ogpage}">
+                                    <input type="hidden" name="ogpage" value="${ogpage}">
+                                </g:if>
+                                <g:if test="${max}">
+                                    <input type="hidden" name="max" value="${max}">
+                                </g:if>
+                                <g:if test="${min}">
+                                    <input type="hidden" name="min" value="${min}">
+                                </g:if>
+                                <g:select style="display:none;" name="languageList" valueMessagePrefix="language" from="${languageList}" multiple="multiple" value="${languageList}"/>
+                                <input type="hidden" name="category" value="${category}"/>
+                                <button type="submit" class="page-link" name="submit"><g:message code="course.search.pagination.next"/><i data-feather="chevron-right"></i></button>
+                            </form>
+                        </li>
+                    </g:if>
+                </ul>
+            </nav>
         </div>
     </g:elseif>
     </div>

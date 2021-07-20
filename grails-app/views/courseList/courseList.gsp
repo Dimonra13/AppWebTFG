@@ -33,11 +33,11 @@
 
     <g:if test="${!courseList?.courses}">
         <!-- Info alert -->
-        <div class="alert alert-info" role="alert">
+        <div class="alert alert-info alert-with-icon" role="alert">
             <div class="alert-icon-box">
                 <i class="alert-icon" data-feather="info"></i>
             </div>
-             " -- <g:message code="courseList.noCourses"/>
+             <g:message code="courseList.noCourses"/>
         </div>
     </g:if>
     <g:else>

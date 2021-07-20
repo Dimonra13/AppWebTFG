@@ -177,7 +177,11 @@
                         <div class="card-body">
                             <h4><g:message code="profile.skills.basic"/></h4>
                             <g:if test="${!user?.basicSkills}">
-                                <div class="alert alert-info" role="alert">
+                                <!-- Info alert -->
+                                <div class="alert alert-info alert-with-icon" role="alert">
+                                    <div class="alert-icon-box">
+                                        <i class="alert-icon" data-feather="info"></i>
+                                    </div>
                                     <g:message code="profile.noSkills.level"/>
                                 </div>
                             </g:if>
@@ -192,7 +196,11 @@
                         <div class="card-body">
                             <h4><g:message code="profile.skills.medium"/></h4>
                             <g:if test="${!user?.mediumSkills}">
-                                <div class="alert alert-info" role="alert">
+                                <!-- Info alert -->
+                                <div class="alert alert-info alert-with-icon" role="alert">
+                                    <div class="alert-icon-box">
+                                        <i class="alert-icon" data-feather="info"></i>
+                                    </div>
                                     <g:message code="profile.noSkills.level"/>
                                 </div>
                             </g:if>
@@ -207,7 +215,11 @@
                         <div class="card-body">
                             <h4><g:message code="profile.skills.expert"/></h4>
                             <g:if test="${!user?.expertSkills}">
-                                <div class="alert alert-info" role="alert">
+                                <!-- Info alert -->
+                                <div class="alert alert-info alert-with-icon" role="alert">
+                                    <div class="alert-icon-box">
+                                        <i class="alert-icon" data-feather="info"></i>
+                                    </div>
                                     <g:message code="profile.noSkills.level"/>
                                 </div>
                             </g:if>
@@ -245,11 +257,11 @@
             </div>
             <g:if test="${!user?.lists}">
                 <!-- Info alert -->
-                <div class="alert alert-info" role="alert">
+                <div class="alert alert-info alert-with-icon" role="alert">
                     <div class="alert-icon-box">
                         <i class="alert-icon" data-feather="info"></i>
                     </div>
-                    " -- <g:message code="profile.noLists"/>
+                    <g:message code="profile.noLists"/>
                 </div>
             </g:if>
             <g:else>

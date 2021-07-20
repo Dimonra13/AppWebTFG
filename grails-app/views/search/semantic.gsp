@@ -43,11 +43,11 @@
     <div class="col-md-10 pt-6 pt-sm-3">
         <g:if test="${!foundCourses && search}">
             <!-- Info alert -->
-            <div class="alert alert-info" role="alert">
+            <div class="alert alert-info alert-with-icon" role="alert">
                 <div class="alert-icon-box">
                     <i class="alert-icon" data-feather="info"></i>
                 </div>
-                " -- <g:message code="course.search.noCourseFound"/>
+                <g:message code="course.search.noCourseFound"/>
             </div>
         </g:if><g:elseif test="${foundCourses}">
         <h2 style="display: inline-block;word-break: break-word;"><g:message code="search.results.for"></g:message> "${courseData}"</h2>

@@ -41,11 +41,11 @@
         <div class="col-md-10 pt-6 pt-sm-3">
         <g:if test="${!foundUsers && search}">
             <!-- Info alert -->
-            <div class="alert alert-info" role="alert">
+            <div class="alert alert-info alert-with-icon" role="alert">
                 <div class="alert-icon-box">
                     <i class="alert-icon" data-feather="info"></i>
                 </div>
-                " -- <g:message code="user.search.noUserFound"/>
+                <g:message code="user.search.noUserFound"/>
             </div>
         </g:if><g:elseif test="${foundUsers}">
             <h2 style="display: inline-block;word-break: break-word;"><g:message code="search.results.for"></g:message> "${userData}"</h2>
@@ -100,29 +100,150 @@
                 </div>
                 </g:if>
             </g:each>
+                <!-- Pagination-->
                 <br>
                 <div class="row">
-                    <div class="btn-group" style="margin: auto" role="group" aria-label="Solid button group">
-                        <g:if test="${params?.offset}">
+                    <nav style="margin: auto" aria-label="Page navigation example">
+                        <ul class="pagination">
+                            <g:if test="${offset}">
+                                <li class="page-item">
                                     <form action="/search/searchUser">
                                         <input type="hidden" name="userData" value="${userData}">
-                                        <input type="hidden" name="offset" value="${params.offset-10}">
-                                        <input type="submit" class="btn btn-primary" name="submit" value="<< ${message(code: "user.search.pagination.previous")}"/>
+                                        <input type="hidden" name="offset" value="${offset-10}">
+                                        <button type="submit" class="page-link" name="submit"><i data-feather="chevron-left"></i><g:message code="course.search.pagination.previous"/></button>
                                     </form>
-                        </g:if><g:else>
-                            <div class="col-2"></div>
-                        </g:else>
-                            <div class="text-center" style="padding-left: 3rem; padding-right: 3rem;">
-                                <h5 style="padding-top: 10px;">${params.offset ? (params.offset/10)+1 : 1}</h5>
-                            </div>
-                        <g:if test="${isMore}">
+                                </li>
+                            </g:if>
+                        <!-- First page pointer -->
+                            <g:if test="${page==1}">
+                                <li class="page-item active">
+                                    <span class="page-link">
+                                        1
+                                    </span>
+                                </li>
+                            </g:if><g:else>
+                                <li class="page-item">
+                                    <form action="/search/searchUser" method="post">
+                                        <input type="hidden" name="userData" value="${userData}">
+                                        <input type="hidden" name="offset" value="0">
+                                        <button type="submit" class="page-link" name="submit">1</button>
+                                    </form>
+                                </li>
+                            </g:else>
+                        <!-- Second page pointer or ... -->
+                            <g:if test="${(page==1 || page==3) && lastPage>2}">
+                                <li class="page-item">
                                     <form action="/search/searchUser">
                                         <input type="hidden" name="userData" value="${userData}">
-                                        <input type="hidden" name="offset" value="${params.offset+10}">
-                                        <input type="submit" class="btn btn-primary" name="submit" value="${message(code: "user.search.pagination.next")} >>"/>
+                                        <input type="hidden" name="offset" value="10">
+                                        <button type="submit" class="page-link" name="submit">2</button>
                                     </form>
-                        </g:if>
-                    </div>
+                                </li>
+                            </g:if><g:elseif test="${page==2 && lastPage>2}">
+                                <li class="page-item active">
+                                    <span class="page-link">
+                                        2
+                                    </span>
+                                </li>
+                            </g:elseif><g:elseif test="${page>3 && lastPage>4}">
+                                <li class="page-item" style="pointer-events: none;">
+                                    <span class="page-link"> ... </span>
+                                </li>
+                            </g:elseif>
+
+                            <g:if test="${page>3 && page==lastPage}">
+                                <li class="page-item">
+                                    <form action="/search/searchUser">
+                                        <input type="hidden" name="userData" value="${userData}">
+                                        <input type="hidden" name="offset" value="${10*(page-3)}">
+                                        <button type="submit" class="page-link" name="submit">${page-2}</button>
+                                    </form>
+                                </li>
+                            </g:if>
+                        <!-- Third page pointer or previous page pointer -->
+                            <g:if test="${(page==1 || page==2) && lastPage>3}">
+                                <li class="page-item">
+                                    <form action="/search/searchUser">
+                                        <input type="hidden" name="userData" value="${userData}">
+                                        <input type="hidden" name="offset" value="${20}">
+                                        <button type="submit" class="page-link" name="submit">3</button>
+                                    </form>
+                                </li>
+                            </g:if><g:elseif test="${page==3 && lastPage>3}">
+                                <li class="page-item active">
+                                    <span class="page-link">
+                                        3
+                                    </span>
+                                </li>
+                            </g:elseif><g:elseif test="${lastPage>3}">
+                                <li class="page-item">
+                                    <form action="/search/searchUser">
+                                        <input type="hidden" name="userData" value="${userData}">
+                                        <input type="hidden" name="offset" value="${10*(page-2)}">
+                                        <button type="submit" class="page-link" name="submit">${page-1}</button>
+                                    </form>
+                                </li>
+                            </g:elseif>
+                        <!-- Four page pointer or actual page pointer -->
+                            <g:if test="${page==3 && lastPage>4}">
+                                <li class="page-item">
+                                    <form action="/search/searchUser">
+                                        <input type="hidden" name="userData" value="${userData}">
+                                        <input type="hidden" name="offset" value="${30}">
+                                        <button type="submit" class="page-link" name="submit">4</button>
+                                    </form>
+                                </li>
+                            </g:if><g:elseif test="${page>3 && lastPage>page}">
+                                <li class="page-item active">
+                                    <span class="page-link">
+                                        ${page}
+                                    </span>
+                                </li>
+                            </g:elseif>
+                        <!-- Next page pointer -->
+                            <g:if test="${page>3 && lastPage>(page+1)}">
+                                <li class="page-item">
+                                    <form action="/search/searchUser">
+                                        <input type="hidden" name="userData" value="${userData}">
+                                        <input type="hidden" name="offset" value="${10*page}">
+                                        <button type="submit" class="page-link" name="submit">${page+1}</button>
+                                    </form>
+                                </li>
+                            </g:if>
+                        <!-- Second ... -->
+                            <g:if test="${lastPage>4 && lastPage>(page+2)}">
+                                <li class="page-item" style="pointer-events: none;">
+                                    <span class="page-link"> ... </span>
+                                </li>
+                            </g:if>
+                        <!-- last page pointer -->
+                            <g:if test="${page==lastPage && lastPage>1}">
+                                <li class="page-item active">
+                                    <span class="page-link">
+                                        ${lastPage}
+                                    </span>
+                                </li>
+                            </g:if><g:elseif test="${lastPage>1}">
+                                <li class="page-item">
+                                    <form action="/search/searchUser">
+                                        <input type="hidden" name="userData" value="${userData}">
+                                        <input type="hidden" name="offset" value="${10*(lastPage-1)}">
+                                        <button type="submit" class="page-link" name="submit">${lastPage}</button>
+                                    </form>
+                                </li>
+                            </g:elseif>
+
+                            <g:if test="${isMore}">
+                                <li class="page-item">
+                                    <form action="/search/searchUser">
+                                        <input type="hidden" name="userData" value="${userData}">
+                                        <input type="hidden" name="offset" value="${offset+10}">
+                                        <button type="submit" class="page-link" name="submit"><g:message code="course.search.pagination.next"/><i data-feather="chevron-right"></i></button>
+                                    </form>
+                                </li>
+                            </g:if>
+                        </ul>
+                    </nav>
                 </div>
             </div>
         </g:elseif>

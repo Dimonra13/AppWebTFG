@@ -1,6 +1,7 @@
 package appwebtfg
 
 import appwebtfg.cmd.ImageCommandObject
+import grails.gorm.PagedResultList
 import grails.gorm.transactions.Transactional
 
 @Transactional
@@ -29,14 +30,14 @@ class UserService {
      * @param email
      * @return the list of users who meet these criteria
      */
-    List<User> findUsers(String username, String email, int max, int offset){
+    PagedResultList<User> findUsers(String username, String email, int max, int offset){
         User.createCriteria().list(max:max,offset:offset) {
             eq("isPublicProfile",true)
             or{
                 ilike("username", "%${username}%")
                 ilike("email", "%${email}%")
             }
-        } as List<User>
+        }
     }
 
     /**

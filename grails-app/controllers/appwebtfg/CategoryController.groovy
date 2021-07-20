@@ -1,5 +1,6 @@
 package appwebtfg
 
+import grails.gorm.PagedResultList
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 
@@ -169,7 +170,7 @@ class CategoryController {
                 queryList.add("Traditional Chinese")
                 queryList.add("Simplified Chinese")
             }
-            List<Course> courses = courseService.findCourses(id,pageSize,offset,title,freeOnly,englishOnly,sortBy,sortByAsc,difficulty,ogpage,max,min,queryList)
+            PagedResultList<Course> courses = courseService.findCourses(id,pageSize,offset,title,freeOnly,englishOnly,sortBy,sortByAsc,difficulty,ogpage,max,min,queryList)
             boolean isMore = courseService.findCourses(id,pageSize,offset+pageSize,title,freeOnly,englishOnly,sortBy,sortByAsc,difficulty,ogpage,max,min,queryList) as boolean
             render(view: "categoriesIndex",model: [
                     currentCategory: id,
@@ -177,6 +178,8 @@ class CategoryController {
                     isMore: isMore,
                     pageSize: pageSize,
                     offset: offset,
+                    page:offset ? (offset/pageSize)+1 : 1,
+                    lastPage: courses?.totalCount ? ( (courses?.totalCount%pageSize) ? (courses?.totalCount/pageSize)+1 as int : (courses?.totalCount/pageSize) as int) : 1,
                     title: title,
                     ogpage: params?.ogpage,
                     freeOnly: freeOnly,

@@ -15,7 +15,9 @@ class SearchControllerIntegrationSpec extends BaseControllerIntegrationSpec {
     void "Validate the searchUser method"() {
 
         setup: 'The controller action is call'
-        searchController.searchUser()
+        User.withNewSession { it ->
+            searchController.searchUser()
+        }
 
         expect: 'validate the method output'
         searchController.response.status == 200
@@ -33,7 +35,9 @@ class SearchControllerIntegrationSpec extends BaseControllerIntegrationSpec {
     void "Validate the searchCourse method"() {
 
         setup: 'The controller action is call'
-        searchController.searchCourse()
+        Course.withNewSession { it ->
+            searchController.searchCourse()
+        }
 
         expect: 'validate the method output'
         searchController.response.status == 200
