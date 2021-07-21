@@ -243,7 +243,7 @@ class BootStrap {
              it.clear()
          }
 
-         new User(username: "me1", password: 'password', email: 'email@gmail.com',isPublicProfile: true).save()
+         new User(username: "me1", password: 'password', email: 'email@gmail.com',isPublicProfile: true, exploreRecommendationsIds: [3,4,5,6,7,8]).save()
          new User(username: "me2", password: 'password', email: 'email@gmail.com',isPublicProfile: true).save()
 
          Course c1 = new Course(title: "testCourse",category: "Software-Engineering").save()

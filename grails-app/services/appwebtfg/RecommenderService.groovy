@@ -121,7 +121,7 @@ class RecommenderService {
             def responseData = slurper.parse(response.data)
             Set<Integer> idsUdacity = (responseData.get("courses_udacity") as Map)?.keySet()?.collect { Integer.parseInt(it) }?.take(2)
             Set<Integer> idsCoursera = (responseData.get("courses_coursera") as Map)?.keySet()?.collect { Integer.parseInt(it) }?.take(11)
-            Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map)?.keySet()?.collect { Integer.parseInt(it) }?.take(12)
+            Set<Integer> idsUdemy = (responseData.get("courses_udemy") as Map)?.keySet()?.collect { Integer.parseInt(it) }?.take(11)
             return (getCoursesUdemy(idsUdemy) + getCoursesCoursera(idsCoursera))?.toSet()?.toList() + getCoursesUdacity(idsUdacity)
         } catch (Exception e) {
             e.printStackTrace()

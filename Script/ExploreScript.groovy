@@ -818,7 +818,7 @@ initDatastore()
 
 int nusers = 0
 User.withTransaction {
-    nusers = User?.list()?.size()
+    nusers = User?.count
 }
 println 'Generating explore recommendations for '+nusers+' users'
 for (int i=1; i<=nusers;i++) {

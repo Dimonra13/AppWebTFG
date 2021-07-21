@@ -208,7 +208,7 @@ class UserServiceIntegrationSpec extends Specification {
         expectedLanguagesList = userNewLanguages ?: []
 
         when: "User's languages list is updated"
-        testUser = userService.updateLanguages(testUser,userNewLanguages)
+        testUser = userService.updateLanguages(testUser, userNewLanguages)
 
         then: "The test user's languages list must be updated correctly"
         expectedLanguagesList == testUser.languages
@@ -366,5 +366,6 @@ class UserServiceIntegrationSpec extends Specification {
         userNewBannedCourse | expectedOutput
         null                | [3]
         12                  | [3]
+        10                  | []
     }
 }
