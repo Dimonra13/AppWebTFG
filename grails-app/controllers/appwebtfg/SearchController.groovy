@@ -283,8 +283,11 @@ class SearchController {
         }else{
             if(data && data!=""){
                 foundCourses =  recommenderService.semanticSearch(data,authUser)
+                if(foundCourses?.size()==2){
+                    isLast="true"
+                }
             }
         }
-        render(view: "semantic", model: [foundCourses: foundCourses,search: true,isLast:isLast,user:authUser,courseData:data])
+        render(view: "semantic", model: [foundCourses: foundCourses,search: true,isLast:isLast,user:authUser,courseData:data,currentPage: (params?.currentPage ?: null)])
     }
 }

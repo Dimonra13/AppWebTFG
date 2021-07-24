@@ -340,7 +340,7 @@
                                             <input type="hidden" name="min" value="${min}">
                                         </g:if>
                                         <g:select style="display:none;" name="languageList" valueMessagePrefix="language" from="${languageList}" multiple="multiple" value="${languageList}"/>
-                                        <button type="submit" class="page-link" name="submit"><i data-feather="chevron-left"></i><g:message code="course.search.pagination.previous"/></button>
+                                        <button type="submit" class="page-link" name="submit"><i data-feather="chevron-left"></i></button>
                                     </form>
                                 </li>
                             </g:if>
@@ -701,7 +701,7 @@
                                             <input type="hidden" name="min" value="${min}">
                                         </g:if>
                                         <g:select style="display:none;" name="languageList" valueMessagePrefix="language" from="${languageList}" multiple="multiple" value="${languageList}"/>
-                                        <button type="submit" class="page-link" name="submit"><g:message code="course.search.pagination.next"/><i data-feather="chevron-right"></i></button>
+                                        <button type="submit" class="page-link" name="submit"><i data-feather="chevron-right"></i></button>
                                     </form>
                                 </li>
                             </g:if>

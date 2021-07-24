@@ -293,7 +293,7 @@
                                 </g:if>
                                 <g:select style="display:none;" name="languageList" valueMessagePrefix="language" from="${languageList}" multiple="multiple" value="${languageList}"/>
                                 <input type="hidden" name="category" value="${category}"/>
-                                <button type="submit" class="page-link" name="submit"><i data-feather="chevron-left"></i><g:message code="course.search.pagination.previous"/></button>
+                                <button type="submit" class="page-link" name="submit"><i data-feather="chevron-left"></i></button>
                             </form>
                         </li>
                     </g:if>
@@ -663,7 +663,7 @@
                                 </g:if>
                                 <g:select style="display:none;" name="languageList" valueMessagePrefix="language" from="${languageList}" multiple="multiple" value="${languageList}"/>
                                 <input type="hidden" name="category" value="${category}"/>
-                                <button type="submit" class="page-link" name="submit"><g:message code="course.search.pagination.next"/><i data-feather="chevron-right"></i></button>
+                                <button type="submit" class="page-link" name="submit"><i data-feather="chevron-right"></i></button>
                             </form>
                         </li>
                     </g:if>
