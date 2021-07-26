@@ -15,7 +15,7 @@ kubectl create -f persistence_volume.yaml
 ```
 kubectl create -f pv_claim.yaml
 ```
-### 1.3- Desplegar el Secret 
+## 1.3- Desplegar el Secret 
 Este secret es necesario para almacenar la información sensible de la base de datos (nombre y contraseña).
 
 ```
