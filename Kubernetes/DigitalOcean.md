@@ -26,6 +26,8 @@ Para crear el cluster usaremos el dashboard destinado para ello en DigitalOcean 
 
 1.- Seleccionar la versión de kubectl a usar en el cluster y la región en la que se desea tener el cluster  
 ![Cluster-1](https://i.imgur.com/xbo0VEv.png)  
+**Importante tener en cuenta que en las versiones más recientes de kubectl disponibles en Digital Ocean no suele funcionar correctamente el Metrics Server, por tanto se recomienda no usar la versión (latest) a menos que este disponible una subversión superior a la 1.x.3 (en la cual suelen arreglar este problema).**  
+  
 2.- Seleccionar el tipo de nodos y la cantidad de ellos que se necesitan (a mayor cantidad de nodos y prestaciones de estos mayor precio)  
 ![Cluster-2](https://i.imgur.com/ZHyfPqr.png)  
 3.- Establecer el nombre del cluster y los tags (estos tags pueden ser útiles si se tienen que gestionar varios cluster)  
@@ -49,7 +51,7 @@ El Kubernetes Metrics Server permite instalar en el cluster servicios muy import
 Para desplegar el metric server en el cluster es suficiente con usar el comando:
 
 ```
-kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.3.7/components.yaml
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.4.4/components.yaml
 ```
 
 Para verificar el estado del metrics-server se puede usar el comando:
