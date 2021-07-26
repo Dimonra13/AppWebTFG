@@ -106,7 +106,7 @@ dataSource:
     jmxExport: true
     driverClassName: com.mysql.cj.jdbc.Driver
     username: root
-    password: pass
+    password: er94tm31iyhW
 
 environments:
     development:
@@ -124,7 +124,7 @@ environments:
     production:
         dataSource:
             dbCreate: update
-            url: jdbc:mysql://mysql:3306/test
+            url: jdbc:mysql://mysql:3306/coursing
             #url: jdbc:h2:./prodDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE
             properties:
                 jmxEnabled: true

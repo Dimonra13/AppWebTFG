@@ -347,10 +347,10 @@ class User implements Serializable {
 //tag::config[]
 Map getConfiguration() {
     [
-            'dataSource.url'        : 'jdbc:mysql://mysql:3306/test',
+            'dataSource.url'        : 'jdbc:mysql://mysql:3306/coursing',
             'dataSource.drive'      : 'org.sqlite.JDBC',
             'dataSource.username'   : 'root',
-            'dataSource.password'   : 'pass',
+            'dataSource.password'   : 'er94tm31iyhW',
             'hibernate.hbm2ddl.auto': 'update',
             'hibernate.dialect'     : 'com.enigmabridge.hibernate.dialect.SQLiteDialect'
     ]
