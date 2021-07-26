@@ -126,14 +126,19 @@ kubectl create -f persistence_volume.yaml
 ```
 kubectl create -f pv_claim.yaml
 ```
+### 5.4. Desplegar el Secret 
+Este secret es necesario para almacenar la información sensible de la base de datos (nombre y contraseña).
 
-### 5.4. Desplegar el Deployment MySQL
+```
+kubectl create -f mysql_secret.yaml
+```
+### 5.5. Desplegar el Deployment MySQL
 
 ```
 kubectl create -f mysql_deployment.yaml
 ```
 
-### 5.5. Desplegar el Servicio MySQL
+### 5.6. Desplegar el Servicio MySQL
 
 ```
 kubectl create -f mysql_service.yaml
