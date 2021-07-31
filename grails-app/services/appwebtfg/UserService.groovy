@@ -209,7 +209,7 @@ class UserService {
      * @return updated user
      */
     User removeBannedCoursesFromExploreRecommendations(User user){
-        if(!user?.exploreRecommendationsIds || !user?.bannedCourses)
+        if(!user?.exploreRecommendationsIds)
             return user
         else{
             List<Long> exploreRecommendationsIds = user?.exploreRecommendationsIds
