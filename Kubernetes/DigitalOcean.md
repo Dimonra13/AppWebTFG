@@ -151,35 +151,64 @@ kubectl create -f mysql_service.yaml
 Esto puede ser muy útil para cargar dumps, comprobar que los datos se guardan correctamente y acceder a logs de errores.
 
 ```
-kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h mysql -ppass
+kubectl run -it --rm --image=mysql:5.6 --restart=Never mysql-client -- mysql -h mysql -per94tm31iyhW
 	
 ```
-## Paso 6. Desplegar la aplicación web
+## Paso 6. Añadir un nombre de dominio a Digital Ocean  
+**En caso de tener ya un nombre de dominio vinculado a Digital Ocean para el proyecto actual ir al paso 7 directamente.**  
+Los nombres de dominio son muy importantes ya que permiten a los usuarios encontrar la página web sin necesidad de conocer la IP del servidor en que se encuentra.
+Esto es posible gracias a los servidores DNS,que se encargan de hacer la traducción IP-Dominio, por lo que deberemos configurar estos DNS para que dirijan el 
+tráfico hacia nuestro cluster. Además, el tener un nombre de dominio es fundamental para poder usar HTTPS y SSL. Para establecer el nombre de dominio de nuestra 
+aplicación en Digital Ocean seguiremos los siguientes pasos:  
+
+1.- Ir a la sección Networking  
+2.- En la sección networking, ir a Domains  
+3.- Poner el nombre de dominio y pulsar en "Add Domain"
+![Domain-1](https://i.imgur.com/EoYCVFE.png)
+**Es importante tener en cuenta que Digital Ocean no es un Domain Registar por lo que es necesario comprar el dominio en alguno de los Domain Registars existentes**  
+4.- https://www.digitalocean.com/community/tutorials/how-to-point-to-digitalocean-nameservers-from-common-domain-registrars 
+
+## Paso 7. Crear el certificado SSL
+**En caso de tener ya un certificado SSL vinculado a Digital Ocean para el proyecto actual ir al paso 8 directamente.**   
+Los certificados SSL son vitales para el establecimiento de conexiones seguras a través de Internet siguiendo el protocolo HTTPS. Muchos navegadores presentan advertencias a sus usuarios si intentan acceder a sitios web que no utilizan este protocolo. Estas advertencias pueden reducir notablemente el número de usuarios que decidan utilizar Coursing.me y la satisfacción de los mismos. Ante esto, tanto por una cuestión de seguridad como de imágen es vital contar con un certificado SSL y usar HTTPS. Para crear un certificado SSL en Digital Ocean usando Let’s Encrypt seguiremos los siguientes pasos:
+
+1.- Ir a la sección Settings  
+2.- En la sección Settings, ir a Security  
+![Cert-1](https://i.imgur.com/C4eHSDm.png)  
+3.- Pulsar en el botón "Add Certificate" 
+![Cert-2](https://i.imgur.com/DEihcFr.png)  
+4.- Seleccionar el dominio previamente añadido y un nombre para el certificado 
+![Cert-3](https://i.imgur.com/CbRoC03.png)  
+5.- Pulsar en el botoń "Generate Certificate"   
+**En caso de contar ya con un certificado SSL puede importarse en Digital Ocean en la pestaña "Bring your own certificate"**
+![Cert-3](https://i.imgur.com/exhJF50.png)  
+
+## Paso 8. Desplegar la aplicación web
 
 Para desplegar la aplicación web y que sea accesible desde el exterior del cluster debemos seguir los siguientes pasos:
 
-### 6.1. Ir a la carpeta App en una shell
+### 8.1. Ir a la carpeta App en una shell
 
 Abrir una shell en la carpeta raíz del proyecto y escribimos:
 
 ```
 cd ./Kubernetes/App
 ```
-### 6.2. Desplegar el Deployment de la App
+### 8.2. Desplegar el Deployment de la App
 
 ```
 kubectl create -f webapp_deployment.yaml
 ```
 
-### 6.3. Desplegar el Load Balancer de la App
+### 8.3. Desplegar el Load Balancer de la App
 
-Este load balancer será detectado por DigitalOcean y se integrará con su propio servicio de load balancing. Posteriormente podremos editar el load balancer
-creado desde DigitalOcean para realizar las configuraciones finales (Paso 9)
+Los load balancer permiten que la aplicación sea accesible a través de internet y reparten el tráfico entre los diferentes nodos y pods de la aplicación
+en función de la tasa de uso que tenga cada uno. El load balancer que crearemos mediante el archivo yaml será detectado por DigitalOcean y se integrará con su propio servicio de load balancing, permitiéndonos aprovechar al máximo los servicios que nos ofrece este proveedor.
 
 ```
 kubectl create -f webapp_loadBalancer.yaml
 ```
-## Paso 7. Desplegar el Horizontal Pod Autoscaler
+## Paso 9. Desplegar el Horizontal Pod Autoscaler
 
 El Horizontal Pod Autoscaler se encarga de aumentar o disminuir el número de pods de un deployment en función del tráfico que le llega, de forma que junto 
 con el vertical autoscaler se encargan de que el número de replicas y la CPU y RAM de cada réplica sean las justas y necesarias. Por tanto, son muy importantes a 
@@ -223,42 +252,7 @@ kubectl delete pod load-generator
 ```
 kubectl delete horizontalpodautoscaler.autoscaling/webapp
 ```
-**Tanto el paso 4 como este paso 7, aunque son muy recomendables e importantes por las razones ya dichas, son opcionales. La aplicación puede funcionar correctamente sin ningún autoscaler, aunque no se podrá garantizar su disponibilidad en caso de que se produzca un pico de tráfico.**
-
-## Paso 8. Añadir un nombre de dominio a Digital Ocean  
-**En caso de tener ya un nombre de dominio vinculado a Digital Ocean para el proyecto actual ir al paso 9 directamente.**  
-Los nombres de dominio son muy importantes ya que permiten a los usuarios encontrar la página web sin necesidad de conocer la IP del servidor en que se encuentra.
-Esto es posible gracias a los servidores DNS,que se encargan de hacer la traducción IP-Dominio, por lo que deberemos configurar estos DNS para que dirijan el 
-tráfico hacia nuestro cluster. Además, el tener un nombre de dominio es fundamental para poder usar HTTPS y SSL. Para establecer el nombre de dominio de nuestra 
-aplicación en Digital Ocean seguiremos los siguientes pasos:  
-
-1.- Ir a la sección Networking  
-2.- En la sección networking, ir a Domains
-3.- Poner el nombre de dominio y pulsar en "Add Domain"
-![Domain-1](https://i.imgur.com/EoYCVFE.png)
-**Es importante tener en cuenta que Digital Ocean no es un Domain Registar por lo que es necesario comprar el dominio en alguno de los Domain Registars existentes**  
-4.- https://www.digitalocean.com/community/tutorials/how-to-point-to-digitalocean-nameservers-from-common-domain-registrars   
-
-## Paso 9. Configurar el load balancer
-
-Los load balancer permiten que la aplicación sea accesible a través de internet y reparten el tráfico entre los diferentes nodos y pods de la aplicación
-en función de la tasa de uso que tenga cada uno. Para configurar el load balancer usaremos el dashboard destinado para ello en DigitalOcean y seguiremos los siguientes pasos:
-
-1.- Ir a la sección Networking  
-2.- En la sección networking, ir a Load Balancers  
-![Load-1](https://i.imgur.com/4NSDOmj.png)  
-3.- Seleccionar el load balancer creado  
-![Load-2](https://i.imgur.com/phjQFvk.png)  
-4.- Ir a la sección settings  
-![Load-3](https://i.imgur.com/znvoluA.png)  
-5.- Pulsar en el botón "Edit" de Forwarding rules  
-![Load-4](https://i.imgur.com/Ee5s185.png)  
-6.- Seleccionar HTTPS y el puerto 443
-![Load-5](https://i.imgur.com/viNQABG.png)  
-7.- En certificate seleccionar el certificado a usar o crear uno nuevo 
-![Load-6](https://i.imgur.com/p9q8Yaz.png)  
-8.- Pulsar en "Save"
-
+**Tanto el paso 4 como este paso 9, aunque son muy recomendables e importantes por las razones ya dichas, son opcionales. La aplicación puede funcionar correctamente sin ningún autoscaler, aunque no se podrá garantizar su disponibilidad en caso de que se produzca un pico de tráfico.**
 ## Paso 10. Desplegar el script encargado de generar las recomendaciones de "Explore"
 El módulo de inteligencia artificial permite generar recomendaciones de cursos de diversas categorías que se salen de las busquedas normales de cada usuario. Gracias a esto, los usuarios pueden descubrir cursos interesantes para ellos que no podrían encontrar de otra forma.  
 Sin embargo, el cómputo de estas recomendaciones es muy lento, por lo que la aplicación no puede esperar a que se generen cada vez que el usuario hace una petición. La solución a este problema es el uso de un script que se ejecute una vez al día y genere estas recomenadaciones para todos los usuarios.  
