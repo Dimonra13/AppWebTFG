@@ -1,7 +1,7 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: https-with-cert
+  name: webapp-loadbalancer-https
   annotations:
     service.beta.kubernetes.io/do-loadbalancer-protocol: "https"
     service.beta.kubernetes.io/do-loadbalancer-certificate-id: "ea983a0e-59ad-48da-b3ce-dd593e977c9e"
