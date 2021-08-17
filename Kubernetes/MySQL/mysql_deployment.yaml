@@ -36,6 +36,11 @@ spec:
         volumeMounts:
         - name: mysql-persistent-storage
           mountPath: /var/lib/mysql
+        resources:
+          limits:
+            cpu: "1500m"
+          requests:
+            cpu: "500m"
       volumes:
       - name: mysql-persistent-storage
         persistentVolumeClaim:
