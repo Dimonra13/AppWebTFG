@@ -1,0 +1,89 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Course {
+    # title : String
+    # description : String
+    # url : String
+    # category : String
+    # duration : Float
+    # idCurso : Long
+    # language : String
+    # author : String
+    # popularity : Integer
+    # rating : Float
+    # difficulty : String
+    # isFree : int
+    # price : Float
+    # originalPage : String
+}
+
+class CourseList {
+    # name : String
+    # description : String
+}
+
+class Role {
+	# authority : String
+}
+
+class UserRole {
+	# user : User
+	# role : Role
+}
+
+class User {
+    # username : String
+    # password : String
+    # email : String
+    # phoneNumber : String
+    # age : Integer
+    # date : String
+    # isPublicProfile : boolean
+    # hasProfileImage : boolean
+    # profileImageBytes : byte[]
+    # profileImageContentType : String
+    # interests : List<String>
+    # recentSearches : List<String>
+    # bannedCourses : Set<Long>
+    # exploreRecommendationsIds : List<Long>
+    # languages : List<String>
+    # duration : Float
+    # cost : Float
+    # popularity : Float
+    # difficulty : Float
+    # enabled : boolean
+    # accountExpired : boolean
+    # accountLocked : boolean
+    # passwordExpired : boolean
+}
+
+class Skill {
+    # name : String
+    # level : String
+
+}
+
+class UserFeedback {
+    # clicksSearch : Long
+    # clicksRecommend : Long
+    # clicksRelatedToQuery : Long
+    # clicksRelatedToCourse : Long
+    # clicksExplore : Long
+    # addToListSearch : Long
+    # addToListRecommend : Long
+    # addToListRelatedToQuery : Long
+    # addToListRelatedToCourse : Long
+    # addToListExplore : Long
+    # notInterestedCoursera : Long
+    # notInterestedUdemy : Long
+    # notInterestedUdacity : Long
+}
+
+User "1" *-- "n" CourseList
+CourseList "1" *-- "n" Course
+UserRole "1" - "1" User
+UserRole "1" -- "1" Role
+User "1" *- "n" Skill
+User "1" *-- "1" UserFeedback
+@enduml
