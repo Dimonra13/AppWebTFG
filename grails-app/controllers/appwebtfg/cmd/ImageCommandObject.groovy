@@ -21,7 +21,7 @@ class ImageCommandObject implements Validateable {
             }
             //Only files that ends in JPEG, JPG or PNG are allowed
             ['jpeg', 'jpg', 'png'].any { extension ->
-                val.originalFilename?.toLowerCase()?.endsWith(extension)
+                val.originalFilename?.toLowerCase()?.endsWith(extension) && (val.getSize() < 2000000)
             }
         }
     }

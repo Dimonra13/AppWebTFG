@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: recommender
+  name: recommender-deployment
 spec:
   selector:
     matchLabels:
@@ -20,3 +20,10 @@ spec:
         ports:
         - containerPort: 8011
           name: recommender
+        resources:
+          limits:
+            cpu: "2000m"
+            memory: "13Gi"
+          requests:
+            cpu: "1250m"
+            memory: "11Gi"

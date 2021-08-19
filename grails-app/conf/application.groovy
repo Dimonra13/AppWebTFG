@@ -29,3 +29,16 @@ grails.plugin.springsecurity.filterChain.chainMap = [
 	[pattern: '/**',             filters: 'JOINED_FILTERS']
 ]
 
+/*
+To deploy the application on a Cloud provider, such as AWS, using a Load Balancer with HTTPS the configuration lines
+below this comment are required. For local development these lines must be commented out.
+ */
+grails.plugin.springsecurity.secureChannel.definition = [
+		[pattern: '/**',            access: 'REQUIRES_SECURE_CHANNEL'],
+		[pattern: '/assets/**',     access: 'ANY_CHANNEL'],
+]
+
+grails.plugin.springsecurity.secureChannel.useHeaderCheckChannelSecurity = true
+grails.plugin.springsecurity.portMapper.httpPort = 80
+grails.plugin.springsecurity.portMapper.httpsPort = 443
+

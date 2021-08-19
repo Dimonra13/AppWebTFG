@@ -785,7 +785,7 @@ private String calculateMostFrequentInstitution(List<Course> courses){
  */
 List<Course> getexploreCourses(User user) {
     try {
-        RESTClient client = new RESTClient("http://165.227.230.218:80")
+        RESTClient client = new RESTClient("http://recommender:8011")
         client.defaultAcceptHeader = ContentType.JSON
         def path = "/explore/?k="
         if(user && user?.languages && !user?.languages?.contains("English")){

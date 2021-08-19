@@ -10,7 +10,7 @@ import java.util.stream.Collectors
 
 @Transactional
 class RecommenderService {
-    final String URL = (Environment.current == Environment.PRODUCTION) ? "http://165.227.230.218:80" : "http://165.227.230.218:80"
+    final String URL = (Environment.current == Environment.PRODUCTION) ? "http://recommender:8011" : "http://localhost:80"
     final def LANGUAGES = [
             "English",
             "Spanish",

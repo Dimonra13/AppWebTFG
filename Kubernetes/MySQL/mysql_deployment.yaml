@@ -30,6 +30,7 @@ spec:
         args:
         - --character-set-server=utf8mb4 
         - --collation-server=utf8mb4_unicode_ci
+        - --max-allowed-packet=268435456
         ports:
         - containerPort: 3306
           name: mysql
@@ -40,7 +41,7 @@ spec:
           limits:
             cpu: "1500m"
           requests:
-            cpu: "500m"
+            cpu: "750m"
       volumes:
       - name: mysql-persistent-storage
         persistentVolumeClaim:
