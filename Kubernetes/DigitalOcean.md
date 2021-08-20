@@ -103,9 +103,9 @@ Para desinstalar el Vertical Pod Autoscaler puede usarse el siguiente comando:
 ```
 ./hack/vpa-down.sh
 ```
-## Paso 5. Desplegar la base de datos MySQL
+## Paso 5. Desplegar la base de datos MySQL  
 
-Desplegaremos la base de datos igual que como lo hacíamos en minikube.
+Para desplegar la base de datos dentro del clúster debemos seguir los siguientes pasos:  
 
 ### 5.1. Ir a la carpeta MySQL en una shell
 
@@ -189,7 +189,7 @@ Para desplegar la aplicación web y que sea accesible desde el exterior del clus
 
 ### 8.1. Ir a la carpeta App en una shell
 
-Abrir una shell en la carpeta raíz del proyecto y escribimos:
+Abrir una shell en la carpeta raíz del proyecto y escribir:
 
 ```
 cd ./Kubernetes/App
@@ -279,7 +279,25 @@ kubectl create -f script_job.yaml
 ```
 kubectl delete -f script_job.yaml
 ```
+## Paso 11. Desplegar el Sistema de Recomendación
 
+Para desplegar el Sistema de Recomendación y que sea accesible por la aplicación web debemos seguir los siguientes pasos:
+
+### 11.1. Ir a la carpeta Recommender en una shell
+
+Abrir una shell en la carpeta raíz del proyecto y escribir:
+
+```
+cd ./Kubernetes/Recommender
+```
+### 11.2. Desplegar el Deployment del Sistema de Recomendación  
+```
+kubectl create -f recommender_deployment.yaml
+```  
+### 11.3. Desplegar el Service del Sistema de Recomendación  
+```
+kubectl create -f recommender_service.yaml
+```  
 ## Eliminar el cluster y el load balancer  
 Para eliminar el cluster y el load balancer de forma que no consuman recursos y no se incurra en costes se deben seguir los siguientes pasos:  
 1.- En la sección de Networking/Load Balancers, pulsar "More" en el load balancer que se desea borrar y seleccionar "Destroy"
