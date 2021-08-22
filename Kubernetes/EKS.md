@@ -28,7 +28,7 @@ eksctl create cluster --name ekscluster --version 1.18 --region eu-west-3 --farg
 Es recomendable establecer una clave ssh para poder conectarnos a las instancias de EC2 que usaremos en el cluster, para crear esta clave puede serguirse la guía: https://docs.aws.amazon.com/cli/latest/userguide/cli-services-ec2-keypairs.html#creating-a-key-pair
 
 ```
-eksctl create cluster --name ekscluster --node-type t2.micro --version 1.18 --region eu-west-3 --nodegroup-name linux-nodes --nodes 1 --nodes-min 1 --nodes-max 4 --with-oidc --ssh-access --ssh-public-key  MyKeyPair --managed --asg-access
+eksctl create cluster --name ekscluster --version 1.18 --region eu-west-3 --nodegroup-name linux-nodes --nodes 1 --nodes-min 1 --nodes-max 4 --with-oidc --ssh-access --ssh-public-key  MyKeyPair --managed --asg-access
 ```
 
 Para comprobar que la configuración de kubectl es correcta y se puede conectar al cluster se puede usar el comando:
@@ -179,9 +179,9 @@ Finalmente, para poder conectarnos al dashboard debemos:
   
 ## Paso 4. Desplegar el Vertical Pod Autoscaler
 
-El Vertical Pod Autoscaler de Kubernetes gestiona automáticamente la cantidad de CPU y RAM que necesitan los pods para funcionar, de forma que se aumenta o disminuye la CPU/RAM de cada pod según sus necesidades en cada momento. Esto ayuda a disminuir los costes y dar servicio aunque el número de usuarios crezca muy rápidamente.
+El Vertical Pod Autoscaler de Kubernetes calcula automáticamente la cantidad de CPU y RAM que necesitan los pods para funcionar, por lo que se trata de una herramienta muy útil para la gestión del clúster si no se conoce a ciencia cierta el consumo de recursos de los diferentes servicios desplegados.  
 
-Para desplegar el Vertical Pod Autoscaler debemos seguir los siguientes pasos:
+Para desplegar el Vertical Pod Autoscaler debemos seguir los siguientes pasos:  
 1.- Abrir una shell y colocarnos en el directorio en el que deseamos guardar el código fuente del autoscaler.  
 2.- Clonar el repositorio de kubernetes/autoscaler en Github:
 ```
@@ -215,7 +215,8 @@ vpa-admission-controller-556cc48ddd-9cwwk   1/1     Running   0          11s
 vpa-recommender-8bdbf5-f5dhj                1/1     Running   0          13s
 vpa-updater-67b4b4b44d-wqvbm                1/1     Running   0          13s
 ```
-
+Una vez desplegado este mecanismo de escalado pueden usarse archivos de configuración para indicar que Deployments deben ser gestionados por este sistema.  
+	
 IMPORTANTE: Para poder ejecutar este paso es necesario tener instalado OpenSSL 1.1.1 y tener la ruta del archivo en el PATH. Como en windows puede dar problemas puede usarse la version 0.8 que no necesita OpenSSL. Puede descargarse en la siguiente ruta: https://github.com/kubernetes/autoscaler/tree/vpa-release-0.8.git  
 **Es muy recomendable realizar este paso en linux si es posible para evitar problemas.**
 
@@ -373,7 +374,7 @@ kubectl create -f webapp_ingress.yaml
 ## Paso 9. Desplegar el Horizontal Pod Autoscaler
 El Horizontal Pod Autoscaler se encarga de aumentar o disminuir el número de pods de un deployment en función del tráfico que le llega, de forma que junto con el vertical autoscaler se encargan de que el número de replicas y la CPU y RAM de cada réplica sean las justas y necesarias.Por tanto, son muy importantes a la hora de garantizar la disponibilidad y reducir costes. Para desplegar un Horizontal Pod Autoscaler para el deployment de nuestra aplicación es suficiente con usar el comando:
 ```
-kubectl autoscale deployment webapp --cpu-percent=50 --min=1 --max=10
+kubectl autoscale deployment webapp --cpu-percent=70 --min=1 --max=3
 ```
 
 **Para probar el Horizontal Pod Autoescaler pueden usarse los siguiente comando (debe ejecutarse en una shell nueva):**
@@ -391,15 +392,15 @@ kubectl get hpa
 La salida esperada debe ser similar a:
 ```
 NAME     REFERENCE           TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
-webapp   Deployment/webapp   1%/50%    1         10        1          57s
+webapp   Deployment/webapp   1%/70%    1         3         1          57s
 ```
 ```
 NAME     REFERENCE           TARGETS    MINPODS   MAXPODS   REPLICAS   AGE
-webapp   Deployment/webapp   134%/50%   1         10        3          105s
+webapp   Deployment/webapp   134%/70%   1         3         3          105s
 ```
 ```
 NAME     REFERENCE           TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
-webapp   Deployment/webapp   0%/50%    1         10        1          12m
+webapp   Deployment/webapp   0%/70%    1         3         1          12m
 ```
 Una vez comprobado que funciona, usamos Ctrl+C en la shell para dejar de generar tráfico, cerramos la shell y en nuestra shell original usamos el siguiente comando para eliminar el generador de carga:
 ```
@@ -408,6 +409,51 @@ kubectl delete pod load-generator
 **Para eliminar el Horizontal Pod Autoscaler se puede usar el comando:**
 ```
 kubectl delete horizontalpodautoscaler.autoscaling/webapp
+```
+## Paso 10. Desplegar el script encargado de generar las recomendaciones de "Explore"
+El módulo de inteligencia artificial permite generar recomendaciones de cursos de diversas categorías que se salen de las busquedas normales de cada usuario. Gracias a esto, los usuarios pueden descubrir cursos interesantes para ellos que no podrían encontrar de otra forma.  
+Sin embargo, el cómputo de estas recomendaciones es muy lento, por lo que la aplicación no puede esperar a que se generen cada vez que el usuario hace una petición. La solución a este problema es el uso de un script que se ejecute una vez al día y genere estas recomenadaciones para todos los usuarios.  
+Para ello, usuaremos un cronjob y seguiremos los siguientes pasos para desplegarlo:
+
+### 10.1. Ir a la carpeta Script en una shell
+
+Abrir una shell en la carpeta raíz del proyecto y escribimos:
+
+```
+cd ./Kubernetes/Script
+```
+### 10.2. Desplegar el cronjob del script
+
+```
+kubectl create -f script_cronjob.yaml
+```
+### Ejecutar el script directamente
+A veces podemos querer ejecutar el script en el momento de desplegarlo, en vez de tener que esperar a la hora programada en el cronjob. Para ello podemos desplegar un job estándar para el script antes de desplegar el cronjob:
+```
+kubectl create -f script_job.yaml
+```
+**Es importante tener en cuenta que antes de desplegar el cronjob es necesario eliminar este job para evitar posibles interferencias entre ambos**
+```
+kubectl delete -f script_job.yaml
+```
+## Paso 11. Desplegar el Sistema de Recomendación
+**Importante: Para llevar a cabo este paso es importante contar con nodos con al menos 2vCPU y 16GB de RAM en el clúster**  
+Para desplegar el Sistema de Recomendación y que sea accesible por la aplicación web debemos seguir los siguientes pasos:
+
+### 11.1. Ir a la carpeta Recommender en una shell
+
+Abrir una shell en la carpeta raíz del proyecto y escribir:
+
+```
+cd ./Kubernetes/Recommender
+```
+### 11.2. Desplegar el Deployment del Sistema de Recomendación  
+```
+kubectl create -f recommender_deployment.yaml
+```  
+### 11.3. Desplegar el Service del Sistema de Recomendación  
+```
+kubectl create -f recommender_service.yaml
 ```
 ## Eliminar el cluster
 
