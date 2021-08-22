@@ -281,7 +281,7 @@ kubectl create -f script_job.yaml
 kubectl delete -f script_job.yaml
 ```
 ## Paso 11. Desplegar el Sistema de Recomendación
-
+**Importante: Para llevar a cabo este paso es importante contar con nodos con al menos 2vCPU y 16GB de RAM en el clúster**  
 Para desplegar el Sistema de Recomendación y que sea accesible por la aplicación web debemos seguir los siguientes pasos:
 
 ### 11.1. Ir a la carpeta Recommender en una shell
