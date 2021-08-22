@@ -209,6 +209,12 @@ en función de la tasa de uso que tenga cada uno. El load balancer que crearemos
 ```
 kubectl create -f webapp_loadBalancer.yaml
 ```
+
+### 8.4. Desplegar el VPA para la App  
+
+```
+kubectl create -f webapp_vpa.yaml
+```
 ## Paso 9. Desplegar el Horizontal Pod Autoscaler
 
 El Horizontal Pod Autoscaler se encarga de aumentar o disminuir el número de pods de un deployment en función del tráfico que le llega, de forma que junto 
