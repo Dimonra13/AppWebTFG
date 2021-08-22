@@ -358,20 +358,24 @@ cd ./Kubernetes/App
 
 ```
 kubectl create -f webapp_deployment.yaml
-```
+```	
+### 8.3. Desplegar el VPA para la App  
 
-### 8.3. Desplegar el Servicio de la App
+```
+kubectl create -f webapp_vpa.yaml
+```
+### 8.4. Desplegar el Servicio de la App
 
 ```
 kubectl create -f webapp_service.yaml
 ```
-### 8.4. Desplegar el load balancer Ingress de la Aplicación
+### 8.5. Desplegar el load balancer Ingress de la Aplicación
 Es importante tener en cuenta que en este archivo Ingress no se ha establecido el certificado SSL necesario para la utilización de conexiones seguras mediante HTTPS, en caso de que se prentenda usar este tipo de conexiones es necesario modificar este archivo incluyendo el arn del certificado SSL generado en el paso anterior.  
 **Importante: En las últimas versiones de la aplicación web se ha modificado la configuración para obligar a usar el protocolo HTTPS, por lo que para poder seguir usando este archivo Ingress que emplea HTTP es necesario comentar las líneas de código que se indican en el archivo application.groovy.**
 ```
 kubectl create -f webapp_ingress.yaml
 ```
-### 8.5. Asignar el nombre de dominio a la IP del balanceador de carga  
+### 8.6. Asignar el nombre de dominio a la IP del balanceador de carga  
 Para que la aplicación web este disponible en el nombre de dominio deseado es necesario añadir un registro tipo A en nuestro servidor DNS que asocie la IP del balanceador de carga al nombre de dominio.  
 ## Paso 9. Desplegar el Horizontal Pod Autoscaler
 El Horizontal Pod Autoscaler se encarga de aumentar o disminuir el número de pods de un deployment en función del tráfico que le llega, de forma que junto con el vertical autoscaler se encargan de que el número de replicas y la CPU y RAM de cada réplica sean las justas y necesarias.Por tanto, son muy importantes a la hora de garantizar la disponibilidad y reducir costes. Para desplegar un Horizontal Pod Autoscaler para el deployment de nuestra aplicación es suficiente con usar el comando:
