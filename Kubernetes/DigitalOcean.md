@@ -215,7 +215,7 @@ con el vertical autoscaler se encargan de que el número de replicas y la CPU y 
 la hora de garantizar la disponibilidad y reducir costes. Para desplegar un Horizontal Pod Autoscaler para el deployment de nuestra aplicación es suficiente con 
 usar el comando:  
 ```
-kubectl autoscale deployment webapp --cpu-percent=90 --min=1 --max=10
+kubectl autoscale deployment webapp --cpu-percent=80 --min=1 --max=3
 ```
 
 **Para probar el Horizontal Pod Autoescaler pueden usarse los siguiente comando (debe ejecutarse en una shell nueva):**
@@ -233,15 +233,15 @@ kubectl get hpa
 La salida esperada debe ser similar a:
 ```
 NAME     REFERENCE           TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
-webapp   Deployment/webapp   1%/50%    1         10        1          57s
+webapp   Deployment/webapp   1%/80%    1         3         1          57s
 ```
 ```
 NAME     REFERENCE           TARGETS    MINPODS   MAXPODS   REPLICAS   AGE
-webapp   Deployment/webapp   134%/50%   1         10        3          105s
+webapp   Deployment/webapp   134%/80%   1         3         3          105s
 ```
 ```
 NAME     REFERENCE           TARGETS   MINPODS   MAXPODS   REPLICAS   AGE
-webapp   Deployment/webapp   0%/50%    1         10        1          12m
+webapp   Deployment/webapp   0%/80%    1         3         1          12m
 ```
 Una vez comprobado que funciona, usamos Ctrl+C en la shell para dejar de generar tráfico, cerramos la shell y en nuestra shell original usamos el siguiente
 comando para eliminar el generador de carga:
