@@ -66,7 +66,7 @@ metrics-server   1/1     1            1           6m
 ```
 ## Paso 4. Desplegar el Vertical Pod Autoscaler
 
-El Vertical Pod Autoscaler de Kubernetes gestiona automáticamente la cantidad de CPU y RAM que necesitan los pods para funcionar, de forma que se aumenta o disminuye la CPU/RAM de cada pod según sus necesidades en cada momento. Esto ayuda a disminuir los costes y dar servicio aunque el número de usuarios crezca muy rápidamente.
+El Vertical Pod Autoscaler de Kubernetes calcula automáticamente la cantidad de CPU y RAM que necesitan los pods para funcionar, por lo que se trata de una herramienta muy útil para la gestión del clúster si no se conoce a ciencia cierta el consumo de recursos de los diferentes servicios desplegados.
 
 Para desplegar el Vertical Pod Autoscaler debemos seguir los siguientes pasos:  
 1.- Abrir una shell y colocarnos en el directorio en el que deseamos guardar el código fuente del autoscaler.    
@@ -95,6 +95,7 @@ vpa-recommender-6855ff754-44vj9            1/1     Running   0          6s
 vpa-updater-9fd7bfbd5-skwxd                1/1     Running   0          7s
 
 ```
+Una vez desplegado este mecanismo de escalado pueden usarse archivos de configuración para indicar que Deployments deben ser gestionados por este sistema.  
 
 IMPORTANTE: Para poder ejecutar este paso es necesario tener instalado OpenSSL 1.1.1 y tener la ruta del archivo en el PATH. Como en Windows puede dar problemas puede usarse la version 0.8 que no necesita OpenSSL. Puede descargarse en la siguiente ruta: https://github.com/kubernetes/autoscaler/tree/vpa-release-0.8.git  
 **Es muy recomendable realizar este paso en linux si es posible para evitar problemas.**
