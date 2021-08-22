@@ -77,6 +77,6 @@ class HomeController {
     }
 
     def coursingmldocs(){
-        redirect(url: "http://206.189.26.121/")
+        redirect(url: "http://178.128.45.254/")
     }
 }
