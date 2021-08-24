@@ -128,7 +128,7 @@
             </div>
             <br>
             </div>
-                <form name="imageSubmit" action="/user/updateLanguages">
+                <form name="imageSubmit" action="/user/updateLanguages" method="post">
                 <input type="hidden" name="fromRegister" value="${fromRegister}">
                 <div class="text-right">
                     <g:if test="${!update}">

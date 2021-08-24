@@ -31,9 +31,9 @@
                         </g:else>
                     </div>
                     <g:if test="${edit}">
-                        <form action="/editMyCourseList/edit" class="needs-validation"  novalidate>
+                        <form action="/editMyCourseList/edit" class="needs-validation"  method="post" novalidate>
                     </g:if><g:else>
-                        <form action="/createCourseList/create" class="needs-validation"  novalidate>
+                        <form action="/createCourseList/create" class="needs-validation" method="post" novalidate>
                     </g:else>
                         <g:if test="${edit}">
                             <input type="hidden" name="courseListid" value="${courseList?.id}">

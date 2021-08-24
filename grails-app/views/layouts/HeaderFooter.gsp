@@ -2,22 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <asset:link rel="shortcut icon" href="favicon.ico"/>
     <title>
         <g:layoutTitle default="Coursing.me"/>
     </title>
     <!-- SEO Meta Tags-->
-    <meta name="description" content="MStore - Modern Bootstrap E-commerce Template">
-    <meta name="keywords" content="bootstrap, shop, e-commerce, market, modern, responsive,  business, mobile, bootstrap 4, html5, css3, jquery, js, gallery, slider, touch, creative, clean">
-    <meta name="author" content="Createx Studio">
+    <meta name="description" content="Coursing.me - Advance Course Search Site">
+    <meta name="keywords" content="course, coursing, search, bootstrap, modern, responsive, business, mobile, bootstrap 4, html5, css3, jquery, js, gallery, slider, touch, creative, clean">
     <!-- Viewport-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Favicon and Touch Icons-->
-    <link rel="apple-touch-icon" sizes="180x180" href="../assets/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../assets/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../assets/images/favicon-16x16.png">
-    <link rel="manifest" href="../assets/site.webmanifest">
-    <link rel="mask-icon" color="#111" href="../assets/safari-pinned-tab.svg">
+    <!-- Favicon -->
+    <asset:link rel="shortcut icon" href="favicon.ico"/>
     <meta name="msapplication-TileColor" content="#111">
     <meta name="theme-color" content="#ffffff">
     <asset:stylesheet src="application"></asset:stylesheet>

@@ -40,7 +40,7 @@
         <div class="col-1"></div>
         <div class="col-1"></div>
         <div class="col-md-10 pt-6 pt-sm-3">
-            <form action="/user/updateSkills" class="needs-validation"  novalidate>
+            <form action="/user/updateSkills" class="needs-validation"  method="post" novalidate>
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex flex-wrap justify-content-between align-items-center pb-2">

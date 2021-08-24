@@ -18,7 +18,7 @@
                 <h2 class="h3 mb-3"><g:message code="update.user.title"/></h2>
             </div>
             <p class="text-muted mb-4"><g:message code="update.user.publi"/></p>
-            <form action="/user/edit" class="needs-validation"  novalidate>
+            <form action="/user/edit" class="needs-validation"  method="post" novalidate>
                 <div class="row">
                     <div class="col-sm-6">
                         <label for="username"><g:message code="update.user.username.label"/></label>

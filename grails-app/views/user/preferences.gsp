@@ -33,7 +33,7 @@
         </div>
     </div>
 
-    <form action="/user/updatePreferences" class="needs-validation" novalidate>
+    <form action="/user/updatePreferences" class="needs-validation" method="post" novalidate>
         <div class="row">
             <div class="col-md-6 pt-6 pt-sm-3">
                 <div class="card">

@@ -57,7 +57,7 @@
                 </div>
             </div>
             <br>
-            <form name="imageSubmit" action="/user/updateInterests">
+            <form name="imageSubmit" action="/user/updateInterests" method="post">
                 <input type="hidden" name="fromRegister" value="${fromRegister}">
                 <div class="text-right">
                     <g:if test="${!update}">

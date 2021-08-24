@@ -13,7 +13,7 @@
         <div class="col-md-8 pt-6 pt-sm-3">
             <h2 class="h4 mb-3"><g:message code="register.user.title"/></h2>
             <p class="text-muted mb-4"><g:message code="register.user.publi"/></p>
-            <form action="/user/registerUser" class="needs-validation"  novalidate>
+            <form action="/user/registerUser" class="needs-validation" method="post" novalidate>
                 <div class="row">
                     <div class="col-sm-6">
                         <label for="username"><g:message code="register.user.username.label"/></label>
