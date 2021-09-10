@@ -35,7 +35,7 @@
                         </g:if>
                         <hr class="mt-4">
                         <div class="text-right pt-4">
-                            <button class="btn btn-primary" type="submit">Sign In</button>
+                            <button class="btn btn-primary" type="submit"><g:message code="login.button"></g:message></button>
                         </div>
                     </form>
                 </div>
