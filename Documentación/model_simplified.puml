@@ -1,0 +1,25 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Course
+
+class CourseList
+
+class Role
+
+class UserRole
+
+class User
+
+class Skill
+
+class UserFeedback
+
+hide members
+User "1" *-- "n" CourseList
+CourseList "1" *-- "n" Course
+UserRole "1" - "1" User
+UserRole "1" -- "1" Role
+User "1" *- "n" Skill
+User "1" *-- "1" UserFeedback
+@enduml
