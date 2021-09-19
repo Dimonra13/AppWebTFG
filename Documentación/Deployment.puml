@@ -1,0 +1,79 @@
+@startuml
+
+' Kubernetes
+!define KubernetesPuml https://raw.githubusercontent.com/dcasati/kubernetes-PlantUML/master/dist
+
+!includeurl KubernetesPuml/kubernetes_Common.puml
+!includeurl KubernetesPuml/kubernetes_Context.puml
+!includeurl KubernetesPuml/kubernetes_Simplified.puml
+
+!includeurl KubernetesPuml/OSS/KubernetesSvc.puml
+!includeurl KubernetesPuml/OSS/KubernetesIng.puml
+!includeurl KubernetesPuml/OSS/KubernetesPod.puml
+!includeurl KubernetesPuml/OSS/KubernetesRs.puml
+!includeurl KubernetesPuml/OSS/KubernetesDeploy.puml
+!includeurl KubernetesPuml/OSS/KubernetesHpa.puml
+!includeurl KubernetesPuml/OSS/KubernetesSecret.puml
+!includeurl KubernetesPuml/OSS/KubernetesPvc.puml
+!includeurl KubernetesPuml/OSS/KubernetesPv.puml
+!includeurl KubernetesPuml/OSS/KubernetesCronjob.puml
+
+' Azure
+!define AzurePuml https://raw.githubusercontent.com/RicardoNiepel/Azure-PlantUML/release/2-1/dist
+
+!includeurl AzurePuml/AzureCommon.puml
+!includeurl AzurePuml/AzureSimplified.puml
+!includeurl AzurePuml/Networking/AzureLoadBalancer.puml
+
+' Actor
+actor "User" as userAlias
+left to right direction
+
+' Azure Components
+AzureLoadBalancer(alb, "\nLoad\nBalancer\nwww.coursing.me", "")
+
+' Kubernetes Components
+Cluster_Boundary(cluster, "Kubernetes Cluster") {
+    Boundary(nsRec, "Recommender") {
+            KubernetesDeploy(deployRec,"recommender_deployment","")
+            KubernetesSvc(serviceRec,"recommender_service","")
+    }
+    Boundary(nsWeb, "Web Application") {
+        KubernetesDeploy(deployWeb,"webapp_deployment","")
+        KubernetesHpa(hpaWeb, "webapp_HPA", "")
+        KubernetesPod(vpaWeb, "webapp_VPA", "")
+    }
+    Boundary(nsMySQL, "Database") {
+            KubernetesDeploy(deployMySQL,"mysql_deployment","")
+            KubernetesSecret(secretMySQL,"mysql_secret","")
+            KubernetesSvc(serviceMySQL,"mysql_service","")
+            KubernetesPvc(pvcMysql,"mysql_pvc","")
+            KubernetesPv(pvMysql,"mysql_pv","")
+    }
+    Boundary(nsScript, "Explore Script") {
+        KubernetesCronjob(crScript,"script_cronjob","")
+    }
+}
+
+
+Rel(userAlias, alb, "HTTPS","443")
+Rel_L(alb, deployWeb, "HTTP","80")
+
+Rel_U(hpaWeb,deployWeb, " ")
+Rel_U(vpaWeb,deployWeb, " ")
+Rel_U(deployWeb,serviceMySQL,"database connection")
+
+Rel(serviceMySQL,deployMySQL," ")
+Rel_U(secretMySQL,deployMySQL, " ")
+Rel_U(deployMySQL,pvcMysql," ")
+Rel(pvcMysql,pvMysql," ")
+
+Rel_L(serviceRec,deployRec," ")
+Rel_U(deployWeb,serviceRec,"request recommendations")
+
+Rel(crScript,serviceMySQL,"update data")
+Rel_L(crScript,serviceRec,"request recommendations")
+@enduml
+
+
+
